@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Оффер - Быстрый расчёт стоимости</title>
+  <style>
+    :root{
+      --bg1:#05070c;
+      --bg2:#081a34;
+
+      --panel: rgba(255,255,255,.06);
+      --panel2: rgba(255,255,255,.04);
+      --line: rgba(255,255,255,.10);
+
+      --text:#eaf2ff;
+      --muted: rgba(234,242,255,.72);
+
+      --shadow: 0 18px 60px rgba(0,0,0,.35);
+      --radius: 26px;
+
+      --btn:#ff5a4a;
+      --btnText:#ffffff;
+
+      --chip:#0f1d34;
+      --chipBorder: rgba(255,255,255,.10);
+      --chipText:#eaf2ff;
+
+      --accent:#1fb6ff;
+      --accent2:#5bffb0;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:
+        radial-gradient(1200px 700px at 15% 20%, rgba(31,182,255,.22), transparent 60%),
+        radial-gradient(900px 520px at 85% 30%, rgba(91,255,176,.16), transparent 55%),
+        linear-gradient(135deg, var(--bg1), var(--bg2));
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:42px 16px;
+      color: var(--text);
+    }
+
+    .wrap{
+      width:min(1120px, 100%);
+    }
+
+    .offer{
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+      background:
+        radial-gradient(800px 420px at 25% 35%, rgba(31,182,255,.20), transparent 60%),
+        radial-gradient(700px 360px at 78% 55%, rgba(91,255,176,.14), transparent 60%),
+        linear-gradient(135deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+      border: 1px solid rgba(255,255,255,.10);
+    }
+
+    .inner{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap:0;
+      padding: 34px;
+    }
+
+    .left{
+      padding: 8px 12px 8px 8px;
+    }
+
+    .chip-top{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 14px;
+      border-radius:999px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.10);
+      color: rgba(234,242,255,.88);
+      font-weight:700;
+      font-size:13px;
+      letter-spacing:.2px;
+    }
+    .chip-top .dot{
+      width:10px;height:10px;border-radius:999px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow: 0 0 0 4px rgba(31,182,255,.14);
+    }
+
+    h2{
+      margin:14px 0 10px 0;
+      font-size:44px;
+      line-height:1.05;
+      letter-spacing:-.6px;
+    }
+
+    .sub{
+      margin:0 0 18px 0;
+      font-size:16px;
+      line-height:1.55;
+      color: var(--muted);
+      max-width: 640px;
+    }
+
+    .hint{
+      margin-top:14px;
+      padding-top:14px;
+      border-top: 1px solid var(--line);
+      font-size:12.5px;
+      line-height:1.45;
+      color: rgba(234,242,255,.62);
+      max-width: 660px;
+    }
+
+    .actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:18px;
+      align-items:center;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      border:none;
+      cursor:pointer;
+      border-radius:999px;
+      padding:16px 22px;
+      font-weight:900;
+      font-size:15px;
+      text-decoration:none;
+      transition: transform .08s ease, box-shadow .2s ease, opacity .2s ease;
+      user-select:none;
+      white-space:nowrap;
+    }
+    .btn:active{ transform: translateY(1px); }
+    .btn.primary{
+      background: var(--btn);
+      color: var(--btnText);
+      box-shadow: 0 14px 34px rgba(255,90,74,.28);
+    }
+    .btn.primary:hover{ opacity:.92; }
+
+    .chips{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:12px 14px;
+      border-radius:999px;
+      background: rgba(15,29,52,.55);
+      border: 1px solid var(--chipBorder);
+      color: var(--chipText);
+      text-decoration:none;
+      font-weight:800;
+      font-size:14px;
+      transition: transform .08s ease, box-shadow .2s ease, opacity .2s ease;
+    }
+    .chip:hover{ box-shadow: 0 14px 28px rgba(0,0,0,.22); }
+    .chip:active{ transform: translateY(1px); }
+
+    .icon{
+      width:18px;height:18px;
+      display:inline-block;
+      flex: 0 0 auto;
+      opacity:.95;
+    }
+
+    /* right side */
+    .right{
+      padding: 8px 8px 8px 18px;
+      display:flex;
+      align-items:stretch;
+      justify-content:stretch;
+    }
+
+    .mini{
+      width:100%;
+      border-radius: 22px;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.10);
+      padding: 18px;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+
+    .mini .mini-title{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    }
+
+    .mini .mini-title .label{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 12px;
+      border-radius:999px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.10);
+      font-weight:800;
+      font-size:13px;
+      color: rgba(234,242,255,.9);
+    }
+
+    .mini .steps{
+      display:grid;
+      gap:10px;
+      margin-top: 2px;
+    }
+
+    .step{
+      border-radius: 16px;
+      background: rgba(0,0,0,.14);
+      border: 1px solid rgba(255,255,255,.10);
+      padding: 14px 14px;
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+    }
+    .num{
+      width:34px;height:34px;border-radius:12px;
+      display:flex;align-items:center;justify-content:center;
+      font-weight:900;
+      background: rgba(31,182,255,.16);
+      border: 1px solid rgba(31,182,255,.22);
+      color: rgba(234,242,255,.92);
+      flex: 0 0 auto;
+    }
+    .step b{
+      display:block;
+      margin-bottom:3px;
+      font-size:14px;
+      letter-spacing:.1px;
+    }
+    .step span{
+      display:block;
+      font-size:13px;
+      color: rgba(234,242,255,.70);
+      line-height:1.35;
+    }
+
+    @media (max-width: 980px){
+      .inner{ grid-template-columns: 1fr; padding: 22px; }
+      .right{ padding: 14px 8px 8px 8px; }
+      h2{ font-size:36px; }
+    }
+
+    @media (max-width: 560px){
+      h2{ font-size:32px; }
+      .btn{ width:100%; }
+      .chips{ width:100%; }
+      .chip{ width:100%; justify-content:center; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <section class="offer" aria-label="Оффер - быстрый расчёт стоимости">
+      <div class="inner">
+
+        <div class="left">
+          <div class="chip-top"><span class="dot"></span>Быстрый расчёт</div>
+
+          <h2>Быстрый расчёт стоимости онлайн</h2>
+
+          <p class="sub">
+            Ответьте на несколько коротких вопросов - и мы подготовим расчёт под вашу задачу.
+            Если удобнее - напишите в мессенджер, уточним детали и посчитаем вручную.
+          </p>
+
+          <div class="actions">
+            <!-- Замените href на ссылку нужного расчёта/квиза под конкретную услугу -->
+            <a class="btn primary" href="#calc-link">Рассчитать стоимость</a>
+
+            <div class="chips" aria-label="Мессенджеры">
+              <!-- Замените ссылки на реальные -->
+              <a class="chip" href="https://wa.me/" target="_blank" rel="noopener">
+                <!-- WhatsApp icon -->
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                  <path fill="currentColor" d="M20.52 3.48A11.85 11.85 0 0 0 12.03 0C5.44 0 .11 5.33.11 11.92c0 2.1.55 4.15 1.6 5.96L0 24l6.3-1.65a11.88 11.88 0 0 0 5.72 1.46h.01c6.59 0 11.92-5.33 11.92-11.92 0-3.18-1.24-6.16-3.43-8.41ZM12.03 21.8h-.01a9.9 9.9 0 0 1-5.04-1.38l-.36-.22-3.74.98 1-3.64-.24-.37a9.9 9.9 0 1 1 8.38 4.63Zm5.77-7.42c-.32-.16-1.88-.93-2.17-1.03-.29-.11-.5-.16-.71.16-.21.32-.82 1.03-1 1.24-.18.21-.37.24-.69.08-.32-.16-1.33-.49-2.53-1.56-.93-.83-1.56-1.86-1.74-2.18-.18-.32-.02-.49.14-.65.15-.15.32-.37.48-.56.16-.19.21-.32.32-.53.11-.21.05-.4-.03-.56-.08-.16-.71-1.71-.97-2.34-.26-.62-.52-.54-.71-.55h-.6c-.21 0-.56.08-.85.4-.29.32-1.12 1.09-1.12 2.66 0 1.56 1.15 3.08 1.31 3.29.16.21 2.27 3.46 5.5 4.85.77.33 1.36.53 1.83.68.77.24 1.47.21 2.02.13.62-.09 1.88-.77 2.15-1.51.27-.74.27-1.37.19-1.51-.08-.13-.29-.21-.61-.37Z"/>
+                </svg>
+                WhatsApp
+              </a>
+
+              <a class="chip" href="https://t.me/" target="_blank" rel="noopener">
+                <!-- Telegram icon -->
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                  <path fill="currentColor" d="M9.993 15.47 9.84 19.2c.428 0 .614-.184.837-.404l2.01-1.92 4.17 3.05c.764.42 1.305.2 1.5-.707l2.72-12.76h.001c.23-1.07-.386-1.49-1.13-1.21L2.63 9.2c-1.03.4-1.016.97-.176 1.23l4.8 1.5 11.15-7.02c.525-.35 1.003-.16.61.19l-9.02 8.37Z"/>
+                </svg>
+                Telegram
+              </a>
+
+              <a class="chip" href="#" target="_blank" rel="noopener">
+                <!-- Max (универсальная иконка) -->
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                  <path fill="currentColor" d="M7.2 2h9.6A3.2 3.2 0 0 1 20 5.2v13.6A3.2 3.2 0 0 1 16.8 22H7.2A3.2 3.2 0 0 1 4 18.8V5.2A3.2 3.2 0 0 1 7.2 2Zm0 2A1.2 1.2 0 0 0 6 5.2v13.6A1.2 1.2 0 0 0 7.2 20h9.6a1.2 1.2 0 0 0 1.2-1.2V5.2A1.2 1.2 0 0 0 16.8 4H7.2Zm2.1 4.3h5.4c.5 0 .9.4.9.9v5.4c0 .5-.4.9-.9.9H9.3c-.5 0-.9-.4-.9-.9V9.2c0-.5.4-.9.9-.9Zm1.1 2v3.4h3.4v-3.4h-3.4Z"/>
+                </svg>
+                Max
+              </a>
+            </div>
+          </div>
+
+          <div class="hint">
+            Подсказка: можно кратко указать нишу, ссылку на сайт (если есть) и цель - заявки, продажи, трафик, упаковка.
+          </div>
+        </div>
+
+        <aside class="right">
+          <div class="mini">
+            <div class="mini-title">
+              <div class="label">Как это работает</div>
+            </div>
+
+            <div class="steps">
+              <div class="step">
+                <div class="num">1</div>
+                <div>
+                  <b>Пара вопросов</b>
+                  <span>Поймём объём, сроки и входные данные.</span>
+                </div>
+              </div>
+
+              <div class="step">
+                <div class="num">2</div>
+                <div>
+                  <b>Расчёт и варианты</b>
+                  <span>Предложим оптимальный набор работ под цель.</span>
+                </div>
+              </div>
+
+              <div class="step">
+                <div class="num">3</div>
+                <div>
+                  <b>Связь и старт</b>
+                  <span>Согласуем детали и запустим работу без лишней бюрократии.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+      </div>
+    </section>
+  </div>
+</body>
+</html>
+

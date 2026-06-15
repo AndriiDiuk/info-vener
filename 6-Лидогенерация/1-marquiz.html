@@ -1,0 +1,507 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Marquiz - квизы для лидогенерации | Venner Digital</title>
+  <meta name="description" content="Внедряем Marquiz: квизы и калькуляторы для роста конверсии и снижения стоимости лида. Сценарии, логика, интеграции с CRM, аналитика и запуск под ключ." />
+  <style>
+    :root{
+      --bg:#0b0f14;
+      --card:#0f1620;
+      --card2:#0c131c;
+      --text:#e8eef6;
+      --muted:#a9b6c7;
+      --line:rgba(255,255,255,.10);
+      --accent:#b6ff2e;
+      --accent2:#6ee7ff;
+      --warn:#ff4d4d;
+      --ok:#2dff9a;
+      --shadow:0 18px 50px rgba(0,0,0,.35);
+      --r:18px;
+      --max:1120px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,"Noto Sans","Helvetica Neue",sans-serif;
+      background:
+        radial-gradient(1200px 650px at 20% -10%, rgba(182,255,46,.18), transparent 55%),
+        radial-gradient(900px 520px at 90% 10%, rgba(110,231,255,.16), transparent 55%),
+        linear-gradient(180deg, #070a0f, var(--bg));
+      color:var(--text);
+      line-height:1.45;
+    }
+    a{color:inherit}
+    .wrap{max-width:var(--max); margin:0 auto; padding:28px 18px 70px}
+    .crumbs{
+      font-size:13px; color:var(--muted); opacity:.9;
+      display:flex; gap:8px; align-items:center; flex-wrap:wrap;
+      margin:6px 0 18px;
+    }
+    .crumbs a{color:var(--muted); text-decoration:none}
+    .crumbs .sep{opacity:.5}
+    .hero{
+      border:1px solid var(--line);
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border-radius:calc(var(--r) + 6px);
+      padding:26px;
+      box-shadow:var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+    .hero:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(680px 260px at 20% 0%, rgba(182,255,46,.22), transparent 60%),
+        radial-gradient(620px 260px at 85% 15%, rgba(110,231,255,.18), transparent 60%);
+      pointer-events:none;
+    }
+    .hero > *{position:relative}
+    h1{margin:0 0 10px; font-size:34px; letter-spacing:.2px}
+    .sub{margin:0 0 18px; color:var(--muted); max-width:920px}
+    .heroGrid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:16px;
+      margin-top:14px;
+      align-items:stretch;
+    }
+    @media (max-width: 920px){
+      .heroGrid{grid-template-columns:1fr}
+    }
+    .kpis{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:12px;
+    }
+    @media (max-width: 720px){
+      .kpis{grid-template-columns:1fr}
+    }
+    .kpi{
+      border:1px solid var(--line);
+      background:rgba(0,0,0,.18);
+      border-radius:var(--r);
+      padding:14px;
+      min-height:88px;
+    }
+    .kpi .t{font-size:12px; color:var(--muted)}
+    .kpi .v{font-size:18px; margin-top:6px}
+    .kpi .v b{color:var(--accent)}
+    .side{
+      border:1px solid var(--line);
+      background:rgba(0,0,0,.20);
+      border-radius:var(--r);
+      padding:14px;
+    }
+    .btnRow{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:10px 14px;
+      border-radius:12px;
+      border:1px solid var(--line);
+      text-decoration:none;
+      background:rgba(255,255,255,.06);
+      color:var(--text);
+      transition:.2s;
+      font-weight:650;
+    }
+    .btn:hover{transform:translateY(-1px); border-color:rgba(255,255,255,.18)}
+    .btn.primary{
+      background:linear-gradient(135deg, rgba(182,255,46,.95), rgba(110,231,255,.35));
+      color:#091018;
+      border-color:transparent;
+    }
+    .nav{
+      display:flex; gap:10px; flex-wrap:wrap;
+      margin-top:14px;
+    }
+    .pill{
+      font-size:13px;
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.04);
+      text-decoration:none;
+      color:var(--muted);
+    }
+    .pill:hover{color:var(--text); border-color:rgba(255,255,255,.18)}
+    section{margin-top:18px}
+    .grid2{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+    @media (max-width: 900px){.grid2{grid-template-columns:1fr}}
+    .card{
+      border:1px solid var(--line);
+      background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      border-radius:var(--r);
+      padding:16px;
+    }
+    h2{margin:0 0 10px; font-size:22px}
+    h3{margin:0 0 8px; font-size:16px}
+    .muted{color:var(--muted)}
+    .list{
+      margin:10px 0 0; padding:0; list-style:none; display:grid; gap:8px;
+    }
+    .list li{
+      padding-left:18px; position:relative; color:var(--muted);
+    }
+    .list li:before{
+      content:"";
+      width:9px; height:9px; border-radius:3px;
+      background:rgba(182,255,46,.9);
+      position:absolute; left:0; top:.55em;
+      box-shadow:0 0 0 3px rgba(182,255,46,.10);
+    }
+
+    .compare{
+      display:grid; grid-template-columns:1fr 1fr; gap:14px;
+      margin-top:12px;
+    }
+    @media (max-width: 900px){.compare{grid-template-columns:1fr}}
+    .bad{border-color:rgba(255,77,77,.25)}
+    .good{border-color:rgba(45,255,154,.22)}
+    .badge{
+      display:inline-flex; align-items:center; gap:8px;
+      font-size:12px; padding:6px 10px;
+      border-radius:999px; border:1px solid var(--line);
+      background:rgba(0,0,0,.22); color:var(--muted);
+      margin-bottom:10px;
+    }
+    .dot{width:8px; height:8px; border-radius:50%}
+    .dot.bad{background:var(--warn)}
+    .dot.good{background:var(--ok)}
+    .steps{display:grid; gap:10px; margin-top:10px}
+    .step{
+      border:1px solid var(--line);
+      background:rgba(0,0,0,.18);
+      border-radius:var(--r);
+      padding:12px 12px 12px 46px;
+      position:relative;
+      color:var(--muted);
+    }
+    .step b{color:var(--text)}
+    .num{
+      position:absolute; left:12px; top:12px;
+      width:26px; height:26px; border-radius:10px;
+      background:rgba(182,255,46,.18);
+      border:1px solid rgba(182,255,46,.30);
+      color:var(--accent);
+      display:flex; align-items:center; justify-content:center;
+      font-weight:800;
+    }
+    .faq details{
+      border:1px solid var(--line);
+      background:rgba(0,0,0,.18);
+      border-radius:var(--r);
+      padding:12px 14px;
+    }
+    .faq details + details{margin-top:10px}
+    .faq summary{
+      cursor:pointer; font-weight:750; color:var(--text);
+      list-style:none;
+    }
+    .faq summary::-webkit-details-marker{display:none}
+    .faq p{margin:10px 0 0; color:var(--muted)}
+    .links{
+      display:flex; flex-wrap:wrap; gap:10px; margin-top:10px;
+    }
+    .linkCard{
+      flex:1 1 240px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.04);
+      border-radius:14px;
+      padding:12px;
+      text-decoration:none;
+    }
+    .linkCard b{display:block}
+    .linkCard span{display:block; color:var(--muted); font-size:13px; margin-top:4px}
+    .note{
+      margin-top:14px;
+      font-size:13px;
+      color:var(--muted);
+      opacity:.95;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+
+    <div class="crumbs">
+      <a href="/">Главная</a><span class="sep">/</span>
+      <a href="/lidogeneraciya/">Лидогенерация</a><span class="sep">/</span>
+      <span>Marquiz</span>
+    </div>
+
+    <div class="hero" id="top">
+      <h1>Marquiz - квизы для лидогенерации</h1>
+      <p class="sub">
+        Marquiz - конструктор квизов и интерактивных сценариев, который помогает превращать трафик в заявки:
+        вовлекает посетителя диалогом, задает вопросы, показывает персональную рекомендацию и фиксирует контакт. 
+        Квиз можно использовать на сайте, по прямой ссылке и в соцсетях.
+      </p>
+
+      <div class="heroGrid">
+        <div class="kpis">
+          <div class="kpi">
+            <div class="t">Цель</div>
+            <div class="v">Больше заявок при том же трафике - <b>через квиз</b></div>
+          </div>
+          <div class="kpi">
+            <div class="t">Что внедряем</div>
+            <div class="v">Сценарий, логика, экраны, тексты, интеграции</div>
+          </div>
+          <div class="kpi">
+            <div class="t">Где работает</div>
+            <div class="v">Сайт - ссылка - соцсети (единая воронка)</div>
+          </div>
+        </div>
+
+        <div class="side">
+          <h3 style="margin:0 0 8px">Перелинковка по разделу</h3>
+          <div class="links">
+            <a class="linkCard" href="/lidogeneraciya/">
+              <b>Лидогенерация - обзор</b>
+              <span>Как собираем систему: квизы + репутация + виджеты</span>
+            </a>
+            <a class="linkCard" href="/lidogeneraciya/myreviews/">
+              <b>MyReviews - отзывы на сайт</b>
+              <span>Виджеты, QR, мониторинг площадок</span>
+            </a>
+            <a class="linkCard" href="/lidogeneraciya/servisy-reputacii/">
+              <b>SERM и репутация</b>
+              <span>Рейтинги, карточки, доверие и конверсия</span>
+            </a>
+          </div>
+
+          <div class="btnRow">
+            <a class="btn primary" href="#how">Что делаем</a>
+            <a class="btn" href="#cases">Кому подходит</a>
+            <a class="btn" href="#faq">FAQ</a>
+          </div>
+
+          <div class="note">
+            Важно: квиз не заменяет отдел продаж. Он делает заявку теплее и понятнее (сразу видны потребности).
+          </div>
+        </div>
+      </div>
+
+      <div class="nav">
+        <a class="pill" href="#why">Зачем квиз</a>
+        <a class="pill" href="#how">Как внедряем</a>
+        <a class="pill" href="#integrations">Интеграции</a>
+        <a class="pill" href="#compare">Сравнение</a>
+        <a class="pill" href="#faq">FAQ</a>
+      </div>
+    </div>
+
+    <section id="why" class="grid2">
+      <div class="card">
+        <h2>Зачем бизнесу Marquiz</h2>
+        <p class="muted">
+          Квиз превращает сухую форму в диалог: человек отвечает на 5-10 вопросов, получает результат/подбор,
+          а вы - контакт и контекст, с чем пришел клиент.
+        </p>
+        <ul class="list">
+          <li>Снижает барьер заявки: отвечать на вопросы легче, чем "оставить телефон в пустоту".</li>
+          <li>Собирает данные: бюджет, сроки, тип услуги, параметры - сразу в карточку лида.</li>
+          <li>Ускоряет обработку: менеджеру проще закрывать, когда есть ответы до звонка.</li>
+          <li>Помогает сегментировать трафик и запускать разные сценарии под разные потребности.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>Какие форматы можно собрать</h2>
+        <p class="muted">
+          В Marquiz можно делать не только классический квиз, но и разные сценарии лидогенерации:
+          тесты, формы контактов, квиз-магазин, калькулятор, видеоконсультант и др.
+        </p>
+        <ul class="list">
+          <li>Квиз-опрос под услугу (подбор решения, расчет, консультация).</li>
+          <li>Калькулятор стоимости по параметрам.</li>
+          <li>Форма контактов с интеграциями (заявка сразу в CRM).</li>
+          <li>Быстрые тесты/опросы для вовлечения и прогрева аудитории.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="how" class="card">
+      <h2>Как мы внедряем Marquiz под ключ</h2>
+      <p class="muted">
+        Наша задача - сделать квиз, который реально приносит заявки, а не просто "красиво кликается".
+        Поэтому упор на смысл, логику, офферы и интеграции.
+      </p>
+
+      <div class="steps">
+        <div class="step"><div class="num">1</div>
+          <b>Бриф и цель.</b> Что считаем лидом, какие услуги/категории продвигаем, какие вопросы важны отделу продаж.
+        </div>
+        <div class="step"><div class="num">2</div>
+          <b>Сценарий и логика.</b> Ветки вопросов, экраны результата, триггеры доверия, тексты и микро-UX.
+        </div>
+        <div class="step"><div class="num">3</div>
+          <b>Дизайн и внедрение.</b> Встраиваем на сайт/лендинг, проверяем мобильную версию, скорость, события аналитики.
+        </div>
+        <div class="step"><div class="num">4</div>
+          <b>Интеграции.</b> Передача лида в amoCRM (или Bitrix24), уведомления в менеджерские каналы, поля и теги.
+        </div>
+        <div class="step"><div class="num">5</div>
+          <b>Запуск и улучшение.</b> Смотрим цифры, правим вопросы/оффер/порядок, добиваемся стабильной конверсии.
+        </div>
+      </div>
+    </section>
+
+    <section id="integrations" class="grid2">
+      <div class="card">
+        <h2>Интеграции и автоматизация</h2>
+        <p class="muted">
+          Квиз должен жить в системе продаж, иначе он превращается в отдельный чатик, где "кто-то когда-то посмотрит".
+          У Marquiz есть множество вариантов интеграций, поэтому можно собрать полноценную связку.
+        </p>
+        <ul class="list">
+          <li>Передача заявки в CRM (amoCRM - по умолчанию, Bitrix24 - по задаче).</li>
+          <li>Заполнение полей: параметры, бюджет, сроки, сегмент - чтобы менеджер работал быстрее.</li>
+          <li>Сценарии автоответов и скоринга: кому сразу звонить, кого греть.</li>
+          <li>События в аналитике: смотрим, где люди отваливаются и что улучшать.</li>
+        </ul>
+        <p class="note">
+          Если у вас уже настроен раздел <a href="/crm-integracii/">CRM и интеграции</a> - квиз встраивается в существующую воронку.
+        </p>
+      </div>
+
+      <div class="card">
+        <h2>Где размещаем квиз</h2>
+        <p class="muted">
+          Квиз можно использовать на сайте, по прямой ссылке и в соцсетях - это удобно для рекламы и посевов.
+        </p>
+        <ul class="list">
+          <li>На коммерческих страницах: услуга, категория, прайс, кейсы.</li>
+          <li>На посадочных под рекламу: контекст, соцсети, ретаргетинг.</li>
+          <li>По прямой ссылке: мессенджеры, e-mail, карточки на картах.</li>
+          <li>В соцсетях: посты и сторис как "вход" в диалог.</li>
+        </ul>
+        <p class="note">
+          Если нужно усилить доверие на посадочной - подключаем блок отзывов через <a href="/lidogeneraciya/myreviews/">MyReviews</a>.
+        </p>
+      </div>
+    </section>
+
+    <section id="compare" class="card">
+      <h2>Наглядно. Почему квиз дает больше лидов, чем обычная форма</h2>
+      <p class="muted">
+        Одна и та же аудитория. Один и тот же бюджет. Разница - в том, как быстро человек понимает, что получит результат.
+      </p>
+
+      <div class="compare">
+        <div class="card bad">
+          <div class="badge"><span class="dot bad"></span><b>Как часто бывает</b></div>
+          <h3>Форма "Оставьте телефон"</h3>
+          <ul class="list">
+            <li>Нет контекста: зачем оставлять номер, что будет дальше - непонятно.</li>
+            <li>Слабое вовлечение: пользователь просто уходит, не приняв решение.</li>
+            <li>Менеджер получает "пустой лид": приходится выяснять всё с нуля.</li>
+            <li>Конверсия держится на скидках и давлении, а не на ценности.</li>
+          </ul>
+        </div>
+
+        <div class="card good">
+          <div class="badge"><span class="dot good"></span><b>Как делаем мы</b></div>
+          <h3>Квиз как диалог + результат</h3>
+          <ul class="list">
+            <li>Понятный путь: 5-10 вопросов - результат - консультация/расчет.</li>
+            <li>Выше доверие: человек видит, что его "услышали" и подобрали решение.</li>
+            <li>Лид уже прогрет: в CRM сразу прилетают параметры и потребности.</li>
+            <li>Проще масштабировать рекламу: квиз лучше удерживает конверсию.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="cases" class="grid2">
+      <div class="card">
+        <h2>Кому подходит Marquiz</h2>
+        <ul class="list">
+          <li>Услуги с выбором: "какой вариант вам подходит" - где нужен подбор.</li>
+          <li>Сложные продукты: много параметров, клиенту тяжело разобраться самому.</li>
+          <li>Реклама с дорогим кликом: нужно выжимать максимум лидов из трафика.</li>
+          <li>Продажи через консультацию: важно сразу собрать вводные перед звонком.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>Когда квиз не нужен</h2>
+        <ul class="list">
+          <li>Если у вас 1 услуга и 1 оффер без вариантов (иногда достаточно формы).</li>
+          <li>Если отдел продаж не обрабатывает лиды быстро - сначала наводим порядок в CRM.</li>
+          <li>Если нет понятной воронки и оффера - сначала делаем упаковку и структуру.</li>
+        </ul>
+        <p class="note">
+          Для "навести порядок" есть отдельный раздел: <a href="/crm-integracii/">CRM и интеграции</a>.
+        </p>
+      </div>
+    </section>
+
+    <section id="faq" class="card faq">
+      <h2>FAQ - коротко по делу</h2>
+
+      <details open>
+        <summary>Сколько времени занимает запуск Marquiz?</summary>
+        <p>
+          Если задача типовая и материалы готовы - можно запуститься быстро. Если нужна продуманная логика,
+          несколько веток и нормальная интеграция с CRM - делаем аккуратно, чтобы не пришлось "переделывать через неделю".
+        </p>
+      </details>
+
+      <details>
+        <summary>Можно ли внедрить Marquiz на любой сайт?</summary>
+        <p>
+          Да. Вариантов размещения несколько: встраивание на сайт, запуск по прямой ссылке, использование в соцсетях.
+          Подбираем формат под вашу воронку и каналы трафика.
+        </p>
+      </details>
+
+      <details>
+        <summary>Квиз заменяет рекламу или SEO?</summary>
+        <p>
+          Нет. Квиз усиливает то, что уже приводит трафик: реклама, SEO, соцсети, карты, рекомендации.
+          Его задача - повысить конверсию и качество заявки.
+        </p>
+      </details>
+
+      <details>
+        <summary>Квиз можно связать с amoCRM?</summary>
+        <p>
+          Да. Мы настраиваем передачу данных в карточку лида: ответы, теги, источники, сегменты.
+          Это ускоряет работу менеджеров и помогает не терять заявки.
+        </p>
+      </details>
+
+      <details>
+        <summary>Что еще нужно, кроме квиза, чтобы лиды росли?</summary>
+        <p>
+          Обычно связка выглядит так: квиз (Marquiz) + CRM (amoCRM) + репутация и доверие (карты/отзывы) + аналитика.
+          В этом разделе у нас есть отдельные страницы про <a href="/lidogeneraciya/myreviews/">MyReviews</a> и
+          <a href="/lidogeneraciya/servisy-reputacii/">SERM/репутацию</a>.
+        </p>
+      </details>
+    </section>
+
+    <section class="card">
+      <h2>Официальные страницы продукта</h2>
+      <p class="muted">
+        Если хотите посмотреть возможности и примеры от разработчика - вот ссылка на официальный сайт Marquiz.
+      </p>
+      <div class="btnRow">
+        <a class="btn" href="https://marquiz.ru/" target="_blank" rel="noopener">Официальный сайт Marquiz</a>
+        <a class="btn" href="/lidogeneraciya/">Вернуться к разделу "Лидогенерация"</a>
+      </div>
+    </section>
+
+    <p class="note">
+      Подсказка по структуре раздела: после Marquiz логично собрать MyReviews и "Сервисы репутации", а потом общий лендинг "Лидогенерация", где это связывается в единую систему.
+    </p>
+
+  </div>
+</body>
+</html>
+

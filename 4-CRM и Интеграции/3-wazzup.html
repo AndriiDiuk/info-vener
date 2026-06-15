@@ -1,0 +1,612 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Wazzup - интеграция WhatsApp, Telegram и других мессенджеров с amoCRM и Bitrix24</title>
+  <meta name="description" content="Wazzup - сервис, который подключает мессенджеры к amoCRM и Bitrix24. Все переписки, файлы и обращения - прямо в CRM. Настроим, подключим, поможем с запуском и поддержкой." />
+  <style>
+    :root{
+      --bg: #0b1220;
+      --card: rgba(255,255,255,.06);
+      --card2: rgba(255,255,255,.09);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.70);
+      --muted2: rgba(255,255,255,.55);
+      --line: rgba(255,255,255,.12);
+      --accent: #38f2c1;
+      --accent2:#00c2ff;
+      --warn:#ffb020;
+      --ok:#42ff7b;
+      --bad:#ff5a7a;
+      --shadow: 0 18px 60px rgba(0,0,0,.45);
+      --r: 22px;
+      --r2: 16px;
+      --max: 1120px;
+      --pad: 22px;
+      --pad2: 16px;
+      --font: system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Liberation Sans", sans-serif;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:var(--font);
+      background: radial-gradient(1200px 700px at 15% -10%, rgba(56,242,193,.22), transparent 55%),
+                  radial-gradient(1000px 700px at 90% 0%, rgba(0,194,255,.18), transparent 60%),
+                  radial-gradient(900px 700px at 70% 120%, rgba(255,90,122,.12), transparent 60%),
+                  var(--bg);
+      color:var(--text);
+      line-height:1.55;
+    }
+    a{color:inherit}
+    .wrap{max-width:var(--max); margin:0 auto; padding:56px 18px 80px}
+    .hero{
+      border:1px solid var(--line);
+      background: linear-gradient(135deg, rgba(56,242,193,.10), rgba(0,194,255,.07) 45%, rgba(255,255,255,.04));
+      border-radius: calc(var(--r) + 6px);
+      box-shadow: var(--shadow);
+      padding: 34px;
+      overflow:hidden;
+      position:relative;
+    }
+    .pill{
+      display:inline-flex; gap:10px; align-items:center;
+      padding:8px 12px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      color:var(--muted);
+      background: rgba(255,255,255,.04);
+      font-size:13px;
+      letter-spacing:.2px;
+    }
+    .dot{width:8px;height:8px;border-radius:999px;background:var(--accent)}
+    h1{
+      margin:14px 0 10px;
+      font-size: clamp(30px, 4vw, 44px);
+      line-height:1.08;
+      letter-spacing:-.7px;
+    }
+    .lead{
+      margin:0;
+      color:var(--muted);
+      font-size: clamp(15px, 1.6vw, 18px);
+      max-width: 860px;
+    }
+    .heroGrid{
+      display:grid;
+      grid-template-columns: 1.25fr .75fr;
+      gap:22px;
+      margin-top: 22px;
+      align-items:stretch;
+    }
+    .heroCard{
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.12);
+      border-radius: var(--r);
+      padding: 18px;
+    }
+    .ctaRow{
+      display:flex; flex-wrap:wrap; gap:12px;
+      margin-top: 16px;
+    }
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.06);
+      text-decoration:none;
+      font-weight:700;
+      letter-spacing:.2px;
+      transition: transform .15s ease, background .15s ease, border-color .15s ease;
+      min-height:44px;
+    }
+    .btn:hover{transform: translateY(-1px); background: rgba(255,255,255,.09); border-color: rgba(255,255,255,.18)}
+    .btnPrimary{
+      border-color: rgba(56,242,193,.35);
+      background: linear-gradient(135deg, rgba(56,242,193,.22), rgba(0,194,255,.14));
+    }
+    .btnGhost{background: transparent}
+    .note{
+      font-size: 13px;
+      color: var(--muted2);
+      margin-top: 10px;
+    }
+    .kpis{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+    .kpi{
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.05);
+      border-radius: 16px;
+      padding: 12px 12px;
+    }
+    .kpi b{display:block; font-size: 14px}
+    .kpi span{display:block; color:var(--muted); font-size:13px; margin-top:4px}
+    .section{margin-top: 34px}
+    .section h2{
+      font-size: clamp(22px, 2.6vw, 30px);
+      margin:0 0 14px;
+      letter-spacing:-.4px;
+    }
+    .grid2{display:grid; grid-template-columns: 1fr 1fr; gap: 14px}
+    .grid3{display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px}
+    .card{
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.05);
+      border-radius: var(--r);
+      padding: 18px;
+    }
+    .card h3{margin:0 0 8px; font-size: 18px}
+    .muted{color:var(--muted)}
+    .list{margin: 10px 0 0; padding-left: 16px; color: var(--muted)}
+    .list li{margin: 7px 0}
+    .chips{display:flex; flex-wrap:wrap; gap:10px; margin-top: 12px}
+    .chip{
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      color:var(--muted);
+      border-radius: 999px;
+      padding: 8px 10px;
+      font-size: 13px;
+    }
+    .compare{
+      border:1px solid var(--line);
+      border-radius: var(--r);
+      overflow:hidden;
+      background: rgba(255,255,255,.03);
+    }
+    .compareHead{
+      display:grid; grid-template-columns: 1fr 1fr;
+      background: rgba(255,255,255,.04);
+      border-bottom: 1px solid var(--line);
+    }
+    .compareHead div{
+      padding: 14px 16px;
+      font-weight: 800;
+      letter-spacing:.2px;
+    }
+    .compareRow{
+      display:grid; grid-template-columns: 1fr 1fr;
+      border-bottom: 1px solid var(--line);
+    }
+    .compareRow:last-child{border-bottom:none}
+    .compareCell{padding: 14px 16px; color: var(--muted)}
+    .tagOk{color: var(--ok); font-weight:800}
+    .tagBad{color: var(--bad); font-weight:800}
+    .steps{display:grid; grid-template-columns: 1fr; gap: 12px}
+    .step{
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.05);
+      border-radius: var(--r);
+      padding: 16px;
+      display:flex; gap: 12px;
+    }
+    .stepNum{
+      width:34px; height:34px; border-radius: 12px;
+      display:flex; align-items:center; justify-content:center;
+      background: rgba(56,242,193,.16);
+      border:1px solid rgba(56,242,193,.35);
+      font-weight: 900;
+      flex:0 0 auto;
+    }
+    .step b{display:block; margin-bottom: 4px}
+    .faq{
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      border-radius: var(--r);
+      overflow:hidden;
+    }
+    details{
+      border-bottom: 1px solid var(--line);
+      padding: 14px 16px;
+    }
+    details:last-child{border-bottom:none}
+    summary{
+      cursor:pointer;
+      list-style:none;
+      font-weight: 800;
+      letter-spacing:.1px;
+    }
+    summary::-webkit-details-marker{display:none}
+    details p{margin:10px 0 0; color: var(--muted)}
+    .sub{
+      margin-top: 8px;
+      color: var(--muted);
+      max-width: 920px;
+    }
+    .callout{
+      border:1px solid rgba(255,176,32,.28);
+      background: rgba(255,176,32,.08);
+      border-radius: var(--r);
+      padding: 16px;
+      color: var(--muted);
+    }
+    .footerCta{
+      margin-top: 24px;
+      display:flex; gap:12px; flex-wrap:wrap; align-items:center;
+    }
+    .small{font-size:13px; color: var(--muted2)}
+    @media (max-width: 940px){
+      .heroGrid{grid-template-columns:1fr}
+      .grid2{grid-template-columns:1fr}
+      .grid3{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+
+    <!-- HERO -->
+    <section class="hero" id="top">
+      <div class="pill"><span class="dot"></span>Интеграции мессенджеров с CRM - Wazzup</div>
+      <h1>Wazzup - когда WhatsApp, Telegram и другие мессенджеры работают внутри amoCRM и Bitrix24</h1>
+      <p class="lead">
+        Wazzup - сервис интеграции мессенджеров с CRM, чтобы вся переписка, файлы и история контакта были в одной карточке клиента.
+        Это снижает потери лидов, ускоряет ответы и делает контроль продаж прозрачным.
+      </p>
+
+      <div class="heroGrid">
+        <div class="heroCard">
+          <b>Кому подходит</b>
+          <ul class="list">
+            <li>Отдел продаж, где лиды идут из мессенджеров, сайта, соцсетей, маркетплейсов, звонков.</li>
+            <li>Компании, которые хотят вести переписку из CRM, а не "в телефонах менеджеров".</li>
+            <li>Проекты, где важны контроль качества, SLA ответа, прозрачная аналитика.</li>
+          </ul>
+
+          <div class="ctaRow">
+            <a class="btn btnPrimary" href="%%WAZZUP_REF_LINK%%" target="_blank" rel="noopener">Перейти в Wazzup - по партнерской ссылке</a>
+            <a class="btn" href="#how">Как это работает</a>
+            <a class="btn btnGhost" href="#setup">Нужно внедрение - поможем</a>
+          </div>
+
+          <div class="note">
+            Примечание: ссылка выше - место под вашу партнерскую ссылку Wazzup. Замените <code>%%WAZZUP_REF_LINK%%</code> на реальный URL.
+          </div>
+        </div>
+
+        <div class="heroCard">
+          <b>Что получаете на выходе</b>
+          <div class="kpis">
+            <div class="kpi">
+              <b>Переписка в CRM</b>
+              <span>Сообщения, файлы, цитирование - прямо в карточке сделки/контакта.</span>
+            </div>
+            <div class="kpi">
+              <b>Контроль и история</b>
+              <span>Новый менеджер сразу видит контекст - без "а что клиент писал раньше?".</span>
+            </div>
+            <div class="kpi">
+              <b>Скорость реакции</b>
+              <span>Шаблоны, быстрые ответы, единое окно для всех каналов.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHAT IS -->
+    <section class="section" id="what">
+      <h2>Что такое Wazzup - простыми словами</h2>
+      <p class="sub">
+        Wazzup подключает мессенджеры к CRM. В итоге менеджеры общаются с клиентами прямо из amoCRM или Bitrix24,
+        а переписка не теряется в личных аккаунтах и телефонах. Такой подход помогает автоматизировать коммуникации и снизить потери лидов.
+      </p>
+
+      <div class="grid3">
+        <div class="card">
+          <h3>Единое окно общения</h3>
+          <p class="muted">Переписка и файлы - в CRM, вместе с задачами, сделками, ответственными и этапами.</p>
+        </div>
+        <div class="card">
+          <h3>Системность вместо хаоса</h3>
+          <p class="muted">Уходят ситуации "клиент писал в WhatsApp менеджеру, а менеджер уволился".</p>
+        </div>
+        <div class="card">
+          <h3>Быстрее - значит выгоднее</h3>
+          <p class="muted">Чем быстрее ответ, тем выше конверсия. Интеграция реально сокращает время реакции.</p>
+        </div>
+      </div>
+
+      <div class="chips">
+        <span class="chip">amoCRM</span>
+        <span class="chip">Bitrix24</span>
+        <span class="chip">WhatsApp</span>
+        <span class="chip">Telegram</span>
+        <span class="chip">Instagram*</span>
+        <span class="chip">ВКонтакте</span>
+        <span class="chip">Avito</span>
+        <span class="chip">MAX (российский мессенджер)</span>
+      </div>
+
+      <p class="small">
+        *Упоминание Instagram носит информационный характер - доступность и условия каналов зависят от правил платформ и конкретных настроек.
+      </p>
+    </section>
+
+    <!-- USE CASES -->
+    <section class="section" id="cases">
+      <h2>Какие задачи решает интеграция мессенджеров с CRM</h2>
+      <div class="grid2">
+        <div class="card">
+          <h3>Продажи и лидогенерация</h3>
+          <ul class="list">
+            <li>Все входящие сообщения превращаются в контролируемые обращения.</li>
+            <li>У менеджера есть контекст - быстрее квалификация и меньше ошибок.</li>
+            <li>Проще дожимать - история диалога всегда под рукой.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Контроль и качество</h3>
+          <ul class="list">
+            <li>Руководитель видит, кто отвечает и как общается.</li>
+            <li>Снижается риск "слива" заявок и конфликтов по сервису.</li>
+            <li>Легче внедрять стандарты: шаблоны, регламенты, SLA.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="grid2">
+        <div class="card">
+          <h3>Автоматизация</h3>
+          <ul class="list">
+            <li>Триггеры, задачи, этапы сделки - всё вокруг сообщений.</li>
+            <li>Шаблоны сообщений и быстрые ответы ускоряют обработку.</li>
+            <li>Можно выстроить "воронку диалогов" как часть отдела продаж.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Сквозная аналитика</h3>
+          <ul class="list">
+            <li>Легче связывать источники трафика с реальными продажами.</li>
+            <li>Понимание качества лидов: что пишут, какие вопросы, где "болит".</li>
+            <li>Удобнее считать конверсию и эффективность рекламы.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMPARE -->
+    <section class="section" id="compare">
+      <h2>Наглядно. Как бывает без интеграции и как должно быть</h2>
+
+      <div class="compare">
+        <div class="compareHead">
+          <div><span class="tagBad">Плохо</span> - мессенджеры живут отдельно</div>
+          <div><span class="tagOk">Хорошо</span> - всё внутри CRM</div>
+        </div>
+
+        <div class="compareRow">
+          <div class="compareCell">Переписки в личных телефонах. История теряется.</div>
+          <div class="compareCell">Переписка прикреплена к контакту/сделке. История сохраняется.</div>
+        </div>
+        <div class="compareRow">
+          <div class="compareCell">Руководитель не видит качество обработки.</div>
+          <div class="compareCell">Контроль ответов, SLA, стандарты переписки.</div>
+        </div>
+        <div class="compareRow">
+          <div class="compareCell">Клиент пишет "куда угодно", заявки расползаются.</div>
+          <div class="compareCell">Единая точка входа - порядок в каналах.</div>
+        </div>
+        <div class="compareRow">
+          <div class="compareCell">Сложно связать рекламу, источники и продажу.</div>
+          <div class="compareCell">Проще выстроить аналитику и экономить бюджет.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="section" id="how">
+      <h2>Как это работает на практике</h2>
+      <p class="sub">
+        Логика простая: подключаем канал (мессенджер), подключаем CRM и дальше переписка идет в CRM.
+        Клиент пишет вам в привычный мессенджер, а менеджер отвечает из карточки в CRM.
+      </p>
+
+      <div class="steps">
+        <div class="step">
+          <div class="stepNum">1</div>
+          <div>
+            <b>Подключаем каналы</b>
+            <div class="muted">WhatsApp/Telegram/другие - в зависимости от ваших задач и инфраструктуры.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="stepNum">2</div>
+          <div>
+            <b>Связываем с amoCRM или Bitrix24</b>
+            <div class="muted">Настраиваем привязки: контакты, сделки, ответственные, правила создания лидов.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="stepNum">3</div>
+          <div>
+            <b>Настраиваем правила и доступы</b>
+            <div class="muted">Роли, доступ к чатам, распределение обращений, шаблоны сообщений.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="stepNum">4</div>
+          <div>
+            <b>Запускаем и контролируем</b>
+            <div class="muted">Проверяем сценарии, учим менеджеров, фиксируем регламенты и KPI.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footerCta">
+        <a class="btn btnPrimary" href="%%WAZZUP_REF_LINK%%" target="_blank" rel="noopener">Открыть Wazzup - регистрация</a>
+        <a class="btn" href="#setup">Нужно внедрение - напишите нам</a>
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="section" id="features">
+      <h2>Что важно в функциональности</h2>
+      <div class="grid3">
+        <div class="card">
+          <h3>Сообщения и файлы</h3>
+          <p class="muted">Чаты в CRM - это не только текст. Важно, чтобы проходили файлы, фото, документы.</p>
+        </div>
+        <div class="card">
+          <h3>Шаблоны и быстрые ответы</h3>
+          <p class="muted">Экономят время и повышают качество. Особенно в типовых продажах и поддержке.</p>
+        </div>
+        <div class="card">
+          <h3>Несколько аккаунтов</h3>
+          <p class="muted">Полезно, когда несколько номеров/каналов и разные направления бизнеса.</p>
+        </div>
+      </div>
+
+      <div class="grid2">
+        <div class="card">
+          <h3>Связка с воронкой продаж</h3>
+          <ul class="list">
+            <li>Создание сделки/лида по первому сообщению.</li>
+            <li>Авто-постановка задач менеджеру, контроль сроков ответа.</li>
+            <li>Шаблоны сообщений под этапы воронки.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Контроль качества и безопасность</h3>
+          <ul class="list">
+            <li>Доступы по ролям: кто видит какие чаты.</li>
+            <li>История диалога остается в CRM - меньше рисков потери данных.</li>
+            <li>Проще соблюдать правила внутренней коммуникации.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="callout" style="margin-top:14px">
+        <b>Важно</b>: любая интеграция мессенджеров - это не "просто подключить".
+        Нужны правила работы отдела продаж: кто отвечает, за сколько минут, как фиксируем результат, как передаем клиента между менеджерами.
+        Мы помогаем настроить не только кнопку, но и процесс.
+      </div>
+    </section>
+
+    <!-- WHY US -->
+    <section class="section" id="setup">
+      <h2>Как мы внедряем Wazzup для клиентов</h2>
+      <p class="sub">
+        На этой странице мы рассказываем о продукте. А дальше - про внедрение.
+        Мы подключаем каналы, настраиваем связку с CRM, правила создания лидов и воронку обработки обращений.
+      </p>
+
+      <div class="grid2">
+        <div class="card">
+          <h3>Что делаем мы</h3>
+          <ul class="list">
+            <li>Подбор схемы: какие каналы нужны и как их правильно развести.</li>
+            <li>Подключение и настройка Wazzup + интеграция с amoCRM/Bitrix24.</li>
+            <li>Настройка логики: создание сделок, привязки, ответственные, сценарии.</li>
+            <li>Шаблоны, быстрые ответы, регламенты, обучение менеджеров.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Что нужно от вас</h3>
+          <ul class="list">
+            <li>Доступ к CRM (админ) и понимание текущей воронки/процессов.</li>
+            <li>Доступы к каналам мессенджеров (по согласованию).</li>
+            <li>Список ответственных, расписание, правила обработки лидов.</li>
+            <li>Желаемые KPI: скорость ответа, конверсия в сделку, качество диалогов.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footerCta">
+        <a class="btn btnPrimary" href="%%WAZZUP_REF_LINK%%" target="_blank" rel="noopener">Wazzup - посмотреть тарифы и стартовать</a>
+        <a class="btn" href="/crm-integracii/amocrm/">Внедрение amoCRM</a>
+        <a class="btn" href="/crm-integracii/bitrix24/">Внедрение Bitrix24</a>
+      </div>
+
+      <p class="small" style="margin-top:10px">
+        Здесь стоят внутренние ссылки на ваши страницы. При необходимости поменяйте URL.
+      </p>
+    </section>
+
+    <!-- CHOOSING -->
+    <section class="section" id="choice">
+      <h2>Wazzup, Radist, ChatApp - в чем разница и как выбрать</h2>
+      <p class="sub">
+        По смыслу это один класс решений: интеграция мессенджеров с CRM. Отличия обычно в тарифах, отдельных функциях и удобстве сценариев.
+        Если не хотите разбираться в деталях - мы подбираем вариант под ваш кейс и бюджет.
+      </p>
+
+      <div class="grid3">
+        <div class="card">
+          <h3>Если нужен быстрый старт</h3>
+          <p class="muted">Берем решение, которое проще и быстрее развернуть в вашей связке каналов.</p>
+        </div>
+        <div class="card">
+          <h3>Если важны тонкие настройки</h3>
+          <p class="muted">Смотрим сценарии распределения обращений, ограничения каналов, аналитику.</p>
+        </div>
+        <div class="card">
+          <h3>Если важен бюджет</h3>
+          <p class="muted">Подбираем компромисс: базовый функционал + рост по мере увеличения диалогов.</p>
+        </div>
+      </div>
+
+      <div class="footerCta">
+        <a class="btn btnPrimary" href="%%WAZZUP_REF_LINK%%" target="_blank" rel="noopener">Выбрал Wazzup - перейти</a>
+        <a class="btn" href="/crm-integracii/radist-online/">Radist Online</a>
+        <a class="btn" href="/crm-integracii/chatapp/">ChatApp</a>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section" id="faq">
+      <h2>Коротко отвечаем на частые вопросы</h2>
+      <div class="faq">
+        <details>
+          <summary>Wazzup - это CRM?</summary>
+          <p>Нет. Wazzup - это мост между мессенджерами и CRM. CRM остается amoCRM или Bitrix24, а Wazzup добавляет в нее чаты и каналы.</p>
+        </details>
+
+        <details>
+          <summary>Заявки из мессенджеров будут автоматически создаваться в CRM?</summary>
+          <p>Обычно да. Настраивается логика: создавать контакт/сделку по первому сообщению, назначать ответственного, ставить задачи и фиксировать этапы.</p>
+        </details>
+
+        <details>
+          <summary>Можно ли работать нескольким менеджерам и не путаться?</summary>
+          <p>Да, но важны правила: кто отвечает в каком канале, какие SLA, как передаем клиента, где фиксируем результат. Мы помогаем оформить это в регламент.</p>
+        </details>
+
+        <details>
+          <summary>Это помогает продажам или просто "удобно переписываться"?</summary>
+          <p>Помогает продажам. Интеграция снижает потери лидов, ускоряет ответы, дает прозрачность руководителю и повышает конверсию на длинной дистанции.</p>
+        </details>
+
+        <details>
+          <summary>Нужно ли ведение/сопровождение после подключения?</summary>
+          <p>По ситуации. Если процессы уже выстроены, достаточно корректной настройки и короткого контроля. Если идет рост, появляются новые каналы и воронки - лучше сопровождать и улучшать.</p>
+        </details>
+
+        <details>
+          <summary>Есть ли тестовый период?</summary>
+          <p>У подобных сервисов обычно есть возможность протестировать работу перед оплатой. Мы подскажем, как лучше провести тест именно в ваших сценариях и с вашими каналами.</p>
+        </details>
+      </div>
+
+      <div class="footerCta">
+        <a class="btn btnPrimary" href="%%WAZZUP_REF_LINK%%" target="_blank" rel="noopener">Попробовать Wazzup</a>
+        <a class="btn" href="#top">Наверх</a>
+      </div>
+
+      <p class="small" style="margin-top:10px">
+        Партнерские места под ссылку: в Hero, в блоке "Как это работает", в блоке "Внедрение", в FAQ.
+      </p>
+    </section>
+
+  </div>
+
+  <!--
+    Замените %%WAZZUP_REF_LINK%% на вашу партнерскую ссылку.
+    При необходимости поменяйте внутренние ссылки на реальные URL вашего сайта.
+  -->
+</body>
+</html>

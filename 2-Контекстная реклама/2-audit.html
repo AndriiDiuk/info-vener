@@ -1,0 +1,848 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Аудит Яндекс Директ | анализ рекламных кампаний и точки роста</title>
+  <meta name="description" content="Аудит рекламных кампаний Яндекс Директ: структура, стратегии, минус-слова, ставки, аналитика, посадочная страница. Находим точки роста, снижаем CPA, повышаем конверсию." />
+  <style>
+    :root{
+      --bg:#0b0f16;
+      --panel:#101826;
+      --panel2:#0e1522;
+      --text:#e8eefc;
+      --muted:#a9b6d3;
+      --line:rgba(255,255,255,.10);
+      --accent:#4de1c1;
+      --accent2:#7aa6ff;
+      --warn:#ffcc66;
+      --shadow: 0 18px 60px rgba(0,0,0,.55);
+      --radius:18px;
+      --radius2:24px;
+      --container: 1160px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
+      background:
+        radial-gradient(900px 500px at 10% 10%, rgba(77,225,193,.12), transparent 55%),
+        radial-gradient(900px 500px at 90% 20%, rgba(122,166,255,.12), transparent 55%),
+        radial-gradient(700px 420px at 65% 95%, rgba(255,204,102,.08), transparent 60%),
+        var(--bg);
+      color:var(--text);
+      line-height:1.45;
+    }
+    a{color:inherit; text-decoration:none}
+    .container{max-width:var(--container); margin:0 auto; padding:0 20px}
+    .topbar{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(12px);
+      background: rgba(11,15,22,.65);
+      border-bottom:1px solid var(--line);
+    }
+    .topbar__inner{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px 0;
+      gap:14px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      font-weight:800; letter-spacing:.2px;
+    }
+    .logo{
+      width:34px; height:34px; border-radius:12px;
+      background: linear-gradient(135deg, rgba(77,225,193,.95), rgba(122,166,255,.95));
+      box-shadow: 0 10px 30px rgba(77,225,193,.18);
+    }
+    .nav{
+      display:flex; gap:10px; flex-wrap:wrap;
+      align-items:center;
+      color:var(--muted);
+      font-size:14px;
+    }
+    .nav a{
+      padding:8px 10px;
+      border-radius:12px;
+      border:1px solid transparent;
+    }
+    .nav a:hover{
+      border-color: var(--line);
+      background: rgba(255,255,255,.03);
+      color: var(--text);
+    }
+    .actions{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      gap:10px;
+      padding:10px 14px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      color:var(--text);
+      font-weight:700;
+      font-size:14px;
+      cursor:pointer;
+      transition:.2s ease;
+      white-space:nowrap;
+    }
+    .btn:hover{transform: translateY(-1px); border-color: rgba(255,255,255,.18); background: rgba(255,255,255,.05)}
+    .btn--primary{
+      border-color: rgba(77,225,193,.45);
+      background: rgba(77,225,193,.12);
+    }
+    .btn--primary:hover{background: rgba(77,225,193,.16)}
+    .btn--ghost{background: transparent}
+    .badge{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:8px 12px; border-radius:999px;
+      border:1px solid var(--line);
+      color: var(--muted);
+      background: rgba(255,255,255,.03);
+      font-size:13px;
+    }
+    .crumbs{
+      margin-top:18px;
+      display:flex; gap:8px; flex-wrap:wrap;
+      color: var(--muted);
+      font-size:13px;
+      align-items:center;
+    }
+    .crumbs a{color:var(--muted)}
+    .crumbs a:hover{color:var(--text)}
+    .hero{
+      padding:34px 0 22px;
+    }
+    .hero__grid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:18px;
+      align-items:stretch;
+      margin-top:14px;
+    }
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border:1px solid var(--line);
+      border-radius: var(--radius2);
+      box-shadow: var(--shadow);
+    }
+    .hero__main{padding:24px}
+    .hero__side{padding:18px}
+    h1{
+      margin:0 0 10px;
+      font-size:42px;
+      line-height:1.08;
+      letter-spacing:-.8px;
+    }
+    .lead{
+      margin:0;
+      color: var(--muted);
+      font-size:16px;
+      max-width: 58ch;
+    }
+    .hero__chips{
+      display:flex; gap:10px; flex-wrap:wrap;
+      margin-top:16px;
+    }
+    .kpis{
+      display:grid; grid-template-columns: repeat(2,1fr);
+      gap:10px;
+      margin-top:16px;
+    }
+    .kpi{
+      padding:14px;
+      border:1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(255,255,255,.03);
+    }
+    .kpi b{display:block; font-size:16px}
+    .kpi span{display:block; color:var(--muted); font-size:13px; margin-top:4px}
+    .hero__cta{
+      display:flex; gap:10px; flex-wrap:wrap;
+      margin-top:18px;
+    }
+    .sidebox{
+      border:1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(16,24,38,.55);
+      padding:14px;
+    }
+    .sidebox + .sidebox{margin-top:10px}
+    .sidebox h3{
+      margin:0 0 8px;
+      font-size:14px; letter-spacing:.2px;
+    }
+    .sidebox p{margin:0; color:var(--muted); font-size:13px}
+    .sidebox .row{
+      display:flex; gap:10px; flex-wrap:wrap;
+      margin-top:10px;
+    }
+    .mini{
+      font-size:12px; color:var(--muted);
+    }
+    section{padding:28px 0}
+    .section__head{
+      display:flex; align-items:flex-end; justify-content:space-between;
+      gap:14px; flex-wrap:wrap;
+      margin-bottom:14px;
+    }
+    h2{
+      margin:0;
+      font-size:28px;
+      letter-spacing:-.4px;
+    }
+    .sub{
+      margin:0;
+      color:var(--muted);
+      max-width: 70ch;
+      font-size:15px;
+    }
+    .grid-3{
+      display:grid;
+      grid-template-columns: repeat(3,1fr);
+      gap:12px;
+    }
+    .grid-2{
+      display:grid;
+      grid-template-columns: repeat(2,1fr);
+      gap:12px;
+    }
+    .item{
+      padding:16px;
+      border-radius: var(--radius);
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+    }
+    .item h3{
+      margin:0 0 8px;
+      font-size:16px;
+    }
+    .item p{margin:0; color:var(--muted); font-size:14px}
+    .list{
+      margin:10px 0 0;
+      padding:0 0 0 16px;
+      color: var(--muted);
+      font-size:14px;
+    }
+    .list li{margin:6px 0}
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.03);
+      color:var(--text);
+      font-weight:700;
+      font-size:13px;
+      white-space:nowrap;
+    }
+    .pill i{
+      width:8px; height:8px; border-radius:50%;
+      background: var(--accent);
+      display:inline-block;
+      box-shadow: 0 0 0 3px rgba(77,225,193,.12);
+    }
+    .table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      overflow:hidden;
+      border:1px solid var(--line);
+      border-radius: var(--radius2);
+      background: rgba(255,255,255,.02);
+    }
+    .table th,.table td{
+      padding:14px 14px;
+      border-bottom:1px solid var(--line);
+      vertical-align:top;
+      text-align:left;
+      font-size:14px;
+    }
+    .table th{color:var(--muted); font-weight:700; background: rgba(255,255,255,.03)}
+    .table tr:last-child td{border-bottom:none}
+    .note{
+      border-left: 3px solid rgba(77,225,193,.6);
+      padding:12px 14px;
+      border-radius: 14px;
+      background: rgba(77,225,193,.08);
+      border:1px solid rgba(77,225,193,.22);
+      color: var(--muted);
+      font-size:14px;
+    }
+    .cta{
+      padding:18px;
+      border-radius: var(--radius2);
+      border:1px solid rgba(122,166,255,.25);
+      background: radial-gradient(800px 320px at 0% 0%, rgba(122,166,255,.15), transparent 55%), rgba(255,255,255,.02);
+      box-shadow: var(--shadow);
+      display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;
+    }
+    .cta h3{margin:0 0 6px; font-size:18px}
+    .cta p{margin:0; color:var(--muted); font-size:14px; max-width:70ch}
+    .cta .btns{display:flex; gap:10px; flex-wrap:wrap}
+    .faq{
+      border:1px solid var(--line);
+      border-radius: var(--radius2);
+      background: rgba(255,255,255,.02);
+      overflow:hidden;
+    }
+    .faq details{
+      border-bottom:1px solid var(--line);
+      padding:14px 16px;
+    }
+    .faq details:last-child{border-bottom:none}
+    .faq summary{
+      cursor:pointer;
+      font-weight:800;
+      list-style:none;
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+    }
+    .faq summary::-webkit-details-marker{display:none}
+    .faq summary span{color:var(--text); font-size:15px}
+    .faq summary em{
+      font-style:normal;
+      color: var(--muted);
+      font-weight:900;
+      border:1px solid var(--line);
+      width:28px; height:28px; border-radius:10px;
+      display:inline-flex; align-items:center; justify-content:center;
+      background: rgba(255,255,255,.02);
+      flex:0 0 auto;
+    }
+    .faq .ans{
+      margin-top:10px;
+      color:var(--muted);
+      font-size:14px;
+      max-width: 95ch;
+    }
+    footer{
+      padding:26px 0 34px;
+      color: var(--muted);
+      border-top:1px solid var(--line);
+      background: rgba(0,0,0,.12);
+    }
+    .muted{color:var(--muted)}
+    .links a{color:var(--accent2)}
+    .links a:hover{text-decoration:underline}
+
+    @media (max-width: 980px){
+      .hero__grid{grid-template-columns:1fr}
+      h1{font-size:34px}
+      .grid-3{grid-template-columns:1fr}
+      .grid-2{grid-template-columns:1fr}
+      .kpis{grid-template-columns:1fr}
+      .nav{display:none}
+    }
+  </style>
+</head>
+
+<body>
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="container">
+      <div class="topbar__inner">
+        <a class="brand" href="/"><span class="logo" aria-hidden="true"></span> Venner Digital</a>
+
+        <nav class="nav" aria-label="Навигация">
+          <a href="/sozdanie-saytov/">Разработка сайтов</a>
+          <a href="/yandex-direct/">Яндекс Директ</a>
+          <a href="/seo/">SEO</a>
+          <a href="/crm-integracii/">CRM и интеграции</a>
+        </nav>
+
+        <div class="actions">
+          <a class="btn btn--ghost" href="tel:+70000000000">Позвонить</a>
+          <a class="btn" href="https://t.me/username" target="_blank" rel="noopener">Telegram</a>
+          <a class="btn" href="https://wa.me/70000000000" target="_blank" rel="noopener">WhatsApp</a>
+          <a class="btn" href="#" target="_blank" rel="noopener">Max</a>
+          <a class="btn btn--primary" href="#calc">Узнать стоимость аудита</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main>
+    <!-- BREADCRUMBS -->
+    <div class="container">
+      <div class="crumbs">
+        <a href="/">Главная</a><span class="muted">/</span>
+        <a href="/yandex-direct/">Контекстная реклама</a><span class="muted">/</span>
+        <span>Аудит Яндекс Директ</span>
+      </div>
+    </div>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero__grid">
+          <div class="card hero__main">
+            <div class="badge">Услуга: аудит рекламных кампаний Яндекс Директ</div>
+            <h1>Аудит Яндекс Директ, который находит точки роста, а не "галочки"</h1>
+            <p class="lead">
+              Проверяем кампании, стратегии, минус-слова, объявления, аналитику и связку "реклама + посадочная страница".
+              Итог - понятный план, что исправить сейчас, что тестировать и как снизить стоимость заявки.
+            </p>
+
+            <div class="hero__chips">
+              <span class="pill"><i></i>Поиск, РСЯ, ретаргетинг</span>
+              <span class="pill"><i></i>Смотрим воронку и метрику</span>
+              <span class="pill"><i></i>Рекомендации под вашу нишу</span>
+              <span class="pill"><i></i>Без воды - по приоритетам</span>
+            </div>
+
+            <div class="kpis" aria-label="Ключевые результаты">
+              <div class="kpi">
+                <b>План улучшений</b>
+                <span>чек-лист задач: "сделать сегодня" - "тестировать" - "масштабировать"</span>
+              </div>
+              <div class="kpi">
+                <b>Фокус на ROI</b>
+                <span>ищем утечки бюджета и места, где можно вырасти по конверсии</span>
+              </div>
+              <div class="kpi">
+                <b>Проверка автоматизации</b>
+                <span>разбираем автостратегии и достаточно ли данных для обучения</span>
+              </div>
+              <div class="kpi">
+                <b>Связка с сайтом</b>
+                <span>по необходимости подключаем аудит посадочной страницы</span>
+              </div>
+            </div>
+
+            <div class="hero__cta">
+              <a class="btn btn--primary" href="#calc">Узнать стоимость</a>
+              <a class="btn" href="#what">Что проверяем</a>
+              <a class="btn" href="#result">Что вы получите</a>
+              <a class="btn" href="#faq">FAQ</a>
+            </div>
+
+            <p class="mini muted" style="margin-top:10px">
+              Подсказка: если у вас сейчас идет трафик на слабую страницу - часто дешевле начать с улучшения связки "объявления + посадочная", чем бесконечно крутить ставки.
+            </p>
+          </div>
+
+          <aside class="card hero__side">
+            <div class="sidebox">
+              <h3>Кому подходит аудит</h3>
+              <p>
+                Если кампания "льет", заявки дорогие или их мало, а вы не понимаете почему.
+                Подходит и тем, кто запускал сам, и тем, кто меняет подрядчика.
+              </p>
+            </div>
+
+            <div class="sidebox">
+              <h3>Стоимость</h3>
+              <p><b style="color:var(--text)">от 9 990 ₽</b> (зависит от объема: кампаний, групп, регионов, целей)</p>
+              <div class="row">
+                <a class="btn btn--primary" href="#calc">Рассчитать под вашу кампанию</a>
+                <a class="btn" href="/yandex-direct/vedenie/">Если нужно ведение</a>
+              </div>
+              <p class="mini muted" style="margin-top:8px">
+                Можно сделать аудит "только Директ" или аудит всей связки, включая посадочную страницу (если вы ведете рекламу на сайт).
+              </p>
+            </div>
+
+            <div class="sidebox">
+              <h3>Входные данные</h3>
+              <p>
+                Доступ к Директу (гостевой), Метрике, целям, и коротко - что продаете, регионы, маржинальность, цель рекламы.
+              </p>
+              <div class="row">
+                <a class="btn" href="https://t.me/username" target="_blank" rel="noopener">Написать в Telegram</a>
+                <a class="btn" href="https://wa.me/70000000000" target="_blank" rel="noopener">WhatsApp</a>
+                <a class="btn" href="#" target="_blank" rel="noopener">Max</a>
+              </div>
+            </div>
+
+            <div class="sidebox">
+              <h3>Смежные услуги</h3>
+              <p class="links">
+                <a href="/yandex-direct/">Настройка Яндекс Директ</a><br>
+                <a href="/yandex-direct/vedenie/">Ведение рекламы</a><br>
+                <a href="/sozdanie-saytov/">Разработка сайта</a><br>
+                <a href="/seo/">SEO</a><br>
+                <a href="/crm-integracii/">CRM и интеграции</a>
+              </p>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOR WHOM -->
+    <section id="forwho">
+      <div class="container">
+        <div class="section__head">
+          <div>
+            <h2>Когда аудит нужен срочно</h2>
+            <p class="sub">Ниже - частые сценарии входа. Выберите свой, и будет понятно, что именно проверять в первую очередь.</p>
+          </div>
+        </div>
+
+        <div class="grid-3">
+          <div class="item">
+            <h3>Запускали сами</h3>
+            <p>Кампания вроде есть, но результатов мало. Часто причина - структура, минус-слова, цели, "не те" запросы и слабая аналитика.</p>
+            <ul class="list">
+              <li>проверяем таргетинг и семантику</li>
+              <li>смотрим, куда уходит бюджет</li>
+              <li>настраиваем контроль качества трафика</li>
+            </ul>
+          </div>
+          <div class="item">
+            <h3>Вели подрядчики, но "не растет"</h3>
+            <p>Стабильно тратим бюджет, а CPA не падает. Нужны гипотезы и точечные тесты, а не бесконечная "оптимизация".</p>
+            <ul class="list">
+              <li>разбор стратегий и сигналов обучения</li>
+              <li>гипотезы по креативам и офферам</li>
+              <li>поиск "быстрых побед"</li>
+            </ul>
+          </div>
+          <div class="item">
+            <h3>Падает конверсия</h3>
+            <p>Трафик есть, заявок меньше. Часто проблема не в Директе, а в связке - страница, скорость, путь пользователя, формы.</p>
+            <ul class="list">
+              <li>аудит посадочной страницы (по необходимости)</li>
+              <li>проверка целей и микро-конверсий</li>
+              <li>выявление "узких мест"</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHAT WE CHECK -->
+    <section id="what">
+      <div class="container">
+        <div class="section__head">
+          <div>
+            <h2>Что мы проверяем в аудите</h2>
+            <p class="sub">Это не "чек-лист ради чек-листа". Мы собираем картину: где теряются деньги, где нет контроля, где можно быстро вырасти.</p>
+          </div>
+          <div class="hero__chips">
+            <span class="badge">Важно: по приоритетам</span>
+            <span class="badge">Под нишу и цели</span>
+          </div>
+        </div>
+
+        <table class="table" role="table" aria-label="Состав аудита">
+          <thead>
+            <tr>
+              <th style="width:34%">Блок</th>
+              <th>Что смотрим</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><b>1) Техническая база кампаний</b></td>
+              <td class="muted">
+                структура (Поиск, РСЯ, ретаргетинг), гео и расписание, ограничения, корректировки, минус-слова, площадки, типы соответствия, UTM, разметка целей.
+              </td>
+            </tr>
+            <tr>
+              <td><b>2) Объявления и креативы</b></td>
+              <td class="muted">
+                полнота расширений, качество заголовков и офферов, соответствие посадочной, понятность УТП, тестирование вариантов, единый стиль, релевантность под запросы.
+              </td>
+            </tr>
+            <tr>
+              <td><b>3) Стратегии и автоматизация</b></td>
+              <td class="muted">
+                автостратегии и хватает ли данных для обучения, корректность целей, "правильные" конверсии, ограничения по ставкам и CPA, защита от мусорного трафика.
+              </td>
+            </tr>
+            <tr>
+              <td><b>4) Аналитика и KPI</b></td>
+              <td class="muted">
+                Метрика, цели, события, звонки, формы, микро-конверсии, атрибуция, воронка и стоимость этапов, сегментация по аудиториям и устройствам.
+              </td>
+            </tr>
+            <tr>
+              <td><b>5) Посадочная страница</b> <span class="muted">(опционально)</span></td>
+              <td class="muted">
+                релевантность офферу, скорость, мобильная версия, путь до заявки, доверие, блоки, формы, ошибки UX. При необходимости - рекомендации по доработке или
+                ссылка на <a href="/sozdanie-saytov/" class="links">разработку сайта</a> или <a href="/sozdanie-saytov/redizayn-sayta/" class="links">редизайн</a>.
+              </td>
+            </tr>
+            <tr>
+              <td><b>6) Точки роста</b></td>
+              <td class="muted">
+                ретаргетинг, аудитории, look-alike, конкурентный разбор выдачи, расширение семантики, новые группы, тесты офферов, масштабирование эффективных связок.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div style="margin-top:12px" class="note">
+          Если нужно усилить связку "реклама + обработка заявок", часто подключаем <a class="links" href="/crm-integracii/" style="color:var(--accent2)">CRM и интеграции</a>:
+          фиксация заявок, уведомления, распределение, контроль качества и скорость ответа.
+        </div>
+      </div>
+    </section>
+
+    <!-- WHAT YOU GET -->
+    <section id="result">
+      <div class="container">
+        <div class="section__head">
+          <div>
+            <h2>Что вы получите на выходе</h2>
+            <p class="sub">Не просто "отчет". Вы получите понятный план улучшений, который можно внедрять по шагам.</p>
+          </div>
+        </div>
+
+        <div class="grid-3">
+          <div class="item">
+            <h3>Карта проблем и приоритетов</h3>
+            <p>Что критично исправить сейчас, что тестировать, что масштабировать. С объяснением почему.</p>
+          </div>
+          <div class="item">
+            <h3>Список гипотез</h3>
+            <p>Идеи по структуре, аудиториям, офферам, креативам, ретаргетингу и целям - без "магии", по логике данных.</p>
+          </div>
+          <div class="item">
+            <h3>Рекомендации по связке</h3>
+            <p>Если слабое место в посадочной - укажем где именно, и что сделать, чтобы конверсия росла.</p>
+          </div>
+        </div>
+
+        <div style="margin-top:12px" class="cta" id="calc">
+          <div>
+            <h3>Узнать стоимость аудита под вашу кампанию</h3>
+            <p>
+              Напишите 2-3 строки: ниша, регион, бюджет в месяц, что считаете заявкой (форма/звонок/сообщение) - и мы ответим, какой формат аудита подойдет.
+            </p>
+          </div>
+          <div class="btns">
+            <a class="btn btn--primary" href="https://t.me/username" target="_blank" rel="noopener">Telegram</a>
+            <a class="btn" href="https://wa.me/70000000000" target="_blank" rel="noopener">WhatsApp</a>
+            <a class="btn" href="#" target="_blank" rel="noopener">Max</a>
+            <a class="btn btn--ghost" href="tel:+70000000000">Позвонить</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TYPICAL MISTAKES -->
+    <section id="mistakes">
+      <div class="container">
+        <div class="section__head">
+          <div>
+            <h2>Типовые ошибки, которые "съедают" бюджет</h2>
+            <p class="sub">По опыту - это встречается чаще всего. В аудите мы проверяем это в первую очередь.</p>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="item">
+            <h3>Трафик не тот</h3>
+            <ul class="list">
+              <li>нет нормального минус-листа и чистки запросов</li>
+              <li>слишком широкие условия показа</li>
+              <li>смешали разные интенты в одной группе</li>
+              <li>не учтены регионы, расписание, устройства</li>
+            </ul>
+          </div>
+          <div class="item">
+            <h3>Контроль "сломался"</h3>
+            <ul class="list">
+              <li>цели настроены формально или не настроены</li>
+              <li>не хватает данных для обучения стратегий</li>
+              <li>UTM разметка хаотичная - отчеты не сходятся</li>
+              <li>нет разделения по KPI: лиды, продажи, валовая прибыль</li>
+            </ul>
+          </div>
+          <div class="item">
+            <h3>Креативы и офферы слабые</h3>
+            <ul class="list">
+              <li>объявления не соответствуют странице</li>
+              <li>нет сильного УТП и конкретики</li>
+              <li>нет тестов вариантов</li>
+              <li>не используются расширения и быстрые ссылки</li>
+            </ul>
+          </div>
+          <div class="item">
+            <h3>Посадочная не конвертит</h3>
+            <ul class="list">
+              <li>сайт медленный, особенно на мобильных</li>
+              <li>непонятный путь до заявки</li>
+              <li>мало доверия: кейсы, отзывы, гарантии</li>
+              <li>форма захвата неудобная или "пугает"</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHAT AFFECTS COST -->
+    <section id="price">
+      <div class="container">
+        <div class="section__head">
+          <div>
+            <h2>Что влияет на стоимость аудита</h2>
+            <p class="sub">Цена зависит не от "хотелок", а от объема данных и глубины, которая нужна именно вам.</p>
+          </div>
+        </div>
+
+        <div class="grid-3">
+          <div class="item">
+            <h3>Объем кампаний</h3>
+            <p>Сколько кампаний, групп, регионов, целей, фидов и сегментов. Интернет-магазин и локальная услуга - разная сложность.</p>
+          </div>
+          <div class="item">
+            <h3>Требуемая глубина</h3>
+            <p>Можно сделать быстрый аудит "снять симптом", а можно разбирать связку с посадочной, аналитикой и воронкой.</p>
+          </div>
+          <div class="item">
+            <h3>Доступность данных</h3>
+            <p>Если Метрика и цели настроены - быстрее и точнее. Если нет - сначала наводим порядок в измерениях.</p>
+          </div>
+        </div>
+
+        <div style="margin-top:12px" class="note">
+          Часто аудит логично продолжить в <a class="links" href="/yandex-direct/vedenie/" style="color:var(--accent2)">ведение рекламы</a>:
+          внедряем рекомендации, запускаем тесты, фиксируем результат и масштабируем работающие связки.
+        </div>
+      </div>
+    </section>
+
+    <!-- MINI NAV FOR THE SECTION -->
+    <section id="nav-yad">
+      <div class="container">
+        <div class="section__head">
+          <div>
+            <h2>Контекстная реклама - раздел</h2>
+            <p class="sub">Если вам нужна не проверка, а работа "под ключ" - переходите на подходящую страницу.</p>
+          </div>
+        </div>
+
+        <div class="grid-3">
+          <div class="item">
+            <h3><a class="links" href="/yandex-direct/">Настройка Яндекс Директ</a></h3>
+            <p>Создаем кампании с нуля: структура, семантика, объявления, цели, аналитика. Подготовим запуск и первые тесты.</p>
+          </div>
+          <div class="item">
+            <h3><a class="links" href="/yandex-direct/vedenie/">Ведение рекламы</a></h3>
+            <p>Еженедельная работа по улучшениям: тесты, чистка запросов, ставки, аудитории, отчеты и план действий.</p>
+          </div>
+          <div class="item">
+            <h3><a class="links" href="/yandex-direct/arenda/">Готовые кампании</a></h3>
+            <p>Быстрый старт: готовые связки, адаптация под нишу, запуск без долгой настройки. Удобно для тестов.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq">
+      <div class="container">
+        <div class="section__head">
+          <div>
+            <h2>FAQ - частые вопросы</h2>
+            <p class="sub">12 вопросов, которые обычно задают перед аудитом. Если вашего нет - пишите, добавим.</p>
+          </div>
+        </div>
+
+        <div class="faq" role="region" aria-label="Вопросы и ответы">
+          <details>
+            <summary><span>Сколько времени занимает аудит?</span><em>+</em></summary>
+            <div class="ans">Обычно 2-5 рабочих дней. Зависит от объема кампаний и доступности аналитики. Если данных мало или нет целей - сначала наводим порядок в измерениях.</div>
+          </details>
+          <details>
+            <summary><span>Что нужно от меня, чтобы начать?</span><em>+</em></summary>
+            <div class="ans">Гостевой доступ к Директу, доступ к Метрике, список услуг/товаров, регионы, средний чек и цель рекламы. Плюс коротко: что считаете заявкой и что считаете продажей.</div>
+          </details>
+          <details>
+            <summary><span>Если кампанию настраивало агентство, аудит имеет смысл?</span><em>+</em></summary>
+            <div class="ans">Да. Часто кампании держатся "на рутине" без тестов и развития. Мы ищем точки роста, которые обычно не делают в потоке: офферы, сегменты, гипотезы по структуре, связка с посадочной.</div>
+          </details>
+          <details>
+            <summary><span>Вы делаете аудит только Директа или еще и сайта?</span><em>+</em></summary>
+            <div class="ans">Можно оба варианта. Если рекламный трафик идет на сайт, часто выгодно проверить связку: релевантность, скорость, путь до заявки, мобильную версию. Это может снизить CPA сильнее, чем правки в ставках.</div>
+          </details>
+          <details>
+            <summary><span>Сможете сказать, почему нет заявок?</span><em>+</em></summary>
+            <div class="ans">Да, в большинстве случаев причина видна: не те запросы, слабые объявления, неверные цели, "обучение" не идет, посадочная не конвертит. В итоге вы получаете конкретный план, что исправить.</div>
+          </details>
+          <details>
+            <summary><span>Вы даете рекомендации или внедряете тоже?</span><em>+</em></summary>
+            <div class="ans">Аудит - это рекомендации и план. Если хотите, можем внедрить в формате <a class="links" href="/yandex-direct/vedenie/">ведения рекламы</a> или комплексно с сайтом и аналитикой.</div>
+          </details>
+          <details>
+            <summary><span>Можно сделать аудит без доступа к кабинету?</span><em>+</em></summary>
+            <div class="ans">Можно, но точность ниже. Идеально - гостевой доступ. Тогда видно структуру, статистику, запросы, ставки, корректировки, цели и качество данных.</div>
+          </details>
+          <details>
+            <summary><span>Что если Метрика не настроена?</span><em>+</em></summary>
+            <div class="ans">Тогда часть аудита будет про измерения: настроим счетчик, цели и события. Без этого оптимизация превращается в угадайку.</div>
+          </details>
+          <details>
+            <summary><span>В каких нишах вы работаете?</span><em>+</em></summary>
+            <div class="ans">Разные ниши. Мы опираемся на данные и логику воронки. В сложных и конкурентных тематиках важно не только "крутить рекламу", а выстроить связку с посадочной и обработкой заявок.</div>
+          </details>
+          <details>
+            <summary><span>Какой формат отчета вы даете?</span><em>+</em></summary>
+            <div class="ans">Структурированный документ с приоритетами: критические ошибки, рекомендации, гипотезы, план тестов. Можно добавить короткий созвон-разбор.</div>
+          </details>
+          <details>
+            <summary><span>Вы сможете подготовить новые объявления и офферы?</span><em>+</em></summary>
+            <div class="ans">Да. В рамках аудита мы описываем, какие офферы и формулировки тестировать. Если нужно - делаем внедрение в рамках ведения.</div>
+          </details>
+          <details>
+            <summary><span>Если нужен комплекс: сайт + реклама + CRM?</span><em>+</em></summary>
+            <div class="ans">Это наш сильный формат: <a class="links" href="/sozdanie-saytov/">разработка сайта</a>, <a class="links" href="/yandex-direct/">реклама</a> и <a class="links" href="/crm-integracii/">CRM и интеграции</a> в одной связке. Тогда результат измеряется, а не ощущается.</div>
+          </details>
+        </div>
+
+        <div style="margin-top:12px" class="cta">
+          <div>
+            <h3>Хотите быстро понять, есть ли смысл в аудите?</h3>
+            <p>Пришлите кратко: ниша, бюджет, регион, цель. Ответим, что проверим в первую очередь и какой формат подойдет.</p>
+          </div>
+          <div class="btns">
+            <a class="btn btn--primary" href="https://t.me/username" target="_blank" rel="noopener">Telegram</a>
+            <a class="btn" href="https://wa.me/70000000000" target="_blank" rel="noopener">WhatsApp</a>
+            <a class="btn" href="#" target="_blank" rel="noopener">Max</a>
+            <a class="btn btn--ghost" href="tel:+70000000000">Позвонить</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="grid-2">
+        <div>
+          <div class="brand"><span class="logo" aria-hidden="true"></span> Venner Digital</div>
+          <p class="mini muted" style="margin-top:8px">
+            Страница: /yandex-direct/audit/ (прототип). Внутренние ссылки - анкорные, под будущую перелинковку.
+          </p>
+        </div>
+        <div class="links">
+          <p class="mini muted" style="margin:0 0 8px">Быстрые ссылки по теме:</p>
+          <a href="/yandex-direct/">Настройка Яндекс Директ</a><br>
+          <a href="/yandex-direct/vedenie/">Ведение рекламы</a><br>
+          <a href="/yandex-direct/arenda/">Готовые кампании</a><br>
+          <a href="/sozdanie-saytov/">Разработка сайта</a><br>
+          <a href="/seo/">SEO</a><br>
+          <a href="/crm-integracii/">CRM и интеграции</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // UI: переключатель "+" в FAQ
+    (function(){
+      const items = document.querySelectorAll('.faq details');
+      items.forEach(d => {
+        const em = d.querySelector('summary em');
+        const sync = () => em.textContent = d.open ? "-" : "+";
+        sync();
+        d.addEventListener('toggle', sync);
+      });
+    })();
+  </script>
+</body>
+</html>

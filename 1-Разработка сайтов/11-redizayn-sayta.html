@@ -1,0 +1,741 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=1200" />
+  <title>Редизайн сайта под ключ | Venner Digital</title>
+  <meta name="description" content="Редизайн сайта - это не просто новый внешний вид. Обновляем дизайн, UX, контент и техническую часть (WordPress, OpenCart, 1С-Битрикс), сохраняем SEO, ускоряем загрузку, улучшаем конверсию." />
+
+  <!-- Open Graph (в реальном проекте подставить актуальные значения) -->
+  <meta property="og:title" content="Редизайн сайта под ключ | Venner Digital" />
+  <meta property="og:description" content="Современный дизайн, рост конверсии, скорость, обновление CMS и сохранение SEO-позиций. Редизайн как системная модернизация." />
+  <meta property="og:type" content="website" />
+
+  <style>
+    :root{
+      --bg:#0b1220;
+      --bg2:#0f1930;
+      --card:#111c33;
+      --card2:#0f1a30;
+      --text:#e8eefc;
+      --muted:#a8b4d8;
+      --line:rgba(255,255,255,.08);
+      --accent:#46e6c2;
+      --accent2:#6aa8ff;
+      --warn:#ffb14a;
+      --danger:#ff5c7a;
+      --btn:#1b2a4e;
+      --shadow: 0 18px 60px rgba(0,0,0,.45);
+      --r:22px;
+      --r2:16px;
+      --maxw:1120px;
+      --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:var(--font);
+      background: radial-gradient(1200px 700px at 20% 0%, rgba(70,230,194,.10), transparent 55%),
+                  radial-gradient(1200px 700px at 90% 10%, rgba(106,168,255,.12), transparent 60%),
+                  linear-gradient(180deg, var(--bg), #070b14 80%);
+      color:var(--text);
+    }
+    a{color:var(--accent); text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{width:var(--maxw); margin:0 auto; padding:28px 18px 80px}
+    .topbar{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px 18px; border:1px solid var(--line); background:rgba(17,28,51,.55);
+      border-radius:var(--r); backdrop-filter: blur(8px);
+      box-shadow: var(--shadow);
+    }
+    .brand{display:flex; gap:12px; align-items:center}
+    .logo{
+      width:38px; height:38px; border-radius:14px;
+      background: linear-gradient(135deg, rgba(70,230,194,.95), rgba(106,168,255,.95));
+      box-shadow: 0 12px 30px rgba(70,230,194,.18);
+    }
+    .brand b{letter-spacing:.2px}
+    .nav{display:flex; gap:14px; align-items:center; color:var(--muted); font-size:14px}
+    .nav a{color:var(--muted)}
+    .nav a:hover{color:var(--text); text-decoration:none}
+    .contacts{display:flex; gap:10px; align-items:center}
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:10px 12px; border-radius:999px;
+      border:1px solid var(--line);
+      background:rgba(15,25,48,.55);
+      color:var(--muted);
+      font-size:13px;
+    }
+    .icon{
+      width:18px; height:18px; border-radius:6px;
+      background:rgba(255,255,255,.08);
+      display:inline-block;
+    }
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:12px 16px; border-radius:14px;
+      border:1px solid rgba(70,230,194,.28);
+      background: linear-gradient(180deg, rgba(70,230,194,.18), rgba(70,230,194,.08));
+      color:var(--text); font-weight:700; font-size:14px;
+      box-shadow: 0 16px 40px rgba(70,230,194,.10);
+      cursor:pointer;
+    }
+    .btn.secondary{
+      border:1px solid rgba(106,168,255,.26);
+      background: linear-gradient(180deg, rgba(106,168,255,.18), rgba(106,168,255,.08));
+      box-shadow: 0 16px 40px rgba(106,168,255,.10);
+    }
+    .btn.ghost{
+      border:1px solid var(--line);
+      background:rgba(15,25,48,.35);
+      box-shadow:none;
+      color:var(--muted);
+      font-weight:600;
+    }
+    .btn:hover{filter:brightness(1.06)}
+    .hero{
+      margin-top:18px;
+      display:grid; grid-template-columns: 1.2fr .8fr; gap:16px;
+      align-items:stretch;
+    }
+    .card{
+      border:1px solid var(--line);
+      border-radius:var(--r);
+      background: linear-gradient(180deg, rgba(17,28,51,.72), rgba(15,26,48,.62));
+      box-shadow: var(--shadow);
+      padding:22px;
+    }
+    .crumbs{color:var(--muted); font-size:13px; margin-bottom:10px}
+    .crumbs a{color:var(--muted)}
+    h1{margin:0 0 10px; font-size:42px; line-height:1.08}
+    .lead{color:var(--muted); font-size:16px; line-height:1.55; margin:0 0 16px}
+    .badges{display:flex; flex-wrap:wrap; gap:10px; margin:14px 0 18px}
+    .badge{
+      padding:10px 12px; border-radius:999px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.04);
+      color:var(--muted);
+      font-size:13px;
+    }
+    .badge b{color:var(--text)}
+    .ctaRow{display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top:10px}
+    .msgr{display:flex; gap:10px; flex-wrap:wrap}
+    .msgr a{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:10px 12px; border-radius:14px;
+      border:1px solid var(--line);
+      background:rgba(15,25,48,.35);
+      color:var(--muted);
+      font-size:13px;
+    }
+    .msgr a:hover{color:var(--text); text-decoration:none; border-color:rgba(255,255,255,.16)}
+    .heroSide h3{margin:0 0 10px; font-size:18px}
+    .list{margin:0; padding:0; list-style:none; display:grid; gap:10px}
+    .li{
+      padding:12px 12px; border-radius:16px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.45;
+    }
+    .li b{color:var(--text)}
+    .section{margin-top:18px}
+    .sectionHeader{
+      display:flex; align-items:flex-end; justify-content:space-between; gap:12px;
+      margin:22px 0 12px;
+    }
+    .sectionHeader h2{margin:0; font-size:26px}
+    .sectionHeader p{margin:0; color:var(--muted); font-size:14px}
+    .grid3{display:grid; grid-template-columns: repeat(3, 1fr); gap:12px}
+    .grid2{display:grid; grid-template-columns: repeat(2, 1fr); gap:12px}
+    .mini{
+      padding:18px; border-radius:var(--r);
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+    }
+    .mini h3{margin:0 0 8px; font-size:18px}
+    .mini p{margin:0; color:var(--muted); line-height:1.55; font-size:14px}
+    .kpi{
+      display:flex; gap:10px; flex-wrap:wrap; margin-top:12px
+    }
+    .kpi .badge{background:rgba(70,230,194,.06); border-color:rgba(70,230,194,.16); color:var(--muted)}
+    .split{
+      display:grid; grid-template-columns: 1fr 1fr; gap:12px;
+      align-items:stretch;
+    }
+    .note{
+      padding:14px 16px; border-radius:18px;
+      border:1px dashed rgba(255,255,255,.18);
+      background:rgba(255,255,255,.03);
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.55;
+    }
+    .note b{color:var(--text)}
+    .steps{display:grid; gap:10px}
+    .step{
+      display:grid; grid-template-columns: 42px 1fr; gap:12px;
+      padding:14px 14px;
+      border-radius:18px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+    }
+    .num{
+      width:42px; height:42px; border-radius:16px;
+      display:flex; align-items:center; justify-content:center;
+      background:rgba(106,168,255,.12);
+      border:1px solid rgba(106,168,255,.18);
+      color:var(--text); font-weight:800;
+    }
+    .step b{display:block; margin-bottom:4px}
+    .step span{color:var(--muted); font-size:14px; line-height:1.5}
+    .packages{display:grid; grid-template-columns: repeat(3, 1fr); gap:12px}
+    .pack{
+      padding:18px; border-radius:var(--r);
+      border:1px solid var(--line);
+      background: linear-gradient(180deg, rgba(17,28,51,.62), rgba(15,26,48,.52));
+    }
+    .pack h3{margin:0 0 6px}
+    .pack .price{color:var(--muted); font-size:13px; margin-bottom:10px}
+    .pack ul{margin:0; padding:0; list-style:none; display:grid; gap:8px}
+    .pack li{color:var(--muted); font-size:14px; line-height:1.45}
+    .pack li b{color:var(--text)}
+    .pack .ctaRow{margin-top:14px}
+    .faq{display:grid; gap:10px}
+    details{
+      border:1px solid var(--line);
+      border-radius:18px;
+      background:rgba(255,255,255,.03);
+      padding:12px 14px;
+    }
+    summary{
+      cursor:pointer;
+      font-weight:700;
+      list-style:none;
+      outline:none;
+    }
+    summary::-webkit-details-marker{display:none}
+    details p{color:var(--muted); margin:10px 0 0; line-height:1.6; font-size:14px}
+    .ctaBlock{
+      padding:20px;
+      border-radius:var(--r);
+      border:1px solid rgba(70,230,194,.18);
+      background: radial-gradient(700px 260px at 20% 0%, rgba(70,230,194,.16), transparent 60%),
+                  radial-gradient(700px 260px at 80% 0%, rgba(106,168,255,.18), transparent 60%),
+                  rgba(15,26,48,.55);
+      box-shadow: var(--shadow);
+    }
+    .ctaBlock h2{margin:0 0 8px}
+    .ctaBlock p{margin:0; color:var(--muted); line-height:1.55}
+    .footNote{
+      margin-top:16px; color:var(--muted); font-size:12px; opacity:.9
+    }
+    .hr{height:1px; background:var(--line); margin:16px 0}
+    .muted{color:var(--muted)}
+    .small{font-size:13px}
+    code.k{background:rgba(255,255,255,.06); border:1px solid var(--line); padding:2px 6px; border-radius:8px; color:var(--text)}
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+
+    <!-- Header -->
+    <div class="topbar">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <b>Venner Digital</b><div class="small muted">Комплексный интернет-маркетинг</div>
+        </div>
+      </div>
+
+      <div class="nav">
+        <a href="/sozdanie-saytov/">Разработка сайтов</a>
+        <a href="/yandex-direct/">Яндекс.Директ</a>
+        <a href="/seo/">SEO</a>
+        <a href="/crm-integracii/">Интеграции</a>
+        <a href="/kontakty/">Контакты</a>
+      </div>
+
+      <div class="contacts">
+        <span class="pill"><span class="icon" aria-hidden="true"></span>8 (952) 807-06-01</span>
+        <a class="btn ghost" href="#calc">Рассчитать стоимость</a>
+      </div>
+    </div>
+
+    <!-- Hero -->
+    <div class="hero">
+      <div class="card">
+        <div class="crumbs">
+          <a href="/">Главная</a> / <a href="/sozdanie-saytov/">Разработка сайтов</a> / Редизайн сайта
+        </div>
+
+        <h1>Редизайн сайта - это не просто "новая шкурка"</h1>
+        <p class="lead">
+          В 2026 редизайн - это системная модернизация: дизайн, UX, контент, скорость, безопасность, обновление CMS и сохранение SEO.
+          Иначе получится красиво, но мимо задач (и бюджета).
+        </p>
+
+        <div class="badges">
+          <span class="badge"><b>13+ лет</b> в маркетинге (с 2013)</span>
+          <span class="badge"><b>Конверсия</b> и UX, а не "просто дизайн"</span>
+          <span class="badge"><b>Сохраняем SEO</b> и настраиваем 301</span>
+          <span class="badge"><b>Обновляем CMS</b> и закрываем техдолг</span>
+          <span class="badge"><b>Смета в Excel</b> по этапам</span>
+        </div>
+
+        <div class="ctaRow" id="calc">
+          <a class="btn" href="/kontakty/">Рассчитать стоимость</a>
+          <a class="btn secondary" href="tel:+79528070601">Обсудить по телефону</a>
+
+          <div class="msgr" aria-label="Мессенджеры">
+            <a href="/kontakty/?from=wa"><span class="icon" aria-hidden="true"></span>WhatsApp</a>
+            <a href="/kontakty/?from=tg"><span class="icon" aria-hidden="true"></span>Telegram</a>
+            <a href="/kontakty/?from=max"><span class="icon" aria-hidden="true"></span>Max</a>
+          </div>
+        </div>
+
+        <div class="hr"></div>
+
+        <div class="note">
+          Редизайн чаще всего связан с этапами <a href="/sozdanie-saytov/prototipirovanie/">прототипирования</a> - <a href="/sozdanie-saytov/web-dizayn/">веб-дизайна</a> - <a href="/sozdanie-saytov/verstka/">верстки</a>.
+          Если сделать "картинку" без логики и техосновы, потом придется переделывать и платить дважды.
+        </div>
+      </div>
+
+      <div class="card heroSide">
+        <h3>Быстрый чек - когда редизайн нужен</h3>
+        <ul class="list">
+          <li class="li"><b>Сайту 3-5 лет</b> - UX устарел, доверие падает, заявки "проседают".</li>
+          <li class="li"><b>Трафик есть, заявок мало</b> - проблема чаще в пути клиента и оффере, а не в "кнопке другого цвета".</li>
+          <li class="li"><b>Техдолг</b> - старые версии WordPress/плагинов/PHP, уязвимости, ошибки, тормоза.</li>
+          <li class="li"><b>Смена позиционирования</b> - обновили продукт, цены, сегмент, а сайт остался в прошлом.</li>
+          <li class="li"><b>Запускаете рекламу</b> - на старый сайт бюджет уходит быстрее, чем появляются заявки.</li>
+        </ul>
+
+        <div class="kpi">
+          <span class="badge">Mobile First</span>
+          <span class="badge">Core Web Vitals</span>
+          <span class="badge">UX</span>
+          <span class="badge">SEO</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section: value -->
+    <div class="section">
+      <div class="sectionHeader">
+        <h2>Что дает редизайн</h2>
+        <p>Главная ценность - рост конверсии и снижение стоимости заявки</p>
+      </div>
+
+      <div class="grid3">
+        <div class="mini">
+          <h3>Конверсия</h3>
+          <p>
+            Упрощаем путь клиента: меньше лишних шагов, яснее оффер, заметнее CTA.
+            Дизайн становится инструментом продаж, а не просто витриной.
+          </p>
+        </div>
+        <div class="mini">
+          <h3>Доверие</h3>
+          <p>
+            Современная типографика, аккуратные блоки, логичная структура, реальные примеры работ.
+            Сайт выглядит как компания, которой можно платить деньги.
+          </p>
+        </div>
+        <div class="mini">
+          <h3>Скорость и стабильность</h3>
+          <p>
+            Оптимизируем загрузку, изображения (WebP/AVIF), скрипты, кеширование.
+            Быстрый сайт - меньше отказов, лучше поведение, проще продвижение.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid3" style="margin-top:12px;">
+        <div class="mini">
+          <h3>SEO без потерь</h3>
+          <p>
+            Сохраняем структуру URL или настраиваем <code class="k">301</code>.
+            Следим за индексацией, каноникалами, картой сайта, чтобы позиции не "вылетели".
+          </p>
+        </div>
+        <div class="mini">
+          <h3>Техническая модернизация</h3>
+          <p>
+            Обновляем CMS, плагины, модули, PHP, закрываем уязвимости.
+            Редизайн - удобный момент навести порядок в техчасти.
+          </p>
+        </div>
+        <div class="mini">
+          <h3>Подготовка к трафику</h3>
+          <p>
+            Настраиваем аналитику, цели и события, чтобы <a href="/yandex-direct/">Яндекс.Директ</a> и <a href="/seo/">SEO</a> работали на цифрах,
+            а не "по ощущениям".
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section: CMS -->
+    <div class="section">
+      <div class="sectionHeader">
+        <h2>Редизайн под разные CMS</h2>
+        <p>Подход зависит от платформы и текущего техсостояния</p>
+      </div>
+
+      <div class="grid3">
+        <div class="mini">
+          <h3>WordPress</h3>
+          <p>
+            Часто проблема не в дизайне, а в хаосе плагинов и старых версиях.
+            Приводим в порядок ядро, плагины, кеш, безопасность, а уже потом "наводим красоту".
+            Если нужен новый сайт на WP - вот страница: <a href="/sozdanie-saytov/wordpress/">сайты на WordPress</a>.
+          </p>
+        </div>
+        <div class="mini">
+          <h3>OpenCart</h3>
+          <p>
+            У магазинов важны скорость, фильтры, карточка товара и оформление заказа.
+            Редизайн делаем так, чтобы не сломать корзину, оплату и доставку.
+            Если планируете новый проект - <a href="/sozdanie-saytov/opencart/">интернет-магазин на OpenCart</a>.
+          </p>
+        </div>
+        <div class="mini">
+          <h3>1С-Битрикс</h3>
+          <p>
+            Часто редизайн - это работа с компонентами, шаблонами и интеграциями.
+            Обновляем, проверяем связки с CRM и учетом.
+            Новый проект на Битрикс: <a href="/sozdanie-saytov/sayt-na-1c-bitrix/">сайт на 1С-Битрикс</a>.
+          </p>
+        </div>
+      </div>
+
+      <div class="note" style="margin-top:12px;">
+        Если сайт самописный и "никто уже не помнит, кто писал" - иногда быстрее и дешевле сделать новую техоснову,
+        чем героически чинить древний код. Мы это честно проговариваем на старте.
+      </div>
+    </div>
+
+    <!-- Section: analytics and content -->
+    <div class="section">
+      <div class="sectionHeader">
+        <h2>Редизайн начинается с анализа, а не с цвета кнопок</h2>
+        <p>Сначала понимаем, где теряются деньги, потом рисуем</p>
+      </div>
+
+      <div class="split">
+        <div class="card">
+          <h3 style="margin:0 0 10px;">Что анализируем</h3>
+          <div class="steps">
+            <div class="step">
+              <div class="num">1</div>
+              <div>
+                <b>Поведение</b>
+                <span>Метрика, карты, вебвизор, события - где клиенты уходят и почему.</span>
+              </div>
+            </div>
+            <div class="step">
+              <div class="num">2</div>
+              <div>
+                <b>Трафик</b>
+                <span>Каналы, запросы, посадочные, качество заявок. Связка с <a href="/yandex-direct/">Директом</a> и <a href="/seo/">SEO</a>.</span>
+              </div>
+            </div>
+            <div class="step">
+              <div class="num">3</div>
+              <div>
+                <b>Структура и оффер</b>
+                <span>Что обещаем, кому, почему мы. Пересобираем смысл, чтобы сайт "собирал" заявки.</span>
+              </div>
+            </div>
+            <div class="step">
+              <div class="num">4</div>
+              <div>
+                <b>Техсостояние</b>
+                <span>Скорость, ошибки, безопасность, версия CMS, плагины, скрипты, сервер/хостинг.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3 style="margin:0 0 10px;">Что часто обновляем вместе с редизайном</h3>
+          <ul class="list">
+            <li class="li"><b>Контент</b> - заголовки, блоки, УТП, кейсы, FAQ, логика экрана.</li>
+            <li class="li"><b>Семантика</b> - если нужно, актуализируем ядро и структуру (подробнее: <a href="/seo/semanticheskoe-yadro/">семантическое ядро</a>).</li>
+            <li class="li"><b>Интеграции</b> - заявки, уведомления, CRM (раздел: <a href="/crm-integracii/">CRM и интеграции</a>).</li>
+            <li class="li"><b>Репутация</b> - отзывы и карточки, если нужно подключаем <a href="/lidogeneraciya/myreviews/">MyReviews</a>.</li>
+            <li class="li"><b>Хостинг</b> - перенос/оптимизация, если сервер реально тормозит (раздел: <a href="/hosting/">хостинг для сайтов</a>).</li>
+          </ul>
+
+          <div class="note" style="margin-top:12px;">
+            Редизайн - отличный момент "вылечить" сайт. Не обещаем магию, обещаем порядок и понятный план работ.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section: process -->
+    <div class="section">
+      <div class="sectionHeader">
+        <h2>Как делаем редизайн</h2>
+        <p>Этапы, которые сохраняют SEO и дают рост конверсии</p>
+      </div>
+
+      <div class="steps">
+        <div class="step">
+          <div class="num">1</div>
+          <div>
+            <b>Аудит и цели</b>
+            <span>Собираем исходные данные, фиксируем KPI, согласуем приоритеты и ограничения.</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="num">2</div>
+          <div>
+            <b>Прототипирование</b>
+            <span>Пересобираем структуру и контент. Это можно заказать отдельно: <a href="/sozdanie-saytov/prototipirovanie/">прототип сайта</a>.</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="num">3</div>
+          <div>
+            <b>Веб-дизайн</b>
+            <span>Рисуем современный UI, учитывая будущую верстку и адаптив. Подробнее: <a href="/sozdanie-saytov/web-dizayn/">веб-дизайн сайта</a>.</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="num">4</div>
+          <div>
+            <b>Верстка и интеграция</b>
+            <span>Адаптив, анимации, формы, метаданные (Open Graph, каноникал), внедрение в CMS. Подробнее: <a href="/sozdanie-saytov/verstka/">верстка сайтов</a>.</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="num">5</div>
+          <div>
+            <b>SEO-сохранение</b>
+            <span>URL и 301, карта сайта, проверка индексации, контроль ошибок. Поддержка: <a href="/seo/optimizaciya-sayta/">SEO-оптимизация</a>.</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="num">6</div>
+          <div>
+            <b>Запуск и улучшения</b>
+            <span>Тестируем на устройствах, подключаем цели, при необходимости запускаем <a href="/yandex-direct/">Яндекс.Директ</a> и докручиваем по данным.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="note" style="margin-top:12px;">
+        Важно: если менять дизайн без учета структуры и SEO, можно "красиво" потерять позиции и заявки.
+        Мы делаем редизайн так, чтобы сайт не пришлось чинить через неделю после запуска.
+      </div>
+    </div>
+
+    <!-- Section: packages -->
+    <div class="section">
+      <div class="sectionHeader">
+        <h2>Форматы работы</h2>
+        <p>Можно как отдельной услугой, можно в составе разработки "под ключ"</p>
+      </div>
+
+      <div class="packages">
+        <div class="pack">
+          <h3>Старт. Редизайн ключевых страниц</h3>
+          <div class="price">Когда нужно быстро обновить внешний вид и оффер без сложных переделок</div>
+          <ul>
+            <li><b>Анализ</b> текущих страниц и проблем конверсии</li>
+            <li><b>Прототип</b> ключевых блоков (по согласованию)</li>
+            <li><b>Дизайн</b> 1-3 страниц (обычно главная + услуга)</li>
+            <li><b>Адаптив</b> и базовая подготовка к верстке</li>
+          </ul>
+          <div class="ctaRow">
+            <a class="btn ghost" href="/kontakty/">Узнать предварительную стоимость</a>
+          </div>
+        </div>
+
+        <div class="pack" style="border-color:rgba(70,230,194,.20);">
+          <h3>Бизнес. Редизайн + конверсия + техчасть</h3>
+          <div class="price">Когда важны заявки, скорость, порядок в CMS и сохранение SEO</div>
+          <ul>
+            <li><b>Контент</b> и структура - пересборка под сегменты</li>
+            <li><b>UI/UX</b> дизайн по сетке, логика CTA</li>
+            <li><b>Верстка</b> адаптив + анимации + формы</li>
+            <li><b>Обновления</b> CMS/плагинов/модулей, базовая безопасность</li>
+            <li><b>SEO</b> сохранение URL или 301, технастройки</li>
+          </ul>
+          <div class="ctaRow">
+            <a class="btn" href="/kontakty/">Рассчитать стоимость</a>
+          </div>
+        </div>
+
+        <div class="pack">
+          <h3>Перфоманс. Редизайн + трафик и рост</h3>
+          <div class="price">Когда редизайн - часть системы: сайт + аналитика + реклама + улучшения</div>
+          <ul>
+            <li><b>Аналитика</b> цели, события, отчеты</li>
+            <li><b>Реклама</b> и сопровождение: <a href="/yandex-direct/">Яндекс.Директ</a></li>
+            <li><b>Тесты</b> офферов и блоков, итерации</li>
+            <li><b>CRM</b> интеграции: <a href="/crm-integracii/">интеграции</a> и воронки</li>
+            <li><b>Контроль</b> качества заявок и доработка контента</li>
+          </ul>
+          <div class="ctaRow">
+            <a class="btn secondary" href="/kontakty/">Обсудить задачу</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ 1 -->
+    <div class="section">
+      <div class="sectionHeader">
+        <h2>FAQ - по делу</h2>
+        <p>Короткие ответы на частые вопросы</p>
+      </div>
+
+      <div class="faq">
+        <details>
+          <summary>Редизайн - это только дизайн или еще и техническая часть?</summary>
+          <p>
+            На практике почти всегда "еще и техчасть". Иначе вы получаете новый вид, но старые ошибки, тормоза и уязвимости.
+            Мы обновляем CMS и приводим проект в рабочее состояние: скорость, стабильность, безопасность, интеграции.
+          </p>
+        </details>
+
+        <details>
+          <summary>Можно ли сделать редизайн и не потерять SEO-позиции?</summary>
+          <p>
+            Да, если делать правильно: сохранять URL или настраивать 301, следить за индексацией, каноникалами, картой сайта,
+            не ломать структуру страниц. Это отдельная важная часть работ - см. <a href="/seo/optimizaciya-sayta/">SEO-оптимизацию</a>.
+          </p>
+        </details>
+
+        <details>
+          <summary>Что важнее - красота или конверсия?</summary>
+          <p>
+            Конверсия. Красота нужна, но как средство: доверие, понятность, правильная иерархия, скорость принятия решения.
+            Сайт должен продавать, а не участвовать в конкурсе "самый красивый макет".
+          </p>
+        </details>
+
+        <details>
+          <summary>Редизайн можно делать частями?</summary>
+          <p>
+            Да. Частый вариант - начать с главной и 1-2 ключевых услуг, затем расширять. Главное - чтобы изменения были в единой логике.
+          </p>
+        </details>
+      </div>
+    </div>
+
+    <!-- CTA Block -->
+    <div class="section">
+      <div class="ctaBlock">
+        <h2>Подскажем, что именно нужно вашему сайту</h2>
+        <p>
+          Иногда редизайн - это 2-3 страницы и порядок в контенте. Иногда - глубокая модернизация с обновлением CMS и сохранением SEO.
+          Скажете, что за сайт и какая задача - предложим нормальный план, без лишних движений.
+        </p>
+        <div class="ctaRow" style="margin-top:14px;">
+          <a class="btn" href="/kontakty/">Рассчитать стоимость</a>
+          <a class="btn secondary" href="tel:+79528070601">Обсудить по телефону</a>
+
+          <div class="msgr">
+            <a href="/kontakty/?from=wa"><span class="icon" aria-hidden="true"></span>WhatsApp</a>
+            <a href="/kontakty/?from=tg"><span class="icon" aria-hidden="true"></span>Telegram</a>
+            <a href="/kontakty/?from=max"><span class="icon" aria-hidden="true"></span>Max</a>
+          </div>
+        </div>
+        <div class="footNote">
+          Под редизайн часто подтягиваем связанные услуги: <a href="/seo/">SEO</a>, <a href="/yandex-direct/">Яндекс.Директ</a>, <a href="/crm-integracii/">CRM и интеграции</a>, <a href="/hosting/">хостинг</a>, <a href="/lidogeneraciya/myreviews/">MyReviews</a>.
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ 2 -->
+    <div class="section">
+      <div class="sectionHeader">
+        <h2>FAQ - экспертно</h2>
+        <p>Чтобы заранее снять вопросы и риски</p>
+      </div>
+
+      <div class="faq">
+        <details>
+          <summary>Почему редизайн в 2026 связан со скоростью и Core Web Vitals?</summary>
+          <p>
+            Потому что 80%+ трафика в большинстве ниш - мобильный, а медленные страницы теряют клики и заявки.
+            Плюс скорость влияет на поведение, а поведение - на эффективность SEO и рекламы.
+          </p>
+        </details>
+
+        <details>
+          <summary>Что вы делаете с метаданными и Open Graph?</summary>
+          <p>
+            В процессе верстки и интеграции в CMS настраиваем технические метаданные:
+            title/description, viewport, alt, Open Graph, каноникал, robots, sitemap.
+            Это не "красота", это гигиена сайта.
+          </p>
+        </details>
+
+        <details>
+          <summary>Редизайн - это всегда новая CMS?</summary>
+          <p>
+            Нет. Часто мы сохраняем текущую платформу и просто обновляем и оптимизируем ее.
+            Переезд имеет смысл, если текущий стек устарел или поддержка обходится слишком дорого.
+          </p>
+        </details>
+
+        <details>
+          <summary>Как вы обновляете WordPress/OpenCart/Битрикс, чтобы ничего не сломалось?</summary>
+          <p>
+            По чеклисту: бэкапы, тестовый контур, поэтапные обновления, проверка форм, корзины, интеграций,
+            затем запуск и мониторинг. Если сайт критичный - делаем максимально аккуратно.
+          </p>
+        </details>
+
+        <details>
+          <summary>Что важно сделать, чтобы сохранить SEO при редизайне?</summary>
+          <p>
+            1) сохранить URL или 301, 2) не потерять контент и структуру страниц, 3) правильно закрыть дубли,
+            4) проверить индексацию и ошибки, 5) обновить карту сайта. Если нужно - подключаем <a href="/seo/">SEO</a> как отдельный этап.
+          </p>
+        </details>
+
+        <details>
+          <summary>Редизайн помогает рекламе?</summary>
+          <p>
+            Да. Рекламный трафик нетерпелив: если страница грузится долго или оффер не считывается за 3 секунды, клики сгорают.
+            Поэтому редизайн часто делаем вместе с подготовкой к <a href="/yandex-direct/">Яндекс.Директ</a> и настройкой аналитики.
+          </p>
+        </details>
+
+        <details>
+          <summary>Можно ли сделать редизайн только ради "современного вида"?</summary>
+          <p>
+            Можно, но это самый слабый сценарий. Обычно вместе с внешним видом стоит обновить контент и техоснову,
+            иначе вы получаете новый фасад на старом фундаменте.
+          </p>
+        </details>
+      </div>
+    </div>
+
+    <!-- Skvoznie blocks placeholder -->
+    <div class="section">
+      <div class="card">
+        <div class="muted small">
+          Сквозные блоки далее (заглушка одной строкой):
+          Дополнительные услуги - Наши работы - С чего начать - Контакты
+        </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>
+

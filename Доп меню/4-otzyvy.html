@@ -1,0 +1,533 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Отзывы | Venner Digital</title>
+  <meta name="description" content="Отзывы о Venner Digital на Яндекс.Картах, Google Maps, 2GIS, Flamp, Zoon, Отзовик, Yell и ВКонтакте. Все отзывы в одном месте - удобно читать и проверять." />
+
+  <style>
+    :root{
+      --bg: #f6fffd;
+      --card: #ffffff;
+      --text: #0f172a;
+      --muted: rgba(15,23,42,.72);
+      --line: rgba(15,23,42,.10);
+      --shadow: 0 18px 40px rgba(2, 12, 27, .10);
+      --radius: 18px;
+
+      --mint: #2ef2c8;
+      --aqua: #16c7ff;
+      --lime: #b7ff3c;
+
+      --soft: rgba(15,23,42,.06);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(900px 500px at 12% 10%, rgba(46,242,200,.35), transparent 60%),
+        radial-gradient(900px 500px at 85% 18%, rgba(22,199,255,.28), transparent 55%),
+        radial-gradient(900px 500px at 70% 80%, rgba(183,255,60,.18), transparent 55%),
+        linear-gradient(180deg, #f2fffd 0%, #ffffff 55%, #f7fffe 100%);
+      overflow-x:hidden;
+    }
+    a{color:inherit; text-decoration:none}
+    .wrap{max-width:1160px; margin:0 auto; padding:0 18px}
+    .section{padding:44px 0}
+    .grid{display:grid; gap:16px}
+    .two{grid-template-columns: 1.1fr .9fr}
+    .three{grid-template-columns: repeat(3, 1fr)}
+    .four{grid-template-columns: repeat(4, 1fr)}
+    @media (max-width: 980px){
+      .two{grid-template-columns:1fr}
+      .three{grid-template-columns:1fr}
+      .four{grid-template-columns:1fr}
+    }
+
+    .hero{padding:44px 0 18px}
+    .heroBox{
+      border-radius: 26px;
+      padding: 26px;
+      position:relative;
+      overflow:hidden;
+      background:
+        radial-gradient(1200px 600px at 10% 0%, rgba(46,242,200,.55), transparent 60%),
+        radial-gradient(900px 500px at 95% 15%, rgba(22,199,255,.40), transparent 55%),
+        radial-gradient(900px 500px at 80% 90%, rgba(183,255,60,.22), transparent 55%),
+        linear-gradient(135deg, rgba(255,255,255,.85), rgba(255,255,255,.55));
+      border:1px solid rgba(15,23,42,.10);
+      box-shadow: var(--shadow);
+    }
+    .kicker{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      background: rgba(255,255,255,.65);
+      border:1px solid rgba(15,23,42,.10);
+      font-weight:800;
+      font-size:13px;
+      color:rgba(15,23,42,.86);
+      backdrop-filter: blur(10px);
+    }
+    .h1{
+      margin:12px 0 10px;
+      font-size: 44px;
+      line-height: 1.06;
+      letter-spacing: -.02em;
+    }
+    @media (max-width: 560px){
+      .h1{font-size: 34px}
+    }
+    .lead{
+      margin:0 0 14px;
+      color:var(--muted);
+      font-size:16px;
+      line-height:1.65;
+      max-width: 82ch;
+    }
+
+    .chips{display:flex; flex-wrap:wrap; gap:10px; margin-top:12px}
+    .chip{
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+      padding:9px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.55);
+      border:1px solid rgba(15,23,42,.10);
+      font-weight: 750;
+      color: rgba(15,23,42,.86);
+      font-size:13px;
+      backdrop-filter: blur(10px);
+    }
+    .dot{
+      width:10px; height:10px; border-radius:99px;
+      background: linear-gradient(135deg, var(--mint), var(--aqua));
+      box-shadow: 0 0 0 3px rgba(46,242,200,.18);
+    }
+
+    .navRow{margin-top:16px; display:flex; flex-wrap:wrap; gap:10px}
+    .pillLink{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:10px 12px; border-radius:999px;
+      border:1px solid rgba(15,23,42,.12);
+      background: rgba(255,255,255,.70);
+      box-shadow: 0 10px 22px rgba(2, 12, 27, .06);
+      transition: transform .18s ease, background .18s ease, border-color .18s ease;
+      font-weight:900; color: rgba(15,23,42,.86); font-size:13px;
+    }
+    .pillLink:hover{transform: translateY(-1px); background: rgba(255,255,255,.88); border-color: rgba(15,23,42,.18)}
+    .arrow{opacity:.7}
+
+    .card{
+      background: var(--card);
+      border:1px solid rgba(15,23,42,.10);
+      border-radius: var(--radius);
+      box-shadow: 0 14px 30px rgba(2, 12, 27, .08);
+      overflow:hidden;
+    }
+    .cardPad{padding:18px}
+    .h2{margin:0 0 12px; font-size: 30px; letter-spacing: -.02em}
+    .title{margin:0; font-size: 22px; letter-spacing: -.01em}
+    .muted{color: var(--muted); line-height:1.75}
+    .hr{height:1px; background: rgba(15,23,42,.10); margin:14px 0}
+
+    .btnRow{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px}
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      padding:11px 14px;
+      border-radius: 12px;
+      border:1px solid rgba(15,23,42,.12);
+      background: rgba(255,255,255,.80);
+      font-weight:950;
+      font-size:13px;
+      transition: transform .18s ease, background .18s ease, border-color .18s ease;
+      box-shadow: 0 12px 26px rgba(2,12,27,.08);
+    }
+    .btn:hover{transform: translateY(-1px); background: rgba(255,255,255,.96); border-color: rgba(15,23,42,.18)}
+    .btnPrimary{
+      border-color: rgba(15,23,42,.12);
+      background: linear-gradient(135deg, rgba(46,242,200,.92), rgba(22,199,255,.75));
+    }
+
+    .note{
+      margin-top:12px;
+      padding:14px 16px;
+      border-radius: 16px;
+      border:1px solid rgba(15,23,42,.10);
+      background: rgba(255,255,255,.75);
+      color: rgba(15,23,42,.80);
+      line-height:1.75;
+      box-shadow: 0 12px 26px rgba(2,12,27,.06);
+    }
+
+    .widgetBox{
+      border-radius: 22px;
+      border:1px solid rgba(15,23,42,.10);
+      background:
+        radial-gradient(700px 320px at 20% 0%, rgba(46,242,200,.30), transparent 60%),
+        radial-gradient(650px 280px at 100% 20%, rgba(22,199,255,.22), transparent 55%),
+        linear-gradient(135deg, rgba(255,255,255,.90), rgba(255,255,255,.62));
+      box-shadow: 0 16px 34px rgba(2, 12, 27, .08);
+      overflow:hidden;
+      position:relative;
+    }
+    .widgetHead{
+      padding:16px 16px 12px;
+      border-bottom:1px solid rgba(15,23,42,.08);
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+    .widgetTitle{
+      margin:0;
+      font-size:18px;
+      letter-spacing:-.01em;
+      font-weight:950;
+    }
+    .widgetSub{
+      margin:6px 0 0;
+      color: var(--muted);
+      font-size:14px;
+      line-height:1.6;
+      max-width: 74ch;
+    }
+    .widgetBody{padding:16px}
+    .placeholder{
+      border-radius: 18px;
+      border:1px dashed rgba(15,23,42,.24);
+      background: rgba(255,255,255,.60);
+      padding:18px;
+      min-height: 280px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      justify-content:center;
+      align-items:flex-start;
+    }
+
+    .platforms{display:grid; gap:14px; grid-template-columns: repeat(3, 1fr)}
+    @media (max-width: 980px){ .platforms{grid-template-columns:1fr} }
+    .plat{
+      border-radius: 18px;
+      border:1px solid rgba(15,23,42,.10);
+      background: rgba(255,255,255,.80);
+      box-shadow: 0 12px 26px rgba(2,12,27,.06);
+      padding:16px;
+      position:relative;
+      overflow:hidden;
+    }
+    .platTop{display:flex; align-items:center; gap:10px}
+    .ico{
+      width:38px; height:38px; border-radius: 14px;
+      background: linear-gradient(135deg, rgba(183,255,60,.55), rgba(46,242,200,.45));
+      border:1px solid rgba(15,23,42,.10);
+      box-shadow: 0 12px 24px rgba(22,199,255,.08);
+      display:grid; place-items:center;
+      font-weight:950;
+      letter-spacing:-.02em;
+    }
+    .plat h3{margin:0; font-size:16px}
+    .plat p{margin:10px 0 0; color: var(--muted); line-height:1.65; font-size:14px}
+    .plat a.link{
+      margin-top:12px;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:9px 12px;
+      border-radius: 12px;
+      border:1px solid rgba(15,23,42,.10);
+      background: rgba(255,255,255,.70);
+      font-weight:950;
+      font-size:13px;
+      transition: transform .18s ease, background .18s ease, border-color .18s ease;
+    }
+    .plat a.link:hover{transform: translateY(-1px); background: rgba(255,255,255,.92); border-color: rgba(15,23,42,.18)}
+
+    .ctaBand{
+      border-radius: 26px;
+      padding: 22px;
+      background:
+        radial-gradient(1200px 600px at 10% 0%, rgba(46,242,200,.45), transparent 60%),
+        radial-gradient(900px 500px at 95% 15%, rgba(22,199,255,.32), transparent 55%),
+        linear-gradient(135deg, rgba(255,255,255,.88), rgba(255,255,255,.62));
+      border:1px solid rgba(15,23,42,.10);
+      box-shadow: var(--shadow);
+      display:flex;
+      gap:14px;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
+    }
+    .small{font-size:13px; color: var(--muted); line-height:1.65; max-width: 80ch}
+
+    .quote{
+      border-radius: 18px;
+      border:1px solid rgba(15,23,42,.10);
+      background: rgba(255,255,255,.78);
+      box-shadow: 0 12px 26px rgba(2,12,27,.06);
+      padding:16px;
+      line-height:1.75;
+      color: rgba(15,23,42,.84);
+      position:relative;
+      overflow:hidden;
+    }
+    .quote:before{
+      content:"“";
+      position:absolute;
+      left:14px;
+      top:-10px;
+      font-size:54px;
+      opacity:.18;
+      font-weight:950;
+    }
+    .quote b{font-weight:950}
+  </style>
+</head>
+
+<body>
+  <main>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="wrap">
+        <div class="heroBox">
+          <span class="kicker">Отзывы - доверие, репутация, решение «покупать или нет»</span>
+          <h1 class="h1">Отзывы о Venner Digital</h1>
+
+          <p class="lead">
+            Здесь собраны отзывы о нашей работе на разных площадках - там, где люди пишут честно и по делу.
+            Кому-то важно качество сайта и дизайн, кому-то - скорость запуска, кому-то - как выстроены SEO и реклама,
+            кому-то - интеграции с CRM и то, насколько «всё доведено до результата».
+          </p>
+          <p class="lead">
+            Мы собрали всё в одном месте, чтобы вам было удобно: можно просто пролистать, посмотреть разные кейсы по ощущениям
+            и сразу перейти на первоисточник в нужном сервисе.
+          </p>
+
+         <div class="note">
+            <b>Если вы выбираете подрядчика.</b> Отзывы - это быстрый способ понять стиль работы команды: как общаемся,
+            как держим сроки, насколько глубоко погружаемся в задачу и как доводим проекты до результата.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ОТЗЫВЫ В ОДНОМ МЕСТЕ -->
+    <section id="otzyvy" class="section">
+      <div class="wrap">
+        <h2 class="h2">Отзывы - в одном окне</h2>
+        <p class="muted">
+          Ниже расположен блок, который собирает отзывы с наших площадок в единую ленту.
+          Вы можете читать их прямо здесь, а при желании - перейти в исходный сервис и посмотреть отзыв целиком.
+        </p>
+
+        <div class="widgetBox" style="margin-top:14px;">
+          <div class="widgetHead">
+            <div>
+              <h3 class="widgetTitle">Лента отзывов</h3>
+              <p class="widgetSub">
+                Здесь отображаются отзывы с разных площадок в одном месте - удобно пролистать и составить впечатление.
+              </p>
+            </div>
+
+          <div class="widgetBody">
+            <!-- ВСТАВЬТЕ СЮДА КОД ВИДЖЕТА ОТЗЫВОВ -->
+            <div class="placeholder">
+              <h4 style="margin:0; font-size:16px; font-weight:950;">Место под виджет отзывов</h4>
+              <p style="margin:0; color:var(--muted); line-height:1.75;">
+                Этот блок предназначен для виджета, который покажет отзывы со всех площадок в единой ленте.
+              </p>
+            </div>
+          </div>
+        </div>
+
+    <!-- ПЛОЩАДКИ -->
+    <section id="ploshadki" class="section">
+      <div class="wrap">
+        <h2 class="h2">Где нас можно найти и почитать отзывы</h2>
+        <p class="muted">
+          Для удобства - прямые ссылки на наши страницы на сервисах репутации. Можно перейти и посмотреть отзывы в первоисточнике.
+        </p>
+
+        <div class="platforms" style="margin-top:14px;">
+          <div class="plat">
+            <div class="platTop">
+              <div class="ico">2</div>
+              <div>
+                <h3>2GIS</h3>
+                <p style="margin:6px 0 0; color:var(--muted); font-size:13px; line-height:1.55;">
+                  Карточка компании, фото, контакты, отзывы.
+                </p>
+              </div>
+            </div>
+            <p>Одна из самых популярных площадок для услуг. Многие клиенты читают отзывы здесь перед звонком.</p>
+            <a class="link" href="https://go.2gis.com/5jz0t" target="_blank" rel="nofollow noopener"><span class="arrow">→</span> Открыть 2GIS</a>
+          </div>
+
+          <div class="plat">
+            <div class="platTop">
+              <div class="ico">Y</div>
+              <div>
+                <h3>Яндекс.Карты (Яндекс.Бизнес)</h3>
+                <p style="margin:6px 0 0; color:var(--muted); font-size:13px; line-height:1.55;">
+                  Описание, услуги, фото, новости, отзывы.
+                </p>
+              </div>
+            </div>
+            <p>Сильная точка доверия и видимости: многие клиенты начинают поиск подрядчика именно с Яндекса.</p>
+            <a class="link" href="https://yandex.ru/maps/-/CLFfeFlq" target="_blank" rel="nofollow noopener"><span class="arrow">→</span> Открыть Яндекс.Карты</a>
+          </div>
+
+          <div class="plat">
+            <div class="platTop">
+              <div class="ico">G</div>
+              <div>
+                <h3>Google Maps (Google Business Profile)</h3>
+                <p style="margin:6px 0 0; color:var(--muted); font-size:13px; line-height:1.55;">
+                  Профиль в Google, отзывы, фото и информация.
+                </p>
+              </div>
+            </div>
+            <p>Удобно для тех, кто ищет через Google и любит «проверить всё до деталей».</p>
+            <a class="link" href="https://share.google/c7P8pB5455lXr8eku" target="_blank" rel="nofollow noopener"><span class="arrow">→</span> Открыть Google Maps</a>
+          </div>
+
+          <div class="plat">
+            <div class="platTop">
+              <div class="ico">Z</div>
+              <div>
+                <h3>Zoon</h3>
+                <p style="margin:6px 0 0; color:var(--muted); font-size:13px; line-height:1.55;">
+                  Каталог услуг и отзывы.
+                </p>
+              </div>
+            </div>
+            <p>Часто дает дополнительную видимость и репутационный эффект - особенно по услугам.</p>
+            <a class="link" href="https://zoon.ru/s/MkP9sQ" target="_blank" rel="nofollow noopener"><span class="arrow">→</span> Открыть Zoon</a>
+          </div>
+
+          <div class="plat">
+            <div class="platTop">
+              <div class="ico">F</div>
+              <div>
+                <h3>Flamp</h3>
+                <p style="margin:6px 0 0; color:var(--muted); font-size:13px; line-height:1.55;">
+                  Отзывы и репутация.
+                </p>
+              </div>
+            </div>
+            <p>Площадка, где особенно хорошо читаются развернутые отзывы и впечатления о сервисе.</p>
+            <a class="link" href="http://flamp.ru/venner" target="_blank" rel="nofollow noopener"><span class="arrow">→</span> Открыть Flamp</a>
+          </div>
+
+          <div class="plat">
+            <div class="platTop">
+              <div class="ico">O</div>
+              <div>
+                <h3>Отзовик</h3>
+                <p style="margin:6px 0 0; color:var(--muted); font-size:13px; line-height:1.55;">
+                  Независимые отзывы и мнения.
+                </p>
+              </div>
+            </div>
+            <p>Для тех, кто любит посмотреть отзывы «без фильтров» и сделать выводы самостоятельно.</p>
+            <a class="link" href="https://otzovik.com/reviews/venners_ru-razrabotka_saytov/" target="_blank" rel="nofollow noopener"><span class="arrow">→</span> Открыть Отзовик</a>
+          </div>
+
+          <div class="plat">
+            <div class="platTop">
+              <div class="ico">Ye</div>
+              <div>
+                <h3>Yell</h3>
+                <p style="margin:6px 0 0; color:var(--muted); font-size:13px; line-height:1.55;">
+                  Каталог компаний и отзывы.
+                </p>
+              </div>
+            </div>
+            <p>Дополнительная площадка, где тоже можно почитать отзывы и убедиться, что компания реальная.</p>
+            <a class="link" href="https://www.yell.ru/tomsk/com/venner-digital_14506211/" target="_blank" rel="nofollow noopener"><span class="arrow">→</span> Открыть Yell</a>
+          </div>
+
+          <div class="plat">
+            <div class="platTop">
+              <div class="ico">VK</div>
+              <div>
+                <h3>ВКонтакте</h3>
+                <p style="margin:6px 0 0; color:var(--muted); font-size:13px; line-height:1.55;">
+                  Новости, кейсы, общение и раздел с отзывами.
+                </p>
+              </div>
+            </div>
+            <p>Если вам удобнее следить за нами в соцсетях - вот официальное сообщество.</p>
+            <a class="link" href="https://vk.com/venner_digital" target="_blank" rel="nofollow noopener"><span class="arrow">→</span> Открыть ВКонтакте</a>
+          </div>
+        </div>
+
+        <div class="note" style="margin-top:14px;">
+          Хотите посмотреть проекты и результаты «вживую» - загляните в портфолио и блог.
+          <a href="/portfolio/" style="text-decoration:underline; font-weight:950;">Портфолио</a> и
+          <a href="/blog/" style="text-decoration:underline; font-weight:950;">Блог</a> помогут быстро понять, как мы работаем и что делаем.
+        </div>
+      </div>
+    </section>
+
+    <!-- ОСТАВИТЬ ОТЗЫВ -->
+    <section id="ostavit" class="section">
+      <div class="wrap">
+        <div class="ctaBand">
+          <div>
+            <h2 class="title" style="margin:0;">Хотите оставить отзыв?</h2>
+            <p class="small" style="margin:8px 0 0;">
+              Если мы уже работали вместе - будем рады вашему отзыву. Это помогает нам расти, а новым клиентам - быстрее принимать решение.
+            </p>
+          </div>
+          <div class="btnRow" style="margin:0;">
+            <a class="btn btnPrimary" href="https://feed.myreviews.ru/firm/47664/preview?from=short-link" target="_blank" rel="nofollow noopener">Оставить отзыв</a>
+            <a class="btn" href="/kontakty/">Связаться с нами</a>
+          </div>
+        </div>
+
+        <div class="note" style="margin-top:14px;">
+          Если вы еще выбираете подрядчика - можно начать с простого: напишите, какая задача стоит перед бизнесом.
+          Мы уточним вводные, подскажем варианты и предложим понятный план работ.
+          <a href="/zakaz-uslugi/" style="text-decoration:underline; font-weight:950;">Заказать услугу</a>.
+        </div>
+      </div>
+    </section>
+
+    <!-- МИКРООФФЕР -->
+    <section class="section">
+      <div class="wrap">
+        <div class="card">
+          <div class="cardPad">
+            <h2 class="title">Нужно внедрить виджет отзывов и прокачать репутацию?</h2>
+            <p class="muted" style="margin:10px 0 0;">
+              Мы помогаем собрать отзывы в одном месте на сайте, оформить представительства на ключевых площадках и привести информацию к единому стандарту.
+              Это повышает доверие и улучшает конверсию сайта - особенно когда вы уже привлекаете трафик через SEO и рекламу.
+            </p>
+            <div class="btnRow">
+              <a class="btn btnPrimary" href="/zakaz-uslugi/">Обсудить задачу</a>
+              <a class="btn" href="/lidogeneraciya/servisy-reputacii/">Сервисы репутации</a>
+              <a class="btn" href="/lidogeneraciya/myreviews/">MyReviews</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</body>
+</html>

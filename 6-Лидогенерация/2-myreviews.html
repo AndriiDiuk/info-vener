@@ -1,0 +1,825 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>MyReviews - сбор отзывов и виджет на сайт | Venner Digital</title>
+  <meta name="description" content="Внедряем MyReviews: собираем отзывы с Яндекс, Google, 2GIS и других площадок в единый кабинет, настраиваем виджеты на сайт, QR-сбор, перехват негатива, уведомления и аналитику. Рост доверия и конверсии." />
+  <style>
+    :root{
+      --bg:#0b1220;
+      --panel:#0f1a33;
+      --card:#111f3d;
+      --text:#eaf0ff;
+      --muted:rgba(234,240,255,.72);
+      --line:rgba(255,255,255,.10);
+      --accent:#7CFF6B;
+      --accent2:#6BA7FF;
+      --warn:#FFCC66;
+      --bad:#FF6B6B;
+      --good:#2EE59D;
+      --shadow: 0 18px 50px rgba(0,0,0,.35);
+      --radius:18px;
+      --radius2:24px;
+      --max:1120px;
+      --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:var(--font);
+      color:var(--text);
+      background:
+        radial-gradient(900px 500px at 20% 10%, rgba(124,255,107,.18), transparent 60%),
+        radial-gradient(900px 500px at 85% 20%, rgba(107,167,255,.18), transparent 60%),
+        radial-gradient(700px 450px at 60% 85%, rgba(255,204,102,.12), transparent 60%),
+        linear-gradient(180deg, #07101f 0%, #070d18 60%, #060a12 100%);
+      line-height:1.45;
+    }
+    a{color:inherit; text-decoration:none}
+    .wrap{max-width:var(--max); margin:0 auto; padding:0 18px}
+    .section{padding:54px 0}
+    .grid{display:grid; gap:16px}
+    .two{grid-template-columns: 1.1fr .9fr}
+    .three{grid-template-columns: repeat(3, 1fr)}
+    .four{grid-template-columns: repeat(4, 1fr)}
+    @media (max-width: 980px){ .two,.three,.four{grid-template-columns:1fr} .section{padding:40px 0} }
+
+    .badge{
+      display:inline-flex; gap:10px; align-items:center;
+      padding:8px 12px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+      border-radius:999px;
+      color:var(--muted);
+      font-size:13px;
+      letter-spacing:.2px;
+    }
+    .dot{width:8px; height:8px; border-radius:99px; background:var(--accent)}
+    .hero{
+      padding:44px 0 24px;
+    }
+    .heroCard{
+      border:1px solid var(--line);
+      background:linear-gradient(180deg, rgba(17,31,61,.92), rgba(11,18,32,.92));
+      border-radius:var(--radius2);
+      box-shadow:var(--shadow);
+      padding:28px;
+      overflow:hidden;
+      position:relative;
+    }
+    .heroCard:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(700px 260px at 20% 0%, rgba(124,255,107,.16), transparent 60%),
+        radial-gradient(700px 260px at 85% 0%, rgba(107,167,255,.16), transparent 60%);
+      pointer-events:none;
+    }
+    .heroInner{position:relative; display:grid; grid-template-columns: 1.15fr .85fr; gap:18px; align-items:center}
+    @media (max-width: 980px){ .heroInner{grid-template-columns:1fr} }
+
+    h1{
+      margin:10px 0 10px;
+      font-size:44px;
+      line-height:1.05;
+      letter-spacing:-.7px;
+    }
+    @media (max-width: 980px){ h1{font-size:34px} }
+    .lead{color:var(--muted); font-size:16px; max-width:62ch}
+    .pillRow{display:flex; flex-wrap:wrap; gap:10px; margin:14px 0 0}
+    .pill{
+      padding:9px 12px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+      border-radius:999px;
+      color:rgba(234,240,255,.84);
+      font-size:13px;
+    }
+    .ctaRow{display:flex; gap:12px; flex-wrap:wrap; margin-top:18px}
+    .btn{
+      display:inline-flex; gap:10px; align-items:center; justify-content:center;
+      padding:12px 14px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+      color:var(--text);
+      font-weight:700;
+      letter-spacing:.2px;
+      transition:.15s ease;
+      cursor:pointer;
+      user-select:none;
+    }
+    .btn:hover{transform:translateY(-1px); border-color:rgba(255,255,255,.18); background:rgba(255,255,255,.05)}
+    .btn.primary{
+      border:1px solid rgba(124,255,107,.45);
+      background:linear-gradient(180deg, rgba(124,255,107,.18), rgba(124,255,107,.08));
+    }
+    .btn.link{
+      border:1px solid rgba(107,167,255,.45);
+      background:linear-gradient(180deg, rgba(107,167,255,.18), rgba(107,167,255,.08));
+    }
+
+    .aside{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+      border-radius:var(--radius2);
+      padding:18px;
+    }
+    .aside h3{margin:0 0 8px; font-size:16px}
+    .kpi{
+      display:grid; grid-template-columns: repeat(2, 1fr); gap:12px;
+      margin-top:10px;
+    }
+    .kpi .k{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+      border-radius:16px;
+      padding:12px;
+    }
+    .k .t{font-size:12px; color:var(--muted)}
+    .k .v{font-size:18px; font-weight:800; margin-top:4px}
+    .note{margin-top:10px; color:var(--muted); font-size:12px}
+
+    .card{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+      border-radius:var(--radius);
+      padding:18px;
+      box-shadow:0 10px 28px rgba(0,0,0,.22);
+    }
+    .card h3{margin:0 0 8px; font-size:18px}
+    .card p{margin:0; color:var(--muted)}
+    .icon{
+      width:38px; height:38px; border-radius:12px;
+      display:flex; align-items:center; justify-content:center;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+      font-weight:900;
+    }
+    .row{display:flex; gap:12px; align-items:flex-start}
+
+    .h2{
+      font-size:28px; margin:0 0 14px; letter-spacing:-.3px
+    }
+    .sub{color:var(--muted); margin:0 0 18px; max-width:85ch}
+
+    .list{margin:10px 0 0; padding:0; list-style:none; display:grid; gap:10px}
+    .li{
+      display:flex; gap:10px; align-items:flex-start;
+      padding:12px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+    }
+    .tick{
+      width:22px; height:22px; border-radius:999px;
+      background:rgba(46,229,157,.15);
+      border:1px solid rgba(46,229,157,.35);
+      display:flex; align-items:center; justify-content:center;
+      font-weight:900; color:var(--good);
+      flex:0 0 auto;
+      margin-top:1px;
+    }
+    .li b{display:block; margin-bottom:2px}
+    .li span{color:var(--muted)}
+
+    .compare{
+      border:1px solid var(--line);
+      border-radius:var(--radius2);
+      overflow:hidden;
+      background:rgba(255,255,255,.02);
+    }
+    .compareHead{
+      display:grid; grid-template-columns: 1fr 1fr;
+      border-bottom:1px solid var(--line);
+    }
+    .compareHead div{
+      padding:14px 16px;
+      font-weight:800;
+      background:rgba(255,255,255,.03);
+    }
+    .compareBody{
+      display:grid; grid-template-columns: 1fr 1fr;
+    }
+    .col{
+      padding:16px;
+      border-right:1px solid var(--line);
+    }
+    .col:last-child{border-right:none}
+    .col .tag{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+      font-size:12px;
+      margin-bottom:12px;
+    }
+    .tag .b{width:9px; height:9px; border-radius:99px}
+    .b.bad{background:var(--bad)}
+    .b.good{background:var(--good)}
+    .col ul{margin:0; padding-left:18px; color:var(--muted)}
+    .col li{margin:8px 0}
+
+    .steps{counter-reset:s; display:grid; gap:12px}
+    .step{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+      border-radius:var(--radius2);
+      padding:16px;
+      display:grid;
+      grid-template-columns: 54px 1fr;
+      gap:12px;
+      align-items:flex-start;
+    }
+    .num{
+      width:48px; height:48px;
+      border-radius:16px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+      display:flex; align-items:center; justify-content:center;
+      font-weight:900;
+      font-size:16px;
+      color:rgba(234,240,255,.9);
+    }
+    .step h4{margin:0 0 6px; font-size:16px}
+    .step p{margin:0; color:var(--muted)}
+
+    .split{
+      border:1px solid var(--line);
+      border-radius:var(--radius2);
+      background:rgba(255,255,255,.03);
+      padding:18px;
+    }
+    .split h3{margin:0 0 10px}
+    .chips{display:flex; flex-wrap:wrap; gap:10px}
+    .chip{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+      border-radius:999px;
+      padding:9px 12px;
+      font-size:13px;
+      color:rgba(234,240,255,.86);
+    }
+
+    details{
+      border:1px solid var(--line);
+      border-radius:16px;
+      background:rgba(255,255,255,.03);
+      padding:14px 14px;
+    }
+    details + details{margin-top:10px}
+    summary{
+      cursor:pointer;
+      font-weight:800;
+      list-style:none;
+      display:flex; align-items:center; justify-content:space-between;
+      gap:14px;
+    }
+    summary::-webkit-details-marker{display:none}
+    .chev{
+      width:34px; height:34px;
+      border-radius:12px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+      display:flex; align-items:center; justify-content:center;
+      flex:0 0 auto;
+    }
+    details[open] .chev{transform:rotate(180deg)}
+    .faqP{margin:10px 0 0; color:var(--muted)}
+
+    .links{
+      display:flex; flex-wrap:wrap; gap:10px;
+      margin-top:14px;
+    }
+    .alink{
+      border:1px solid rgba(107,167,255,.35);
+      background:rgba(107,167,255,.08);
+      padding:10px 12px;
+      border-radius:14px;
+      font-weight:800;
+    }
+
+    .foot{
+      padding:28px 0 60px;
+      border-top:1px solid rgba(255,255,255,.08);
+      margin-top:10px;
+      color:var(--muted);
+      font-size:13px;
+    }
+    .anchors{
+      display:flex; flex-wrap:wrap; gap:10px; margin-top:10px
+    }
+    .anchor{
+      padding:9px 12px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+      border-radius:999px;
+      font-size:13px;
+      color:rgba(234,240,255,.86);
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="heroCard">
+        <div class="heroInner">
+          <div>
+            <span class="badge"><span class="dot"></span> Лидогенерация - MyReviews</span>
+            <h1>Отзывы на сайт, которые реально продают.</h1>
+            <p class="lead">
+              Внедряем MyReviews: собираем отзывы с популярных площадок в единый кабинет, настраиваем виджет на сайт,
+              делаем QR-сбор, перехват негатива и уведомления. Итог - больше доверия, выше конверсия, меньше “дорогих” лидов.
+            </p>
+
+            <div class="pillRow">
+              <span class="pill">Виджет на сайт</span>
+              <span class="pill">Мониторинг отзывов</span>
+              <span class="pill">QR-сбор</span>
+              <span class="pill">Перехват негатива</span>
+              <span class="pill">Telegram-уведомления</span>
+              <span class="pill">Аналитика</span>
+            </div>
+
+            <div class="ctaRow">
+              <a class="btn primary" href="https://myreviews.ru/" target="_blank" rel="noopener">Официальный сайт MyReviews</a>
+              <a class="btn link" href="/lidogeneraciya/" title="Лидогенерация под ключ">Перейти в раздел лидогенерации</a>
+            </div>
+
+            <div class="anchors">
+              <a class="anchor" href="#what">Что это</a>
+              <a class="anchor" href="#why">Зачем бизнесу</a>
+              <a class="anchor" href="#widgets">Виджеты</a>
+              <a class="anchor" href="#process">Как внедряем</a>
+              <a class="anchor" href="#cases">Сценарии</a>
+              <a class="anchor" href="#faq">FAQ</a>
+              <a class="anchor" href="#links">Перелинковка</a>
+            </div>
+          </div>
+
+          <aside class="aside">
+            <h3>Что меняется после внедрения</h3>
+            <div class="kpi">
+              <div class="k">
+                <div class="t">Доверие на посадочной</div>
+                <div class="v">выше</div>
+              </div>
+              <div class="k">
+                <div class="t">Конверсия в заявку</div>
+                <div class="v">выше</div>
+              </div>
+              <div class="k">
+                <div class="t">Стоимость лида</div>
+                <div class="v">ниже</div>
+              </div>
+              <div class="k">
+                <div class="t">Контроль репутации</div>
+                <div class="v">в одном месте</div>
+              </div>
+            </div>
+            <p class="note">
+              Мы не обещаем “магические проценты”. Мы строим систему: сбор - контроль - доверие - конверсия.
+            </p>
+          </aside>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT IS -->
+  <section class="section" id="what">
+    <div class="wrap">
+      <h2 class="h2">Что такое MyReviews - простыми словами.</h2>
+      <p class="sub">
+        Это сервис, который помогает: (1) собирать отзывы с популярных площадок в одну панель,
+        (2) быстро реагировать на новые отзывы и “гасить” негатив до публикации,
+        (3) красиво показывать реальные отзывы на сайте через виджеты.
+      </p>
+
+      <div class="grid three">
+        <div class="card">
+          <div class="row">
+            <div class="icon">★</div>
+            <div>
+              <h3>Виджет с отзывами на сайт</h3>
+              <p>Плавающий или блочный виджет, карусель, “на всю страницу”. Визуально - как доказательство, что вы реальные.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="row">
+            <div class="icon">👀</div>
+            <div>
+              <h3>Мониторинг и уведомления</h3>
+              <p>Единая панель отзывов + уведомления (почта/Telegram). Быстро реагируем - не теряем доверие.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="row">
+            <div class="icon">QR</div>
+            <div>
+              <h3>Сбор новых отзывов</h3>
+              <p>QR-код и ссылка на страницу сбора. Упрощает клиенту путь: “оставить отзыв” - в 2 клика.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="split" style="margin-top:16px">
+        <h3>Какие площадки обычно подключаем.</h3>
+        <div class="chips">
+          <span class="chip">Яндекс.Карты</span>
+          <span class="chip">Google Maps</span>
+          <span class="chip">2GIS</span>
+          <span class="chip">Flamp</span>
+          <span class="chip">Zoon</span>
+          <span class="chip">Yell</span>
+          <span class="chip">Avito</span>
+          <span class="chip">и другие (по задаче)</span>
+        </div>
+        <p class="note" style="margin-top:10px">
+          Набор источников зависит от ниши: где ваша аудитория реально читает отзывы - там и строим систему доверия.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY / LEAD GEN -->
+  <section class="section" id="why">
+    <div class="wrap">
+      <h2 class="h2">Зачем это бизнесу - именно для лидов.</h2>
+      <p class="sub">
+        В лидогенерации есть простая логика: трафик можно купить, но доверие нужно доказать.
+        MyReviews закрывает “дыру” между первым касанием и решением клиента оставить заявку.
+      </p>
+
+      <div class="grid two">
+        <div class="card">
+          <h3>Как отзывы влияют на конверсию.</h3>
+          <ul class="list">
+            <li class="li">
+              <div class="tick">✓</div>
+              <div><b>Снимают возражения заранее</b><span>Люди видят опыт других и меньше “сомневаются”.</span></div>
+            </li>
+            <li class="li">
+              <div class="tick">✓</div>
+              <div><b>Ускоряют принятие решения</b><span>Чем меньше неопределенности - тем быстрее заявка/звонок.</span></div>
+            </li>
+            <li class="li">
+              <div class="tick">✓</div>
+              <div><b>Делают рекламу выгоднее</b><span>При той же цене клика вы получаете больше заявок.</span></div>
+            </li>
+            <li class="li">
+              <div class="tick">✓</div>
+              <div><b>Помогают продажам</b><span>Менеджер опирается на отзывы как на “соцдоказательство”.</span></div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="compare">
+          <div class="compareHead">
+            <div>Без системы отзывов</div>
+            <div>С MyReviews на сайте</div>
+          </div>
+          <div class="compareBody">
+            <div class="col">
+              <div class="tag"><span class="b bad"></span> типичная реальность</div>
+              <ul>
+                <li>На сайте “все красиво”, но доверия мало.</li>
+                <li>Клиент уходит читать отзывы где-то еще - и не возвращается.</li>
+                <li>Негатив всплывает поздно, пока вы “не заметили”.</li>
+                <li>Реклама работает, но конверсия нестабильная.</li>
+              </ul>
+            </div>
+            <div class="col">
+              <div class="tag"><span class="b good"></span> как должно быть</div>
+              <ul>
+                <li>Отзывы - на сайте, рядом с оффером и формой заявки.</li>
+                <li>Клиент остается внутри вашей воронки.</li>
+                <li>Уведомления о новых отзывах - реагируем быстро.</li>
+                <li>Доверие растет, стоимость лида падает.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:16px">
+        <div class="row">
+          <div class="icon">↗</div>
+          <div>
+            <h3>Важно. Это усиливает не только лиды, но и SEO.</h3>
+            <p>
+              Отзывы повышают доверие и поведенческие сигналы (время на сайте, глубина просмотра).
+              А еще помогают в выдаче, когда у проекта появляются “звезды” и упоминания бренда на внешних площадках.
+              Подробнее про репутацию в SEO - на странице <a href="/seo/serm-reputaciya/" style="text-decoration:underline">SERM и репутационный маркетинг</a>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WIDGETS -->
+  <section class="section" id="widgets">
+    <div class="wrap">
+      <h2 class="h2">Какие виджеты делаем и где размещаем.</h2>
+      <p class="sub">
+        Мы подбираем формат под задачу: если нужно “дожимать” на заявке - ставим рядом с CTA.
+        Если нужно “пояснить экспертность” - делаем блок в середине страницы или отдельный раздел отзывов.
+      </p>
+
+      <div class="grid three">
+        <div class="card">
+          <h3>Плавающий виджет</h3>
+          <p>Всегда на виду, аккуратно “добавляет доверие” на любой странице сайта.</p>
+        </div>
+        <div class="card">
+          <h3>Блочный виджет (карусель)</h3>
+          <p>Идеален для лендингов: вставляем после оффера, перед формой или перед прайсом.</p>
+        </div>
+        <div class="card">
+          <h3>Виджет “на всю страницу”</h3>
+          <p>Когда отзывы - отдельный сильный блок. Хорошо для репутации и бренда.</p>
+        </div>
+      </div>
+
+      <div class="split" style="margin-top:16px">
+        <h3>Плюс. Делаем “красиво”, но без потери смысла.</h3>
+        <div class="chips">
+          <span class="chip">Кастомизация внешнего вида</span>
+          <span class="chip">Группировка локаций (если филиалы)</span>
+          <span class="chip">Единый виджет на сайт</span>
+          <span class="chip">Подбор площадок под нишу</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="section" id="process">
+    <div class="wrap">
+      <h2 class="h2">Как мы внедряем MyReviews - по шагам.</h2>
+      <p class="sub">
+        Наша задача - не просто “поставить виджет”, а собрать систему: от источников отзывов до сценариев их получения и контроля.
+      </p>
+
+      <div class="steps">
+        <div class="step">
+          <div class="num">1</div>
+          <div>
+            <h4>Аудит текущей репутации и площадок</h4>
+            <p>Смотрим, где уже есть отзывы, где есть пробелы, и что реально влияет на выбор клиента в вашей нише.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="num">2</div>
+          <div>
+            <h4>Подключение площадок и настройка мониторинга</h4>
+            <p>Собираем отзывы в единую панель, настраиваем уведомления, фиксируем “точку А”.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="num">3</div>
+          <div>
+            <h4>Настройка виджетов на сайте</h4>
+            <p>Выбираем формат (плавающий/блочный/страница), ставим в правильные места на посадочных страницах.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="num">4</div>
+          <div>
+            <h4>Сбор новых отзывов: QR, ссылки, страница сбора</h4>
+            <p>Делаем понятный путь для клиента: “оставить отзыв” быстро и без лишних шагов.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="num">5</div>
+          <div>
+            <h4>Перехват негатива и сценарии реакции</h4>
+            <p>Настраиваем воронку так, чтобы проблемные кейсы решались напрямую, до публичного негатива.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="num">6</div>
+          <div>
+            <h4>Отчеты и улучшения</h4>
+            <p>Смотрим динамику рейтинга/количества отзывов, корректируем сбор, усиливаем страницы, где “проседает” конверсия.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:16px">
+        <div class="row">
+          <div class="icon">⏱</div>
+          <div>
+            <h3>Тестирование и запуск.</h3>
+            <p>
+              Если нужно быстро “проверить гипотезу” - запускаем на ключевых страницах и смотрим эффект по заявкам.
+              Если задача системная - подключаем все площадки, выстраиваем сбор и делаем репутацию активом.
+            </p>
+            <p class="note">
+              На стороне MyReviews встречается формат бесплатного теста (обычно через запрос в поддержку) - если это актуально на момент внедрения, поможем получить доступ и настроить.
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SCENARIOS -->
+  <section class="section" id="cases">
+    <div class="wrap">
+      <h2 class="h2">Сценарии, где MyReviews дает максимум эффекта.</h2>
+      <p class="sub">
+        Мы подстраиваемся под ваш процесс продаж и точки контакта: сайт, мессенджеры, звонки, офлайн-точки.
+      </p>
+
+      <div class="grid two">
+        <div class="card">
+          <h3>Услуги и заявки</h3>
+          <p>Отзывы ставим рядом с оффером, ценой и формой заявки. Плюс QR-сбор после оказания услуги.</p>
+          <div class="links" style="margin-top:12px">
+            <a class="alink" href="/crm-integracii/" title="CRM и интеграции">Привязать к CRM</a>
+            <a class="alink" href="/lidogeneraciya/marquiz/" title="Marquiz квизы">Усилить квизом</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Много филиалов / городов</h3>
+          <p>Собираем отзывы по локациям, объединяем в группы, выводим единый виджет на сайт и контролируем репутацию централизованно.</p>
+          <div class="links" style="margin-top:12px">
+            <a class="alink" href="/seo/serm-reputaciya/" title="SERM">Репутация в SEO</a>
+            <a class="alink" href="/seo/audit-sayta/" title="SEO-аудит">Аудит перед ростом</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Сложные ниши (доверие решает)</h3>
+          <p>Когда клиент долго выбирает и сравнивает - отзывы становятся “последним аргументом” в пользу заявки.</p>
+        </div>
+
+        <div class="card">
+          <h3>После “просадки” заявок</h3>
+          <p>Если трафик есть, а заявок меньше - часто проблема в доверии. Отзывы и репутация закрывают этот разрыв.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section" id="faq">
+    <div class="wrap">
+      <h2 class="h2">FAQ - коротко отвечаем на частые вопросы.</h2>
+      <p class="sub">
+        Здесь собрали вопросы, которые чаще всего задают перед внедрением виджетов и настройкой репутации.
+      </p>
+
+      <details>
+        <summary>
+          Это “накрутка отзывов” или реальные отзывы?
+          <span class="chev">⌄</span>
+        </summary>
+        <p class="faqP">
+          Мы работаем с реальными отзывами на внешних площадках и с корректным сбором. Задача - выстроить процесс, чтобы довольные клиенты
+          оставляли отзыв регулярно, а спорные ситуации решались быстро и корректно.
+        </p>
+      </details>
+
+      <details>
+        <summary>
+          Можно ли показывать отзывы сразу с нескольких площадок на сайте?
+          <span class="chev">⌄</span>
+        </summary>
+        <p class="faqP">
+          Да. В большинстве кейсов это и есть лучший вариант: часть аудитории больше доверяет картам, часть - отзовикам, часть - маркетплейсам.
+          Мы подключаем источники, где ваша ЦА реально принимает решение.
+        </p>
+      </details>
+
+      <details>
+        <summary>
+          Что такое “перехват негатива” и зачем он нужен?
+          <span class="chev">⌄</span>
+        </summary>
+        <p class="faqP">
+          Это сценарий, когда недовольному клиенту проще написать вам напрямую, чем публиковать негатив публично.
+          Вы решаете проблему быстрее, а репутация защищена. Это полезно для лидов, продаж и бренда.
+        </p>
+      </details>
+
+      <details>
+        <summary>
+          Виджеты не “утяжелят” сайт и не испортят скорость?
+          <span class="chev">⌄</span>
+        </summary>
+        <p class="faqP">
+          Мы внедряем аккуратно: подбираем формат и место, контролируем влияние на интерфейс и мобильную версию.
+          Если сайт уже продвигается, скорость и стабильность - приоритет (при необходимости делаем <a href="/seo/audit-sayta/" style="text-decoration:underline">SEO-аудит</a>).
+        </p>
+      </details>
+
+      <details>
+        <summary>
+          Нужно ли это, если отзывы уже есть на Яндекс/Google?
+          <span class="chev">⌄</span>
+        </summary>
+        <p class="faqP">
+          Да, потому что цель - конверсия. На сайте отзывы “закрывают” сомнения прямо в момент выбора.
+          Плюс появляется единый контроль: уведомления, аналитика, динамика, сценарии реакции.
+        </p>
+      </details>
+
+      <details>
+        <summary>
+          Это отдельная услуга или входит в комплекс?
+          <span class="chev">⌄</span>
+        </summary>
+        <p class="faqP">
+          MyReviews может быть отдельным проектом по лидогенерации, а может быть частью комплексного маркетинга
+          (сайт + трафик + CRM + репутация). Часто подключаем как “усилитель” рекламы и SEO.
+        </p>
+      </details>
+    </div>
+  </section>
+
+  <!-- INTERNAL LINKS / ANCHORS -->
+  <section class="section" id="links">
+    <div class="wrap">
+      <h2 class="h2">Перелинковка - полезные страницы по теме.</h2>
+      <p class="sub">
+        Если хотите глубже разобраться в лидогенерации и связке “сайт - трафик - доверие - продажи”, вот ключевые страницы:
+      </p>
+
+      <div class="grid two">
+        <div class="card">
+          <h3>Лидогенерация</h3>
+          <p>Общая страница раздела: квизы, отзывы, репутация - как система роста заявок.</p>
+          <div class="links">
+            <a class="alink" href="/lidogeneraciya/" title="Лидогенерация под ключ">Лидогенерация под ключ</a>
+            <a class="alink" href="/lidogeneraciya/marquiz/" title="Marquiz">Marquiz - квизы</a>
+            <a class="alink" href="/lidogeneraciya/servisy-reputacii/" title="Сервисы репутации">Сервисы репутации</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>SEO и доверие</h3>
+          <p>Как репутация влияет на органический трафик и почему отзывы стали фактором выбора и ранжирования.</p>
+          <div class="links">
+            <a class="alink" href="/seo/" title="SEO">SEO - раздел</a>
+            <a class="alink" href="/seo/serm-reputaciya/" title="SERM">SERM и репутация</a>
+            <a class="alink" href="/seo/prodvizhenie-sayta/" title="SEO-продвижение">SEO-продвижение</a>
+            <a class="alink" href="/seo/audit-sayta/" title="SEO-аудит">SEO-аудит сайта</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>CRM и интеграции</h3>
+          <p>Чтобы заявки не терялись и доводились до сделок: CRM, мессенджеры, звонки, автоматизация.</p>
+          <div class="links">
+            <a class="alink" href="/crm-integracii/" title="CRM и интеграции">CRM и интеграции</a>
+            <a class="alink" href="/crm-integracii/amocrm/" title="amoCRM">amoCRM</a>
+            <a class="alink" href="/crm-integracii/wazup/" title="WazApp">WazApp</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Официальная информация</h3>
+          <p>Если хотите посмотреть возможности сервиса и тарифы - лучше начать с официального сайта.</p>
+          <div class="links">
+            <a class="alink" href="https://myreviews.ru/" target="_blank" rel="noopener">MyReviews - официальный сайт</a>
+            <a class="alink" href="https://myreviews.ru/instructions/rates" target="_blank" rel="noopener">Тарифы и возможности</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="foot">
+        <div class="wrap">
+          <div style="display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:space-between">
+            <div>Venner Digital - внедрение MyReviews, лидогенерация, SEO, CRM и интеграции.</div>
+            <div style="opacity:.9">Контент без “вечных цифр” - чтобы страница не устаревала.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</body>
+</html>
+

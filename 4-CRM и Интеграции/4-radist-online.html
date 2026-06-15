@@ -1,0 +1,521 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Radist.online - интеграция мессенджеров с amoCRM и Битрикс24 | Venner Digital</title>
+  <style>
+    :root{
+      --bg:#0f1115;
+      --card:#151923;
+      --card2:#10141c;
+      --text:#e9edf5;
+      --muted:#aab3c5;
+      --line:rgba(255,255,255,.10);
+      --accent:#7aa7ff;
+      --ok:#6ee7a8;
+      --bad:#ff7a7a;
+      --warn:#ffd37a;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Arial;
+      color:var(--text);
+      background:radial-gradient(1200px 800px at 15% 0%, rgba(122,167,255,.14), transparent 60%),
+                 radial-gradient(900px 700px at 80% 10%, rgba(110,231,168,.10), transparent 60%),
+                 var(--bg);
+    }
+    a{color:var(--accent); text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{max-width:1120px;margin:0 auto;padding:28px 16px 80px}
+    .hero{
+      border:1px solid var(--line);
+      background:linear-gradient(180deg, rgba(21,25,35,.92), rgba(16,20,28,.92));
+      border-radius:18px;
+      padding:26px;
+      overflow:hidden;
+      position:relative;
+    }
+    .badge{
+      display:inline-flex;gap:8px;align-items:center;
+      padding:6px 10px;border:1px solid var(--line);
+      border-radius:999px;color:var(--muted);font-size:13px;
+      background:rgba(255,255,255,.03);
+    }
+    h1{margin:12px 0 8px;font-size:34px;line-height:1.15}
+    .lead{margin:0;color:var(--muted);max-width:860px}
+    .heroGrid{
+      margin-top:18px;
+      display:grid;grid-template-columns:1.4fr .6fr;gap:14px;
+      align-items:stretch;
+    }
+    .heroCard{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+      border-radius:14px;
+      padding:16px;
+    }
+    .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px}
+    .kpi{
+      border:1px solid var(--line);
+      background:rgba(0,0,0,.18);
+      border-radius:12px;
+      padding:12px;
+      min-height:74px;
+    }
+    .kpi b{display:block;font-size:16px}
+    .kpi span{display:block;color:var(--muted);font-size:13px;margin-top:2px}
+    .ctaRow{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+    .btn{
+      display:inline-flex;gap:10px;align-items:center;justify-content:center;
+      border:1px solid var(--line);
+      padding:11px 14px;border-radius:12px;
+      background:rgba(255,255,255,.05);
+      color:var(--text);
+      font-weight:600;
+    }
+    .btn:hover{background:rgba(255,255,255,.08);text-decoration:none}
+    .btnPrimary{border-color:rgba(122,167,255,.55); background:rgba(122,167,255,.14)}
+    .btnGhost{background:transparent}
+    .note{color:var(--muted);font-size:13px;margin-top:10px}
+    .toc{
+      border:1px solid var(--line);
+      background:rgba(0,0,0,.20);
+      border-radius:14px;
+      padding:14px;
+      height:100%;
+    }
+    .tocTitle{font-weight:700;margin:0 0 10px}
+    .toc a{display:block;padding:8px 10px;border-radius:10px;color:var(--text)}
+    .toc a:hover{background:rgba(255,255,255,.06);text-decoration:none}
+    .sec{margin-top:18px}
+    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    .card{
+      border:1px solid var(--line);
+      background:linear-gradient(180deg, rgba(21,25,35,.92), rgba(16,20,28,.92));
+      border-radius:18px;
+      padding:18px;
+    }
+    .card h2{margin:0 0 10px;font-size:22px}
+    .card h3{margin:0 0 8px;font-size:18px}
+    .muted{color:var(--muted)}
+    .list{margin:10px 0 0;padding:0;list-style:none}
+    .list li{margin:9px 0;padding-left:16px;position:relative;color:var(--muted)}
+    .list li:before{
+      content:"-";
+      position:absolute;left:0;top:0;color:rgba(233,237,245,.9)
+    }
+    .pillRow{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+    .pill{
+      display:inline-flex;gap:8px;align-items:center;
+      padding:7px 10px;border-radius:999px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+      color:var(--muted);font-size:13px;
+    }
+    .split{
+      display:grid;grid-template-columns:1.2fr .8fr;gap:14px;
+    }
+    .table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      overflow:hidden;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background:rgba(0,0,0,.16);
+    }
+    .table th,.table td{
+      padding:12px 12px;
+      border-bottom:1px solid var(--line);
+      vertical-align:top;
+    }
+    .table th{color:var(--muted);font-weight:700;text-align:left;background:rgba(255,255,255,.03)}
+    .table tr:last-child td{border-bottom:none}
+    .markOk{color:var(--ok);font-weight:700}
+    .markBad{color:var(--bad);font-weight:700}
+    .faq details{
+      border:1px solid var(--line);
+      border-radius:14px;
+      background:rgba(0,0,0,.16);
+      padding:12px 12px;
+      margin:10px 0;
+    }
+    .faq summary{cursor:pointer;font-weight:700}
+    .faq p{margin:8px 0 0;color:var(--muted)}
+    .tag{
+      display:inline-block;
+      font-size:12px;
+      padding:4px 8px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+      color:var(--muted);
+    }
+    .miniLink{color:var(--muted)}
+    .hr{height:1px;background:var(--line);margin:14px 0}
+    @media (max-width:980px){
+      .heroGrid{grid-template-columns:1fr}
+      .split{grid-template-columns:1fr}
+      .grid2{grid-template-columns:1fr}
+      .grid3{grid-template-columns:1fr}
+      h1{font-size:28px}
+      .kpis{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+
+    <!-- HERO -->
+    <section class="hero" id="top">
+      <span class="badge">Radist.online + CRM - интеграции мессенджеров</span>
+      <h1>Radist.online - чтобы все мессенджеры работали внутри amoCRM или Битрикс24</h1>
+      <p class="lead">
+        Radist помогает собрать переписки из WhatsApp, Telegram и других каналов в одном окне CRM, автоматизировать обработку лидов и ускорить ответы.
+        Мы внедряем Radist под вашу воронку, настраиваем сценарии и доводим до стабильной работы отдела продаж.
+      </p>
+
+      <div class="heroGrid">
+        <div class="heroCard">
+          <div class="kpis">
+            <div class="kpi">
+              <b>Чаты в одном месте</b>
+              <span>история переписки, карточка клиента, ответственный менеджер</span>
+            </div>
+            <div class="kpi">
+              <b>Автоматизация</b>
+              <span>создание сделок, маршрутизация, уведомления, сценарии</span>
+            </div>
+            <div class="kpi">
+              <b>Контроль и порядок</b>
+              <span>переписки не в личных телефонах - база остается у компании</span>
+            </div>
+          </div>
+
+          <div class="ctaRow">
+            <!-- TODO: замените ссылку на внутреннюю страницу "Интеграции мессенджеров" -->
+            <a class="btn btnPrimary" href="#how">Как это работает</a>
+            <!-- TODO: ссылка на официальный сайт Radist -->
+            <a class="btn" href="https://radist.online/" target="_blank" rel="noopener">Официальный сайт Radist</a>
+            <!-- TODO: внутренняя ссылка на страницу amoCRM -->
+            <a class="btn btnGhost" href="#" title="TODO: /crm/amocrm/">Про amoCRM</a>
+          </div>
+
+          <p class="note">
+            Важно: ниже - про продукт и пользу. Формы захвата и сквозные офферы добавим отдельными блоками позже.
+          </p>
+        </div>
+
+        <nav class="toc" aria-label="Навигация по странице">
+          <p class="tocTitle">На этой странице</p>
+          <a href="#what">Что такое Radist</a>
+          <a href="#who">Кому полезно</a>
+          <a href="#features">Ключевые возможности</a>
+          <a href="#how">Как внедряем</a>
+          <a href="#compare">До и после интеграции</a>
+          <a href="#security">Безопасность и контроль</a>
+          <a href="#faq">FAQ</a>
+        </nav>
+      </div>
+    </section>
+
+    <!-- WHAT -->
+    <section class="sec card" id="what">
+      <h2>Что такое Radist.online</h2>
+      <p class="muted">
+        Radist - это набор интеграций, который подключает мессенджеры и другие каналы к CRM.
+        В результате менеджер ведет диалоги из CRM, а не из личных аккаунтов, и вся история сохраняется в системе.
+      </p>
+
+      <div class="pillRow">
+        <span class="pill">WhatsApp</span>
+        <span class="pill">Telegram</span>
+        <span class="pill">MAX</span>
+        <span class="pill">и другие каналы</span>
+        <span class="pill">amoCRM</span>
+        <span class="pill">Битрикс24</span>
+      </div>
+
+      <ul class="list">
+        <li>Собираем сообщения, контакты и сделки в едином окне CRM</li>
+        <li>Убираем хаос из личных телефонов и разрозненных чатов</li>
+        <li>Настраиваем правила - кто отвечает, куда попадает лид, как он квалифицируется</li>
+      </ul>
+
+      <p class="note">
+        Источник функциональности по продуктам и каналам: официальный сайт Radist. :contentReference[oaicite:0]{index=0}
+      </p>
+    </section>
+
+    <!-- WHO -->
+    <section class="sec grid2" id="who">
+      <div class="card">
+        <h2>Кому особенно полезно</h2>
+        <ul class="list">
+          <li>Отдел продаж получает заявки из мессенджеров и теряет часть диалогов</li>
+          <li>Нужно ускорить ответы и не пропускать "горячие" обращения</li>
+          <li>Есть текучка менеджеров - важно, чтобы база не уходила вместе с людьми</li>
+          <li>Нужны автоответы, сценарии, распределение лидов и контроль качества</li>
+          <li>Вы хотите видеть полную картину по клиенту - от первого касания до оплаты</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>Типовые ситуации</h2>
+        <div class="hr"></div>
+        <p class="muted"><span class="tag">Боль</span> Переписка в личных аккаунтах менеджеров - компания не контролирует диалоги.</p>
+        <p class="muted"><span class="tag">Решение</span> Чаты ведутся из CRM, история закрепляется за контактом и сделкой.</p>
+        <div class="hr"></div>
+        <p class="muted"><span class="tag">Боль</span> Долго отвечают - заявки остывают.</p>
+        <p class="muted"><span class="tag">Решение</span> Автосценарии: квалификация, быстрые ответы, уведомления.</p>
+        <div class="hr"></div>
+        <p class="muted"><span class="tag">Боль</span> Непонятно, что происходит в продажах.</p>
+        <p class="muted"><span class="tag">Решение</span> Прозрачная отчетность и контроль, единые правила обработки.</p>
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="sec card" id="features">
+      <h2>Ключевые возможности Radist</h2>
+      <div class="grid3" style="margin-top:12px">
+        <div class="card" style="padding:16px">
+          <h3>Единое окно чатов</h3>
+          <p class="muted">Менеджер отвечает из CRM, видит историю, контакт, статус, ответственного.</p>
+          <p class="note miniLink">Основано на описании "единое окно чатов" у Radist. :contentReference[oaicite:1]{index=1}</p>
+        </div>
+        <div class="card" style="padding:16px">
+          <h3>Автоматизация пути клиента</h3>
+          <p class="muted">Сценарии от первого касания до оплаты - уведомления, квалификация, маршрутизация.</p>
+          <p class="note miniLink">Примеры автоматизации описаны на странице интеграции amoCRM. :contentReference[oaicite:2]{index=2}</p>
+        </div>
+        <div class="card" style="padding:16px">
+          <h3>Рассылки и боты</h3>
+          <p class="muted">Маркетинговые и сервисные сообщения в мессенджерах, повышение конверсии.</p>
+          <p class="note miniLink">У Radist отдельно выделены рассылки и чат-боты для мессенджеров. :contentReference[oaicite:3]{index=3}</p>
+        </div>
+      </div>
+
+      <div class="split" style="margin-top:14px">
+        <div class="card" style="padding:16px">
+          <h3>Какие каналы можно подключать</h3>
+          <p class="muted">В Radist есть продукты под разные каналы и CRM. Мы подбираем связку под вашу задачу.</p>
+          <ul class="list">
+            <li>WhatsApp + amoCRM / Битрикс24</li>
+            <li>Telegram + amoCRM / Битрикс24</li>
+            <li>MAX и другие каналы - по необходимости</li>
+          </ul>
+          <p class="note miniLink">Наличие WhatsApp, Telegram и MAX в продуктах указано на сайте Radist. :contentReference[oaicite:4]{index=4}</p>
+        </div>
+
+        <div class="card" style="padding:16px">
+          <h3>Что обычно улучшается после внедрения</h3>
+          <ul class="list">
+            <li>скорость ответа и доля обработанных обращений</li>
+            <li>качество ведения сделок - меньше "потерянных" лидов</li>
+            <li>контроль работы менеджеров и прозрачность процессов</li>
+            <li>повышение конверсии за счет сценариев и точек касания</li>
+          </ul>
+          <p class="note miniLink">
+            Эти эффекты напрямую описаны в блоках "когда нужна интеграция" и "автоматизируйте путь клиента". :contentReference[oaicite:5]{index=5}
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW -->
+    <section class="sec grid2" id="how">
+      <div class="card">
+        <h2>Как мы внедряем Radist</h2>
+        <ol class="list" style="counter-reset:item; list-style:none; padding-left:0">
+          <li style="padding-left:22px; position:relative;">
+            <span style="position:absolute; left:0; color:var(--muted)">1.</span>
+            Разбираем точки входа: сайт, мессенджеры, звонки, агрегаторы, формы - что реально приносит лиды
+          </li>
+          <li style="padding-left:22px; position:relative;">
+            <span style="position:absolute; left:0; color:var(--muted)">2.</span>
+            Согласуем логику CRM: воронки, статусы, распределение, ответственность, правила обработки
+          </li>
+          <li style="padding-left:22px; position:relative;">
+            <span style="position:absolute; left:0; color:var(--muted)">3.</span>
+            Подключаем каналы в Radist и связываем с amoCRM или Битрикс24
+          </li>
+          <li style="padding-left:22px; position:relative;">
+            <span style="position:absolute; left:0; color:var(--muted)">4.</span>
+            Настраиваем сценарии: автоответы, создание сделок, уведомления, квалификация, маршрутизация
+          </li>
+          <li style="padding-left:22px; position:relative;">
+            <span style="position:absolute; left:0; color:var(--muted)">5.</span>
+            Тестируем и обучаем: чек-листы, регламенты, короткое обучение менеджеров
+          </li>
+          <li style="padding-left:22px; position:relative;">
+            <span style="position:absolute; left:0; color:var(--muted)">6.</span>
+            Поддержка и донастройка по факту: корректируем правила, добавляем новые каналы и сценарии
+          </li>
+        </ol>
+
+        <p class="note">
+          В ряде случаев подключение действительно может быть быстрым (на стороне продукта заявляют про "подключение за 5 минут"),
+          но в реальной жизни большую часть времени занимает не кнопка подключения, а логика процессов и сценарии. :contentReference[oaicite:6]{index=6}
+        </p>
+      </div>
+
+      <div class="card">
+        <h2>Что важно продумать заранее</h2>
+        <ul class="list">
+          <li>кто и за что отвечает в диалогах - чтобы не было дублей и "провалов"</li>
+          <li>какие лиды создают сделку автоматически, а какие требуют подтверждения</li>
+          <li>шаблоны ответов, скрипты, быстрые кнопки - чтобы ускорить менеджеров</li>
+          <li>как фиксируем качество: теги, статусы, обязательные поля, контрольные точки</li>
+        </ul>
+
+        <div class="hr"></div>
+
+        <p class="muted">
+          Хотите связать интеграции с полноценной системой лидогенерации?
+          Тогда логично смотреть весь контур: <a href="#" title="TODO: /yandex-direct/">контекстная реклама</a>,
+          <a href="#" title="TODO: /seo/">SEO</a>, <a href="#" title="TODO: /site-development/">разработка сайтов</a>,
+          <a href="#" title="TODO: /crm/amocrm/">amoCRM</a>.
+        </p>
+      </div>
+    </section>
+
+    <!-- COMPARE -->
+    <section class="sec card" id="compare">
+      <h2>До и после интеграции</h2>
+      <p class="muted">Наглядно - почему "просто общаться в мессенджерах" обычно проигрывает CRM-интеграции.</p>
+
+      <table class="table" aria-label="Сравнение до и после интеграции">
+        <thead>
+          <tr>
+            <th style="width:33%">Ситуация</th>
+            <th style="width:33%">До</th>
+            <th style="width:34%">После</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>Переписки</b></td>
+            <td class="muted"><span class="markBad">Хаос</span> - личные телефоны, разные чаты, историю сложно найти</td>
+            <td class="muted"><span class="markOk">Порядок</span> - единое окно, история в карточке контакта и сделки</td>
+          </tr>
+          <tr>
+            <td><b>Контроль</b></td>
+            <td class="muted"><span class="markBad">Слепая зона</span> - непонятно, кто ответил и что обещал</td>
+            <td class="muted"><span class="markOk">Прозрачность</span> - правила обработки, ответственность, отчетность</td>
+          </tr>
+          <tr>
+            <td><b>Скорость ответа</b></td>
+            <td class="muted"><span class="markBad">Долго</span> - заявки остывают, часть обращений теряется</td>
+            <td class="muted"><span class="markOk">Быстро</span> - сценарии, уведомления, автоответы, квалификация</td>
+          </tr>
+          <tr>
+            <td><b>База клиентов</b></td>
+            <td class="muted"><span class="markBad">Риск</span> - менеджер ушел, переписки ушли вместе с ним</td>
+            <td class="muted"><span class="markOk">Безопасно</span> - база остается у компании, история в CRM</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p class="note">
+        Эта логика коррелирует с тем, как Radist описывает боли: "переписки в личных телефонах", "нет понимания, что происходит", "клиенты ждут ответа".
+        :contentReference[oaicite:7]{index=7}
+      </p>
+    </section>
+
+    <!-- SECURITY -->
+    <section class="sec grid2" id="security">
+      <div class="card">
+        <h2>Безопасность и управление доступами</h2>
+        <ul class="list">
+          <li>Переписки и контакты фиксируются в CRM - не завязаны на личные аккаунты</li>
+          <li>Можно распределять права, роли и зоны ответственности</li>
+          <li>При замене менеджера бизнес-процесс не рушится - история сохраняется</li>
+        </ul>
+        <p class="note miniLink">Аргумент "менеджер уволился - база осталась у вас" явно присутствует у Radist. :contentReference[oaicite:8]{index=8}</p>
+      </div>
+
+      <div class="card">
+        <h2>Почему внедрение лучше делать с партнером</h2>
+        <ul class="list">
+          <li>Не просто "подключить канал", а правильно встроить в вашу воронку продаж</li>
+          <li>Настроить сценарии без лишней сложности и без потери лидов</li>
+          <li>Сделать регламенты и обучить команду - чтобы инструмент реально работал</li>
+        </ul>
+
+        <div class="hr"></div>
+        <p class="muted">
+          Мы официально внедряем интеграции мессенджеров с CRM, помогаем с настройкой, логикой, обучением и поддержкой.
+          Если нужно - связываем это с сайтом, аналитикой и рекламными каналами.
+        </p>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="sec card faq" id="faq">
+      <h2>FAQ - частые вопросы про Radist и интеграции</h2>
+
+      <details>
+        <summary>Можно ли вести переписку прямо из CRM?</summary>
+        <p>Да. Смысл таких решений - собрать диалоги из каналов в CRM, чтобы менеджер отвечал из одного интерфейса, а история сохранялась в карточке клиента.</p>
+        <p class="note miniLink">Описание "единое окно чатов" и сохранение данных есть на сайте Radist. :contentReference[oaicite:9]{index=9}</p>
+      </details>
+
+      <details>
+        <summary>Какие мессенджеры поддерживаются?</summary>
+        <p>В линейке Radist есть решения под WhatsApp, Telegram и MAX, а также другие каналы. Подбираем связку под вашу CRM и процессы.</p>
+        <p class="note miniLink">Указано в списке продуктов Radist. :contentReference[oaicite:10]{index=10}</p>
+      </details>
+
+      <details>
+        <summary>Это только про чаты или еще про автоматизацию?</summary>
+        <p>Не только. Интеграции могут автоматизировать создание и перенос сделок, рассылки, уведомления и другие сценарии по заранее заданным правилам.</p>
+        <p class="note miniLink">Примеры автоматизации описаны на странице интеграции amoCRM. :contentReference[oaicite:11]{index=11}</p>
+      </details>
+
+      <details>
+        <summary>Можно ли подключить несколько номеров и распределять обращения?</summary>
+        <p>Да, обычно это решается настройками каналов и правилами маршрутизации внутри CRM. Мы заранее проектируем, кто отвечает и как распределяются лиды, чтобы не было дублей.</p>
+      </details>
+
+      <details>
+        <summary>Сколько занимает внедрение?</summary>
+        <p>Быстро подключить канал можно за короткое время, но качественное внедрение включает настройку воронки, сценариев, ролей и обучение. В итоге важен не "скоростной старт", а стабильная работа процесса.</p>
+      </details>
+
+      <details>
+        <summary>Можно ли связать это с рекламой и сайтом?</summary>
+        <p>Да, это даже правильнее. Интеграции дают максимум эффекта в связке: трафик (контекст, SEO) - посадочная (сайт/страница) - CRM - коммуникации в мессенджерах - аналитика и оптимизация конверсии.</p>
+      </details>
+
+      <div class="hr"></div>
+      <p class="muted">
+        Полезные страницы для перелинковки:
+        <a href="#" title="TODO: /crm/amocrm/">amoCRM</a> |
+        <a href="#" title="TODO: /crm/bitrix24/">Битрикс24</a> |
+        <a href="#" title="TODO: /site-development/">Разработка сайтов</a> |
+        <a href="#" title="TODO: /yandex-direct/">Контекстная реклама</a> |
+        <a href="#" title="TODO: /seo/">SEO</a>
+      </p>
+    </section>
+
+    <!-- FOOTNOTE -->
+    <section class="sec card" id="links">
+      <h2>Ссылки</h2>
+      <ul class="list">
+        <li><a href="https://radist.online/" target="_blank" rel="noopener">Radist.online - официальный сайт</a></li>
+        <li><a href="https://radist.online/amocrm" target="_blank" rel="noopener">Radist - интеграции с amoCRM</a></li>
+        <li><a href="https://radist.online/amocrm/telegram" target="_blank" rel="noopener">Radist - Telegram + amoCRM</a></li>
+      </ul>
+      <p class="note">
+        Ссылки выше используются как справочные на официальный источник продукта. :contentReference[oaicite:12]{index=12}
+      </p>
+    </section>
+
+  </div>
+</body>
+</html>
+

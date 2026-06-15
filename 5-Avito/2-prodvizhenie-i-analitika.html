@@ -1,0 +1,599 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Продвижение и аналитика Avito - ведение, стратегия, рост заявок</title>
+  <meta name="description" content="Ведение Avito - стратегия, реклама, аналитика, оптимизация объявлений, рост заявок и конверсии. Работаем с Avito с 2021 года. Официальный партнер." />
+  <style>
+    :root{
+      --bg:#0b0f14;
+      --card:#0f1620;
+      --muted:#8ea2b8;
+      --text:#eaf2ff;
+      --line:rgba(255,255,255,.10);
+      --accent:#6ee7ff;
+      --accent2:#a78bfa;
+      --ok:#22c55e;
+      --bad:#ef4444;
+      --warn:#f59e0b;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background:radial-gradient(1200px 700px at 20% -10%, rgba(110,231,255,.12), transparent 60%),
+                 radial-gradient(900px 600px at 90% 10%, rgba(167,139,250,.12), transparent 55%),
+                 var(--bg);
+      color:var(--text);
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      line-height:1.55;
+    }
+    a{color:inherit}
+    .wrap{max-width:1120px;margin:0 auto;padding:28px 18px 72px}
+    .hero{
+      border:1px solid var(--line);
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      border-radius:18px;
+      padding:26px 22px;
+      overflow:hidden;
+      position:relative;
+    }
+    .hero:after{
+      content:"";
+      position:absolute;inset:-2px;
+      background:radial-gradient(500px 260px at 20% 20%, rgba(110,231,255,.18), transparent 60%),
+                 radial-gradient(520px 280px at 80% 10%, rgba(167,139,250,.16), transparent 60%);
+      pointer-events:none;
+      opacity:.55;
+    }
+    .hero > *{position:relative;z-index:1}
+    .kicker{
+      display:flex;flex-wrap:wrap;gap:10px;align-items:center;
+      color:var(--muted);font-size:13px;
+    }
+    .pill{
+      display:inline-flex;gap:8px;align-items:center;
+      padding:6px 10px;border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+      border-radius:999px;
+      white-space:nowrap;
+    }
+    h1{margin:10px 0 10px;font-size:34px;line-height:1.15}
+    .sub{margin:0;color:var(--muted);max-width:880px}
+    .grid{display:grid;gap:14px}
+    .grid-3{grid-template-columns:repeat(3, minmax(0, 1fr))}
+    .grid-2{grid-template-columns:repeat(2, minmax(0, 1fr))}
+    @media (max-width:980px){.grid-3{grid-template-columns:1fr}.grid-2{grid-template-columns:1fr}h1{font-size:28px}}
+    .cards{margin-top:16px}
+    .card{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+      border-radius:16px;
+      padding:16px 16px;
+    }
+    .card h3{margin:0 0 6px;font-size:16px}
+    .card p{margin:0;color:var(--muted);font-size:14px}
+    .mini{font-size:13px;color:var(--muted)}
+    .section{margin-top:18px}
+    .sectionTitle{
+      margin:0 0 10px;
+      font-size:20px;
+      letter-spacing:.2px;
+    }
+    .hr{height:1px;background:var(--line);margin:18px 0}
+    .toc{
+      margin-top:14px;
+      display:flex;flex-wrap:wrap;gap:10px;
+    }
+    .toc a{
+      text-decoration:none;
+      padding:8px 10px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.02);
+      border-radius:12px;
+      color:var(--muted);
+      font-size:13px;
+    }
+    .toc a:hover{color:var(--text);border-color:rgba(110,231,255,.35)}
+    ul{margin:10px 0 0 18px;color:var(--muted)}
+    li{margin:6px 0}
+    .note{
+      border-left:3px solid rgba(110,231,255,.7);
+      padding:10px 12px;
+      background:rgba(110,231,255,.05);
+      border-radius:12px;
+      color:var(--muted);
+      margin-top:10px;
+    }
+    .badgeRow{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+    .badge{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.02);
+      border-radius:14px;
+      padding:10px 12px;
+      min-width:220px;
+    }
+    .badge b{display:block;font-size:14px;margin-bottom:3px}
+    .badge span{font-size:13px;color:var(--muted)}
+    .compare{
+      display:grid;gap:12px;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+    }
+    @media (max-width:980px){.compare{grid-template-columns:1fr}}
+    .cmp{
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:14px 14px;
+      background:rgba(255,255,255,.02);
+    }
+    .cmp .head{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+    .dot{width:10px;height:10px;border-radius:999px}
+    .dot.bad{background:var(--bad)}
+    .dot.ok{background:var(--ok)}
+    .cmp b{font-size:14px}
+    .cmp ul{margin-top:6px}
+    .faq details{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.02);
+      border-radius:14px;
+      padding:12px 12px;
+    }
+    .faq details + details{margin-top:10px}
+    .faq summary{cursor:pointer;font-weight:600}
+    .faq p{margin:8px 0 0;color:var(--muted)}
+    .links{
+      display:flex;flex-wrap:wrap;gap:10px;margin-top:10px
+    }
+    .links a{
+      text-decoration:none;
+      padding:10px 12px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.02);
+      border-radius:12px;
+      color:var(--muted);
+      font-size:13px;
+    }
+    .links a:hover{color:var(--text);border-color:rgba(167,139,250,.35)}
+    .price{
+      display:flex;flex-wrap:wrap;gap:12px;align-items:stretch;margin-top:10px
+    }
+    .price .p{
+      flex:1 1 240px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.02);
+      border-radius:16px;
+      padding:14px 14px;
+    }
+    .price .p b{display:block;font-size:14px}
+    .price .p .v{font-size:22px;margin:6px 0 6px}
+    .price .p .v span{color:var(--muted);font-size:14px}
+    .foot{
+      margin-top:18px;color:var(--muted);font-size:12.5px
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+
+    <section class="hero" id="top">
+      <div class="kicker">
+        <span class="pill">Avito - ведение и рост заявок</span>
+        <span class="pill">Стратегия - аналитика - конверсия</span>
+        <span class="pill">Работаем с Avito с 2021 года</span>
+        <span class="pill">Официальный партнер Avito</span>
+      </div>
+
+      <h1>Продвижение и аналитика Avito</h1>
+      <p class="sub">
+        Если объявления уже оформлены, но результат нестабильный, лиды дорогие, много "пустых" обращений или
+        хочется масштабироваться - подключаем стратегию, рекламу Avito, аналитику и регулярные улучшения.
+        Работаем не только с объявлениями, а со всей связкой: Avito - сайт - мессенджеры - CRM.
+      </p>
+
+      <div class="toc">
+        <a href="#when">Кому подходит</a>
+        <a href="#what">Что делаем</a>
+        <a href="#strategy">Стратегия роста</a>
+        <a href="#analytics">Аналитика</a>
+        <a href="#cost">Что влияет на стоимость</a>
+        <a href="#errors">Типовые ошибки</a>
+        <a href="#integrations">Интеграции</a>
+        <a href="#faq">FAQ</a>
+        <a href="#links">Перелинковка</a>
+      </div>
+
+      <div class="cards grid grid-3">
+        <div class="card">
+          <h3>Рост заявок без слива</h3>
+          <p>Убираем "мусорный" спрос, находим точки роста и держим стоимость лида в адеквате.</p>
+        </div>
+        <div class="card">
+          <h3>Ставка на рекомендации</h3>
+          <p>Делаем объявления кликабельными и понятными. Это влияет на показы и цену.</p>
+        </div>
+        <div class="card">
+          <h3>Отчеты и прозрачность</h3>
+          <p>Показываем, что меняли и зачем. Даем понятные выводы и следующий план.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="hr"></div>
+
+    <section class="section" id="when">
+      <h2 class="sectionTitle">Кому подходит ведение Avito</h2>
+      <div class="grid grid-2">
+        <div class="card">
+          <h3>Есть Avito - результата мало</h3>
+          <p>Объявления есть, но лиды редкие, дорогие или много "нецелевых". Нужна стратегия и контроль.</p>
+          <ul>
+            <li>Падает число обращений при тех же бюджетах</li>
+            <li>Конкуренты "везде", а вы - нет</li>
+            <li>Много просмотров, но мало диалогов</li>
+            <li>Сложно понять, что именно не работает</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Хотите масштабироваться</h3>
+          <p>Результат есть, но хочется больше: больше категорий, больше объявлений, больше регионов или направлений.</p>
+          <ul>
+            <li>Нужно расширять структуру без хаоса</li>
+            <li>Нужно тестировать новые связки и УТП</li>
+            <li>Нужны отчеты и понятные решения</li>
+            <li>Нужно свести заявки в CRM и ускорить ответы</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="note">
+        Важно: если у вас Avito "с нуля" и вообще ничего не оформлено - логичнее начать с страницы
+        <a href="/avito/oformlenie-optimizaciya/" style="text-decoration:underline">Оформление и оптимизация Avito</a>,
+        а уже затем подключать регулярное продвижение и аналитику.
+      </div>
+    </section>
+
+    <section class="section" id="what">
+      <h2 class="sectionTitle">Что входит в продвижение и аналитику</h2>
+
+      <div class="badgeRow">
+        <div class="badge">
+          <b>Анализ текущей точки А</b>
+          <span>Профиль, структура, объявления, цены, офферы, конкуренты, динамика показов и обращений.</span>
+        </div>
+        <div class="badge">
+          <b>Работа с рекламой Avito</b>
+          <span>Подключаем платные инструменты площадки по целям: лиды, охваты, удержание в выдаче.</span>
+        </div>
+        <div class="badge">
+          <b>Оптимизация объявлений</b>
+          <span>Заголовки, тексты, фото, первые экраны, упаковка - чтобы рос CTR и конверсия в диалог.</span>
+        </div>
+        <div class="badge">
+          <b>Стратегия тестов</b>
+          <span>Гипотезы, A-B тесты, разные офферы, разные форматы подачи, разные сценарии контакта.</span>
+        </div>
+        <div class="badge">
+          <b>Контроль качества лидов</b>
+          <span>Фильтруем мусор, отслеживаем "пустые" диалоги, корректируем подачу и настройки.</span>
+        </div>
+        <div class="badge">
+          <b>Отчетность</b>
+          <span>Понятные выводы: что сделали, что сработало, что дальше усиливаем, что отключаем.</span>
+        </div>
+      </div>
+
+      <div class="price">
+        <div class="p">
+          <b>Ведение Avito</b>
+          <div class="v">от 9 999 <span>руб/мес</span></div>
+          <div class="mini">Точная стоимость - после короткого анализа аккаунта и задач.</div>
+        </div>
+        <div class="p">
+          <b>Разовые доработки</b>
+          <div class="v">индивидуально</div>
+          <div class="mini">Если нужно усилить конкретные объявления или блоки, без ежемесячного ведения.</div>
+        </div>
+        <div class="p">
+          <b>Avito под ключ</b>
+          <div class="v">сборка связки</div>
+          <div class="mini">Оформление + продвижение + аналитика + интеграции. Под ключ - удобнее и быстрее.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="strategy">
+      <h2 class="sectionTitle">Стратегия - как выжимаем максимум из Avito</h2>
+
+      <div class="grid grid-2">
+        <div class="card">
+          <h3>1) Структура и охват</h3>
+          <p>Собираем "витрину" объявлений так, чтобы закрыть спрос без дублей и дыр.</p>
+          <ul>
+            <li>Разделение по услугам, форматам, сегментам</li>
+            <li>Варианты заголовков под разные запросы</li>
+            <li>Доработка описаний под смысл и поведение пользователя</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>2) УТП и конверсия</h3>
+          <p>Avito покупают глазами. Первое фото и первые строки решают, будет диалог или пролистали.</p>
+          <ul>
+            <li>Первые картинки - максимально понятные и "цепляющие"</li>
+            <li>Упаковка доверия: примеры, гарантии, процесс, понятные условия</li>
+            <li>Сценарии сообщений: что писать, как отвечать, как не терять клиента</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>3) Реклама и удержание</h3>
+          <p>Подключаем продвижение там, где оно дает рост, а не просто "жжет" бюджет.</p>
+          <ul>
+            <li>План: где давить бюджетом, где - контентом</li>
+            <li>Выбор инструментов под цель (лиды, охваты, масштаб)</li>
+            <li>Работа с сезонностью и всплесками конкуренции</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>4) Скорость ответа и автоматизация</h3>
+          <p>Быстрый ответ - это деньги. И это реально влияет на результаты.</p>
+          <ul>
+            <li>Интеграция Avito -> CRM, чтобы не терять заявки</li>
+            <li>Уведомления менеджерам, контроль SLA ответа</li>
+            <li>Автоматизации: шаблоны, быстрые ответы, сценарии</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="note">
+        Мы сознательно не обещаем "волшебную кнопку".
+        В Avito важно: упаковка + структура + реклама + скорость ответа + регулярные улучшения.
+        Тогда канал становится стабильным и масштабируемым.
+      </div>
+    </section>
+
+    <section class="section" id="analytics">
+      <h2 class="sectionTitle">Аналитика - что измеряем и что улучшаем</h2>
+
+      <div class="grid grid-2">
+        <div class="card">
+          <h3>Ключевые метрики</h3>
+          <ul>
+            <li>Показы и динамика видимости</li>
+            <li>CTR и кликабельность первых изображений</li>
+            <li>Конверсия из просмотра в диалог</li>
+            <li>Стоимость обращения и стоимость сделки (если есть CRM)</li>
+            <li>Доля "пустых" обращений и причины</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Какие выводы даем</h3>
+          <ul>
+            <li>Какие объявления усиливаем и почему</li>
+            <li>Какие офферы работают лучше</li>
+            <li>Где теряется конверсия: в карточке или в переписке</li>
+            <li>Что тестируем следующим шагом</li>
+            <li>Что отключаем, чтобы не сливать бюджет</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="links" style="margin-top:12px">
+        <a href="/seo/semanticheskoe-yadro/">Семантика - чтобы понимать спрос</a>
+        <a href="/kontekst/yandex-direct/">Контекстная реклама - как сравнить по экономике</a>
+        <a href="/crm/amocrm/">AmoCRM - чтобы считать сделки</a>
+      </div>
+    </section>
+
+    <section class="section" id="cost">
+      <h2 class="sectionTitle">Что влияет на стоимость ведения</h2>
+
+      <div class="grid grid-3">
+        <div class="card">
+          <h3>Ниша и конкуренция</h3>
+          <p>Чем активнее конкуренты, тем больше тестов и точнее стратегия.</p>
+        </div>
+        <div class="card">
+          <h3>Сколько направлений</h3>
+          <p>Одна услуга и 10 услуг - это разный объем структуры и контроля.</p>
+        </div>
+        <div class="card">
+          <h3>Сколько объявлений</h3>
+          <p>10 объявлений и 150 объявлений - разная нагрузка и аналитика.</p>
+        </div>
+        <div class="card">
+          <h3>Реклама и бюджеты</h3>
+          <p>Разные инструменты Avito требуют разного уровня управления и оптимизации.</p>
+        </div>
+        <div class="card">
+          <h3>Интеграции</h3>
+          <p>Если подключаем CRM, мессенджеры, аналитику - это усиливает результат, но добавляет объем работ.</p>
+        </div>
+        <div class="card">
+          <h3>Цель</h3>
+          <p>Просто "чтобы было" и "масштабируемся системно" - это разные модели работы.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="errors">
+      <h2 class="sectionTitle">Типовые ошибки - почему Avito не дает лидов</h2>
+
+      <div class="compare">
+        <div class="cmp">
+          <div class="head">
+            <span class="dot bad"></span>
+            <b>Как часто бывает</b>
+          </div>
+          <ul>
+            <li>Объявления "как у всех", без ясного оффера</li>
+            <li>Первые фото не продают - их пролистывают</li>
+            <li>Нет структуры - объявления дублируют друг друга</li>
+            <li>Реклама включена "на глаз" - деньги улетают</li>
+            <li>Отвечают долго - клиент уходит к конкуренту</li>
+            <li>Нет аналитики - непонятно, что улучшать</li>
+          </ul>
+        </div>
+
+        <div class="cmp">
+          <div class="head">
+            <span class="dot ok"></span>
+            <b>Как должно быть</b>
+          </div>
+          <ul>
+            <li>Понятный оффер в первых строках и на первом изображении</li>
+            <li>Кликабельные карточки и ясные сценарии контакта</li>
+            <li>Структура закрывает спрос без дублей и дыр</li>
+            <li>Реклама включается по стратегии и целям</li>
+            <li>Скорость ответа контролируется, заявки не теряются</li>
+            <li>Ежемесячные выводы и план улучшений</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="note">
+        Если хотите - сделаем краткий разбор текущего Avito и скажем, где прямо сейчас "утекают" заявки.
+        Это помогает быстро понять, есть ли смысл в ведении и какой объем работ нужен.
+      </div>
+    </section>
+
+    <section class="section" id="integrations">
+      <h2 class="sectionTitle">Интеграции - чтобы заявки не терялись</h2>
+
+      <div class="grid grid-2">
+        <div class="card">
+          <h3>Avito -> CRM</h3>
+          <p>
+            Сводим обращения в одно место, наводим порядок в отделе продаж, сохраняем историю диалогов.
+            Это влияет на конверсию и окупаемость рекламы.
+          </p>
+          <ul>
+            <li>Интеграция с <a href="/crm/amocrm/" style="text-decoration:underline">AmoCRM</a> (основная)</li>
+            <li>При необходимости - <a href="/crm/bitrix24/" style="text-decoration:underline">Bitrix24</a></li>
+            <li>Скорость ответа, уведомления, контроль менеджеров</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Мессенджеры и коммуникации</h3>
+          <p>
+            Подключаем коммуникации так, чтобы менеджеры работали из CRM и не сидели в десятках окон.
+          </p>
+          <ul>
+            <li>WhatsApp, Telegram, Max - через сервисы интеграции</li>
+            <li><a href="/crm/wazzup/" style="text-decoration:underline">WazApp</a> как базовый вариант</li>
+            <li><a href="/crm/radist/" style="text-decoration:underline">Radist</a> и <a href="/crm/chatapp/" style="text-decoration:underline">ChatApp</a> - альтернативы под задачу</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="links" id="links">
+        <a href="/avito/">Avito под ключ - главная</a>
+        <a href="/avito/oformlenie-optimizaciya/">Оформление и оптимизация</a>
+        <a href="/kontekst/yandex-direct/">Яндекс Директ</a>
+        <a href="/seo/">SEO</a>
+        <a href="/razrabotka-saitov/">Разработка сайтов</a>
+        <a href="/crm/">CRM и интеграции</a>
+      </div>
+    </section>
+
+    <section class="section faq" id="faq">
+      <h2 class="sectionTitle">FAQ - коротко отвечаем на частые вопросы</h2>
+
+      <details>
+        <summary>Сколько времени нужно, чтобы увидеть эффект от ведения?</summary>
+        <p>
+          Первые улучшения обычно видны после первых правок и перезапуска части объявлений, но устойчивый эффект
+          появляется, когда накопили статистику и проверили несколько гипотез. Скорость зависит от ниши, конкуренции и бюджета.
+        </p>
+      </details>
+
+      <details>
+        <summary>Можно ли вести Avito без рекламы и просто "поднимать" объявления?</summary>
+        <p>
+          Можно, но это часто превращается в бесконечные расходы без понятных выводов.
+          Мы делаем так, чтобы рост был управляемым: упаковка + структура + реклама по стратегии + аналитика.
+        </p>
+      </details>
+
+      <details>
+        <summary>Что важнее - много объявлений или качество?</summary>
+        <p>
+          Важны оба фактора. Много объявлений без структуры дает дубли и сжигает бюджет.
+          Качество без охвата не закрывает спрос. Мы собираем баланс под вашу нишу.
+        </p>
+      </details>
+
+      <details>
+        <summary>Почему с Avito много "пустых" обращений?</summary>
+        <p>
+          Часто причина в оффере, первом изображении и ожиданиях клиента. Если объявление выглядит "дешево" или
+          непонятно, кто вы и что входит в услугу - пишут все подряд. Мы правим упаковку, чтобы повышалась доля целевых.
+        </p>
+      </details>
+
+      <details>
+        <summary>Нужно ли покупать отдельный домен под Avito?</summary>
+        <p>
+          Не обязательно. Если ведете трафик на сайт - используем текущий домен. Если планируете отдельную посадочную,
+          можно сделать на поддомене или отдельном домене. Выбор зависит от стратегии и планов на рост.
+        </p>
+      </details>
+
+      <details>
+        <summary>Мы работаем по услугам. С товаркой вы работаете?</summary>
+        <p>
+          Основной фокус - раздел "Услуги". По товарным проектам можем обсуждать точечно, если есть понятная модель и цель.
+        </p>
+      </details>
+
+      <details>
+        <summary>Можно ли вести Avito и параллельно усиливать сайт?</summary>
+        <p>
+          Да, это часто дает лучший итог. Мы можем доработать посадочную страницу, повысить конверсию и связать все с CRM.
+          Тогда стоимость заявки обычно становится адекватнее.
+        </p>
+      </details>
+
+      <details>
+        <summary>Вы даете доступы и отчеты?</summary>
+        <p>
+          Да. Даем прозрачную картину: что делали, какие гипотезы проверяли, что сработало, что дальше усиливаем.
+        </p>
+      </details>
+
+      <details>
+        <summary>Вы являетесь официальным партнером Avito?</summary>
+        <p>
+          Да, работаем как сертифицированный партнер, используем партнерские инструменты и актуальные подходы площадки.
+        </p>
+      </details>
+
+      <details>
+        <summary>Можно ли подключить автоответы и SalesBot?</summary>
+        <p>
+          Да, через CRM и интеграции. Это помогает не терять клиентов, особенно когда много обращений, и повышает скорость ответа.
+        </p>
+      </details>
+
+      <details>
+        <summary>Если у нас уже есть подрядчик - вы можете подключиться только как аудит/второе мнение?</summary>
+        <p>
+          Да. Можно сделать разовый разбор и план улучшений. Если хотите - затем подключаем ведение.
+        </p>
+      </details>
+
+      <details>
+        <summary>Что вы считаете хорошим результатом?</summary>
+        <p>
+          Хороший результат - когда вы понимаете экономику: сколько стоит обращение, сколько стоит сделка, и канал дает предсказуемый поток.
+          Мы работаем именно в эту сторону, а не в "красивые отчеты".
+        </p>
+      </details>
+
+      <div class="foot">
+        Примечание: цены и условия на странице - ориентиры. Финально считаем после короткого анализа проекта и целей.
+      </div>
+    </section>
+
+  </div>
+</body>
+</html>

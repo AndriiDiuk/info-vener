@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1280" />
+  <title>Интернет-магазин под ключ | Venner Digital</title>
+  <style>
+    * { box-sizing: border-box; }
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:#071017;
+      color:#f5f7fb;
+      min-width: 1280px;
+    }
+    a{ color:inherit; text-decoration:none; }
+
+    .topbar{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(10px);
+      background: rgba(7,16,23,0.78);
+      border-bottom:1px solid rgba(255,255,255,0.06);
+    }
+    .topbar-inner{
+      max-width:1200px; margin:0 auto; padding:14px 40px;
+      display:flex; align-items:center; justify-content:space-between; gap:14px;
+    }
+    .brand{ display:flex; align-items:center; gap:10px; font-weight:850; letter-spacing:0.2px; }
+    .brand-badge{
+      width:34px; height:34px; border-radius:12px;
+      background: linear-gradient(135deg, rgba(90,231,255,0.28), rgba(255,47,122,0.28));
+      border:1px solid rgba(255,255,255,0.12);
+      display:flex; align-items:center; justify-content:center;
+      font-weight:950;
+    }
+
+    .nav{ display:flex; gap:14px; color:#cfd7ea; font-size:13px; }
+    .nav a{ padding:8px 10px; border-radius:999px; border:1px solid transparent; }
+    .nav a:hover{ border-color:rgba(255,255,255,0.12); background:rgba(255,255,255,0.04); }
+
+    .top-cta{ display:flex; align-items:center; gap:10px; }
+    .phone{ font-weight:750; font-size:13px; color:#e8eefc; opacity:0.95; }
+    .mini-icons{ display:flex; gap:8px; }
+    .mini-ic{
+      width:34px; height:34px; border-radius:12px;
+      display:flex; align-items:center; justify-content:center;
+      border:1px solid rgba(255,255,255,0.14);
+      background:rgba(255,255,255,0.04);
+      font-size:13px; font-weight:900;
+    }
+
+    .page{ max-width:1200px; margin:0 auto; padding:24px 40px 90px; }
+
+    section{
+      margin-top:22px;
+      border-radius:24px;
+      padding:32px 36px;
+      background:#0f1c25;
+      border:1px solid rgba(255,255,255,0.04);
+    }
+
+    h1,h2,h3{ margin:0 0 14px; line-height:1.22; }
+    h1{ font-size:34px; }
+    h2{ font-size:26px; }
+    h3{ font-size:18px; }
+
+    p{ margin:0 0 10px; line-height:1.55; color:#d6dbe6; }
+    .muted{ color:#9aa4ba; font-size:14px; }
+    .muted-small{ color:#8e9ab3; font-size:12px; }
+
+    .hero{
+      display:grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap:26px;
+      align-items:center;
+      background: radial-gradient(circle at top left, #253849 0, #050b10 52%, #050b10 100%);
+      overflow:hidden;
+      position:relative;
+    }
+    .hero:before{
+      content:"";
+      position:absolute; inset:-80px -120px auto auto;
+      width:520px; height:520px; border-radius:50%;
+      background: radial-gradient(circle, rgba(90,231,255,0.24), rgba(90,231,255,0.02));
+      filter: blur(1px);
+      pointer-events:none;
+    }
+
+    .chips{ display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
+    .chip{
+      font-size:13px;
+      padding:6px 10px;
+      border-radius:999px;
+      background:rgba(255,255,255,0.06);
+      border:1px solid rgba(255,255,255,0.08);
+      color:#e7edfb;
+      white-space:nowrap;
+    }
+
+    .btn-row{ display:flex; flex-wrap:wrap; gap:12px; margin-top:18px; align-items:center; }
+    .btn{
+      padding:12px 18px;
+      border-radius:999px;
+      font-size:14px;
+      font-weight:750;
+      cursor:pointer;
+      border:none;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      white-space:nowrap;
+      transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+    }
+    .btn:hover{ transform: translateY(-1px); }
+    .btn-primary{
+      background:#ff2f7a;
+      color:#fff;
+      box-shadow:0 10px 25px rgba(255,47,122,0.35);
+    }
+    .btn-secondary{
+      background:transparent;
+      color:#f5f7fb;
+      border:1px solid rgba(255,255,255,0.18);
+    }
+    .btn-ghost{
+      background:rgba(255,255,255,0.05);
+      color:#f5f7fb;
+      border:1px solid rgba(255,255,255,0.08);
+    }
+
+    .messenger-badges{ display:flex; gap:8px; margin-left:4px; }
+    .badge{
+      width:36px; height:36px; border-radius:12px;
+      display:flex; align-items:center; justify-content:center;
+      font-weight:950; color:#fff; font-size:13px;
+      border: 1px solid rgba(255,255,255,0.10);
+    }
+    .wa{ background:#25d366; }
+    .tg{ background:#27a6e5; }
+    .mx{ background:#7c5cff; }
+
+    .image-placeholder{
+      height:280px;
+      border-radius:24px;
+      background: linear-gradient(135deg, #374a5c, #1c2732);
+      border:1px solid rgba(255,255,255,0.05);
+      display:flex; align-items:center; justify-content:center;
+      color:#c2cad8; font-size:13px; text-align:center; padding:14px;
+    }
+
+    .cards-grid{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap:14px;
+      margin-top:14px;
+    }
+    .card{
+      background:#101b25;
+      border-radius:18px;
+      padding:16px 16px 18px;
+      border:1px solid rgba(255,255,255,0.06);
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+      min-height:120px;
+    }
+    .card-title{ font-size:15px; font-weight:900; color:#f2f6ff; }
+    .card p{ font-size:13px; margin:0; color:#cfd7ea; }
+
+    .two-col{
+      display:grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap:22px;
+      align-items:flex-start;
+    }
+
+    .list{
+      margin:12px 0 0;
+      padding:0;
+      list-style:none;
+      display:grid;
+      gap:10px;
+    }
+    .li{
+      padding:12px 14px;
+      border-radius:16px;
+      background:#0f1922;
+      border:1px solid rgba(255,255,255,0.04);
+      color:#cfd7ea;
+      font-size:13px;
+      line-height:1.5;
+    }
+    .li b{ color:#f5f7fb; }
+
+    .link-pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 10px;
+      border-radius:999px;
+      background: rgba(90,231,255,0.10);
+      border:1px solid rgba(90,231,255,0.20);
+      color:#c7f6ff;
+      font-size:12px;
+      font-weight:900;
+    }
+
+    .timeline{ display:grid; gap:12px; margin-top:14px; }
+    .step{
+      display:grid;
+      grid-template-columns: 42px 1fr;
+      gap:12px;
+      padding:14px 14px;
+      border-radius:18px;
+      background:#0f1922;
+      border:1px solid rgba(255,255,255,0.04);
+    }
+    .step-n{
+      width:42px; height:42px; border-radius:14px;
+      display:flex; align-items:center; justify-content:center;
+      font-weight:950;
+      background: rgba(255,255,255,0.06);
+      border:1px solid rgba(255,255,255,0.08);
+    }
+    .step h3{ margin:0 0 4px; font-size:15px; }
+    .step p{ margin:0; font-size:13px; color:#cfd7ea; }
+
+    .pricing{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap:14px;
+      margin-top:14px;
+    }
+    .plan{
+      border-radius:20px;
+      padding:18px 18px 16px;
+      background:#101b25;
+      border:1px solid rgba(255,255,255,0.06);
+      position:relative;
+      overflow:hidden;
+      min-height:300px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+    .plan.popular{
+      border-color: rgba(90,231,255,0.22);
+      box-shadow: 0 16px 40px rgba(90,231,255,0.08);
+    }
+    .plan-badge{
+      position:absolute; top:14px; right:14px;
+      font-size:12px; font-weight:950;
+      padding:6px 10px; border-radius:999px;
+      background: rgba(90,231,255,0.12);
+      border:1px solid rgba(90,231,255,0.22);
+      color:#c7f6ff;
+    }
+    .plan h3{ font-size:18px; margin:0; }
+    .plan .desc{ color:#bfc9df; font-size:13px; }
+    .plan ul{ margin:0; padding-left:18px; color:#d6dbe6; font-size:13px; line-height:1.55; }
+    .plan .grow{ flex:1; }
+    .plan .btn{ width:100%; justify-content:center; }
+
+    details{
+      background:#0f1922;
+      border-radius:16px;
+      padding:12px 14px;
+      border:1px solid rgba(255,255,255,0.04);
+      font-size:13px;
+    }
+    details + details{ margin-top:10px; }
+    summary{
+      list-style:none;
+      cursor:pointer;
+      font-weight:950;
+      font-size:14px;
+      color:#f5f7fb;
+    }
+    summary::-webkit-details-marker{ display:none; }
+    .accordion-body{ margin-top:8px; color:#cfd7ea; line-height:1.55; }
+
+    .cta-box{
+      background:#0f1922;
+      border-radius:18px;
+      padding:18px;
+      border:1px solid rgba(255,255,255,0.05);
+    }
+
+    .sticky-cta{
+      position:fixed; left:50%; transform:translateX(-50%);
+      bottom:18px; z-index:60;
+      width: min(1100px, calc(100% - 80px));
+      background: rgba(15,28,37,0.88);
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 18px;
+      padding: 12px 14px;
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+      backdrop-filter: blur(10px);
+    }
+    .sticky-cta b{ color:#fff; }
+
+    .hr-note{
+      margin-top:10px;
+      padding:10px 12px;
+      border-radius:14px;
+      border:1px dashed rgba(255,255,255,0.16);
+      color:#aeb9d4;
+      font-size:12px;
+      background: rgba(255,255,255,0.03);
+    }
+
+    .anchor-links{ display:flex; flex-wrap:wrap; gap:10px; margin-top:10px; }
+
+    .portfolio-grid{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap:14px;
+      margin-top:14px;
+    }
+    .work{
+      border-radius:18px;
+      padding:16px;
+      background:#101b25;
+      border:1px solid rgba(255,255,255,0.06);
+      min-height:140px;
+      display:flex; flex-direction:column; gap:8px;
+    }
+    .work .tag{
+      display:inline-flex;
+      width: fit-content;
+      padding:6px 10px;
+      border-radius:999px;
+      background: rgba(255,47,122,0.10);
+      border:1px solid rgba(255,47,122,0.18);
+      color:#ffd2e4;
+      font-size:12px;
+      font-weight:900;
+    }
+    .work b{ font-size:14px; }
+    .work p{ font-size:13px; margin:0; color:#cfd7ea; }
+
+    .footer-notes{
+      margin-top:18px;
+      padding:12px 14px;
+      border-radius:16px;
+      background: rgba(255,255,255,0.03);
+      border:1px solid rgba(255,255,255,0.06);
+      color:#9aa4ba;
+      font-size:12px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="brand-badge">V</div>
+        <div>Venner Digital</div>
+      </div>
+
+      <div class="nav">
+        <a href="#platform">Платформы</a>
+        <a href="#features">Что входит</a>
+        <a href="#seo">SEO основа</a>
+        <a href="#pricing">Тарифы</a>
+        <a href="#faq">FAQ</a>
+      </div>
+
+      <div class="top-cta">
+        <div class="phone">8 (952) 807-06-01</div>
+        <div class="mini-icons" aria-label="Мессенджеры">
+          <div class="mini-ic" title="WhatsApp">WA</div>
+          <div class="mini-ic" title="Telegram">TG</div>
+          <div class="mini-ic" title="Max">MX</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page">
+
+    <!-- HERO -->
+    <section class="hero" id="top">
+      <div>
+        <h1>Интернет-магазин под ключ - чтобы он продавал, а не просто "был".</h1>
+        <p>Каталог, карточки, корзина, оформление заказа, оплата и доставка - собираем в одну нормальную систему. Сразу закладываем SEO-основу и аналитику, чтобы после запуска не переделывать все заново.</p>
+
+        <div class="chips">
+          <span class="chip">OpenCart или 1С-Битрикс</span>
+          <span class="chip">Готовые решения + доработка</span>
+          <span class="chip">SEO-основа в разработке</span>
+          <span class="chip">Оплата и доставка (по задаче)</span>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn btn-primary" type="button">Рассчитать стоимость</button>
+          <button class="btn btn-secondary" type="button">Обсудить по телефону</button>
+          <div class="messenger-badges" aria-label="Мессенджеры">
+            <div class="badge wa" title="WhatsApp">WA</div>
+            <div class="badge tg" title="Telegram">TG</div>
+            <div class="badge mx" title="Max">MX</div>
+          </div>
+        </div>
+
+        <p class="muted">Мы не ограничиваемся "сделать сайт". Если нужно - подключим аналитику, настроим рекламу, поможем с SEO и дальше будем развивать магазин по данным.</p>
+      </div>
+
+      <div class="image-placeholder">
+        Плейсхолдер: главный экран магазина + схема "товар - корзина - оплата - доставка"
+      </div>
+    </section>
+
+    <!-- PLATFORM CHOICE -->
+    <section id="platform">
+      <h2>Выбор платформы - под задачу, бюджет и скорость запуска.</h2>
+      <p class="muted">Три варианта. Все рабочие. Разница в том, как быстро стартуем и как удобно развивать проект дальше.</p>
+
+      <div class="cards-grid">
+        <div class="card">
+          <div class="card-title">OpenCart</div>
+          <p>Быстрый запуск и понятная админка. Часто оптимально по бюджету, особенно если берем проверенное готовое решение и дорабатываем под ваш каталог, оплату и доставку.</p>
+          <div class="anchor-links">
+            <a class="link-pill" href="/sozdanie-saytov/sayt-na-opencart/">Страница про OpenCart</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">1С-Битрикс + ASPRO</div>
+          <p>Когда важны учет, процессы, роли, интеграции и масштабирование. Мы - официальные сертифицированные партнеры 1С-Битрикс более 10 лет и сертифицированный партнер ASPRO.</p>
+          <div class="anchor-links">
+            <a class="link-pill" href="/sozdanie-saytov/sayt-na-1c-bitrix/">Страница про 1С-Битрикс</a>
+            <a class="link-pill" href="https://aspro.ru" target="_blank" rel="noopener">ASPRO</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">С нуля (легкий самопис)</div>
+          <p>Когда нужен нестандартный сценарий и проще сделать точное решение под вашу логику. Типичный кейс - меню и доставка, небольшая номенклатура, но свои "фишки" и правила.</p>
+          <div class="anchor-links">
+            <a class="link-pill" href="/sozdanie-saytov/razrabotka-sayta/">Разработка сайта</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="hr-note">В OpenCart нет системы партнерских сертификатов как в 1С-Битрикс. Поэтому там опираемся на практику, проверенные решения и аккуратные доработки.</div>
+    </section>
+
+    <!-- READY SOLUTIONS -->
+    <section>
+      <div class="two-col">
+        <div>
+          <h2>Готовое решение - это экономия бюджета на дистанции.</h2>
+          <p>Рынок меняется регулярно: требования к скорости, безопасность, интеграции, новые сценарии продаж. Если магазин собран на сильном готовом решении, часть улучшений приходит через обновления продукта - бесплатно или за символическую плату. Это почти всегда дешевле, чем годами допиливать все вручную.</p>
+
+          <div class="list">
+            <div class="li"><b>Быстрее запуск.</b> Не тратим месяцы на базу - берем проверенную основу и идем в продажу.</div>
+            <div class="li"><b>Проще поддержка.</b> Обновления, совместимость модулей, правки по безопасности - не на ваших плечах.</div>
+            <div class="li"><b>Предсказуемый рост.</b> Можно развивать магазин по данным: улучшать карточки, фильтры, оформление заказа.</div>
+          </div>
+
+          <p class="muted-small">На 1С-Битрикс чаще всего используем решения ASPRO. По задаче подбираем линейку: LightShop для быстрого старта или Maximum, когда нужно больше функционала и механик допродаж.</p>
+
+          <div class="anchor-links">
+            <a class="link-pill" href="/sozdanie-saytov/sayt-na-1c-bitrix/">Магазин на 1С-Битрикс</a>
+            <a class="link-pill" href="/sozdanie-saytov/sayt-na-opencart/">Магазин на OpenCart</a>
+          </div>
+        </div>
+
+        <div class="image-placeholder">Плейсхолдер: схема "шаблон - доработка - обновления - развитие"</div>
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section id="features">
+      <div class="two-col">
+        <div>
+          <h2>Что входит в интернет-магазин под ключ.</h2>
+          <p>Мы собираем магазин как систему - от структуры каталога до оплаты и доставки. Чтобы после релиза не выяснилось, что "корзина есть, а заказ оформить неудобно".</p>
+
+          <div class="list">
+            <div class="li"><b>Каталог.</b> Категории, подкатегории, фильтры, поиск, логика навигации.</div>
+            <div class="li"><b>Карточка товара.</b> Фото, характеристики, вариации, сопутствующие товары.</div>
+            <div class="li"><b>Корзина и оформление.</b> Шаги, поля, статусы, уведомления.</div>
+            <div class="li"><b>Оплата и доставка.</b> По задаче подключаем нужные варианты. Часто - ЮKassa и СДЭК.</div>
+            <div class="li"><b>Аналитика.</b> Метрика и Google Analytics, цели, события ecommerce.</div>
+            <div class="li"><b>SEO-основа.</b> Структура, ЧПУ, шаблоны, индексация - без фанатизма, но правильно.</div>
+          </div>
+
+          <div class="anchor-links">
+            <a class="link-pill" href="/crm-integracii/">CRM и интеграции</a>
+            <a class="link-pill" href="/seo/">SEO</a>
+            <a class="link-pill" href="/yandex-direct/">Яндекс.Директ</a>
+          </div>
+        </div>
+
+        <div class="cta-box">
+          <h3>Нужен расчет под вашу структуру?</h3>
+          <p class="muted">Проще посчитать по факту: сколько категорий, какие фильтры, какие оплаты и доставки, нужен ли учет.</p>
+          <div class="btn-row" style="margin-top:12px;">
+            <button class="btn btn-primary" type="button">Рассчитать стоимость</button>
+            <button class="btn btn-secondary" type="button">Обсудить по телефону</button>
+            <div class="messenger-badges" aria-label="Мессенджеры">
+              <div class="badge wa" title="WhatsApp">WA</div>
+              <div class="badge tg" title="Telegram">TG</div>
+              <div class="badge mx" title="Max">MX</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTEGRATIONS -->
+    <section>
+      <h2>Интеграции и учет.</h2>
+      <p>Если у вас есть учет в 1С или МойСклад - подключим обмен товарами, остатками и заказами. Если нужна CRM - настроим передачу заявок и статусы, чтобы менеджеры не жили в трех системах.</p>
+
+      <div class="cards-grid">
+        <div class="card">
+          <div class="card-title">1С</div>
+          <p>Товары, остатки, цены, статусы заказов. По задаче делаем обмен так, чтобы учет работал без ручного копипаста.</p>
+        </div>
+        <div class="card">
+          <div class="card-title">МойСклад</div>
+          <p>Удобно для небольших и средних проектов. Настраиваем синхронизацию ассортимента и заказов.</p>
+        </div>
+        <div class="card">
+          <div class="card-title">CRM</div>
+          <p>Если нужно - подключим amoCRM или Bitrix24: распределение заявок, статусы, контроль обработки.</p>
+          <div class="anchor-links">
+            <a class="link-pill" href="/crm-integracii/">CRM и интеграции</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SEO BLOCK -->
+    <section id="seo">
+      <div class="two-col">
+        <div>
+          <h2>SEO-основа интернет-магазина - делаем сразу.</h2>
+          <p>Интернет-магазин выигрывает не "красивым дизайном", а структурой и понятными страницами под спрос. Поэтому на старте закладываем основу: логика категорий, ЧПУ, шаблоны страниц и базовая перелинковка. Это экономит бюджет и ускоряет рост в органике.</p>
+
+          <div class="list">
+            <div class="li"><b>Структура под спрос.</b> Категории и подкатегории не "как удобно", а как ищут.</div>
+            <div class="li"><b>ЧПУ и шаблоны.</b> Чтобы новые страницы создавались без хаоса и дублей.</div>
+            <div class="li"><b>Базовая семантика.</b> Собираем основу, чтобы не переделывать структуру потом.</div>
+          </div>
+
+          <div class="anchor-links">
+            <a class="link-pill" href="/seo/semanticheskoe-yadro/">Семантическое ядро</a>
+            <a class="link-pill" href="/seo/optimizaciya-sayta/">SEO-оптимизация</a>
+            <a class="link-pill" href="/seo/">SEO услуги</a>
+          </div>
+        </div>
+
+        <div class="image-placeholder">Плейсхолдер: схема "структура - семантика - страницы - рост"</div>
+      </div>
+    </section>
+
+    <!-- PROCESS -->
+    <section>
+      <h2>Как работаем - этапы и контроль.</h2>
+      <p class="muted">Понятный процесс без сюрпризов. Работаем по этапам, смета в Excel, контроль прогресса.</p>
+
+      <div class="timeline">
+        <div class="step">
+          <div class="step-n">1</div>
+          <div>
+            <h3>Бриф и цели</h3>
+            <p>Ассортимент, доставка, оплата, учет, роли сотрудников. Фиксируем, что считаем успехом.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-n">2</div>
+          <div>
+            <h3>Платформа и подход</h3>
+            <p>OpenCart, 1С-Битрикс или легкий самопис. Подбираем под задачу, а не по привычке.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-n">3</div>
+          <div>
+            <h3>Прототип ключевых страниц</h3>
+            <p>Каталог, карточка, корзина, оформление. Согласуем логику до дизайна и сборки.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-n">4</div>
+          <div>
+            <h3>Дизайн и сборка</h3>
+            <p>Собираем аккуратно, чтобы было понятно и быстро. Далее подключаем модули и функционал.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-n">5</div>
+          <div>
+            <h3>Оплата, доставка, интеграции</h3>
+            <p>Подключаем нужные сервисы: ЮKassa, СДЭК, учет, CRM - по задаче.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-n">6</div>
+          <div>
+            <h3>SEO-основа и аналитика</h3>
+            <p>Структура, ЧПУ, индексация, Метрика и Google Analytics. Чтобы все считалось и росло.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-n">7</div>
+          <div>
+            <h3>Тест и запуск</h3>
+            <p>Проверяем оформление заказа, статусы, уведомления и скорость. После запуска - поддержка по договоренности.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-primary" type="button">Рассчитать стоимость</button>
+        <button class="btn btn-secondary" type="button">Обсудить по телефону</button>
+        <div class="messenger-badges" aria-label="Мессенджеры">
+          <div class="badge wa" title="WhatsApp">WA</div>
+          <div class="badge tg" title="Telegram">TG</div>
+          <div class="badge mx" title="Max">MX</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ MINI -->
+    <section>
+      <h2>FAQ - коротко по частым вопросам.</h2>
+
+      <details>
+        <summary>Что лучше для магазина - OpenCart или 1С-Битрикс?</summary>
+        <div class="accordion-body">OpenCart часто быстрее и проще по бюджету. 1С-Битрикс сильнее в интеграциях и корпоративных сценариях. Подбираем платформу по задаче, ассортименту и планам на развитие.</div>
+      </details>
+      <details>
+        <summary>Подключаете оплату и доставку?</summary>
+        <div class="accordion-body">Да. По задаче подключаем нужные варианты. Часто - ЮKassa и СДЭК, но можно настроить и другие сервисы.</div>
+      </details>
+      <details>
+        <summary>Можно ли подключить учет - 1С или МойСклад?</summary>
+        <div class="accordion-body">Да. Настраиваем обмен товарами, остатками и заказами. Убираем ручной труд и ошибки на обработке.</div>
+      </details>
+      <details>
+        <summary>Делаете ли SEO для интернет-магазина?</summary>
+        <div class="accordion-body">Базовую SEO-основу закладываем в разработке: структура, ЧПУ, шаблоны и индексация. Это снижает стоимость дальнейшего продвижения и ускоряет рост.</div>
+      </details>
+      <details>
+        <summary>Можно ли перенести товары со старого сайта или из Excel?</summary>
+        <div class="accordion-body">Да. Формат зависит от платформы и источника данных. Обычно переносим из таблиц, выгрузок, учета или через API.</div>
+      </details>
+      <details>
+        <summary>Сколько времени занимает разработка интернет-магазина?</summary>
+        <div class="accordion-body">Зависит от структуры каталога, оплат и доставок, интеграций и объема контента. Быстрее всего запускаются проекты на готовом решении, дальше докручиваем под вашу логику.</div>
+      </details>
+
+      <div class="footer-notes" id="faq">
+        Важно: ответы здесь короткие. Расширенный блок FAQ ниже, перед сквозными блоками.
+      </div>
+    </section>
+
+    <!-- PRICING -->
+    <section id="pricing">
+      <h2>Тарифы.</h2>
+      <p class="muted">Три понятных пакета. Внутри подберем платформу и объем работ под вашу задачу.</p>
+
+      <div class="pricing">
+        <div class="plan">
+          <h3>Старт</h3>
+          <div class="desc">Интернет-магазин на OpenCart</div>
+          <div class="grow">
+            <ul>
+              <li>Готовое решение + настройка</li>
+              <li>Каталог, карточки, корзина, оформление</li>
+              <li>Оплата и доставка (по задаче)</li>
+              <li>Базовая аналитика</li>
+              <li>SEO-основа на старте</li>
+            </ul>
+          </div>
+          <button class="btn btn-primary" type="button">Рассчитать стоимость</button>
+          <div class="btn-row" style="margin-top:10px;">
+            <button class="btn btn-secondary" type="button" style="padding:10px 14px;">Обсудить по телефону</button>
+            <div class="messenger-badges" aria-label="Мессенджеры">
+              <div class="badge wa" title="WhatsApp">WA</div>
+              <div class="badge tg" title="Telegram">TG</div>
+              <div class="badge mx" title="Max">MX</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="plan popular">
+          <div class="plan-badge">Частый выбор</div>
+          <h3>Бизнес</h3>
+          <div class="desc">Интернет-магазин на 1С-Битрикс (ASPRO)</div>
+          <div class="grow">
+            <ul>
+              <li>ASPRO решение под вашу нишу</li>
+              <li>Настройка каталога, корзины, оформления</li>
+              <li>Интеграции с учетом и CRM (по задаче)</li>
+              <li>Оплата и доставка (ЮKassa, СДЭК и др.)</li>
+              <li>SEO-основа и аналитика</li>
+            </ul>
+          </div>
+          <button class="btn btn-primary" type="button">Рассчитать стоимость</button>
+          <div class="btn-row" style="margin-top:10px;">
+            <button class="btn btn-secondary" type="button" style="padding:10px 14px;">Обсудить по телефону</button>
+            <div class="messenger-badges" aria-label="Мессенджеры">
+              <div class="badge wa" title="WhatsApp">WA</div>
+              <div class="badge tg" title="Telegram">TG</div>
+              <div class="badge mx" title="Max">MX</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="plan">
+          <h3>Перфоманс</h3>
+          <div class="desc">Интернет-магазин + запуск трафика</div>
+          <div class="grow">
+            <ul>
+              <li>Сборка магазина на подходящей платформе</li>
+              <li>Настройка аналитики и событий ecommerce</li>
+              <li>Запуск Яндекс.Директ</li>
+              <li>Оптимизация по данным: заявки, заказы, стоимость</li>
+              <li>Гипотезы и улучшение конверсии</li>
+            </ul>
+          </div>
+          <button class="btn btn-primary" type="button">Рассчитать стоимость</button>
+          <div class="btn-row" style="margin-top:10px;">
+            <button class="btn btn-secondary" type="button" style="padding:10px 14px;">Обсудить по телефону</button>
+            <div class="messenger-badges" aria-label="Мессенджеры">
+              <div class="badge wa" title="WhatsApp">WA</div>
+              <div class="badge tg" title="Telegram">TG</div>
+              <div class="badge mx" title="Max">MX</div>
+            </div>
+          </div>
+          <div class="anchor-links">
+            <a class="link-pill" href="/yandex-direct/">Про Яндекс.Директ</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="hr-note">SEO-основу мы закладываем в разработке интернет-магазина. Продвижение и развитие магазина можно подключать дальше отдельными этапами.</div>
+    </section>
+
+    <!-- PORTFOLIO -->
+    <section>
+      <h2>Наши работы.</h2>
+      <p class="muted">Плейсхолдер под кейсы. Здесь будут карточки проектов с коротким описанием и ссылкой.</p>
+
+      <div class="portfolio-grid">
+        <div class="work">
+          <div class="tag">Магазин</div>
+          <b>Проект #1</b>
+          <p>Каталог, фильтры, удобное оформление заказа. Показатели и ниша - плейсхолдер.</p>
+        </div>
+        <div class="work">
+          <div class="tag">Магазин</div>
+          <b>Проект #2</b>
+          <p>Интеграции, оплата, доставка. Плейсхолдер под результат и особенности.</p>
+        </div>
+        <div class="work">
+          <div class="tag">Самопис</div>
+          <b>Проект #3</b>
+          <p>Нестандартная логика под задачу. Легкий интерфейс, быстрый путь до заказа.</p>
+        </div>
+      </div>
+
+      <div class="anchor-links" style="margin-top:14px;">
+        <a class="link-pill" href="/portfolio/">Открыть портфолио</a>
+      </div>
+    </section>
+
+    <!-- FAQ EXTENDED -->
+    <section>
+      <h2>FAQ - расширенно.</h2>
+
+      <details>
+        <summary>Сколько стоит разработка интернет-магазина под ключ?</summary>
+        <div class="accordion-body">Стоимость зависит от структуры каталога, фильтров, оплат и доставок, интеграций и объема контента. Проще всего - рассчитать под вашу задачу, а не гадать "среднюю по рынку".</div>
+      </details>
+      <details>
+        <summary>Почему вы рекомендуете готовые решения на 1С-Битрикс?</summary>
+        <div class="accordion-body">Потому что это развитие продукта годами: обновления, исправления по безопасности, новые функции. Это экономит бюджет и снижает риски. Часто используем ASPRO, потому что там сильная база и поддержка.</div>
+      </details>
+      <details>
+        <summary>Можно ли запустить магазин быстро и потом развивать?</summary>
+        <div class="accordion-body">Да. Правильный подход - стартовать на сильной базе, собрать основной функционал и запустить продажи. Далее развивать по данным: конверсия, корзина, карточка товара, фильтры.</div>
+      </details>
+      <details>
+        <summary>Подключаете ли вы ЮKassa, СДЭК и другие сервисы?</summary>
+        <div class="accordion-body">Да. Подключаем оплату, доставку и нужные плагины по задаче. Пакет сервисов зависит от ниши и географии.</div>
+      </details>
+      <details>
+        <summary>Какие страницы обязательны в интернет-магазине, кроме каталога?</summary>
+        <div class="accordion-body">Карточка товара, корзина и оформление заказа - обязательны. Также важны страницы доставки, оплаты, обмена и контактов. Для доверия - блоки о компании, гарантиях и поддержке.</div>
+      </details>
+      <details>
+        <summary>Как вы решаете вопрос с SEO для интернет-магазина?</summary>
+        <div class="accordion-body">Закладываем SEO-основу в разработке: структура, ЧПУ, шаблоны, индексация, базовая семантика. Дальше можно подключать продвижение отдельными этапами.</div>
+      </details>
+      <details>
+        <summary>Можно ли сделать несколько витрин под разные направления или бренды?</summary>
+        <div class="accordion-body">Да, иногда это полезно: разные офферы, сегменты, география, отдельные рекламные кампании. Решение зависит от стратегии и бюджета.</div>
+      </details>
+      <details>
+        <summary>Вы сопровождаете магазин после запуска?</summary>
+        <div class="accordion-body">Да, по договоренности. Обычно после запуска есть список улучшений по данным. Также можем вести рекламу и помогать с SEO и развитием проекта.</div>
+      </details>
+
+      <div class="anchor-links" style="margin-top:14px;">
+        <a class="link-pill" href="/seo/">SEO</a>
+        <a class="link-pill" href="/yandex-direct/">Яндекс.Директ</a>
+        <a class="link-pill" href="/crm-integracii/">CRM и интеграции</a>
+      </div>
+    </section>
+
+</body>
+</html>

@@ -1,0 +1,887 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Лидогенерация - рост заявок и конверсии сайта</title>
+
+  <style>
+    :root{
+      --bg:#070b12;
+      --bg2:#0a1220;
+      --card:#0c1627;
+      --stroke:rgba(255,255,255,.09);
+      --stroke2:rgba(255,255,255,.14);
+      --text:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.68);
+      --muted2:rgba(255,255,255,.56);
+      --accent:#b7ff2a;
+      --accent2:#62ffa8;
+      --warn:#ffd36b;
+      --good:#62ffa8;
+      --shadow: 0 18px 50px rgba(0,0,0,.55);
+      --radius:18px;
+      --radius2:22px;
+      --max:1160px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Liberation Sans", sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 520px at 14% -10%, rgba(183,255,42,.18), transparent 55%),
+        radial-gradient(900px 460px at 86% 12%, rgba(98,255,168,.14), transparent 50%),
+        radial-gradient(780px 360px at 68% 88%, rgba(110,159,255,.10), transparent 55%),
+        linear-gradient(180deg, var(--bg), var(--bg2));
+    }
+
+    a{color:inherit; text-decoration:none}
+    .wrap{max-width:var(--max); margin:0 auto; padding:0 18px}
+    .section{padding:56px 0}
+    .hero{padding:66px 0 18px}
+
+    .h1{
+      font-size: clamp(30px, 4vw, 48px);
+      line-height:1.08;
+      margin:0 0 14px 0;
+      letter-spacing:-.02em;
+    }
+    .h2{
+      font-size: clamp(22px, 2.6vw, 34px);
+      line-height:1.14;
+      margin:0 0 14px 0;
+      letter-spacing:-.01em;
+    }
+    .h3{
+      font-size:18px;
+      line-height:1.25;
+      margin:0 0 10px 0;
+      letter-spacing:-.01em;
+    }
+    .sub{
+      margin:0;
+      color:var(--muted);
+      font-size:16px;
+      line-height:1.6;
+    }
+
+    .panel{
+      border:1px solid var(--stroke);
+      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.015));
+      border-radius: var(--radius2);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .panelPad{padding:22px}
+
+    .heroGrid{
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap:18px;
+      align-items:stretch;
+    }
+    @media (max-width: 980px){
+      .heroGrid{grid-template-columns:1fr;}
+    }
+
+    .pillRow{display:flex; flex-wrap:wrap; gap:10px; margin-top:14px}
+    .pill{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.03);
+      color:var(--muted);
+      font-size:13px;
+      line-height:1;
+      white-space:nowrap;
+    }
+    .pill b{color:var(--text); font-weight:700}
+    .dot{
+      width:10px; height:10px; border-radius:50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow: 0 0 0 4px rgba(183,255,42,.12);
+      flex:0 0 auto;
+    }
+
+    .ctaRow{display:flex; flex-wrap:wrap; gap:10px; margin-top:18px}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      padding:12px 14px;
+      border-radius: 12px;
+      border:1px solid var(--stroke2);
+      background: rgba(255,255,255,.03);
+      color:var(--text);
+      font-weight:750;
+      cursor:pointer;
+      user-select:none;
+      transition:.18s ease;
+    }
+    .btn:hover{transform: translateY(-1px); border-color: rgba(255,255,255,.20)}
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(183,255,42,.18), rgba(98,255,168,.12));
+      border-color: rgba(183,255,42,.35);
+    }
+
+    .aside{display:flex; flex-direction:column; gap:12px; height:100%}
+    .miniCard{
+      border:1px solid var(--stroke);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.03);
+      padding:16px;
+    }
+    .miniTitle{display:flex; align-items:center; gap:10px; margin:0 0 6px 0; font-weight:850}
+    .miniTitle .badge{
+      width:30px; height:30px; border-radius: 10px;
+      display:grid; place-items:center;
+      background: rgba(183,255,42,.12);
+      border:1px solid rgba(183,255,42,.25);
+      color: var(--accent);
+      font-weight:900;
+    }
+    .miniText{margin:0; color:var(--muted); line-height:1.55; font-size:14px}
+
+    .grid{display:grid; gap:14px}
+    .grid.two{grid-template-columns:1fr 1fr}
+    .grid.three{grid-template-columns:1fr 1fr 1fr}
+    @media (max-width: 980px){
+      .grid.two,.grid.three{grid-template-columns:1fr}
+    }
+
+    .card{
+      border:1px solid var(--stroke);
+      background: linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.02));
+      border-radius: var(--radius);
+      padding:16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.35);
+    }
+
+    .row{display:flex; gap:12px; align-items:flex-start}
+    .icon{
+      width:40px; height:40px; border-radius: 12px;
+      border:1px solid var(--stroke2);
+      background: rgba(255,255,255,.03);
+      display:grid; place-items:center;
+      font-weight:900;
+      color:rgba(255,255,255,.85);
+      flex:0 0 auto;
+      position:relative;
+      overflow:hidden;
+    }
+    .icon::after{
+      content:"";
+      position:absolute; inset:-30%;
+      background: radial-gradient(circle at 30% 30%, rgba(183,255,42,.22), transparent 45%),
+                  radial-gradient(circle at 80% 80%, rgba(98,255,168,.18), transparent 45%);
+      transform: rotate(10deg);
+    }
+    .icon span{position:relative; z-index:1}
+    .card h3{margin:0 0 8px 0; font-size:16px; letter-spacing:-.01em}
+    .card p{margin:0; color:var(--muted); line-height:1.6; font-size:14px}
+
+    .hint{
+      margin-top:14px;
+      border:1px dashed rgba(255,255,255,.16);
+      border-radius: var(--radius);
+      padding:14px 16px;
+      color:var(--muted);
+      background: rgba(255,255,255,.02);
+    }
+    .hint b{color:var(--text)}
+
+    .links{display:flex; flex-wrap:wrap; gap:10px}
+    .alink{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:10px 12px;
+      border-radius: 999px;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.02);
+      color:var(--muted);
+      font-size:13px;
+      line-height:1;
+      transition:.18s ease;
+    }
+    .alink:hover{border-color: rgba(183,255,42,.28); color:var(--text); transform:translateY(-1px)}
+    .alink .s{opacity:.85}
+
+    .hr{
+      height:1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.14), transparent);
+      margin:18px 0;
+    }
+
+    /* Simple rank bars */
+    .rank{
+      display:grid;
+      gap:10px;
+      margin-top:14px;
+    }
+    .rankRow{
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.02);
+      border-radius: 16px;
+      padding:12px 12px;
+      overflow:hidden;
+      position:relative;
+    }
+    .rankRow::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      width: var(--w, 60%);
+      background: linear-gradient(90deg, rgba(183,255,42,.18), rgba(98,255,168,.10));
+      border-right:1px solid rgba(183,255,42,.15);
+    }
+    .rankInner{
+      position:relative;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      z-index:1;
+    }
+    .rankName{
+      display:flex; align-items:center; gap:10px;
+      font-weight:850;
+      letter-spacing:-.01em;
+    }
+    .rankNum{
+      width:30px; height:30px; border-radius: 10px;
+      display:grid; place-items:center;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.22);
+      color: var(--text);
+      font-weight:900;
+      flex:0 0 auto;
+    }
+    .rankDesc{color:var(--muted2); font-size:13px; margin-top:4px; position:relative; z-index:1}
+    .rankMeta{color:var(--muted); font-size:12px; white-space:nowrap}
+
+    /* Tabs */
+    .tabs{
+      border:1px solid var(--stroke);
+      border-radius: var(--radius2);
+      background: rgba(255,255,255,.02);
+      overflow:hidden;
+      box-shadow: var(--shadow);
+    }
+    .tabBar{
+      display:flex; flex-wrap:wrap;
+      gap:10px;
+      padding:14px;
+      border-bottom:1px solid var(--stroke);
+      background: rgba(0,0,0,.20);
+    }
+    .tabBtn{
+      appearance:none;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.02);
+      color: var(--muted);
+      padding:10px 12px;
+      border-radius: 999px;
+      font-weight:800;
+      cursor:pointer;
+      transition:.18s ease;
+      font-size:13px;
+      line-height:1;
+    }
+    .tabBtn:hover{transform: translateY(-1px); border-color: rgba(255,255,255,.18); color:var(--text)}
+    .tabBtn.active{
+      color: var(--text);
+      border-color: rgba(183,255,42,.35);
+      background: linear-gradient(135deg, rgba(183,255,42,.18), rgba(98,255,168,.10));
+    }
+    .tabPane{display:none; padding:16px}
+    .tabPane.active{display:block}
+
+    .list{margin:10px 0 0 0; padding:0; list-style:none; display:grid; gap:10px}
+    .li{display:flex; gap:10px; align-items:flex-start}
+    .tick{
+      width:26px; height:26px; border-radius: 10px;
+      display:grid; place-items:center;
+      background: rgba(98,255,168,.10);
+      border:1px solid rgba(98,255,168,.24);
+      color: var(--good);
+      font-weight:950;
+      flex:0 0 auto;
+    }
+    .li b{color:var(--text)}
+    .li span{display:block; color:var(--muted2); margin-top:2px; line-height:1.45; font-size:13px}
+
+    /* Accordion */
+    .acc{
+      border:1px solid var(--stroke);
+      border-radius: var(--radius2);
+      overflow:hidden;
+      background: rgba(255,255,255,.02);
+      box-shadow: var(--shadow);
+    }
+    .accItem{border-top:1px solid var(--stroke)}
+    .accItem:first-child{border-top:none}
+    .accBtn{
+      width:100%;
+      text-align:left;
+      border:0;
+      background: transparent;
+      color: var(--text);
+      padding:14px 16px;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      font-weight:900;
+      letter-spacing:-.01em;
+    }
+    .chev{
+      width:34px; height:34px; border-radius: 12px;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.02);
+      display:grid; place-items:center;
+      color:var(--muted);
+      transition:.18s ease;
+      flex:0 0 auto;
+    }
+    .accItem.open .chev{transform: rotate(180deg); border-color: rgba(183,255,42,.25); color:var(--text)}
+    .accBody{
+      display:none;
+      padding:0 16px 14px 16px;
+      color:var(--muted);
+      line-height:1.65;
+      font-size:14px;
+    }
+    .accItem.open .accBody{display:block}
+
+    /* Anchor mini-nav */
+    .anch{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:16px;
+    }
+    .anch a{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:10px 12px;
+      border-radius: 999px;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.02);
+      color:var(--muted);
+      font-size:13px;
+      font-weight:750;
+      transition:.18s ease;
+    }
+    .anch a:hover{border-color: rgba(183,255,42,.28); color:var(--text); transform:translateY(-1px)}
+  </style>
+</head>
+
+<body>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="heroGrid">
+        <div class="panel">
+          <div class="panelPad">
+            <h1 class="h1">Лидогенерация под ключ - больше заявок при том же трафике</h1>
+            <p class="sub">
+              Лидогенерация - это не только “привести людей на сайт”. Это сделать так, чтобы посетители
+              оставляли заявки чаще, быстрее доходили до договора и не уходили к конкурентам после первого “не дозвонился”.
+            </p>
+
+            <div class="pillRow">
+              <div class="pill"><span class="dot"></span><b>Marquiz</b> - квизы вместо “формы на коленке”</div>
+              <div class="pill"><span class="dot"></span><b>MyReviews</b> - отзывы на сайт</div>
+              <div class="pill"><span class="dot"></span><b>Сервисы репутации</b> - карты/справочники/доверие</div>
+              <div class="pill"><span class="dot"></span><b>CRM-дожим</b> - автоответы и контроль обработки</div>
+            </div>
+
+            <div class="anch">
+              <a href="#rank">Какой оффер “доживает” до договора</a>
+              <a href="#stack">Связка инструментов</a>
+              <a href="#compare">Сравнение “с” и “без”</a>
+              <a href="#faq">FAQ</a>
+            </div>
+
+            <div class="ctaRow">
+              <a class="btn primary" href="#stack"><span>→</span>Посмотреть связку инструментов</a>
+              <a class="btn" href="#links"><span>→</span>Перелинковка на услуги</a>
+            </div>
+
+            <div class="hint">
+              <b>Ключевая идея.</b> Трафик можно покупать в 2 раза дороже, а можно выжать больше результата из текущего трафика:
+              квиз + доверие + репутация + CRM-дожим. В итоге заявок и договоров больше при тех же бюджетах.
+            </div>
+          </div>
+        </div>
+
+        <div class="aside">
+          <div class="miniCard">
+            <div class="miniTitle"><span class="badge">1</span> Конверсия</div>
+            <p class="miniText">Лидогенерация = рост конверсии сайта и каналов, а не “еще одна форма”.</p>
+          </div>
+          <div class="miniCard">
+            <div class="miniTitle"><span class="badge">2</span> Доверие</div>
+            <p class="miniText">Отзывы и карточки в сервисах репутации повышают вероятность сделки еще до разговора.</p>
+          </div>
+          <div class="miniCard">
+            <div class="miniTitle"><span class="badge">3</span> Скорость реакции</div>
+            <p class="miniText">Автоответы и CRM снижают потери “не дозвонился - ушел к другим”.</p>
+          </div>
+          <div class="miniCard">
+            <div class="miniTitle"><span class="badge">4</span> Контроль</div>
+            <p class="miniText">Руководитель видит всю воронку и эффективность менеджеров - без хаоса в мессенджерах.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RANK -->
+  <section class="section" id="rank">
+    <div class="wrap">
+      <h2 class="h2">Какой формат заявки чаще “доживает” до договора</h2>
+      <p class="sub">
+        Если смотреть не на “сколько лидов пришло”, а на качество - какие обращения чаще доходят до договора,
+        то по практике на десятках проектов (разные ниши/регионы) чаще всего порядок выглядит так:
+      </p>
+
+      <div class="grid two" style="margin-top:14px">
+        <div class="card">
+          <h3 class="h3">Рейтинг по качеству заявок</h3>
+
+          <div class="rank">
+            <div class="rankRow" style="--w: 92%">
+              <div class="rankInner">
+                <div class="rankName"><div class="rankNum">1</div>Звонки</div>
+                <div class="rankMeta">макс. готовность</div>
+              </div>
+              <div class="rankDesc">Человек уже принял решение связаться - часто самый быстрый путь к договору.</div>
+            </div>
+
+            <div class="rankRow" style="--w: 84%">
+              <div class="rankInner">
+                <div class="rankName"><div class="rankNum">2</div>Marquiz (квиз)</div>
+                <div class="rankMeta">высокая вовлеченность</div>
+              </div>
+              <div class="rankDesc">Квиз прогревает: человек выбирает, отвечает, уточняет - и оставляет более осознанную заявку.</div>
+            </div>
+
+            <div class="rankRow" style="--w: 74%">
+              <div class="rankInner">
+                <div class="rankName"><div class="rankNum">3</div>Чат-боты / сценарии</div>
+                <div class="rankMeta">дожим “не дозвонился”</div>
+              </div>
+              <div class="rankDesc">Когда клиенту отвечают сразу - он чаще остается в коммуникации и не уходит “по рынку”.</div>
+            </div>
+
+            <div class="rankRow" style="--w: 66%">
+              <div class="rankInner">
+                <div class="rankName"><div class="rankNum">4</div>Мессенджеры</div>
+                <div class="rankMeta">много лидов</div>
+              </div>
+              <div class="rankDesc">Заявок часто больше и дешевле, но качество зависит от скорости ответа и скрипта обработки.</div>
+            </div>
+
+            <div class="rankRow" style="--w: 58%">
+              <div class="rankInner">
+                <div class="rankName"><div class="rankNum">5</div>Формы обратной связи</div>
+                <div class="rankMeta">самый “холодный”</div>
+              </div>
+              <div class="rankDesc">Классическая форма “имя + телефон” часто дает больше случайных/непрогретых заявок.</div>
+            </div>
+          </div>
+
+          <div class="hint" style="margin-top:14px">
+            <b>Вывод.</b> Ставка на квиз, доверие и дожим - это способ поднять долю заявок, которые реально доходят до сделки, а не просто увеличить цифру “лиды”.
+          </div>
+        </div>
+
+        <div class="card">
+          <h3 class="h3">Почему квиз почти всегда усиливает результат</h3>
+          <ul class="list">
+            <li class="li"><div class="tick">✓</div><div><b>Вовлекает</b><span>человек делает несколько шагов и “инвестирует” время - вероятность заявки выше.</span></div></li>
+            <li class="li"><div class="tick">✓</div><div><b>Снимает вопросы</b><span>часть возражений закрывается прямо внутри сценария.</span></div></li>
+            <li class="li"><div class="tick">✓</div><div><b>Сегментирует</b><span>вы получаете понятную заявку: что нужно, какие сроки, какой бюджет/объем (если уместно).</span></div></li>
+            <li class="li"><div class="tick">✓</div><div><b>Ускоряет продажу</b><span>менеджер видит контекст и быстрее делает предложение.</span></div></li>
+          </ul>
+
+          <div class="links" style="margin-top:12px">
+            <a class="alink" href="/lidogeneraciya/marquiz/"><span class="s">↗</span>Подробнее про Marquiz</a>
+            <a class="alink" href="/crm-integracii/amocrm/"><span class="s">↗</span>Дожим в amoCRM</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STACK -->
+  <section class="section" id="stack">
+    <div class="wrap">
+      <h2 class="h2">Связка инструментов, которая поднимает конверсию</h2>
+      <p class="sub">
+        Лидогенерация работает лучше всего, когда это система, а не “одна кнопка на сайте”.
+        Ниже - логика связки: от заявки до сделки, чтобы не терять клиентов и увеличивать долю договоров.
+      </p>
+
+      <div class="tabs" style="margin-top:16px" data-tabs>
+        <div class="tabBar" role="tablist" aria-label="Связка лидогенерации">
+          <button class="tabBtn active" type="button" role="tab" aria-selected="true" data-tab="t-quiz">Marquiz - квиз</button>
+          <button class="tabBtn" type="button" role="tab" aria-selected="false" data-tab="t-reviews">MyReviews - отзывы</button>
+          <button class="tabBtn" type="button" role="tab" aria-selected="false" data-tab="t-serm">Сервисы репутации</button>
+          <button class="tabBtn" type="button" role="tab" aria-selected="false" data-tab="t-crm">CRM-дожим</button>
+        </div>
+
+        <div class="tabPane active" id="t-quiz" role="tabpanel">
+          <div class="grid two">
+            <div class="card">
+              <h3 class="h3">Задача квиза</h3>
+              <p>Сделать “микро-диалог” вместо сухой формы: вовлечь, уточнить потребность, дать ощущение персонального подхода и быстро довести до контакта.</p>
+              <ul class="list">
+                <li class="li"><div class="tick">✓</div><div><b>Сценарии под нишу</b><span>вопросы, логика, ветки, микроофферы, обещания результата.</span></div></li>
+                <li class="li"><div class="tick">✓</div><div><b>Дизайн и подача</b><span>чтобы квиз выглядел “как часть сайта”, а не как чужой виджет.</span></div></li>
+                <li class="li"><div class="tick">✓</div><div><b>Интеграция</b><span>заявки и ответы сразу уходят в CRM - без ручного копирования.</span></div></li>
+              </ul>
+            </div>
+            <div class="card">
+              <h3 class="h3">Что получаете на выходе</h3>
+              <p>Не просто “телефон”, а заявку с контекстом. Менеджер видит ответы и быстрее делает релевантное предложение.</p>
+              <div class="links" style="margin-top:12px">
+                <a class="alink" href="/lidogeneraciya/marquiz/"><span class="s">↗</span>Marquiz - подробнее</a>
+                <a class="alink" href="/crm-integracii/"><span class="s">↗</span>CRM и интеграции</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tabPane" id="t-reviews" role="tabpanel">
+          <div class="grid two">
+            <div class="card">
+              <h3 class="h3">MyReviews - отзывы прямо на сайте</h3>
+              <p>Когда пользователь сомневается, он ищет подтверждение: отзывы, рейтинг, реальные кейсы. MyReviews помогает собрать отзывы с площадок и показать их на сайте понятным виджетом.</p>
+              <ul class="list">
+                <li class="li"><div class="tick">✓</div><div><b>Соцдоказательство</b><span>повышает доверие на коммерческих страницах.</span></div></li>
+                <li class="li"><div class="tick">✓</div><div><b>Рост конверсии</b><span>при одинаковом трафике заявок становится больше.</span></div></li>
+                <li class="li"><div class="tick">✓</div><div><b>Удобная витрина отзывов</b><span>человек видит картину, а не “один скрин внизу”.</span></div></li>
+              </ul>
+            </div>
+            <div class="card">
+              <h3 class="h3">С чем лучше всего работает</h3>
+              <p>Максимальный эффект обычно получается в связке с сервисами репутации: карточки в картах/каталогах + аккуратная работа с отзывами + вывод на сайт.</p>
+              <div class="links" style="margin-top:12px">
+                <a class="alink" href="/lidogeneraciya/myreviews/"><span class="s">↗</span>MyReviews - подробнее</a>
+                <a class="alink" href="/lidogeneraciya/servisy-reputacii/"><span class="s">↗</span>Сервисы репутации</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tabPane" id="t-serm" role="tabpanel">
+          <div class="grid two">
+            <div class="card">
+              <h3 class="h3">Сервисы репутации как источник лидов</h3>
+              <p>Карточки в картах и справочниках - это бесплатный трафик и доверие. Чем лучше заполнение и активность, тем чаще вас выбирают среди конкурентов.</p>
+              <ul class="list">
+                <li class="li"><div class="tick">✓</div><div><b>Карточка как мини-лендинг</b><span>фото, услуги, прайс, отзывы, вопросы-ответы.</span></div></li>
+                <li class="li"><div class="tick">✓</div><div><b>Рост доверия</b><span>клиент видит “живую компанию”, а не пустую карточку.</span></div></li>
+                <li class="li"><div class="tick">✓</div><div><b>Конверсия рекламы выше</b><span>люди охотнее оставляют заявку, когда доверие уже сформировано.</span></div></li>
+              </ul>
+            </div>
+            <div class="card">
+              <h3 class="h3">Что принципиально важно</h3>
+              <p>Мы не покупаем и не накручиваем отзывы. Наша задача - выстроить систему: оформление карточек, стандартизация данных, контент, уведомления и правильные ответы на отзывы.</p>
+              <div class="links" style="margin-top:12px">
+                <a class="alink" href="/lidogeneraciya/servisy-reputacii/"><span class="s">↗</span>Страница про репутацию</a>
+                <a class="alink" href="/seo/serm-reputaciya/"><span class="s">↗</span>Репутация для SEO</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tabPane" id="t-crm" role="tabpanel">
+          <div class="grid two">
+            <div class="card">
+              <h3 class="h3">CRM-дожим - когда “не дозвонился” не значит “потеряли”</h3>
+              <p>В конкурентных нишах клиент звонит по 3-5 номерам. Если он не дозвонился и не получил быстрый ответ - он уходит к другим.</p>
+              <ul class="list">
+                <li class="li"><div class="tick">✓</div><div><b>Автоответы</b><span>сообщение в мессенджер после пропущенного звонка или заявки.</span></div></li>
+                <li class="li"><div class="tick">✓</div><div><b>Salesbot и сценарии</b><span>бот начинает диалог, фиксирует контакт и удерживает клиента.</span></div></li>
+                <li class="li"><div class="tick">✓</div><div><b>Контроль менеджеров</b><span>скорость реакции, качество обработки, этапы и причины отказов.</span></div></li>
+              </ul>
+            </div>
+            <div class="card">
+              <h3 class="h3">Почему это относится к лидогенерации</h3>
+              <p>Лидогенерация - это не только “привести лид”. Это сделать так, чтобы лид не сгорел в отделе продаж. CRM и интеграции напрямую повышают конверсию в сделку.</p>
+              <div class="links" style="margin-top:12px">
+                <a class="alink" href="/crm-integracii/"><span class="s">↗</span>CRM и интеграции</a>
+                <a class="alink" href="/crm-integracii/amocrm/"><span class="s">↗</span>amoCRM - подробнее</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hint" style="margin-top:16px">
+        <b>Практический эффект.</b> При одинаковом трафике связка “квиз + доверие + репутация + CRM-дожим” часто дает заметно больше заявок
+        и существенно выше долю договоров - потому что клиенту проще принять решение и сложнее “выпасть” из коммуникации.
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPARE -->
+  <section class="section" id="compare">
+    <div class="wrap">
+      <h2 class="h2">Сравнение. Как выглядит лидогенерация “с” и “без” системы</h2>
+      <div class="grid two" style="margin-top:14px">
+        <div class="card">
+          <div class="row">
+            <div class="icon"><span>✕</span></div>
+            <div>
+              <h3>Без системы</h3>
+              <p>
+                Есть трафик, есть обычная форма, иногда звонки. Клиент не дозвонился - ушел. Отзывы не видны на сайте.
+                Карточки в сервисах репутации пустые или не ведутся. Мессенджеры у менеджеров “в личках”.
+              </p>
+              <div class="hr"></div>
+              <ul class="list">
+                <li class="li"><div class="tick" style="color:var(--warn); border-color:rgba(255,211,107,.25); background:rgba(255,211,107,.08)">!</div><div><b>Конверсия ниже</b><span>много посетителей, мало заявок - потому что нет “подталкивания” к действию.</span></div></li>
+                <li class="li"><div class="tick" style="color:var(--warn); border-color:rgba(255,211,107,.25); background:rgba(255,211,107,.08)">!</div><div><b>Потери лидов</b><span>пропущенные звонки, медленные ответы, нет контроля обработки.</span></div></li>
+                <li class="li"><div class="tick" style="color:var(--warn); border-color:rgba(255,211,107,.25); background:rgba(255,211,107,.08)">!</div><div><b>Слабое доверие</b><span>клиент уходит к конкурентам “со звездами и отзывами”.</span></div></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="row">
+            <div class="icon"><span>✓</span></div>
+            <div>
+              <h3>С системой</h3>
+              <p>
+                Квиз увеличивает долю заявок. MyReviews показывает соцдоказательство на сайте.
+                Карточки в сервисах репутации ведутся и дают бесплатный трафик. CRM удерживает клиента: автоответы и контроль скорости реакции.
+              </p>
+              <div class="hr"></div>
+              <ul class="list">
+                <li class="li"><div class="tick">✓</div><div><b>Конверсия выше</b><span>вовлечение + доверие + ясные офферы = больше заявок на том же трафике.</span></div></li>
+                <li class="li"><div class="tick">✓</div><div><b>Меньше потерь</b><span>клиент получает быстрый ответ и “держится” в коммуникации.</span></div></li>
+                <li class="li"><div class="tick">✓</div><div><b>Рост договоров</b><span>качество заявок выше, менеджеру проще продавать, руководителю проще контролировать.</span></div></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hint" style="margin-top:16px">
+        <b>Важный момент.</b> Можно увеличивать рекламный бюджет, а можно увеличить эффективность текущего трафика.
+        Мы делаем и то, и другое - но лидогенерация почти всегда начинается с конверсии и доверия.
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="section" id="process">
+    <div class="wrap">
+      <h2 class="h2">Как строим лидогенерацию пошагово</h2>
+      <p class="sub">Цель - не “поставить виджет”, а собрать работающую систему заявок и дожима.</p>
+
+      <div class="grid three" style="margin-top:14px">
+        <div class="card">
+          <div class="row">
+            <div class="icon"><span>1</span></div>
+            <div>
+              <h3>Диагностика</h3>
+              <p>Смотрим источники трафика, текущие офферы, конверсию, слабые места, как сейчас теряются лиды.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="row">
+            <div class="icon"><span>2</span></div>
+            <div>
+              <h3>Офферы и точки контакта</h3>
+              <p>Определяем, где нужен квиз, где отзывы, где карточки в репутационных сервисах, где нужны автоответы.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="row">
+            <div class="icon"><span>3</span></div>
+            <div>
+              <h3>Внедрение</h3>
+              <p>Marquiz + MyReviews + репутация + интеграции с CRM. Настраиваем чтобы всё работало как единый механизм.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="row">
+            <div class="icon"><span>4</span></div>
+            <div>
+              <h3>Автоматизация</h3>
+              <p>Сценарии дожима, автоответы, распределение лидов, контроль времени реакции и этапов сделки.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="row">
+            <div class="icon"><span>5</span></div>
+            <div>
+              <h3>Аналитика</h3>
+              <p>Отслеживаем, что даёт заявки и договоры. Усиливаем то, что работает, и убираем то, что “ест бюджет”.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="row">
+            <div class="icon"><span>6</span></div>
+            <div>
+              <h3>Рост</h3>
+              <p>Добавляем новые сценарии квиза, расширяем витрину отзывов, усиливаем репутацию, подключаем новые каналы.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hr"></div>
+
+      <div class="links" id="links">
+        <a class="alink" href="/lidogeneraciya/marquiz/"><span class="s">↗</span>Marquiz - квизы</a>
+        <a class="alink" href="/lidogeneraciya/myreviews/"><span class="s">↗</span>MyReviews - отзывы</a>
+        <a class="alink" href="/lidogeneraciya/servisy-reputacii/"><span class="s">↗</span>Сервисы репутации</a>
+        <a class="alink" href="/crm-integracii/"><span class="s">↗</span>CRM и интеграции</a>
+        <a class="alink" href="/crm-integracii/amocrm/"><span class="s">↗</span>amoCRM</a>
+        <a class="alink" href="/seo/"><span class="s">↗</span>SEO-раздел</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section" id="faq">
+    <div class="wrap">
+      <h2 class="h2">FAQ - частые вопросы про лидогенерацию</h2>
+
+      <div class="acc" data-acc style="margin-top:14px">
+        <div class="accItem open">
+          <button class="accBtn" type="button">
+            Лидогенерация - это что: реклама или доработка сайта?
+            <span class="chev">⌄</span>
+          </button>
+          <div class="accBody">
+            Это система: трафик + конверсия + доверие + скорость реакции. Можно привести много посетителей,
+            но без квиза/отзывов/репутации/CRM часть денег будет уходить “в песок”.
+          </div>
+        </div>
+
+        <div class="accItem">
+          <button class="accBtn" type="button">
+            Почему квиз часто дает заявки лучше, чем форма?
+            <span class="chev">⌄</span>
+          </button>
+          <div class="accBody">
+            Квиз вовлекает, уточняет потребность, закрывает часть возражений и делает заявку более осознанной.
+            Менеджер видит контекст и быстрее продает. Подробнее: <a class="alink" style="padding:6px 10px; display:inline-flex" href="/lidogeneraciya/marquiz/">Marquiz</a>.
+          </div>
+        </div>
+
+        <div class="accItem">
+          <button class="accBtn" type="button">
+            Отзывы и репутация реально влияют на конверсию?
+            <span class="chev">⌄</span>
+          </button>
+          <div class="accBody">
+            Да. Люди принимают решение на основе доверия. Карточки в картах/каталогах дают бесплатный трафик и “соцдоказательство”.
+            А вывод отзывов на сайт через <a class="alink" style="padding:6px 10px; display:inline-flex" href="/lidogeneraciya/myreviews/">MyReviews</a>
+            усиливает конверсию на коммерческих страницах.
+          </div>
+        </div>
+
+        <div class="accItem">
+          <button class="accBtn" type="button">
+            Как уменьшить потери “не дозвонился - ушел к конкурентам”?
+            <span class="chev">⌄</span>
+          </button>
+          <div class="accBody">
+            Нужна CRM и сценарии дожима: автоответ в мессенджер после пропущенного звонка/заявки, Salesbot, контроль скорости реакции и этапов.
+            Подробнее: <a class="alink" style="padding:6px 10px; display:inline-flex" href="/crm-integracii/amocrm/">amoCRM</a>.
+          </div>
+        </div>
+
+        <div class="accItem">
+          <button class="accBtn" type="button">
+            Это работает только для “услуг” или для товарки тоже?
+            <span class="chev">⌄</span>
+          </button>
+          <div class="accBody">
+            Логика универсальная: доверие + конверсия + скорость реакции. Отличается подача офферов и сценарии квиза/бота,
+            но принципы те же: помочь человеку быстро принять решение и не потерять его на этапе коммуникации.
+          </div>
+        </div>
+
+        <div class="accItem">
+          <button class="accBtn" type="button">
+            С чего лучше начать: с квиза, отзывов или CRM?
+            <span class="chev">⌄</span>
+          </button>
+          <div class="accBody">
+            Обычно начинаем с диагностики: где “течет” воронка. Часто быстрый эффект дают квиз и отзывы на сайте,
+            а CRM-дожим фиксирует результат и снижает потери. Если у вас уже много лидов - CRM может быть первым шагом.
+          </div>
+        </div>
+      </div>
+
+      <div class="hint" style="margin-top:16px">
+        <b>Если нужно - соберем лидогенерацию как систему.</b> От квиза и доверия до CRM-дожима, чтобы заявки не только приходили,
+        но и доходили до договора.
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Tabs
+    (function(){
+      const roots = document.querySelectorAll('[data-tabs]');
+      roots.forEach(root => {
+        const btns = Array.from(root.querySelectorAll('.tabBtn'));
+        const panes = Array.from(root.querySelectorAll('.tabPane'));
+
+        function activate(id){
+          btns.forEach(b => {
+            const on = b.dataset.tab === id;
+            b.classList.toggle('active', on);
+            b.setAttribute('aria-selected', on ? 'true' : 'false');
+          });
+          panes.forEach(p => p.classList.toggle('active', p.id === id));
+        }
+
+        btns.forEach(b => b.addEventListener('click', () => activate(b.dataset.tab)));
+
+        const firstActive = btns.find(b => b.classList.contains('active')) || btns[0];
+        if(firstActive) activate(firstActive.dataset.tab);
+      });
+    })();
+
+    // Accordion (toggle current item)
+    (function(){
+      const accs = document.querySelectorAll('[data-acc]');
+      accs.forEach(acc => {
+        const items = Array.from(acc.querySelectorAll('.accItem'));
+        items.forEach(item => {
+          const btn = item.querySelector('.accBtn');
+          if(!btn) return;
+          btn.addEventListener('click', () => {
+            const isOpen = item.classList.contains('open');
+            item.classList.toggle('open', !isOpen);
+          });
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

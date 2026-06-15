@@ -1,0 +1,825 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>О компании | Venner Digital</title>
+  <meta name="description" content="Venner Digital - веб-студия и интернет-маркетинг под ключ: сайты, SEO, реклама, лидогенерация, CRM и интеграции. Работаем с 2013 года. Договор, прозрачные этапы, результат в лидах." />
+  <style>
+    :root{
+      --bg:#070A12;
+      --panel:#0D1222;
+      --panel2:#0A0F1F;
+      --text:#E9ECF5;
+      --muted:#A9B1C7;
+      --line:rgba(255,255,255,.08);
+      --acc:#7CFFB2;
+      --acc2:#75B7FF;
+      --warn:#FFD36E;
+      --shadow: 0 18px 50px rgba(0,0,0,.45);
+      --radius: 18px;
+      --radius2: 24px;
+      --max: 1120px;
+      --pad: 18px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", sans-serif;
+      background:
+        radial-gradient(1000px 600px at 10% -10%, rgba(124,255,178,.18), transparent 55%),
+        radial-gradient(900px 600px at 90% -10%, rgba(117,183,255,.16), transparent 55%),
+        radial-gradient(900px 700px at 60% 120%, rgba(255,211,110,.10), transparent 55%),
+        var(--bg);
+      color:var(--text);
+      line-height:1.55;
+    }
+    a{color:inherit; text-decoration:none}
+    .wrap{max-width:var(--max); margin:0 auto; padding: 36px 16px 72px}
+    .crumbs{
+      font-size:13px; color:var(--muted);
+      opacity:.9; display:flex; gap:8px; align-items:center; flex-wrap:wrap;
+    }
+    .crumbs a{color:var(--muted)}
+    .crumbs .dot{width:4px;height:4px;border-radius:50%;background:var(--line)}
+    .hero{
+      margin-top:18px;
+      padding: 26px;
+      border:1px solid var(--line);
+      border-radius: var(--radius2);
+      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      box-shadow: var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+    .hero:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(700px 260px at 20% 0%, rgba(124,255,178,.22), transparent 60%),
+        radial-gradient(700px 260px at 80% 0%, rgba(117,183,255,.18), transparent 60%);
+      pointer-events:none;
+      opacity:.9;
+    }
+    .hero > *{position:relative}
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.25fr .75fr;
+      gap:18px;
+      align-items:stretch;
+    }
+    @media (max-width: 920px){
+      .hero-grid{grid-template-columns:1fr; }
+    }
+    h1{
+      margin:0 0 10px;
+      font-size: 44px;
+      line-height:1.06;
+      letter-spacing:-.03em;
+    }
+    .lead{color:var(--muted); margin:0 0 18px; font-size:16px; max-width: 62ch;}
+    .badge-row{display:flex; flex-wrap:wrap; gap:10px; margin-top: 14px}
+    .badge{
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 9px 12px;
+      border-radius: 999px;
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.18);
+      color: var(--text);
+      font-size: 13px;
+      white-space:nowrap;
+    }
+    .badge i{
+      width:10px;height:10px;border-radius:50%;
+      background: linear-gradient(135deg, var(--acc), var(--acc2));
+      box-shadow: 0 0 0 3px rgba(124,255,178,.12);
+    }
+    .hero-card{
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      padding: 16px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      gap: 12px;
+      min-height: 220px;
+    }
+    .statgrid{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 10px;
+    }
+    .stat{
+      padding: 12px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: rgba(8,12,24,.45);
+    }
+    .stat .k{font-size: 12px; color: var(--muted); margin-bottom: 4px}
+    .stat .v{font-size: 18px; font-weight: 750; letter-spacing:-.02em}
+    .btnrow{display:flex; gap:10px; flex-wrap:wrap}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.18);
+      font-weight: 650;
+      font-size: 14px;
+      transition: transform .15s ease, border-color .15s ease, background .15s ease;
+    }
+    .btn:hover{transform: translateY(-1px); border-color: rgba(124,255,178,.35); background: rgba(124,255,178,.08)}
+    .btn.primary{
+      border-color: rgba(124,255,178,.35);
+      background: linear-gradient(135deg, rgba(124,255,178,.22), rgba(117,183,255,.14));
+    }
+    .section{margin-top: 22px}
+    .h2{
+      margin: 0 0 12px;
+      font-size: 26px;
+      letter-spacing: -.02em;
+    }
+    .sub{margin: 0 0 14px; color:var(--muted)}
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 12px;
+    }
+    @media (max-width: 980px){ .grid{grid-template-columns: repeat(2, minmax(0,1fr));} }
+    @media (max-width: 620px){ .grid{grid-template-columns: 1fr;} }
+    .card{
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      box-shadow: 0 10px 35px rgba(0,0,0,.25);
+      padding: 16px;
+      min-height: 130px;
+    }
+    .card .t{display:flex; gap:10px; align-items:flex-start; margin:0 0 6px}
+    .ico{
+      width:32px;height:32px;border-radius: 12px;
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.2);
+      display:grid; place-items:center;
+      flex:0 0 auto;
+    }
+    .ico svg{width:18px;height:18px; opacity:.95}
+    .card h3{margin:0; font-size: 16px; letter-spacing:-.01em}
+    .card p{margin:6px 0 0; color:var(--muted); font-size: 14px}
+    .card .links{margin-top: 10px; display:flex; gap:8px; flex-wrap:wrap}
+    .chip{
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.16);
+      color: var(--text);
+      font-size: 13px;
+    }
+    .chip:hover{border-color: rgba(117,183,255,.35)}
+    .note{
+      margin-top: 12px;
+      padding: 14px 16px;
+      border-radius: var(--radius);
+      border:1px solid var(--line);
+      background: rgba(8,12,24,.35);
+      color: var(--muted);
+    }
+    .split{
+      display:grid; gap:12px;
+      grid-template-columns: 1fr 1fr;
+    }
+    @media (max-width: 860px){ .split{grid-template-columns:1fr;} }
+
+    /* Tabs */
+    .tabs{
+      border: 1px solid var(--line);
+      border-radius: var(--radius2);
+      background: rgba(0,0,0,.18);
+      overflow:hidden;
+    }
+    .tabbar{
+      display:flex; flex-wrap:wrap; gap:10px;
+      padding: 12px;
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
+    }
+    .tabbtn{
+      cursor:pointer;
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.12);
+      color: var(--text);
+      padding: 9px 12px;
+      border-radius: 999px;
+      font-weight: 650;
+      font-size: 13px;
+      transition: transform .15s ease, border-color .15s ease, background .15s ease;
+    }
+    .tabbtn:hover{transform: translateY(-1px); border-color: rgba(117,183,255,.35)}
+    .tabbtn.active{
+      border-color: rgba(124,255,178,.40);
+      background: rgba(124,255,178,.10);
+    }
+    .tabpanel{display:none; padding: 14px 16px}
+    .tabpanel.active{display:block}
+    .list{
+      margin:0; padding:0; list-style:none;
+      display:grid; gap: 10px;
+    }
+    .li{
+      padding: 12px 12px;
+      border:1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(8,12,24,.35);
+    }
+    .li b{color: var(--text)}
+    .li span{color: var(--muted)}
+
+    /* Accordion */
+    .faq{
+      border:1px solid var(--line);
+      border-radius: var(--radius2);
+      overflow:hidden;
+      background: rgba(0,0,0,.18);
+    }
+    .q{
+      width:100%;
+      text-align:left;
+      cursor:pointer;
+      padding: 14px 16px;
+      display:flex; justify-content:space-between; gap: 12px; align-items:center;
+      border:0;
+      background: transparent;
+      color: var(--text);
+      border-bottom: 1px solid var(--line);
+      font-weight: 750;
+      font-size: 14px;
+    }
+    .q:last-of-type{border-bottom: 0}
+    .q .arr{
+      width: 28px; height: 28px; border-radius: 10px;
+      border:1px solid var(--line);
+      display:grid; place-items:center;
+      background: rgba(255,255,255,.02);
+      flex:0 0 auto;
+      transition: transform .2s ease;
+    }
+    .q[aria-expanded="true"] .arr{transform: rotate(180deg)}
+    .a{
+      padding: 0 16px 14px;
+      color: var(--muted);
+      display:none;
+      border-bottom: 1px solid var(--line);
+    }
+    .a:last-of-type{border-bottom: 0}
+    .a p{margin: 10px 0 0; font-size: 14px}
+    .a ul{margin: 10px 0 0 18px}
+    .a li{margin: 6px 0}
+
+    .footerline{
+      margin-top: 20px;
+      display:flex;
+      gap: 10px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+      color: var(--muted);
+      font-size: 13px;
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+    }
+    .social{
+      display:flex; gap:8px; flex-wrap:wrap;
+    }
+    .link{
+      color: var(--text);
+      border:1px solid var(--line);
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.12);
+    }
+    .link:hover{border-color: rgba(124,255,178,.35)}
+    .muted{color:var(--muted)}
+    .mono{font-variant-numeric: tabular-nums}
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="crumbs">
+      <a href="/">Главная</a><span class="dot"></span>
+      <span>О компании</span>
+    </div>
+
+    <section class="hero">
+      <div class="hero-grid">
+        <div>
+          <h1>Venner Digital - делаем маркетинг, который приводит заявки.</h1>
+          <p class="lead">
+            Мы - веб-студия и команда интернет-маркетинга: разрабатываем сайты, подключаем SEO и рекламу,
+            усиливаем конверсию через лидогенерацию и CRM. Работаем комплексно, чтобы трафик превращался в сделки.
+          </p>
+
+          <div class="badge-row">
+            <span class="badge"><i></i>Работаем с 2013 года</span>
+            <span class="badge"><i></i>Официально - договор и этапы</span>
+            <span class="badge"><i></i>Погружаемся в нишу клиента</span>
+            <span class="badge"><i></i>Внедряем CRM и автоматизацию</span>
+          </div>
+
+          <div style="margin-top:16px" class="btnrow">
+            <a class="btn primary" href="/zakaz-uslugi/">Как заказать услугу</a>
+            <a class="btn" href="/kontakty/">Связаться</a>
+            <a class="btn" href="/otzyvy/">Отзывы</a>
+            <a class="btn" href="/portfolio/">Портфолио</a>
+          </div>
+        </div>
+
+        <aside class="hero-card">
+          <div class="statgrid">
+            <div class="stat">
+              <div class="k">Формат работы</div>
+              <div class="v">Под ключ</div>
+            </div>
+            <div class="stat">
+              <div class="k">Фокус</div>
+              <div class="v">Лиды + конверсия</div>
+            </div>
+            <div class="stat">
+              <div class="k">Скорость</div>
+              <div class="v">Без хаоса</div>
+            </div>
+            <div class="stat">
+              <div class="k">Отчетность</div>
+              <div class="v">Понятная</div>
+            </div>
+          </div>
+
+          <div class="note">
+            <b>Ключевая идея:</b> сайт, реклама, SEO, репутация и CRM должны работать как единая система.
+            Иначе бюджет утекает, а отдел продаж тонет в хаосе.
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- Что мы делаем -->
+    <section class="section" id="napravleniya">
+      <h2 class="h2">Чем занимаемся.</h2>
+      <p class="sub">Основные направления - это то, где мы даем максимальную пользу бизнесу. Остальное подключаем по задаче.</p>
+
+      <div class="grid">
+        <article class="card">
+          <div class="t">
+            <div class="ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M4 6.5C4 5.12 5.12 4 6.5 4h11C19.88 4 21 5.12 21 6.5v7C21 14.88 19.88 16 18.5 16h-3.2l-2.1 3.1c-.5.74-1.6.74-2.1 0L9 16H6.5C5.12 16 4 14.88 4 13.5v-7Z" stroke="currentColor" stroke-width="1.6" opacity=".9"/></svg>
+            </div>
+            <div>
+              <h3>Разработка сайтов</h3>
+              <p>Лендинги, корпоративные сайты, каталоги, интернет-магазины. От прототипа до запуска и поддержки.</p>
+            </div>
+          </div>
+          <div class="links">
+            <a class="chip" href="/sozdanie-saytov/">Разработка сайтов</a>
+            <a class="chip" href="/sozdanie-saytov/prototip-sayta/">Прототип</a>
+            <a class="chip" href="/hosting/">Хостинг</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="t">
+            <div class="ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M4 18V6m0 12h16M7 15l3-4 3 3 4-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" opacity=".9"/></svg>
+            </div>
+            <div>
+              <h3>SEO</h3>
+              <p>Аудит, семантика, оптимизация, контент и ссылки. Продвигаем так, чтобы был рост не только позиций, но и заявок.</p>
+            </div>
+          </div>
+          <div class="links">
+            <a class="chip" href="/seo/">SEO-раздел</a>
+            <a class="chip" href="/seo/semanticheskoe-yadro/">Семантика</a>
+            <a class="chip" href="/seo/prodvizhenie-sayta/">SEO-продвижение</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="t">
+            <div class="ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M4 12h10m0 0-3-3m3 3-3 3M14 7h6v10h-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" opacity=".9"/></svg>
+            </div>
+            <div>
+              <h3>Контекстная реклама</h3>
+              <p>Запуск и ведение рекламных кампаний. KPI, аналитика, гипотезы, посадочные страницы и рост конверсии.</p>
+            </div>
+          </div>
+          <div class="links">
+            <a class="chip" href="/yandex-direct/">Яндекс Директ</a>
+            <a class="chip" href="/yandex-direct/audit/">Аудит рекламы</a>
+            <a class="chip" href="/yandex-direct/vedenie/">Ведение</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="t">
+            <div class="ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M7 7h10v10H7V7Z" stroke="currentColor" stroke-width="1.7" opacity=".9"/><path d="M7 10h10M10 7v10" stroke="currentColor" stroke-width="1.4" opacity=".7"/></svg>
+            </div>
+            <div>
+              <h3>CRM и интеграции</h3>
+              <p>Воронки, автоматизации, интеграции с сайтом и мессенджерами, контроль качества обработки лидов.</p>
+            </div>
+          </div>
+          <div class="links">
+            <a class="chip" href="/crm-integracii/">CRM и интеграции</a>
+            <a class="chip" href="/crm-integracii/amocrm/">amoCRM</a>
+            <a class="chip" href="/crm-integracii/wazzup/">Wazzup</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="t">
+            <div class="ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M12 3l9 5-9 5-9-5 9-5Z" stroke="currentColor" stroke-width="1.7" opacity=".9"/><path d="M3 13l9 5 9-5" stroke="currentColor" stroke-width="1.7" opacity=".7"/></svg>
+            </div>
+            <div>
+              <h3>Лидогенерация и конверсия</h3>
+              <p>Marquiz, MyReviews, репутация на площадках. Делаем так, чтобы трафик продавал.</p>
+            </div>
+          </div>
+          <div class="links">
+            <a class="chip" href="/lidogeneraciya/">Лидогенерация</a>
+            <a class="chip" href="/lidogeneraciya/marquiz/">Marquiz</a>
+            <a class="chip" href="/lidogeneraciya/myreviews/">MyReviews</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="t">
+            <div class="ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M4 8h16M4 12h10M4 16h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" opacity=".9"/></svg>
+            </div>
+            <div>
+              <h3>Avito</h3>
+              <p>Оформление, оптимизация, продвижение и аналитика. Канал продаж, который умеем прокачивать системно.</p>
+            </div>
+          </div>
+          <div class="links">
+            <a class="chip" href="/avito/">Avito под ключ</a>
+            <a class="chip" href="/avito/oformlenie-i-optimizaciya/">Оформление</a>
+            <a class="chip" href="/avito/prodvizhenie-i-analitika/">Продвижение</a>
+          </div>
+        </article>
+      </div>
+
+      <div class="note">
+        <b>Важно:</b> мы можем вести проект полностью с нуля или подключаться к действующему - когда уже есть сайт/реклама/Avito,
+        и нужно навести порядок, усилить точки роста и повысить конверсию.
+      </div>
+    </section>
+
+    <!-- Подход -->
+    <section class="section" id="podhod">
+      <h2 class="h2">Как работаем.</h2>
+      <p class="sub">Простой процесс без сюрпризов. Клиенту понятно, что делаем, зачем делаем и какой следующий шаг.</p>
+
+      <div class="tabs" data-tabs>
+        <div class="tabbar" role="tablist" aria-label="Подход Venner Digital">
+          <button class="tabbtn active" role="tab" aria-selected="true" aria-controls="t1" id="tab1">1. Погружение</button>
+          <button class="tabbtn" role="tab" aria-selected="false" aria-controls="t2" id="tab2">2. План и смета</button>
+          <button class="tabbtn" role="tab" aria-selected="false" aria-controls="t3" id="tab3">3. Реализация</button>
+          <button class="tabbtn" role="tab" aria-selected="false" aria-controls="t4" id="tab4">4. Рост и контроль</button>
+        </div>
+
+        <div class="tabpanel active" id="t1" role="tabpanel" aria-labelledby="tab1">
+          <ul class="list">
+            <li class="li"><b>Разбираем задачу:</b> что продаете, кому, чем отличаетесь, какие цели по лидам и продажам. <span>(созвон/переписка)</span></li>
+            <li class="li"><b>Смотрим текущую картину:</b> сайт, реклама, SEO, карточки и репутация, CRM, скорость обработки лидов.</li>
+            <li class="li"><b>Фиксируем точку А:</b> где теряются заявки, какие каналы недораскрыты, какие ошибки мешают росту.</li>
+          </ul>
+        </div>
+
+        <div class="tabpanel" id="t2" role="tabpanel" aria-labelledby="tab2">
+          <ul class="list">
+            <li class="li"><b>Коммерческое предложение:</b> собираем план работ и отправляем смету в формате Excel/Google Sheets.</li>
+            <li class="li"><b>Поясняем каждый пункт:</b> зачем он нужен, на что влияет, какой результат ожидаем и какие сроки.</li>
+            <li class="li"><b>Выбираем формат:</b> разовая услуга или системная работа "под ключ" с приоритетами.</li>
+          </ul>
+        </div>
+
+        <div class="tabpanel" id="t3" role="tabpanel" aria-labelledby="tab3">
+          <ul class="list">
+            <li class="li"><b>Делаем контент сами:</b> погружаемся в нишу, готовим структуру, тексты, офферы, графику. Клиент может участвовать - или делегировать.</li>
+            <li class="li"><b>Собираем систему:</b> сайт + SEO/реклама + лидогенерация + CRM + интеграции. Все складывается в единую воронку.</li>
+            <li class="li"><b>Работаем официально:</b> договор, этапы, фиксация задач, прозрачная коммуникация.</li>
+          </ul>
+        </div>
+
+        <div class="tabpanel" id="t4" role="tabpanel" aria-labelledby="tab4">
+          <ul class="list">
+            <li class="li"><b>Отчеты и контроль:</b> цифры по трафику, заявкам, конверсии, эффективности каналов и отдела продаж.</li>
+            <li class="li"><b>Гипотезы и улучшения:</b> улучшаем страницы, объявления, тексты, связки, скорость реакции, доверие и репутацию.</li>
+            <li class="li"><b>Рост без перегрева:</b> масштабируем то, что работает, и отключаем то, что сливает бюджет.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Почему мы -->
+    <section class="section" id="pochemu-my">
+      <h2 class="h2">Чем отличаемся.</h2>
+      <div class="split">
+        <div class="card">
+          <div class="t">
+            <div class="ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l3 7 7 .5-5.5 4.3 2 7.2-6.5-4-6.5 4 2-7.2L2 9.5 9 9l3-7Z" stroke="currentColor" stroke-width="1.6" opacity=".9"/></svg>
+            </div>
+            <div>
+              <h3>Делаем не "сайт" и не "рекламу", а систему продаж</h3>
+              <p>Можно получать трафик и не получать сделок. Мы строим связку: офферы - конверсия - дожим - аналитика.</p>
+            </div>
+          </div>
+          <div class="note">
+            Пример: подключили CRM + интеграции - менеджеры работают в одном окне, история не теряется, лиды не "пропадают".
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="t">
+            <div class="ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M5 12l4 4L19 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity=".9"/></svg>
+            </div>
+            <div>
+              <h3>Понятная коммуникация и результат "по делу"</h3>
+              <p>Без тумана и "магии". Объясняем, что делаем, что это дает, и где конкретно растет результат.</p>
+            </div>
+          </div>
+          <div class="note">
+            Если в проекте есть хаос - сначала наводим порядок: структура, этапы, приоритеты, контрольные точки.
+          </div>
+        </div>
+      </div>
+
+      <div class="grid" style="margin-top:12px">
+        <article class="card">
+          <div class="t">
+            <div class="ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M4 7h16M7 4v16M4 17h16" stroke="currentColor" stroke-width="1.6" opacity=".9"/></svg>
+            </div>
+            <div>
+              <h3>Сильная сторона - контент и упаковка</h3>
+              <p>Придумываем структуру, офферы, тексты, смысловые блоки и посадочные страницы - под вашу нишу.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="t">
+            <div class="ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M12 3v18M3 12h18" stroke="currentColor" stroke-width="1.6" opacity=".9"/></svg>
+            </div>
+            <div>
+              <h3>Комплексность - меньше подрядчиков</h3>
+              <p>Сайт, SEO, реклама, Avito, репутация, CRM - в одном месте. Меньше разрывов и "переводов стрелок".</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="t">
+            <div class="ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M20 7l-8 10L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity=".9"/></svg>
+            </div>
+            <div>
+              <h3>Официально и по договору</h3>
+              <p>Фиксируем объемы, сроки и формат. Если проект большой - разбиваем на этапы, закрываем документы.</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Партнерство / сертификация -->
+    <section class="section" id="partnerstvo">
+      <h2 class="h2">Партнерство и инструменты.</h2>
+      <p class="sub">Подключаем и настраиваем решения, которые реально ускоряют отдел продаж и не требуют "жить в десяти окнах".</p>
+
+      <div class="grid">
+        <article class="card">
+          <div class="t">
+            <div class="ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M7 10h10v10H7V10Z" stroke="currentColor" stroke-width="1.6" opacity=".9"/><path d="M9 10V7a3 3 0 0 1 6 0v3" stroke="currentColor" stroke-width="1.6" opacity=".8"/></svg>
+            </div>
+            <div>
+              <h3>CRM: amoCRM - основной фокус</h3>
+              <p>Настраиваем воронки, роботов, напоминания, карточки, аналитические отчеты и контроль качества обработки лидов.</p>
+            </div>
+          </div>
+          <div class="links">
+            <a class="chip" href="/crm-integracii/amocrm/">Страница про amoCRM</a>
+            <a class="chip" href="/crm-integracii/">CRM и интеграции</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="t">
+            <div class="ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M5 7h14v10H5V7Z" stroke="currentColor" stroke-width="1.6" opacity=".9"/><path d="M7 9h6M7 12h10M7 15h8" stroke="currentColor" stroke-width="1.6" opacity=".8"/></svg>
+            </div>
+            <div>
+              <h3>Bitrix24 - подключаем по задаче</h3>
+              <p>Если проекту нужен Bitrix24 (в том числе связка с сайтами на Bitrix) - внедряем и сопровождаем.</p>
+            </div>
+          </div>
+          <div class="links">
+            <a class="chip" href="/crm-integracii/bitrix24/">Страница про Bitrix24</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="t">
+            <div class="ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M8 12a4 4 0 1 0 8 0 4 4 0 0 0-8 0Z" stroke="currentColor" stroke-width="1.6" opacity=".9"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3" stroke="currentColor" stroke-width="1.6" opacity=".8"/></svg>
+            </div>
+            <div>
+              <h3>Интеграции мессенджеров</h3>
+              <p>Подключаем WhatsApp, Telegram, VK и другие каналы в CRM. Все диалоги - в одной системе, с историей и контролем.</p>
+            </div>
+          </div>
+          <div class="links">
+            <a class="chip" href="/crm-integracii/wazzup/">Wazzup</a>
+            <a class="chip" href="/crm-integracii/radist-online/">Radist</a>
+            <a class="chip" href="/crm-integracii/chatapp/">ChatApp</a>
+          </div>
+        </article>
+      </div>
+
+      <div class="note">
+        <b>Идея проста:</b> менеджеру не нужны прямые доступы к мессенджерам. Ему нужен один интерфейс - CRM.
+        Это безопаснее для бизнеса, удобнее для контроля и проще для масштабирования отдела продаж.
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section" id="faq">
+      <h2 class="h2">Коротко отвечаем на частые вопросы.</h2>
+
+      <div class="faq" data-accordion>
+        <button class="q" aria-expanded="false">
+          <span>Вы больше про сайты или про маркетинг?</span>
+          <span class="arr" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </span>
+        </button>
+        <div class="a">
+          <p>Мы про результат в заявках и продажах. Сайт - фундамент, маркетинг - трафик, лидогенерация и CRM - конверсия и дожим. Если делать кусками - эффективность ниже.</p>
+        </div>
+
+        <button class="q" aria-expanded="false">
+          <span>Клиент должен сам писать тексты и готовить контент?</span>
+          <span class="arr" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </span>
+        </button>
+        <div class="a">
+          <p>Можно по-разному. Если клиент хочет участвовать - супер. Если нет времени - мы берем на себя: структура, тексты, офферы, базовая визуальная упаковка, интеграции, запуск.</p>
+        </div>
+
+        <button class="q" aria-expanded="false">
+          <span>Вы подключаетесь к действующим проектам или только "с нуля"?</span>
+          <span class="arr" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </span>
+        </button>
+        <div class="a">
+          <p>Подключаемся в обоих случаях. Частая задача - навести порядок в текущем: улучшить конверсию, настроить аналитику, связать лиды с CRM, усилить SEO/рекламу/Avito.</p>
+        </div>
+
+        <button class="q" aria-expanded="false">
+          <span>Как заказать услуги и что будет дальше?</span>
+          <span class="arr" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </span>
+        </button>
+        <div class="a">
+          <p>Сначала коротко обсуждаем задачу и вводные, затем делаем анализ и подготавливаем коммерческое предложение в Excel/Google Sheets. После согласования - договор, этапы и старт работ.</p>
+          <p class="muted">Подробно - на странице <a href="/zakaz-uslugi/" style="text-decoration:underline">заказа услуг</a>.</p>
+        </div>
+
+        <button class="q" aria-expanded="false">
+          <span>Можно ли работать только по одной услуге?</span>
+          <span class="arr" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </span>
+        </button>
+        <div class="a">
+          <p>Да. Но мы всегда смотрим на картину целиком: иногда точка роста не в канале трафика, а в конверсии, репутации или скорости обработки лидов.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Быстрая перелинковка -->
+    <section class="section" id="perelinkovka">
+      <h2 class="h2">Полезные ссылки по разделам.</h2>
+      <p class="sub">Чтобы быстро перейти в нужный блок услуг и деталей.</p>
+
+      <div class="grid">
+        <div class="card">
+          <h3 style="margin:0 0 8px">Разработка</h3>
+          <div class="links">
+            <a class="chip" href="/sozdanie-saytov/">Создание сайтов</a>
+            <a class="chip" href="/sozdanie-saytov/landing-page/">Лендинг</a>
+            <a class="chip" href="/sozdanie-saytov/internet-magazin/">Интернет-магазин</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3 style="margin:0 0 8px">SEO</h3>
+          <div class="links">
+            <a class="chip" href="/seo/">SEO-лендинг</a>
+            <a class="chip" href="/seo/audit-sayta/">SEO-аудит</a>
+            <a class="chip" href="/seo/blog/">SEO-блог</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3 style="margin:0 0 8px">CRM и лиды</h3>
+          <div class="links">
+            <a class="chip" href="/crm-integracii/">CRM и интеграции</a>
+            <a class="chip" href="/lidogeneraciya/">Лидогенерация</a>
+            <a class="chip" href="/avito/">Avito</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footerline">
+        <div>
+          <span class="muted">Соцсети:</span>
+          <span class="mono">VK</span> и <span class="mono">Telegram</span>
+        </div>
+        <div class="social">
+          <a class="link" href="https://vk.com/venner_digital" target="_blank" rel="noopener">VK - Venner Digital</a>
+          <a class="link" href="/blog/">Блог</a>
+          <a class="link" href="/kontakty/">Контакты</a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    // Tabs
+    (function(){
+      document.querySelectorAll("[data-tabs]").forEach(function(root){
+        var buttons = root.querySelectorAll(".tabbtn");
+        var panels  = root.querySelectorAll(".tabpanel");
+
+        function activate(idx){
+          buttons.forEach((b,i)=>{
+            var on = i===idx;
+            b.classList.toggle("active", on);
+            b.setAttribute("aria-selected", on ? "true" : "false");
+          });
+          panels.forEach((p,i)=>p.classList.toggle("active", i===idx));
+        }
+
+        buttons.forEach((btn, idx)=>{
+          btn.addEventListener("click", ()=>activate(idx));
+          btn.addEventListener("keydown", (e)=>{
+            if(e.key==="ArrowRight" || e.key==="ArrowLeft"){
+              e.preventDefault();
+              var next = (e.key==="ArrowRight") ? idx+1 : idx-1;
+              if(next<0) next = buttons.length-1;
+              if(next>=buttons.length) next = 0;
+              buttons[next].focus();
+              activate(next);
+            }
+          });
+        });
+
+        activate(0);
+      });
+    })();
+
+    // Accordion
+    (function(){
+      document.querySelectorAll("[data-accordion]").forEach(function(root){
+        var qs = root.querySelectorAll(".q");
+        qs.forEach(function(q){
+          var a = q.nextElementSibling;
+          q.addEventListener("click", function(){
+            var isOpen = q.getAttribute("aria-expanded")==="true";
+            qs.forEach(function(other){
+              other.setAttribute("aria-expanded","false");
+              var otherA = other.nextElementSibling;
+              if(otherA) otherA.style.display = "none";
+            });
+            q.setAttribute("aria-expanded", isOpen ? "false" : "true");
+            if(a) a.style.display = isOpen ? "none" : "block";
+          });
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

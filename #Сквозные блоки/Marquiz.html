@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Сквозной блок - Marquiz | Venner Digital</title>
+  <style>
+    :root{
+      --bg:#070a0f;
+      --text:#e9f1fb;
+      --muted:#a7b6c8;
+      --line:rgba(255,255,255,.10);
+      --shadow:0 24px 70px rgba(0,0,0,.55);
+      --r:22px;
+      --r2:28px;
+      --max:1120px;
+
+      --accent:#b6ff2e;
+      --accent2:#6ee7ff;
+      --hot:#ff7a59;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,"Noto Sans","Helvetica Neue",sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(900px 520px at 15% 0%, rgba(182,255,46,.14), transparent 58%),
+        radial-gradient(800px 520px at 85% 10%, rgba(110,231,255,.14), transparent 58%),
+        radial-gradient(900px 700px at 50% 100%, rgba(255,255,255,.05), transparent 60%),
+        linear-gradient(180deg, #05070c, var(--bg));
+      min-height:100vh;
+      display:grid;
+      place-items:center;
+      padding:32px 18px;
+    }
+
+    .stage{ width:min(var(--max), 100%); }
+
+    .card{
+      position:relative;
+      border-radius:var(--r2);
+      padding:1px;
+      background:linear-gradient(135deg, rgba(182,255,46,.28), rgba(110,231,255,.20), rgba(255,255,255,.06));
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    .card::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(700px 260px at 14% 0%, rgba(182,255,46,.18), transparent 62%),
+        radial-gradient(700px 260px at 86% 10%, rgba(110,231,255,.18), transparent 62%);
+      pointer-events:none;
+    }
+    .inner{
+      position:relative;
+      border-radius:calc(var(--r2) - 1px);
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border:1px solid rgba(255,255,255,.08);
+      overflow:hidden;
+    }
+    .inner::after{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        radial-gradient(800px 450px at 0% 0%, rgba(182,255,46,.08), transparent 60%),
+        radial-gradient(800px 450px at 100% 20%, rgba(110,231,255,.08), transparent 60%);
+      pointer-events:none;
+    }
+
+    .grid{
+      position:relative;
+      display:grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap:16px;
+      padding:22px;
+      align-items:stretch;
+    }
+    @media (max-width: 920px){ .grid{grid-template-columns:1fr} }
+
+    .panel{
+      border:1px solid var(--line);
+      background:rgba(0,0,0,.18);
+      border-radius:var(--r);
+      padding:18px 18px 16px;
+      position:relative;
+      overflow:hidden;
+    }
+    .panel::before{
+      content:"";
+      position:absolute; inset:-2px;
+      pointer-events:none;
+    }
+    .left::before{
+      background:
+        radial-gradient(520px 240px at 10% 10%, rgba(110,231,255,.14), transparent 60%),
+        radial-gradient(520px 260px at 40% 120%, rgba(182,255,46,.12), transparent 65%);
+    }
+    .right::before{
+      background:
+        radial-gradient(520px 260px at 90% 10%, rgba(182,255,46,.12), transparent 60%),
+        radial-gradient(520px 300px at 20% 120%, rgba(110,231,255,.10), transparent 62%);
+    }
+    .panel > *{position:relative}
+
+    .badge{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:8px 11px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.04);
+      color:var(--muted);
+      font-size:13px;
+      width:fit-content;
+    }
+    .dot{
+      width:9px; height:9px; border-radius:50%;
+      background:var(--accent2);
+      box-shadow:0 0 0 4px rgba(110,231,255,.10);
+    }
+    .dot.hot{
+      background:var(--hot);
+      box-shadow:0 0 0 4px rgba(255,122,89,.12);
+    }
+
+    h2{
+      margin:12px 0 8px;
+      font-size:30px;
+      letter-spacing:.2px;
+      line-height:1.1;
+    }
+    .sub{
+      margin:0 0 14px;
+      color:var(--muted);
+      max-width:560px;
+      line-height:1.45;
+    }
+
+    .miniList{
+      display:grid;
+      gap:10px;
+      margin:12px 0 16px;
+      padding:0;
+      list-style:none;
+    }
+    .miniList li{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      color:var(--muted);
+      line-height:1.35;
+    }
+    .chk{
+      flex:0 0 auto;
+      width:20px; height:20px;
+      border-radius:8px;
+      border:1px solid rgba(182,255,46,.30);
+      background:rgba(182,255,46,.10);
+      display:grid; place-items:center;
+      box-shadow:0 8px 22px rgba(0,0,0,.25);
+      margin-top:1px;
+    }
+    .chk svg{width:14px; height:14px; fill:var(--accent)}
+
+    .ctaRow{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      margin-top:4px;
+    }
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:12px 14px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.06);
+      color:var(--text);
+      text-decoration:none;
+      font-weight:800;
+      transition:.18s ease;
+      user-select:none;
+      white-space:nowrap;
+    }
+    .btn:hover{transform:translateY(-1px); border-color:rgba(255,255,255,.18)}
+    .btn.primary{
+      border-color:transparent;
+      background:linear-gradient(135deg, rgba(182,255,46,.95), rgba(110,231,255,.35));
+      color:#091018;
+    }
+
+    .note{
+      margin-top:10px;
+      color:var(--muted);
+      font-size:12.5px;
+      opacity:.95;
+      line-height:1.35;
+    }
+
+    .right h3{
+      margin:12px 0 8px;
+      font-size:18px;
+      letter-spacing:.2px;
+      font-weight:950;
+    }
+    .lead{
+      margin:0 0 12px;
+      color:var(--muted);
+      line-height:1.45;
+    }
+
+    .valueList{
+      display:grid;
+      gap:10px;
+      margin:12px 0 14px;
+      padding:0;
+      list-style:none;
+    }
+    .valueItem{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      border:1px solid var(--line);
+      background:rgba(0,0,0,.16);
+      border-radius:16px;
+      padding:12px 12px;
+    }
+    .ico{
+      width:34px; height:34px;
+      border-radius:14px;
+      border:1px solid rgba(110,231,255,.22);
+      background:rgba(110,231,255,.08);
+      display:grid; place-items:center;
+      flex:0 0 auto;
+      margin-top:1px;
+    }
+    .ico svg{width:18px; height:18px; fill:var(--accent2)}
+    .valueItem b{display:block; font-weight:950; margin-bottom:2px}
+    .valueItem span{display:block; color:var(--muted); line-height:1.35; font-size:13.5px}
+
+    .priceBox{
+      margin-top:12px;
+      border:1px solid rgba(182,255,46,.22);
+      background:linear-gradient(180deg, rgba(182,255,46,.10), rgba(0,0,0,.16));
+      border-radius:18px;
+      padding:14px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+    .priceBox .p1{color:var(--muted); font-size:13px}
+    .priceBox .p2{font-weight:950; font-size:18px}
+    .priceBox .p2 b{color:var(--accent)}
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.05);
+      color:var(--muted);
+      font-weight:850;
+      font-size:12.5px;
+      white-space:nowrap;
+    }
+    .pill i{
+      width:9px; height:9px; border-radius:50%;
+      background:var(--accent);
+      display:inline-block;
+      box-shadow:0 0 0 4px rgba(182,255,46,.10);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="stage">
+    <div class="card">
+      <div class="inner">
+        <div class="grid">
+          <div class="panel left">
+            <div class="badge"><span class="dot"></span> Лидогенерация - Marquiz</div>
+            <h2>Квиз-заявка, которая поднимает конверсию сайта</h2>
+            <p class="sub">
+              Вместо "оставьте телефон" - короткий диалог из нескольких шагов. Посетитель вовлекается, получает понятный результат,
+              а вы - заявку с вводными, а не пустой номер.
+            </p>
+
+            <ul class="miniList">
+              <li>
+                <span class="chk" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M9.2 16.6 4.9 12.3l1.4-1.4 2.9 2.9 8.5-8.5 1.4 1.4z"/></svg>
+                </span>
+                5-10 вопросов - и человек сам "прогревается" по вашей услуге.
+              </li>
+              <li>
+                <span class="chk" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M9.2 16.6 4.9 12.3l1.4-1.4 2.9 2.9 8.5-8.5 1.4 1.4z"/></svg>
+                </span>
+                Заявка получается теплее - уже есть параметры, сроки, интерес.
+              </li>
+              <li>
+                <span class="chk" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M9.2 16.6 4.9 12.3l1.4-1.4 2.9 2.9 8.5-8.5 1.4 1.4z"/></svg>
+                </span>
+                Работает в любой нише: сайт, SEO, реклама, услуги, производство - логика одна: вовлечение + вводные.
+              </li>
+            </ul>
+
+            <div class="ctaRow">
+              <a class="btn primary" href="/lidogeneraciya/marquiz/">Подробнее про Marquiz</a>
+              <!-- если нужен другой якорь - просто замени #cases на свой -->
+              <a class="btn" href="/lidogeneraciya/marquiz/#cases">Кому подходит</a>
+            </div>
+
+            <div class="note">
+              Лайфхак: квиз ставим на ключевые страницы услуг и на посадочные под рекламу - чтобы сразу собирать вводные и отсеивать "нецелевых".
+            </div>
+
+            <!-- перенесено из правого блока -->
+            <div class="priceBox" style="margin-top:14px">
+              <div>
+                <div class="p1">По цене - это вообще не больно</div>
+                <div class="p2">в среднем <b>~600 ₽/мес</b></div>
+              </div>
+              <div class="pill"><i></i> Быстрый рост конверсии</div>
+            </div>
+          </div>
+
+          <div class="panel right">
+            <div class="badge"><span class="dot hot"></span> Почему это реально работает</div>
+
+            <h3>Поднимает конверсию без доп. трафика</h3>
+            <p class="lead">
+              Marquiz - один из самых сильных инструментов лидогенерации за последние годы: выжимает больше заявок из текущего трафика
+              и делает лид заметно "теплее" уже на входе.
+            </p>
+
+            <ul class="valueList">
+              <li class="valueItem">
+                <span class="ico" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 1 18 0 9 9 0 0 1-18 0Zm9-5a1 1 0 0 0-1 1v4.3l-2.4 1.4a1 1 0 0 0 1 1.7l2.9-1.7A1 1 0 0 0 13 13V8a1 1 0 0 0-1-1Z"/></svg>
+                </span>
+                <div>
+                  <b>Быстро вовлекает</b>
+                  <span>Человек отвечает на вопросы и "втягивается" в диалог. Это сильнее, чем обычная форма.</span>
+                </div>
+              </li>
+
+              <li class="valueItem">
+                <span class="ico" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M12 2a8 8 0 0 1 8 8c0 3.1-1.9 5.9-4.7 7.2V22l-3.3-2-3.3 2v-4.8A8 8 0 0 1 4 10a8 8 0 0 1 8-8Zm0 2a6 6 0 1 0 0 12 6 6 0 0 0 0-12Z"/></svg>
+                </span>
+                <div>
+                  <b>Лид теплее, чем из формы</b>
+                  <span>Второй по прогретости к договору формат после звонка: уже есть цель, вводные и ожидания.</span>
+                </div>
+              </li>
+
+              <li class="valueItem">
+                <span class="ico" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M4 5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v14l-4-3H6a2 2 0 0 1-2-2V5Zm5 4h6v2H9V9Zm0 4h8v2H9v-2Z"/></svg>
+                </span>
+                <div>
+                  <b>Заявка с вводными</b>
+                  <span>Не "пустой номер", а понимание: что нужно, сроки, бюджет/ориентир - менеджеру легче закрыть.</span>
+                </div>
+              </li>
+            </ul>
+
+            <div class="note">
+              Квиз особенно хорошо работает, когда уже есть трафик: SEO, Яндекс Директ, Авито, соцсети. Мы просто выжимаем из него больше заявок.
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

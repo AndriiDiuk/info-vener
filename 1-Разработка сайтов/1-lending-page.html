@@ -1,0 +1,500 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Разработка Landing Page под ключ | Venner Digital</title>
+  <style>
+    :root{
+      --bg:#0b1416;
+      --panel:#0e1b1e;
+      --card:#102125;
+      --card-soft:#12262b;
+      --text:#eaf4f2;
+      --muted:#a9b9b6;
+      --accent:#2f7af8;
+      --accent2:#25d37a;
+      --accent3:#ff9a2f;
+      --line:rgba(255,255,255,.14);
+      --shadow:0 16px 40px rgba(0,0,0,.35);
+      --radius:18px;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Ubuntu,"Helvetica Neue",Arial,"Noto Sans",sans-serif;
+      color:var(--text);
+      background:radial-gradient(1100px 700px at 120% -10%, #163a44 0%, #0f232a 55%, var(--bg) 100%);
+    }
+    a{color:#bfeaff;text-decoration:none;text-underline-offset:3px}
+    a:hover{text-decoration:underline}
+    .wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+    h1,h2,h3{margin:0;font-weight:900;letter-spacing:.2px}
+    h2{font-size:26px}
+    section{margin:34px 0}
+
+    /* helpers */
+    .tag{display:inline-block;padding:6px 10px;border-radius:999px;border:1px solid var(--line);background:rgba(0,0,0,.25);font-size:12px;color:var(--muted);margin-bottom:10px}
+    .muted{color:var(--muted)}
+    .subnote{font-size:12px;color:var(--muted);margin-top:6px}
+
+    /* header */
+    header{border-bottom:1px solid var(--line);background:#081316e6;backdrop-filter:blur(10px);position:sticky;top:0;z-index:40}
+    .header-inner{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:16px;padding:10px 0}
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand-logo{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,#1fd0ff,#2f7af8);display:grid;place-items:center;font-weight:950;color:#051114}
+    .brand-name{font-size:16px;line-height:1.1}
+    .brand-sub{font-size:12px;color:var(--muted)}
+    .trustline{border-radius:999px;border:1px solid var(--line);padding:8px 14px;background:rgba(0,0,0,.22);font-size:12.5px;color:var(--muted)}
+    .trustline b{color:var(--text)}
+    .header-right{display:flex;align-items:center;gap:10px}
+    .tel{display:flex;flex-direction:column;text-align:right}
+    .tel a{color:var(--text);font-weight:900}
+    .tel small{color:var(--muted);font-size:11px}
+    .messengers{display:flex;gap:6px}
+    .m-btn{width:34px;height:34px;border-radius:10px;border:1px solid var(--line);display:grid;place-items:center;font-size:12px;font-weight:900;box-shadow:var(--shadow);background:rgba(0,0,0,.26)}
+    .m-btn.wa{background:linear-gradient(180deg,#36e07d,#22c15b);color:#042d2d}
+    .m-btn.tg{background:linear-gradient(180deg,#3ac3ff,#169bd9);color:#fff}
+    .m-btn.mx{background:linear-gradient(180deg,#f4b02a,#ff7f2a);color:#240b04}
+
+    /* buttons */
+    .btn{border:none;border-radius:12px;padding:11px 16px;font-size:14px;font-weight:900;cursor:pointer;box-shadow:var(--shadow)}
+    .btn.primary{background:var(--accent);color:#fff}
+    .btn.secondary{background:var(--accent2);color:#042d2d}
+    .btn.ghost{background:rgba(0,0,0,.22);color:var(--text);border:1px solid var(--line)}
+    .btn.small{padding:9px 12px;font-size:13px;border-radius:10px}
+
+    /* hero */
+    .hero{display:grid;grid-template-columns:1.15fr 0.85fr;gap:36px;padding:34px 0 10px 0;align-items:center}
+    .hero h1{font-size:36px;line-height:1.08;margin-bottom:10px}
+    .hero p.lead{margin:0 0 16px;font-size:15.5px;color:#cfe5e5}
+    .hero-badges{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 18px}
+    .pill{display:inline-flex;align-items:center;gap:8px;padding:7px 11px;border-radius:999px;border:1px solid var(--line);background:rgba(0,0,0,.28);font-size:12.5px}
+    .pill span{width:18px;height:18px;border-radius:50%;background:#16343a;display:grid;place-items:center;font-size:11px}
+    .hero-ctas{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:10px}
+    .hero-note{font-size:12px;color:var(--muted)}
+    .hero-right{border-radius:20px;border:1px dashed var(--line);background:linear-gradient(135deg,#11292f,#0b171a);padding:18px;min-height:280px;display:grid;place-items:center;text-align:center;color:#8fb3b8}
+
+    /* layout */
+    .two-col{display:grid;grid-template-columns:1.1fr 0.9fr;gap:20px}
+    .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    .grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+
+    .card{background:var(--card);border-radius:var(--radius);border:1px solid var(--line);box-shadow:var(--shadow);padding:18px}
+    .card-soft{background:var(--card-soft);border-radius:var(--radius);border:1px solid var(--line);padding:18px}
+    .card h3{margin:0 0 8px;font-size:18px}
+    .card p{margin:0 0 10px;color:var(--muted);font-size:13.8px;line-height:1.45}
+
+    .list{margin:0;padding-left:18px;color:var(--muted);font-size:13.8px;line-height:1.5}
+    .list li{margin:4px 0}
+
+    .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+    .chip{border-radius:999px;border:1px solid var(--line);padding:5px 9px;font-size:12px;background:rgba(0,0,0,.22);color:var(--muted)}
+
+    .ilink{color:#bfeaff;border-bottom:1px dashed rgba(191,234,255,.65)}
+    .ilink:hover{border-bottom-style:solid;text-decoration:none}
+
+    /* steps */
+    .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px}
+    .step{background:var(--card);border-radius:14px;border:1px solid var(--line);padding:12px;font-size:13.5px;color:var(--muted);line-height:1.45}
+    .step b{display:block;color:var(--text);margin-bottom:4px}
+    .step-num{display:inline-block;margin-bottom:6px;font-size:11px;border-radius:999px;border:1px solid var(--line);padding:3px 7px;color:var(--muted)}
+
+    /* pricing */
+    .price{display:flex;align-items:baseline;gap:8px;margin:8px 0 10px}
+    .price b{font-size:22px}
+    .price span{font-size:12px;color:var(--muted)}
+    .divider{height:1px;background:var(--line);margin:12px 0}
+
+    /* faq */
+    details{background:var(--card);border-radius:14px;border:1px solid var(--line);padding:10px 12px;margin:7px 0;font-size:13.5px}
+    summary{cursor:pointer;font-weight:900}
+    summary::-webkit-details-marker{display:none}
+    .faq-a{margin-top:8px;color:var(--muted);line-height:1.55}
+
+    /* cta */
+    .cta-panel{display:grid;grid-template-columns:1.1fr 0.9fr;gap:18px;align-items:center}
+    .cta-messengers{display:flex;align-items:center;gap:8px;margin-top:10px}
+    .cta-messengers span{font-size:12.5px;color:var(--muted)}
+
+    /* placeholders */
+    .widget{border-radius:var(--radius);border:1px dashed var(--line);padding:18px;font-size:13px;color:#8fb3b8;text-align:center}
+    .gallery-row{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;padding:10px 0}
+    .tile{min-width:240px;height:150px;border-radius:14px;border:1px solid var(--line);background:linear-gradient(135deg,#1a3338,#112225);scroll-snap-align:center;position:relative}
+    .tile span{position:absolute;left:10px;bottom:10px;font-size:12px;background:rgba(0,0,0,.45);padding:5px 8px;border-radius:999px}
+
+    footer{border-top:1px solid var(--line);margin-top:30px;padding:16px 0 26px 0;font-size:12px;color:var(--muted)}
+
+    @media (max-width:960px){
+      .hero{grid-template-columns:1fr}
+      .two-col{grid-template-columns:1fr}
+      .cta-panel{grid-template-columns:1fr}
+      .steps{grid-template-columns:1fr 1fr}
+      .grid3{grid-template-columns:1fr}
+      .grid2{grid-template-columns:1fr}
+      .tel{text-align:left}
+    }
+    @media (max-width:720px){
+      .header-inner{grid-template-columns:1fr;row-gap:8px}
+      .steps{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+
+<body>
+<header id="top">
+  <div class="wrap header-inner">
+    <div class="brand">
+      <div class="brand-logo">VD</div>
+      <div>
+        <div class="brand-name"><b>Venner Digital</b></div>
+        <div class="brand-sub">Сайты, трафик, аналитика - в одной связке</div>
+      </div>
+    </div>
+
+    <div class="trustline">
+      <b>13+ лет в работе (с 2013).</b> Контент делаем сами, считаем цифры, запускаем и докручиваем.
+    </div>
+
+    <div class="header-right">
+      <div class="tel">
+        <a href="tel:+79528070601">8 (952) 807-06-01</a>
+        <small>Ответим в WhatsApp / Telegram / Max или созвонимся</small>
+      </div>
+      <div class="messengers">
+        <a class="m-btn wa" href="#contact" title="WhatsApp">WA</a>
+        <a class="m-btn tg" href="#contact" title="Telegram">TG</a>
+        <a class="m-btn mx" href="#contact" title="Max">MAX</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="wrap">
+    <div class="hero">
+      <div>
+        <div class="tag">Разработка сайтов / <b>Landing Page</b></div>
+        <h1>Landing Page, который делает своё дело - приводит заявки</h1>
+        <p class="lead">Вы приходите с задачей. Мы продумываем оффер, структуру, тексты, дизайн и запуск. Если нужно - подключим аналитику, рекламу и тесты гипотез. Без "красиво", но пусто.</p>
+
+        <div class="hero-badges">
+          <div class="pill"><span>13+</span>лет опыта</div>
+          <div class="pill"><span>10+</span>лет SEO и performance</div>
+          <div class="pill"><span>200+</span>отзывов на картах</div>
+          <div class="pill"><span>+1</span>делаем контент сами</div>
+        </div>
+
+        <div class="hero-ctas">
+          <a class="btn secondary" href="#calc">Рассчитать стоимость</a>
+          <a class="btn ghost" href="tel:+79528070601">Обсудить по телефону</a>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div>
+          <b>Плейсхолдер под иллюстрацию/скрин</b>
+          <div class="subnote">Например: схема воронки, пример блока оффера, визуал "до/после".</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHO NEEDS -->
+  <section class="wrap" id="who">
+    <h2>Кому нужен Landing Page</h2>
+    <div class="subnote">Не "потому что модно". А потому что решает конкретные задачи в рекламе и продажах.</div>
+
+    <div class="grid3" style="margin-top:12px">
+      <div class="card">
+        <h3>Посадочная под рекламу</h3>
+        <p>Когда нужен понятный путь: объявление - страница - заявка. Без лишних переходов и "где тут купить".</p>
+        <div class="chips">
+          <span class="chip">контекст</span><span class="chip">A/B тесты</span><span class="chip">гипотезы</span>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Отдельная страница под услугу</h3>
+        <p>Есть большой сайт, но одна услуга важнее остальных. Делаем отдельную посадку: больше фокуса, выше конверсия.</p>
+        <div class="chips">
+          <span class="chip">оффер</span><span class="chip">структура</span><span class="chip">доверие</span>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Быстрый тест ниши/продукта</h3>
+        <p>Нужно проверить спрос без большой разработки. Собираем посадку, запускаем трафик, смотрим цифры.</p>
+        <div class="chips">
+          <span class="chip">скорость</span><span class="chip">метрика</span><span class="chip">решение по фактам</span>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Под разные сегменты</h3>
+        <p>Один продукт - разные аудитории. Делаем несколько посадок с разными акцентами, чтобы говорить "в точку".</p>
+        <div class="chips">
+          <span class="chip">персонализация</span><span class="chip">повышение CTR</span><span class="chip">точнее заявки</span>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Под бренд/филиал/гео</h3>
+        <p>Нужно занять больше места в выдаче и рекламе: разные посадки под направления, бренды, города, офферы.</p>
+        <div class="chips">
+          <span class="chip">больше охват</span><span class="chip">быстрее масштаб</span>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Под SEO в спокойных нишах</h3>
+        <p>В высококонкурентных тематиках одной страницы часто мало. Но в средних и низких нишах грамотная оптимизация даёт результат (особенно в Google).</p>
+        <div class="chips">
+          <span class="chip">структура</span><span class="chip">FAQ</span><span class="chip">скорость</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-soft" style="margin-top:12px">
+      <b>Важно.</b> Landing Page - это не "одна страничка". Это посадка под задачу: предложение, доверие, сценарий, аналитика и понятный следующий шаг.
+    </div>
+  </section>
+
+  <!-- WHAT WE DO -->
+  <section class="wrap" id="what">
+    <h2>Что мы делаем под ключ</h2>
+    <div class="two-col" style="margin-top:12px">
+      <div class="card">
+        <h3>Внутри проекта</h3>
+        <ul class="list">
+          <li><a class="ilink" href="/sozdanie-saytov/prototip-sayta/">Прототип и структура</a> - чтобы было понятно, за что платим и что получаем.</li>
+          <li>Тексты без "рыбы": объясняем, что вы делаете, кому и почему это выгодно.</li>
+          <li><a class="ilink" href="/sozdanie-saytov/veb-dyzayn-sayta/">Дизайн</a> под ваш стиль и аудиторию - не ради красоты, а ради действия.</li>
+          <li><a class="ilink" href="/sozdanie-saytov/verstka-sayta/">Верстка</a> и сборка на WordPress или на чистом коде - выбираем по задаче.</li>
+          <li>Формы и заявки: телефон, мессенджеры, заявки на расчёт стоимости.</li>
+          <li>Подключаем аналитику: Яндекс.Метрика, Google Analytics, события, цели.</li>
+        </ul>
+        <div class="subnote">Если нужно - усиливаем проект через <a class="ilink" href="/sozdanie-saytov/tehnicheskij-audit-sayta/">техническую оптимизацию</a> и скорость загрузки.</div>
+      </div>
+
+      <div class="card">
+        <h3>Если нужен комплекс</h3>
+        <p>Мы часто делаем связку, где сайт - это только первая половина истории. Вторая - трафик и рост.</p>
+        <ul class="list">
+          <li><a class="ilink" href="/yandex-direct/">Яндекс.Директ</a>: запуск, ведение, тесты объявлений и посадок.</li>
+          <li><a class="ilink" href="/seo/">SEO</a>: семантика, контент, структура, внутренняя оптимизация.</li>
+          <li><a class="ilink" href="/crm-integracii/">CRM и интеграции</a>: чтобы заявки не терялись и доходили до продаж.</li>
+          <li>Еженедельные отчёты: задачи - метрики - выводы - план. Без загадок.</li>
+        </ul>
+        <div class="chips">
+          <span class="chip">прозрачность</span>
+          <span class="chip">контроль</span>
+          <span class="chip">оплата по этапам</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW WE MAKE IT CONVERT -->
+  <section class="wrap" id="how">
+    <h2>Как мы делаем Landing Page, чтобы были заявки</h2>
+    <div class="grid3" style="margin-top:12px">
+      <div class="card">
+        <h3>Оффер, который понятен</h3>
+        <p>Не "качество и индивидуальный подход". А конкретно: что делаете, для кого, чем отличаетесь, что получит клиент.</p>
+      </div>
+      <div class="card">
+        <h3>Структура без лабиринта</h3>
+        <p>Логика чтения: проблема - решение - доказательства - варианты - следующий шаг. Человек не теряется.</p>
+      </div>
+      <div class="card">
+        <h3>Доверие и доказательства</h3>
+        <p>Отзывы, кейсы, цифры, фото/видео, ответы на возражения. Чтобы "я понял" и "я верю" случились раньше, чем "подумаю".</p>
+      </div>
+      <div class="card">
+        <h3>Аналитика и события</h3>
+        <p>Настраиваем цели и события: клики, отправки, звонки, заявки. Дальше уже можно управлять цифрами.</p>
+      </div>
+      <div class="card">
+        <h3>Гипотезы без казино</h3>
+        <p>Мы проверяем связки на своих проектах и переносим рабочие решения. Меньше ошибок - быстрее к заявкам.</p>
+      </div>
+      <div class="card">
+        <h3>Управляем ростом</h3>
+        <p>Если вы идёте в трафик, мы не бросаем страницу после релиза: тесты, правки, улучшения по данным.</p>
+      </div>
+    </div>
+
+    <!-- MINI FAQ (inside unique content) -->
+    <div style="margin-top:18px" id="faq-mini">
+      <h2>Коротко о важном</h2>
+      <div class="grid2" style="margin-top:12px">
+        <div class="card">
+          <h3>Сколько стоит разработка Landing Page?</h3>
+          <p>Зависит от объёма: контент, дизайн, интеграции, сроки. Самый быстрый путь - <a class="ilink" href="#calc">узнать предварительную стоимость</a> по параметрам проекта.</p>
+        </div>
+        <div class="card">
+          <h3>Сколько времени занимает разработка?</h3>
+          <p>Обычно от 7 до 21 дня. Быстрее - если контент уже готов. Дольше - если делаем всё с нуля и параллельно готовим трафик.</p>
+        </div>
+        <div class="card">
+          <h3>На чём делаете?</h3>
+          <p>Чаще всего WordPress. Если проекту нужен максимум скорости/гибкости - делаем на чистом коде.</p>
+        </div>
+        <div class="card">
+          <h3>Будет ли работать SEO на лендинге?</h3>
+          <p>В высококонкурентных нишах одной страницы часто мало. В средних и спокойных тематиках грамотная структура + FAQ + оптимизация дают результат.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEPS -->
+  <section class="wrap" id="steps">
+    <div class="tag">Этапы и сроки</div>
+    <h2>Как проходит работа</h2>
+    <div class="subnote">Порядок может чуть меняться, но логика всегда одна: сначала смысл, потом красота, потом цифры.</div>
+
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><b>Бриф и цели</b>Коротко фиксируем задачу, аудиторию и что считаем успехом.</div>
+      <div class="step"><div class="step-num">2</div><b>Анализ</b>Смотрим конкурентов, спрос, офферы, точки входа.</div>
+      <div class="step"><div class="step-num">3</div><b>Прототип</b>Собираем структуру и логику страницы. Согласуем.</div>
+      <div class="step"><div class="step-num">4</div><b>Контент</b>Пишем тексты и собираем смысловые блоки, закрываем возражения.</div>
+      <div class="step"><div class="step-num">5</div><b>Дизайн</b>Рисуем макет. Проверяем читаемость и акценты на CTA.</div>
+      <div class="step"><div class="step-num">6</div><b>Верстка</b>Собираем, подключаем формы и нужные элементы.</div>
+      <div class="step"><div class="step-num">7</div><b>Аналитика</b>Метрика/GA, события, цели. Чтобы всё измерялось.</div>
+      <div class="step"><div class="step-num">8</div><b>Запуск и докрутка</b>Проверка, правки, рекомендации по росту.</div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="wrap" id="pricing">
+    <div class="tag">Тарифы</div>
+    <h2>3 формата работы</h2>
+
+    <div class="grid3" style="margin-top:12px">
+      <div class="card">
+        <h3>Старт</h3>
+        <div class="muted">Landing Page под ключ</div>
+        <div class="price"><b>от N ₽</b><span>ориентир, уточняем по задаче</span></div>
+        <ul class="list">
+          <li>Прототип + структура</li>
+          <li>Тексты и оформление</li>
+          <li>Дизайн + верстка</li>
+          <li>Формы заявок и контакты</li>
+          <li>Базовая аналитика</li>
+        </ul>
+        <div class="divider"></div>
+        <a class="btn secondary" href="#calc">Рассчитать стоимость</a>
+        <div class="subnote">Когда нужен сам лендинг - быстро и по делу.</div>
+      </div>
+
+      <div class="card">
+        <h3>Бизнес</h3>
+        <div class="muted">Landing Page + повышение конверсии</div>
+        <div class="price"><b>от N ₽</b><span>если важен рост заявок</span></div>
+        <ul class="list">
+          <li>Всё из тарифа «Старт»</li>
+          <li>Доп. блоки доверия и возражений</li>
+          <li>Сценарии CTA (несколько входов)</li>
+          <li>Интерактивный расчёт стоимости / бриф-форма</li>
+          <li>Подготовка к тестам гипотез</li>
+        </ul>
+        <div class="divider"></div>
+        <a class="btn secondary" href="#calc">Узнать предварительную стоимость</a>
+        <div class="subnote">Когда важна конверсия, а не просто наличие страницы.</div>
+      </div>
+
+      <div class="card">
+        <h3>Перфоманс</h3>
+        <div class="muted">Landing Page + трафик + рост</div>
+        <div class="price"><b>от N ₽</b><span>комплексный подход</span></div>
+        <ul class="list">
+          <li>Всё из тарифа «Бизнес»</li>
+          <li><a class="ilink" href="/yandex-direct/">Яндекс.Директ</a>: запуск и ведение</li>
+          <li>Тесты связок: объявления/страница/CTA</li>
+          <li>Регулярные отчёты и план улучшений</li>
+          <li>Рекомендации по <a class="ilink" href="/seo/">SEO</a> и развитию проекта</li>
+        </ul>
+        <div class="divider"></div>
+        <a class="btn secondary" href="#calc">Рассчитать стоимость</a>
+        <div class="subnote">Когда нужен результат, а не просто "сайт сделали".</div>
+      </div>
+    </div>
+
+    <div class="card-soft" style="margin-top:12px">
+      <b>Оплата по этапам.</b> Разбиваем проект на части (прототип, дизайн, разработка, запуск, оптимизация) и привязываем платежи к факту выполненных работ.
+    </div>
+  </section>
+
+  <!-- CALC / FORM PLACEHOLDER -->
+  <section class="wrap" id="calc">
+    <h2>Рассчитать стоимость Landing Page</h2>
+    <div class="two-col" style="margin-top:12px">
+      <div class="card">
+        <h3>Быстрый старт</h3>
+        <p>Соберём вводные по проекту и дадим понятный ориентир по бюджету и срокам. Без философии - только по делу.</p>
+        <ul class="list">
+          <li>Что продаём (услуга/товар)</li>
+          <li>Регион и аудитория</li>
+          <li>Нужен ли трафик (контекст / SEO)</li>
+          <li>Есть ли контент или делаем с нуля</li>
+          <li>Сроки и ограничения</li>
+        </ul>
+        <div class="subnote">Тут можно встроить вашу форму/виджет расчёта (скрипт), без упоминаний в тексте.</div>
+      </div>
+      <div class="widget">
+        Плейсхолдер под встроенный блок расчёта стоимости / бриф-форму
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ (deep) -->
+  <section class="wrap" id="faq">
+    <h2>Часто задаваемые вопросы</h2>
+
+    <details>
+      <summary>Сколько стоит разработка Landing Page под ключ?</summary>
+      <div class="faq-a">Цена зависит от объёма работ: контент с нуля или готов, нужен ли дизайн "с нуля", сколько блоков, какие интеграции, какие сроки. Чтобы не гадать - проще <a class="ilink" href="#calc">узнать предварительную стоимость</a> по параметрам проекта.</div>
+    </details>
+
+    <details>
+      <summary>Сколько времени занимает разработка лендинга?</summary>
+      <div class="faq-a">Обычно 7-21 день. Быстрее - если контент уже подготовлен и согласования идут без пауз. Дольше - если делаем полный цикл (анализ, контент, дизайн, разработка) и параллельно готовим рекламный запуск.</div>
+    </details>
+
+    <details>
+      <summary>На какой CMS вы делаете Landing Page?</summary>
+      <div class="faq-a">Чаще всего на WordPress - удобно управлять и быстро развивать. Если проекту нужна максимальная скорость, гибкость или нестандартная логика - делаем на чистом коде.</div>
+    </details>
+
+    <details>
+      <summary>Нужны ли тексты от клиента или вы делаете сами?</summary>
+      <div class="faq-a">Если клиент готов доверить нам контент - берём на себя: структура, тексты, визуальные смыслы, правки под SEO. Вы экономите время и получаете цельный материал, который реально продаёт.</div>
+    </details>
+
+    <details>
+      <summary>Работает ли SEO на Landing Page?</summary>
+      <div class="faq-a">Иногда да, иногда нет - зависит от конкуренции. В высококонкурентных нишах одной страницы обычно мало. В средних и спокойных тематиках помогает грамотная структура, оптимизация, скорость, перелинковка и расширенный FAQ. Подробнее - на странице <a class="ilink" href="/seo/">SEO</a>.</div>
+    </details>
+
+    <details>
+      <summary>Подключаете ли аналитику (Яндекс.Метрика и Google Analytics)?</summary>
+      <div class="faq-a">Да. Подключаем счётчики, настраиваем цели и события (клики, отправки, звонки). Если нужен рост - без аналитики это как ехать ночью без фар.</div>
+    </details>
+
+    <details>
+      <summary>Можно ли сделать несколько лендингов под разные офферы и сегменты?</summary>
+      <div class="faq-a">Да, это частый сценарий: разные посадки под разные аудитории, услуги, бренды или гео. Так вы занимаете больше места в рекламе и выдаче, а заявки становятся точнее.</div>
+    </details>
+
+    <details>
+      <summary>Делаете ли вы рекламу и ведение кампаний?</summary>
+      <div class="faq-a">Да. Запускаем и ведём <a class="ilink" href="/yandex-direct/">Яндекс.Директ</a>, тестируем объявления и посадки, докручиваем по данным. Для этого и нужна связка: страница + аналитика + трафик.</div>
+    </details>
+
+    <details>
+      <summary>Как устроена оплата?</summary>
+      <div class="faq-a">Работаем поэтапно: прототип - контент - дизайн - разработка - запуск. Платежи привязаны к факту выполненных работ. Это удобно и прозрачно для обеих сторон.</div>
+    </details>
+  </section>
+</footer>
+</body>
+</html>

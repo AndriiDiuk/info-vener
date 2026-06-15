@@ -1,0 +1,649 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SEO-блог на сайте - ведение, статьи, контент-план | Venner Digital</title>
+  <meta name="description" content="SEO-блог на сайте: контент-план, статьи под запросы, перелинковка и рост органического трафика. Ведение блога в связке с семантикой, SEO-оптимизацией и продвижением." />
+
+  <style>
+    :root{
+      --bg:#0b0d10;
+      --card:#12161b;
+      --card2:#0f1317;
+      --text:#e7edf5;
+      --muted:#a8b3c2;
+      --line:#232b35;
+      --accent:#3cf0a5;
+      --accent2:#5ad1ff;
+      --warn:#ff6262;
+      --ok:#3cf0a5;
+      --radius:18px;
+      --shadow:0 18px 50px rgba(0,0,0,.35);
+      --container:1100px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
+      background: radial-gradient(1200px 600px at 20% -10%, rgba(60,240,165,.10), transparent 60%),
+                  radial-gradient(900px 500px at 80% 10%, rgba(90,209,255,.10), transparent 55%),
+                  var(--bg);
+      color:var(--text);
+      line-height:1.55;
+    }
+    a{color:inherit; text-decoration:none}
+    .container{max-width:var(--container); margin:0 auto; padding:0 18px;}
+    .section{padding:56px 0;}
+    .grid{display:grid; gap:18px;}
+    .grid-2{grid-template-columns:1.25fr .75fr;}
+    .grid-3{grid-template-columns:repeat(3, 1fr);}
+    .grid-4{grid-template-columns:repeat(4, 1fr);}
+    @media (max-width: 980px){
+      .grid-2,.grid-3,.grid-4{grid-template-columns:1fr;}
+      .section{padding:42px 0;}
+    }
+    .topbar{
+      position:sticky; top:0; z-index:10;
+      backdrop-filter: blur(10px);
+      background: rgba(11,13,16,.65);
+      border-bottom:1px solid rgba(35,43,53,.55);
+    }
+    .topbar-inner{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:16px; padding:14px 0;
+    }
+    .brand{display:flex; align-items:center; gap:10px; font-weight:800;}
+    .dot{width:10px; height:10px; border-radius:999px; background:var(--accent);}
+    .nav{display:flex; gap:12px; flex-wrap:wrap; justify-content:flex-end;}
+    .nav a{
+      padding:8px 10px; border:1px solid rgba(35,43,53,.8);
+      border-radius:999px; color:var(--muted);
+    }
+    .nav a:hover{border-color: rgba(60,240,165,.55); color:var(--text);}
+    .badge{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:8px 12px; border-radius:999px;
+      border:1px solid rgba(60,240,165,.35);
+      background: rgba(60,240,165,.07);
+      color: var(--text);
+      font-size:14px;
+    }
+    .h1{font-size:44px; line-height:1.1; margin:14px 0 10px;}
+    .h2{font-size:30px; line-height:1.15; margin:0 0 12px;}
+    .h3{font-size:18px; margin:0 0 6px;}
+    .muted{color:var(--muted);}
+    .lead{font-size:18px; color:var(--muted); margin:0;}
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,.03), transparent 60%), var(--card);
+      border: 1px solid rgba(35,43,53,.85);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding:18px;
+    }
+    .card.flat{box-shadow:none; background: var(--card2);}
+    .btns{display:flex; gap:10px; flex-wrap:wrap; margin-top:16px;}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:12px 14px; border-radius:12px; font-weight:700;
+      border:1px solid rgba(35,43,53,.9);
+      background: rgba(255,255,255,.02);
+    }
+    .btn.primary{border-color: rgba(60,240,165,.55); background: rgba(60,240,165,.12);}
+    .btn.secondary{border-color: rgba(90,209,255,.55); background: rgba(90,209,255,.10);}
+    .btn:hover{transform: translateY(-1px); transition: .15s ease;}
+    .list{margin:10px 0 0; padding:0; list-style:none;}
+    .list li{padding-left:16px; position:relative; margin:8px 0; color:var(--muted);}
+    .list li:before{content:"-"; position:absolute; left:0; color:var(--text); opacity:.8;}
+    .kpi{
+      display:flex; align-items:flex-start; gap:10px;
+      padding:12px; border-radius:14px;
+      border:1px solid rgba(35,43,53,.85);
+      background: rgba(255,255,255,.02);
+    }
+    .kpi .icon{
+      width:34px; height:34px; border-radius:12px;
+      background: rgba(60,240,165,.10);
+      border:1px solid rgba(60,240,165,.35);
+      display:flex; align-items:center; justify-content:center;
+      font-weight:900; color:var(--accent);
+      flex:0 0 auto;
+    }
+    .divider{height:1px; background: rgba(35,43,53,.75); margin:20px 0;}
+    .compare{
+      display:grid; gap:14px; grid-template-columns:1fr 1fr;
+    }
+    @media (max-width: 980px){ .compare{grid-template-columns:1fr;} }
+    .compare .head{
+      display:flex; align-items:center; justify-content:space-between;
+      margin-bottom:10px;
+    }
+    .tag{
+      font-size:12px; padding:6px 10px; border-radius:999px;
+      border:1px solid rgba(35,43,53,.9);
+      color:var(--muted);
+    }
+    .tag.bad{border-color: rgba(255,98,98,.45); color: rgba(255,98,98,.95); background: rgba(255,98,98,.08);}
+    .tag.good{border-color: rgba(60,240,165,.45); color: rgba(60,240,165,.95); background: rgba(60,240,165,.08);}
+    details{
+      border:1px solid rgba(35,43,53,.85);
+      border-radius:14px;
+      background: rgba(255,255,255,.02);
+      padding:12px 14px;
+    }
+    details summary{cursor:pointer; font-weight:800;}
+    details p{margin:10px 0 0; color:var(--muted);}
+    .mini-links{
+      display:flex; gap:10px; flex-wrap:wrap;
+      margin-top:12px;
+    }
+    .mini-links a{
+      font-size:13px; color:var(--muted);
+      padding:8px 10px; border-radius:12px;
+      border:1px solid rgba(35,43,53,.85);
+      background: rgba(255,255,255,.02);
+    }
+    .mini-links a:hover{border-color: rgba(60,240,165,.55); color:var(--text);}
+    .foot{
+      padding:28px 0 44px;
+      border-top:1px solid rgba(35,43,53,.75);
+      color:var(--muted);
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Верхняя панель навигации -->
+  <div class="topbar">
+    <div class="container">
+      <div class="topbar-inner">
+        <div class="brand">
+          <span class="dot"></span>
+          <span>Venner Digital</span>
+        </div>
+
+        <nav class="nav">
+          <a href="#benefits">Польза</a>
+          <a href="#formats">Форматы</a>
+          <a href="#process">Как делаем</a>
+          <a href="#compare">Сравнение</a>
+          <a href="#mistakes">Ошибки</a>
+          <a href="#faq">FAQ</a>
+          <a href="#cta">Расчет</a>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <section class="section" id="top">
+    <div class="container">
+      <div class="grid grid-2">
+        <div>
+          <div class="badge">SEO-блог - рост трафика + усиление услуг</div>
+          <h1 class="h1">SEO-блог на сайте, который приводит заявки - а не просто статьи</h1>
+          <p class="lead">
+            Мы создаем и ведем блог как систему: семантика -> контент-план -> статьи под спрос -> перелинковка -> рост органики.
+            Это усиливает коммерческие страницы, улучшает поведенческие факторы и помогает попадать в “умную” выдачу.
+          </p>
+
+          <div class="btns">
+            <a class="btn primary" href="#cta">Получить контент-план</a>
+            <a class="btn secondary" href="#process">Посмотреть процесс</a>
+            <a class="btn" href="#faq">Вопросы и ответы</a>
+          </div>
+
+          <div class="mini-links">
+            <a href="/seo/semanticheskoe-yadro/">Семантическое ядро</a>
+            <a href="/seo/optimizaciya-sayta/">SEO-оптимизация</a>
+            <a href="/seo/prodvizhenie-sayta/">SEO-продвижение</a>
+            <a href="/yandex-direct/">Яндекс Директ</a>
+            <a href="/sozdanie-saytov/">Разработка сайтов</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3 class="h3">Что вы получите на выходе</h3>
+          <ul class="list">
+            <li>Контент-стратегию блога (хабы + уточняющие статьи)</li>
+            <li>Контент-план под спрос и интенты (что и зачем писать)</li>
+            <li>Готовые статьи с оформлением, мета-тегами и перелинковкой</li>
+            <li>Рост страниц в индексе и точек входа из поиска</li>
+            <li>Усиление коммерческих страниц через “правильные” ссылки</li>
+          </ul>
+
+          <div class="divider"></div>
+
+          <h3 class="h3">Кому подходит</h3>
+          <ul class="list">
+            <li>Услуги - чтобы собирать “теплые” заявки по вопросам</li>
+            <li>B2B - чтобы объяснять сложные продукты и повышать доверие</li>
+            <li>E-commerce - чтобы продвигать категории, подборки, гайды</li>
+            <li>Конкурентные ниши - когда клики дорогие и нужен долгий канал</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- БЛОК ПОЛЬЗЫ -->
+  <section class="section" id="benefits">
+    <div class="container">
+      <h2 class="h2">Зачем блогу быть на сайте</h2>
+      <p class="muted">
+        SEO-блог работает сразу на 2 цели: трафик из поиска и конверсию в заявку.
+        Главное - делать его системой, а не “постами ради постов”.
+      </p>
+
+      <div class="grid grid-3" style="margin-top:16px;">
+        <div class="kpi">
+          <div class="icon">1</div>
+          <div>
+            <div class="h3">Охват спроса</div>
+            <div class="muted">Закрываем вопросы, которые люди реально ищут, включая НЧ-кластеры.</div>
+          </div>
+        </div>
+
+        <div class="kpi">
+          <div class="icon">2</div>
+          <div>
+            <div class="h3">Перелинковка</div>
+            <div class="muted">Статьи усиливают услуги и категории, передают вес и повышают видимость.</div>
+          </div>
+        </div>
+
+        <div class="kpi">
+          <div class="icon">3</div>
+          <div>
+            <div class="h3">Поведенческие факторы</div>
+            <div class="muted">Дольше сессии, глубже просмотр, меньше отказов - сайт выглядит “живым”.</div>
+          </div>
+        </div>
+
+        <div class="kpi">
+          <div class="icon">4</div>
+          <div>
+            <div class="h3">Экспертность</div>
+            <div class="muted">Контент показывает опыт компании и повышает доверие к бренду.</div>
+          </div>
+        </div>
+
+        <div class="kpi">
+          <div class="icon">5</div>
+          <div>
+            <div class="h3">Рост структуры</div>
+            <div class="muted">Больше качественных страниц - больше входов из поиска и точек касания.</div>
+          </div>
+        </div>
+
+        <div class="kpi">
+          <div class="icon">6</div>
+          <div>
+            <div class="h3">Снижение зависимости от рекламы</div>
+            <div class="muted">Контекст дает результат пока платите. Органика работает дольше и стабильнее.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ФОРМАТЫ -->
+  <section class="section" id="formats">
+    <div class="container">
+      <div class="grid grid-2">
+        <div class="card flat">
+          <h2 class="h2">Какие форматы статей мы делаем</h2>
+          <ul class="list">
+            <li>Гайды и инструкции - как выбрать, как проверить, как не ошибиться</li>
+            <li>Сравнения - что лучше, плюсы и минусы, подбор “под задачу”</li>
+            <li>Подборки - варианты решений, комплектации, чек-листы</li>
+            <li>FAQ и разбор мифов - закрываем возражения и сомнения</li>
+            <li>Коммерческие статьи - мягкий прогрев к заявке</li>
+          </ul>
+
+          <div class="divider"></div>
+          <div class="muted">
+            Важно: мы пишем “под интент” - чтобы статья отвечала на вопрос и вела к следующему шагу на сайте.
+          </div>
+        </div>
+
+        <div class="card">
+          <h3 class="h3">Блог - это не “Новости”</h3>
+          <p class="muted" style="margin:0;">
+            Новости - про события компании. SEO-блог - про спрос и ответы на вопросы клиента.
+            Поэтому статьи строятся вокруг семантики, структуры, перелинковки и конверсии.
+          </p>
+
+          <div class="divider"></div>
+
+          <h3 class="h3">Связка с другими услугами</h3>
+          <ul class="list">
+            <li>Семантическое ядро - база тем и спроса</li>
+            <li>SEO-оптимизация - индексация, мета-теги, структура</li>
+            <li>SEO-продвижение - усиление коммерции и рост видимости</li>
+            <li>Контекст - блог помогает прогревать и повышать конверсию</li>
+            <li>Разработка - блог закладываем сразу при создании сайта</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ПРОЦЕСС -->
+  <section class="section" id="process">
+    <div class="container">
+      <h2 class="h2">Как мы ведем SEO-блог</h2>
+      <p class="muted">Ниже - базовая схема. Под нишу и задачи мы настраиваем детали: глубину, частоту, структуру, форматы.</p>
+
+      <div class="grid grid-3" style="margin-top:16px;">
+        <div class="card">
+          <div class="h3">1. Семантика и спрос</div>
+          <ul class="list">
+            <li>Собираем инфо-кластеры вокруг услуг и категорий</li>
+            <li>Чистим мусор и выделяем интенты</li>
+            <li>Формируем основу контентного ядра</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="h3">2. Стратегия и структура</div>
+          <ul class="list">
+            <li>Строим “хабы” - опорные статьи-руководства</li>
+            <li>Добавляем “уточняющие” статьи вокруг хабов</li>
+            <li>Планируем внутренние ссылки на услуги</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="h3">3. Контент-план</div>
+          <ul class="list">
+            <li>Темы, заголовки, интенты, структура</li>
+            <li>Какие блоки и ответы нужны внутри</li>
+            <li>Где ставить CTA и ссылки</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="h3">4. Написание и редактура</div>
+          <ul class="list">
+            <li>Пишем для людей, но с учетом SEO-структуры</li>
+            <li>Добавляем списки, таблицы, примеры</li>
+            <li>Без “пустого” текста и шаблонов</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="h3">5. Публикация и оформление</div>
+          <ul class="list">
+            <li>Мета-теги, Open Graph, ALT, навигация</li>
+            <li>Микроразметка там, где уместно</li>
+            <li>Проверка отображения на мобайле</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="h3">6. Перелинковка и усиление</div>
+          <ul class="list">
+            <li>Связываем статьи между собой</li>
+            <li>Ставим ссылки на коммерцию “естественно”</li>
+            <li>Обновляем старые статьи и расширяем тему</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:18px;">
+        <div class="h3">Важно про регулярность</div>
+        <p class="muted" style="margin:0;">
+          Блог дает максимальный эффект, когда он ведется постоянно. Даже умеренный темп, но стабильный,
+          работает лучше, чем “залить пачку статей и забыть”.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- СРАВНЕНИЕ -->
+  <section class="section" id="compare">
+    <div class="container">
+      <h2 class="h2">Наглядно. Как бывает и как должно быть</h2>
+      <p class="muted">Этот блок хорошо “приземляет” ожидания и объясняет, почему у многих блог не дает результата.</p>
+
+      <div class="compare" style="margin-top:16px;">
+        <div class="card">
+          <div class="head">
+            <div class="h3">Блог “для галочки”</div>
+            <span class="tag bad">как обычно делают</span>
+          </div>
+          <ul class="list">
+            <li>Сделали раздел и пару статей</li>
+            <li>Темы хаотичные, без спроса и интентов</li>
+            <li>Перелинковка слабая или отсутствует</li>
+            <li>Статьи устаревают, не обновляются</li>
+            <li>Трафик нестабилен, заявок почти нет</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="head">
+            <div class="h3">Блог как система</div>
+            <span class="tag good">как делаем мы</span>
+          </div>
+          <ul class="list">
+            <li>Контент-стратегия: хабы + уточняющие статьи</li>
+            <li>Темы под реальный спрос и цели бизнеса</li>
+            <li>Перелинковка усиливает услуги и категории</li>
+            <li>Регулярные обновления и развитие структуры</li>
+            <li>Трафик и доверие растут со временем</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ОШИБКИ -->
+  <section class="section" id="mistakes">
+    <div class="container">
+      <h2 class="h2">Типовые ошибки, из-за которых блог не работает</h2>
+
+      <div class="grid grid-3" style="margin-top:16px;">
+        <div class="card">
+          <div class="h3">Пишут не под спрос</div>
+          <p class="muted" style="margin:0;">Тема интересна компании, но ее не ищут. В итоге трафик не приходит.</p>
+        </div>
+
+        <div class="card">
+          <div class="h3">Нет перелинковки</div>
+          <p class="muted" style="margin:0;">Статьи не ведут к услугам. Трафик есть, заявок нет.</p>
+        </div>
+
+        <div class="card">
+          <div class="h3">Шаблоны и “вода”</div>
+          <p class="muted" style="margin:0;">Пользователь не дочитывает. Снижается вовлеченность.</p>
+        </div>
+
+        <div class="card">
+          <div class="h3">Разовый запуск</div>
+          <p class="muted" style="margin:0;">Сделали пачку статей и бросили. Сайт перестает быть “живым”.</p>
+        </div>
+
+        <div class="card">
+          <div class="h3">Не обновляют старое</div>
+          <p class="muted" style="margin:0;">Материалы теряют актуальность, падают позиции.</p>
+        </div>
+
+        <div class="card">
+          <div class="h3">Нет связи с продуктом</div>
+          <p class="muted" style="margin:0;">Статья не помогает выбрать, не снимает возражения, не ведет к шагу.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ВОПРОСЫ ПРО КОНТЕНТ -->
+  <section class="section" id="content-qa">
+    <div class="container">
+      <div class="grid grid-2">
+        <div class="card flat">
+          <h2 class="h2">Вопросы про контент - коротко и честно</h2>
+          <p class="muted">Тут закрываем ключевые сомнения: кто пишет, можно ли ИИ, нужны ли факты и примеры.</p>
+
+          <div class="divider"></div>
+
+          <div class="grid" style="gap:12px;">
+            <details open>
+              <summary>Кто пишет статьи - вы или мы?</summary>
+              <p>Чаще всего мы берем контент на себя: структура, тексты, оформление, SEO-правки. От клиента нужны факты, особенности услуги и “как у вас принято”.</p>
+            </details>
+
+            <details>
+              <summary>Можно ли использовать ИИ?</summary>
+              <p>Да, как инструмент. Но мы не делаем поток “пустых” статей. Важны смысл, польза, структура, примеры и редактура - иначе это не дает эффекта.</p>
+            </details>
+
+            <details>
+              <summary>Нужны ли фото, кейсы, примеры?</summary>
+              <p>Да. Реальные примеры усиливают доверие, улучшают вовлеченность и конверсию. Это работает и на SEO, и на продажи.</p>
+            </details>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3 class="h3">Почему с нами проще</h3>
+          <ul class="list">
+            <li>Работаем с 2013 года - видели, как менялись правила поиска</li>
+            <li>Ведем проекты “под ключ”: сайт + SEO + реклама + аналитика</li>
+            <li>Контент делаем системно: семантика -> структура -> рост</li>
+            <li>Ставим акцент на конверсию, а не на “воду ради SEO”</li>
+          </ul>
+
+          <div class="divider"></div>
+          <h3 class="h3">Перелинковка на услуги</h3>
+          <div class="mini-links">
+            <a href="/seo/semanticheskoe-yadro/">Семантика</a>
+            <a href="/seo/optimizaciya-sayta/">Оптимизация</a>
+            <a href="/seo/prodvizhenie-sayta/">Продвижение</a>
+            <a href="/seo/serm-reputaciya/">SERM</a>
+            <a href="/sozdanie-saytov/">Сайт под ключ</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section" id="faq">
+    <div class="container">
+      <h2 class="h2">FAQ - частые вопросы</h2>
+
+      <div class="grid" style="gap:12px; margin-top:16px;">
+        <details>
+          <summary>Когда блог начинает давать эффект?</summary>
+          <p>Зависит от ниши, конкуренции, стартового состояния сайта и регулярности. Мы оцениваем точку А и даем реалистичный план, что и когда будет расти.</p>
+        </details>
+
+        <details>
+          <summary>Сколько статей нужно на старте?</summary>
+          <p>Зависит от структуры спроса. Часто лучше начать с “хабов” и нескольких уточняющих материалов, чем заливать десятки разрозненных статей.</p>
+        </details>
+
+        <details>
+          <summary>Что лучше - одна большая статья или несколько маленьких?</summary>
+          <p>Обычно работает связка: одна опорная статья-руководство + серия уточняющих. Это дает глубину, перелинковку и охват интентов.</p>
+        </details>
+
+        <details>
+          <summary>Можно ли вести блог на лендинге?</summary>
+          <p>Технически можно, но чаще эффективнее многостраничная структура. Если проект на лендинге - подскажем, как сделать это правильно.</p>
+        </details>
+
+        <details>
+          <summary>Можно ли продвигать только блог без ссылок?</summary>
+          <p>В ряде ниш можно получать НЧ-трафик и без активного ссылочного, но в конкурентных тематиках обычно нужна комплексная стратегия.</p>
+        </details>
+
+        <details>
+          <summary>Как вы делаете перелинковку, чтобы не выглядело “SEO ради SEO”?</summary>
+          <p>Ссылки ставим по смыслу, где это помогает человеку перейти к следующему шагу. Анкоры естественные, без переспама.</p>
+        </details>
+
+        <details>
+          <summary>Нужно ли обновлять старые статьи?</summary>
+          <p>Да. Обновление - важный фактор “живости” сайта. Мы планируем ревизию и улучшение старого контента, чтобы удерживать позиции.</p>
+        </details>
+
+        <details>
+          <summary>Что вы делаете, если статьи не растут?</summary>
+          <p>Проверяем интенты, структуру, заголовки, конкурентов в выдаче, перелинковку, технику и поведение. Обычно рост упирается в 1-2 узких места.</p>
+        </details>
+
+        <details>
+          <summary>Можно ли писать статьи так, чтобы они попадали в ответы ИИ?</summary>
+          <p>Да. Для этого важны структура, прямые ответы, полнота раскрытия темы, блоки FAQ, таблицы/списки и ясная навигация.</p>
+        </details>
+
+        <details>
+          <summary>Как считать эффективность SEO-блога?</summary>
+          <p>Смотрим рост органики, рост видимости, страницы-входы, поведение и конверсии. При необходимости подключаем расширенную аналитику.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section" id="cta">
+    <div class="container">
+      <div class="card">
+        <div class="grid grid-2">
+          <div>
+            <h2 class="h2">Сделаем блог, который усиливает продажи</h2>
+            <p class="muted" style="margin:0;">
+              Стоимость рассчитывается индивидуально: тематика, конкуренция, частота публикаций, глубина материалов,
+              необходимость интервью/кейсов, объем перелинковки и обновлений.
+            </p>
+
+            <div class="btns">
+              <a class="btn primary" href="#form">Запросить расчет</a>
+              <a class="btn" href="/seo/semanticheskoe-yadro/">Начать с семантики</a>
+              <a class="btn" href="/seo/optimizaciya-sayta/">Проверить оптимизацию</a>
+            </div>
+          </div>
+
+          <div class="card flat" id="form">
+            <h3 class="h3">Мини-бриф</h3>
+            <ul class="list">
+              <li>Ниша и регион</li>
+              <li>Какие услуги/категории нужно усилить</li>
+              <li>Есть ли уже статьи и сколько</li>
+              <li>Цели: заявки, продажи, узнаваемость, рост базы</li>
+            </ul>
+
+            <!-- TODO: подключить квиз / форму -->
+            <div class="divider"></div>
+            <div class="muted">Здесь будет форма/квиз. Можно сделать кнопку “Написать в мессенджер”.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="foot">
+    <div class="container">
+      <div class="grid grid-2">
+        <div class="muted">
+          Venner Digital - сайт, SEO, реклама, аналитика, CRM - в одной связке.
+          Работаем с 2013 года.
+        </div>
+
+        <div class="mini-links" style="justify-content:flex-end;">
+          <a href="/seo/">SEO</a>
+          <a href="/yandex-direct/">Яндекс Директ</a>
+          <a href="/crm-integracii/">CRM и интеграции</a>
+          <a href="/sozdanie-saytov/">Разработка сайтов</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,1289 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <title>SEO продвижение сайта | стратегия, контент, ссылки | тарифы</title>
+  <meta name="description" content="SEO-продвижение сайта в Яндекс и Google: стратегия, контент, ссылочное, блог, репутация. 3 тарифа от 30 000 ₽/мес. Работаем с 2013 года. Прозрачные отчеты и KPI." />
+  <meta name="keywords" content="seo продвижение, продвижение сайта, seo раскрутка, ссылочное продвижение, линкбилдинг, продвижение в яндекс, продвижение в google, seo тарифы" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="SEO продвижение сайта" />
+  <meta property="og:description" content="Стратегия, контент, ссылки, блог, репутация. 3 тарифа. Прозрачные отчеты и KPI." />
+  <meta property="og:url" content="" />
+  <meta property="og:image" content="" />
+
+  <style>
+    :root{
+      --bg:#0b0f14;
+      --panel:#0f1722;
+      --panel2:#0c1420;
+      --text:#e6edf5;
+      --muted:#a9b6c6;
+      --line:rgba(255,255,255,.10);
+      --line2:rgba(255,255,255,.14);
+      --brand:#38f2b6;
+      --brand2:#2bd6a1;
+      --warn:#ffcc66;
+      --bad:#ff6b6b;
+      --good:#6ef2a1;
+
+      --radius:18px;
+      --radius2:24px;
+      --shadow: 0 18px 50px rgba(0,0,0,.38);
+      --shadow2: 0 10px 30px rgba(0,0,0,.28);
+
+      --container:1180px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font: 16px/1.5 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:
+        radial-gradient(900px 500px at 12% 10%, rgba(56,242,182,.18), transparent 55%),
+        radial-gradient(800px 500px at 90% 20%, rgba(56,242,182,.08), transparent 60%),
+        radial-gradient(700px 500px at 60% 90%, rgba(56,242,182,.07), transparent 60%),
+        var(--bg);
+      color:var(--text);
+    }
+
+    a{color:inherit; text-decoration:none}
+    a:hover{opacity:.92}
+    .container{max-width:var(--container); margin:0 auto; padding:0 18px}
+    .page{padding:26px 0 60px}
+
+    /* Breadcrumbs */
+    .crumbs{
+      display:flex; flex-wrap:wrap; gap:8px;
+      color:var(--muted);
+      font-size:13px;
+      margin:6px 0 14px;
+    }
+    .crumbs a{color:var(--muted)}
+    .crumbs span{opacity:.75}
+
+    /* Hero */
+    .hero{
+      border:1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border-radius:var(--radius2);
+      box-shadow:var(--shadow);
+      padding:26px;
+      overflow:hidden;
+      position:relative;
+    }
+    .hero:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(600px 280px at 20% 20%, rgba(56,242,182,.18), transparent 60%),
+        radial-gradient(520px 300px at 85% 35%, rgba(56,242,182,.12), transparent 60%);
+      pointer-events:none;
+      opacity:.9;
+    }
+    .hero > *{position:relative}
+    .heroGrid{
+      display:grid;
+      grid-template-columns: 1.25fr .75fr;
+      gap:18px;
+      align-items:stretch;
+    }
+    @media (max-width: 980px){
+      .heroGrid{grid-template-columns:1fr}
+    }
+    .kicker{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:8px 12px;
+      border:1px solid var(--line2);
+      border-radius:999px;
+      background:rgba(15,23,34,.55);
+      color:var(--muted);
+      font-size:13px;
+      width:max-content;
+    }
+    .dot{
+      width:10px; height:10px; border-radius:999px;
+      background:var(--brand);
+      box-shadow:0 0 0 6px rgba(56,242,182,.12);
+    }
+    h1{
+      margin:12px 0 10px;
+      font-size:40px;
+      line-height:1.1;
+      letter-spacing:-.02em;
+    }
+    @media (max-width: 560px){
+      h1{font-size:32px}
+    }
+    .lead{
+      margin:0;
+      color:var(--muted);
+      font-size:16px;
+      max-width: 64ch;
+    }
+
+    .heroBadges{
+      display:flex; flex-wrap:wrap; gap:10px;
+      margin-top:14px;
+    }
+    .badge{
+      border:1px solid var(--line);
+      border-radius:999px;
+      padding:8px 12px;
+      background:rgba(15,23,34,.50);
+      color:var(--text);
+      font-size:13px;
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+    }
+    .badge i{
+      width:8px; height:8px; border-radius:999px; background:var(--brand2);
+      box-shadow:0 0 0 5px rgba(56,242,182,.12);
+    }
+
+    .heroCard{
+      border:1px solid var(--line);
+      background: rgba(15,23,34,.65);
+      border-radius:var(--radius2);
+      padding:18px;
+      box-shadow: var(--shadow2);
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      gap:14px;
+    }
+    .priceLine{
+      display:flex; align-items:baseline; justify-content:space-between; gap:12px;
+      flex-wrap:wrap;
+    }
+    .price{
+      font-size:28px;
+      font-weight:800;
+      letter-spacing:-.02em;
+    }
+    .price small{
+      font-size:13px;
+      color:var(--muted);
+      font-weight:600;
+      margin-left:8px;
+    }
+    .heroList{
+      margin:0; padding:0;
+      list-style:none;
+      display:grid;
+      gap:10px;
+      color:var(--muted);
+      font-size:14px;
+    }
+    .heroList li{
+      display:flex; gap:10px; align-items:flex-start;
+    }
+    .check{
+      width:18px; height:18px; border-radius:6px;
+      background: rgba(56,242,182,.14);
+      border:1px solid rgba(56,242,182,.35);
+      display:inline-flex; align-items:center; justify-content:center;
+      flex:0 0 auto;
+      margin-top:1px;
+    }
+    .check:before{
+      content:"";
+      width:8px; height:4px;
+      border-left:2px solid var(--brand);
+      border-bottom:2px solid var(--brand);
+      transform: rotate(-45deg);
+      display:block;
+      margin-top:-1px;
+    }
+
+    .btnRow{display:flex; gap:10px; flex-wrap:wrap}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      gap:10px;
+      padding:12px 14px;
+      border-radius:14px;
+      border:1px solid var(--line2);
+      background: rgba(255,255,255,.04);
+      color:var(--text);
+      font-weight:700;
+      cursor:pointer;
+      transition: .18s ease;
+      white-space:nowrap;
+    }
+    .btn:hover{transform: translateY(-1px); border-color: rgba(56,242,182,.32)}
+    .btnPrimary{
+      background: linear-gradient(135deg, rgba(56,242,182,.95), rgba(56,242,182,.65));
+      color:#052118;
+      border-color: rgba(56,242,182,.55);
+    }
+    .btnPrimary:hover{border-color: rgba(255,255,255,.20)}
+    .btnSmall{padding:10px 12px; border-radius:12px; font-size:14px}
+
+    /* Quick nav */
+    .quickNav{
+      margin-top:16px;
+      display:flex; flex-wrap:wrap; gap:10px;
+    }
+    .pill{
+      font-size:13px;
+      color:var(--muted);
+      border:1px solid var(--line);
+      background:rgba(15,23,34,.48);
+      padding:8px 12px;
+      border-radius:999px;
+      transition:.15s ease;
+    }
+    .pill:hover{border-color: rgba(56,242,182,.30); color:var(--text)}
+    .pill strong{color:var(--text); font-weight:700}
+
+    /* Sections */
+    .section{margin-top:18px}
+    .sectionTitle{
+      margin:0 0 10px;
+      font-size:26px;
+      letter-spacing:-.02em;
+    }
+    .sectionSub{
+      margin:0 0 14px;
+      color:var(--muted);
+      max-width: 85ch;
+    }
+
+    .grid2{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+    }
+    @media (max-width: 900px){
+      .grid2{grid-template-columns:1fr}
+    }
+
+    .card{
+      border:1px solid var(--line);
+      background: rgba(15,23,34,.55);
+      border-radius:var(--radius);
+      padding:16px;
+      box-shadow: var(--shadow2);
+    }
+    .card h3{
+      margin:0 0 6px;
+      font-size:18px;
+      letter-spacing:-.01em;
+    }
+    .card p{margin:0; color:var(--muted)}
+    .card ul{margin:10px 0 0; padding-left:18px; color:var(--muted)}
+    .card li{margin:6px 0}
+
+    .kpiGrid{
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap:12px;
+    }
+    @media (max-width: 980px){
+      .kpiGrid{grid-template-columns: 1fr 1fr}
+    }
+    @media (max-width: 520px){
+      .kpiGrid{grid-template-columns: 1fr}
+    }
+    .kpi{
+      border:1px solid var(--line);
+      background: rgba(12,20,32,.55);
+      border-radius:var(--radius);
+      padding:14px;
+      display:grid;
+      gap:6px;
+    }
+    .kpi .n{
+      font-size:20px; font-weight:900; letter-spacing:-.02em;
+    }
+    .kpi .t{color:var(--muted); font-size:13px}
+    .kpi .hint{color:var(--muted); font-size:12px; opacity:.9}
+
+    /* Tariffs */
+    .tariffs{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:12px;
+      align-items:stretch;
+    }
+    @media (max-width: 980px){
+      .tariffs{grid-template-columns:1fr}
+    }
+    .tariff{
+      border:1px solid var(--line);
+      background: rgba(15,23,34,.62);
+      border-radius:var(--radius2);
+      padding:18px;
+      box-shadow: var(--shadow2);
+      display:flex; flex-direction:column; gap:12px;
+      position:relative;
+      overflow:hidden;
+    }
+    .tariff:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(420px 220px at 35% 15%, rgba(56,242,182,.12), transparent 60%);
+      pointer-events:none;
+      opacity:.8;
+    }
+    .tariff > *{position:relative}
+    .tariffTop{display:flex; align-items:flex-start; justify-content:space-between; gap:10px}
+    .tariffName{font-size:18px; font-weight:900; letter-spacing:-.01em}
+    .tag{
+      font-size:12px; color:#052118;
+      background: rgba(56,242,182,.9);
+      border:1px solid rgba(56,242,182,.55);
+      padding:6px 10px;
+      border-radius:999px;
+      font-weight:800;
+      white-space:nowrap;
+    }
+    .tariffPrice{
+      font-size:26px; font-weight:950; letter-spacing:-.02em;
+      margin-top:6px;
+    }
+    .tariffPrice span{font-size:13px; color:var(--muted); font-weight:700; margin-left:6px}
+    .tariffNote{color:var(--muted); font-size:13px}
+    .tariff ul{margin:10px 0 0; padding-left:18px; color:var(--muted)}
+    .tariff li{margin:6px 0}
+    .tariffActions{display:flex; gap:10px; flex-wrap:wrap; margin-top:auto; padding-top:10px}
+
+    /* Comparison */
+    .tableWrap{
+      border:1px solid var(--line);
+      background: rgba(15,23,34,.52);
+      border-radius:var(--radius2);
+      overflow:hidden;
+      box-shadow: var(--shadow2);
+    }
+    table{width:100%; border-collapse:collapse}
+    th,td{
+      padding:14px 12px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      vertical-align:top;
+      text-align:left;
+    }
+    th{font-size:13px; color:var(--muted); font-weight:800; background: rgba(255,255,255,.03)}
+    td{color:var(--muted)}
+    .good{color:var(--good); font-weight:800}
+    .bad{color:var(--bad); font-weight:800}
+    .warn{color:var(--warn); font-weight:800}
+
+    /* Steps */
+    .steps{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:12px;
+    }
+    @media (max-width: 980px){
+      .steps{grid-template-columns:1fr}
+    }
+    .step{
+      border:1px solid var(--line);
+      background: rgba(12,20,32,.55);
+      border-radius:var(--radius2);
+      padding:16px;
+      box-shadow: var(--shadow2);
+      position:relative;
+      overflow:hidden;
+    }
+    .step:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(380px 220px at 20% 0%, rgba(56,242,182,.10), transparent 60%);
+      pointer-events:none;
+      opacity:.9;
+    }
+    .step > *{position:relative}
+    .stepNum{
+      width:34px; height:34px; border-radius:12px;
+      display:inline-flex; align-items:center; justify-content:center;
+      font-weight:950;
+      background: rgba(56,242,182,.14);
+      border:1px solid rgba(56,242,182,.35);
+      color:var(--text);
+    }
+    .step h3{margin:10px 0 6px}
+    .step p{margin:0; color:var(--muted)}
+
+    /* FAQ */
+    .faq{
+      border:1px solid var(--line);
+      background: rgba(15,23,34,.52);
+      border-radius:var(--radius2);
+      overflow:hidden;
+      box-shadow: var(--shadow2);
+    }
+    .qa{
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+    .qa:last-child{border-bottom:none}
+    .q{
+      width:100%;
+      text-align:left;
+      padding:14px 14px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      background: transparent;
+      border:0;
+      color:var(--text);
+      cursor:pointer;
+      font-weight:900;
+      letter-spacing:-.01em;
+    }
+    .q span{color:var(--muted); font-weight:800}
+    .q .icon{
+      width:28px; height:28px;
+      border-radius:10px;
+      border:1px solid var(--line2);
+      display:inline-flex; align-items:center; justify-content:center;
+      background: rgba(255,255,255,.03);
+      flex:0 0 auto;
+    }
+    .q .icon:before{
+      content:"+";
+      font-size:18px;
+      line-height:1;
+      opacity:.9;
+    }
+    .qa.open .q .icon:before{content:"-"}
+    .a{
+      display:none;
+      padding:0 14px 14px;
+      color:var(--muted);
+    }
+    .qa.open .a{display:block}
+
+    /* Cross links */
+    .linksGrid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:12px;
+    }
+    @media (max-width: 980px){
+      .linksGrid{grid-template-columns:1fr}
+    }
+    .linkCard{
+      border:1px solid var(--line);
+      background: rgba(12,20,32,.55);
+      border-radius:var(--radius2);
+      padding:16px;
+      box-shadow: var(--shadow2);
+    }
+    .linkCard .top{
+      display:flex; align-items:flex-start; justify-content:space-between; gap:10px;
+      margin-bottom:8px;
+    }
+    .linkCard h3{margin:0; font-size:16px}
+    .linkCard p{margin:0; color:var(--muted)}
+    .linkCard .go{
+      margin-top:12px;
+      display:inline-flex; align-items:center; gap:8px;
+      font-weight:800;
+      color:var(--brand);
+    }
+    .divider{height:1px; background:rgba(255,255,255,.08); margin:14px 0}
+
+    /* CTA */
+    .cta{
+      border:1px solid rgba(56,242,182,.25);
+      background: linear-gradient(135deg, rgba(56,242,182,.14), rgba(15,23,34,.58));
+      border-radius:var(--radius2);
+      padding:18px;
+      box-shadow: var(--shadow);
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:14px;
+      align-items:center;
+    }
+    @media (max-width: 980px){
+      .cta{grid-template-columns:1fr}
+    }
+    .cta h2{margin:0 0 8px; font-size:22px; letter-spacing:-.02em}
+    .cta p{margin:0; color:var(--muted)}
+    .ctaBox{
+      border:1px solid var(--line);
+      background: rgba(15,23,34,.55);
+      border-radius:var(--radius2);
+      padding:14px;
+    }
+    .formRow{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:10px;
+      margin-top:10px;
+    }
+    @media (max-width: 560px){
+      .formRow{grid-template-columns:1fr}
+    }
+    input,select{
+      width:100%;
+      padding:12px 12px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.20);
+      color: var(--text);
+      outline:none;
+    }
+    input::placeholder{color:rgba(169,182,198,.75)}
+    .formHint{
+      margin-top:10px;
+      font-size:12px;
+      color:var(--muted);
+      opacity:.9;
+    }
+
+    /* Helpers */
+    .muted{color:var(--muted)}
+    .mt8{margin-top:8px}
+    .mt12{margin-top:12px}
+    .mt16{margin-top:16px}
+    .mt18{margin-top:18px}
+  </style>
+</head>
+
+<body>
+  <div class="page">
+    <div class="container">
+
+      <nav class="crumbs" aria-label="Хлебные крошки">
+        <a href="/">Главная</a><span>/</span>
+        <a href="/seo/">SEO</a><span>/</span>
+        <span>SEO продвижение сайта</span>
+      </nav>
+
+      <header class="hero" id="top">
+        <div class="heroGrid">
+          <div>
+            <div class="kicker"><span class="dot"></span>SEO-продвижение в Яндекс и Google - под задачи бизнеса</div>
+            <h1>SEO-продвижение сайта</h1>
+            <p class="lead">
+              Это не "набить ключи" и "купить ссылки". Это системная работа: стратегия, контент, технические улучшения,
+              нормальная репутация и понятный план роста. Работаем с 2013 года - видели, как менялись алгоритмы, и делаем
+              так, чтобы результат держался долго.
+            </p>
+
+            <div class="heroBadges">
+              <span class="badge"><i></i>Стратегия + KPI</span>
+              <span class="badge"><i></i>Контент + структура</span>
+              <span class="badge"><i></i>Ссылки без токсичности</span>
+              <span class="badge"><i></i>Отчеты и контроль</span>
+            </div>
+
+            <div class="quickNav" aria-label="Быстрая навигация по странице">
+              <a class="pill" href="#tariffs"><strong>Тарифы</strong></a>
+              <a class="pill" href="#how"><strong>Как работаем</strong></a>
+              <a class="pill" href="#factors"><strong>Что влияет</strong></a>
+              <a class="pill" href="#compare"><strong>SEO vs Директ</strong></a>
+              <a class="pill" href="#faq"><strong>FAQ</strong></a>
+              <a class="pill" href="#links"><strong>Связанные услуги</strong></a>
+            </div>
+          </div>
+
+          <aside class="heroCard" aria-label="Коротко о формате">
+            <div>
+              <div class="priceLine">
+                <div class="price">от 30 000 ₽ <small>/ месяц</small></div>
+                <div class="muted" style="font-size:13px; font-weight:700">3 уровня работ</div>
+              </div>
+              <ul class="heroList">
+                <li><span class="check"></span><span>Стартуем с аудита, плана и приоритетов, а не с хаотичных "правок"</span></li>
+                <li><span class="check"></span><span>Вшиваем SEO в продукт: структура, конверсия, контент, доверие</span></li>
+                <li><span class="check"></span><span>Синхронизируем SEO с <a href="/yandex-direct/" style="text-decoration:underline">контекстной рекламой</a> и <a href="/crm-integracii/" style="text-decoration:underline">CRM</a></span></li>
+                <li><span class="check"></span><span>Не делаем "чернуху" - работаем в рамках здравого смысла и правил</span></li>
+              </ul>
+            </div>
+
+            <div>
+              <div class="btnRow">
+                <a class="btn btnPrimary" href="#cta">Рассчитать план и бюджет</a>
+                <a class="btn" href="/seo/optimizaciya-sayta/">Сначала SEO-оптимизация</a>
+              </div>
+              <div class="muted mt12" style="font-size:12px">
+                Если оптимизация не сделана - начинаем с нее: скорость, структура, мета-теги, контент, индексация.
+              </div>
+            </div>
+          </aside>
+        </div>
+      </header>
+
+      <!-- KPI / What you get -->
+      <section class="section" id="result">
+        <h2 class="sectionTitle">Что вы получаете на выходе.</h2>
+        <p class="sectionSub">
+          SEO - это длинная игра, но она должна быть прозрачной: что делаем, зачем делаем, какой эффект ожидаем и как меряем.
+          Поэтому выдаем не "магический туман", а понятную систему.
+        </p>
+
+        <div class="kpiGrid">
+          <div class="kpi">
+            <div class="n">План роста</div>
+            <div class="t">Стратегия + приоритеты на 4-12 недель</div>
+            <div class="hint">С учетом конкуренции и реальности вашего ресурса</div>
+          </div>
+          <div class="kpi">
+            <div class="n">Контент</div>
+            <div class="t">Страницы услуг, категории, статьи</div>
+            <div class="hint">Под спрос, а не "просто написать текст"</div>
+          </div>
+          <div class="kpi">
+            <div class="n">Ссылки</div>
+            <div class="t">Рост ссылочного профиля без токсичности</div>
+            <div class="hint">Упор на качество, релевантность, естественность</div>
+          </div>
+          <div class="kpi">
+            <div class="n">Контроль</div>
+            <div class="t">Отчеты, выводы, следующие шаги</div>
+            <div class="hint">Позиции, трафик, заявки, конверсия, гипотезы</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Typical mistakes -->
+      <section class="section" id="mistakes">
+        <h2 class="sectionTitle">Типовые ошибки, из-за которых SEO "не работает".</h2>
+        <p class="sectionSub">
+          Чаще всего проблема не в том, что "SEO умерло", а в том, что сайт и процесс сделаны без системы.
+        </p>
+
+        <div class="grid2">
+          <div class="card">
+            <h3>1) Продвигают сайт без SEO-оптимизации</h3>
+            <p>
+              Нет нормальной структуры, мета-тегов, индексации, скорости и понятной семантики - но уже "покупают продвижение".
+              Итог: деньги уходят, фундамент не строится.
+            </p>
+            <ul>
+              <li>Если оптимизации нет - начинаем с <a href="/seo/optimizaciya-sayta/" style="text-decoration:underline">SEO-оптимизации</a></li>
+              <li>Если нет спроса - начинаем с <a href="/seo/semanticheckoe-yadro/" style="text-decoration:underline">семантического ядра</a></li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>2) "Тексты ради текстов"</h3>
+            <p>
+              Портянки без смысла, без структуры, без ответа на интент пользователя. В лучшем случае - ноль эффекта,
+              в худшем - просадка по поведенческим.
+            </p>
+            <ul>
+              <li>Пишем под спрос + под конверсию</li>
+              <li>Сразу закладываем CTA и логику заявки</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>3) Ссылки "как в 2010"</h3>
+            <p>
+              Массовые дешевые ссылки и сомнительные схемы могут дать короткий всплеск, а потом неприятный откат.
+              Мы работаем аккуратно - качество важнее количества.
+            </p>
+            <ul>
+              <li>Упор на релевантные площадки и естественный профиль</li>
+              <li>Без "переспама" и токсичных доноров</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>4) Нет аналитики и KPI</h3>
+            <p>
+              Если вы не видите, что происходит с трафиком и заявками - вы не управляете продвижением.
+              Связываем SEO с аналитикой и воронкой.
+            </p>
+            <ul>
+              <li>Настраиваем метрики и цели (при необходимости)</li>
+              <li>Синхронизируем с <a href="/crm-integracii/" style="text-decoration:underline">CRM</a> и отчетностью</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- What affects cost -->
+      <section class="section" id="factors">
+        <h2 class="sectionTitle">Что влияет на стоимость SEO-продвижения.</h2>
+        <p class="sectionSub">
+          Цена - это отражение объема работ и конкуренции. "Одинаковый пакет всем" обычно означает: либо переплатите,
+          либо ничего не сделают.
+        </p>
+
+        <div class="grid2">
+          <div class="card">
+            <h3>Конкуренция и регион</h3>
+            <p>
+              В некоторых тематиках результаты приходят быстрее, в других нужно больше контента, ссылок и времени.
+              Также различается спрос и выдача по регионам.
+            </p>
+          </div>
+          <div class="card">
+            <h3>Количество направлений</h3>
+            <p>
+              Продвигать 1 услугу и 10 услуг - разные проекты. Чем больше семантики и страниц - тем больше работы.
+            </p>
+          </div>
+          <div class="card">
+            <h3>Тип сайта и CMS</h3>
+            <p>
+              Лендинг, корпоративный сайт, интернет-магазин - разные подходы.
+              Работаем с HTML, WordPress, OpenCart, 1C-Битрикс и др.
+            </p>
+          </div>
+          <div class="card">
+            <h3>Состояние проекта сейчас</h3>
+            <p>
+              Если есть техдолг, ошибки, слабая скорость и хаос в структуре - сначала приводим в порядок фундамент.
+              Для старых проектов часто нужен <a href="/sozdanie-saytov/tekhnicheskij-audit-sayta/" style="text-decoration:underline">техаудит</a>.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tariffs -->
+      <section class="section" id="tariffs">
+        <h2 class="sectionTitle">Тарифы SEO-продвижения.</h2>
+        <p class="sectionSub">
+          Ниже - три уровня. Финальная конфигурация зависит от ниши, целей и текущего состояния сайта.
+          Перед стартом делаем мини-аудит и согласуем план.
+        </p>
+
+        <div class="tariffs">
+          <div class="tariff">
+            <div class="tariffTop">
+              <div class="tariffName">Старт</div>
+              <div class="tag">минимум</div>
+            </div>
+            <div class="tariffPrice">от 30 000 ₽ <span>/ мес</span></div>
+            <div class="tariffNote">Часто подходит, когда сайт уже нормально оптимизирован, а нужно усилить внешние факторы.</div>
+            <ul>
+              <li>Ссылочное продвижение (линкбилдинг) - аккуратно и без токсичности</li>
+              <li>Базовый мониторинг позиций и индексации</li>
+              <li>Ежемесячный мини-отчет: что сделано - что меняется</li>
+            </ul>
+            <div class="tariffActions">
+              <a class="btn btnSmall btnPrimary" href="#cta">Запросить план</a>
+              <a class="btn btnSmall" href="/seo/optimizaciya-sayta/">Проверить оптимизацию</a>
+            </div>
+          </div>
+
+          <div class="tariff">
+            <div class="tariffTop">
+              <div class="tariffName">Оптимальный</div>
+              <div class="tag">баланс</div>
+            </div>
+            <div class="tariffPrice">от 50 000 ₽ <span>/ мес</span></div>
+            <div class="tariffNote">Стандартный "рабочий" формат: ссылки + контент + регулярные улучшения.</div>
+            <ul>
+              <li>Линкбилдинг + контроль качества доноров</li>
+              <li>Работа с мета-тегами, структурами, контентом страниц</li>
+              <li>Гипотезы по конверсии (CTA, блоки, офферы) в рамках разумного</li>
+              <li>Отчет: задачи - метрики - выводы - план</li>
+            </ul>
+            <div class="tariffActions">
+              <a class="btn btnSmall btnPrimary" href="#cta">Рассчитать под нишу</a>
+              <a class="btn btnSmall" href="/seo/semanticheckoe-yadro/">Семантика</a>
+            </div>
+          </div>
+
+          <div class="tariff">
+            <div class="tariffTop">
+              <div class="tariffName">Максимум</div>
+              <div class="tag">рост</div>
+            </div>
+            <div class="tariffPrice">от 70 000 ₽ <span>/ мес</span></div>
+            <div class="tariffNote">Для тех, кому нужен масштаб: контент-машина, репутация, охват и комплексный эффект.</div>
+            <ul>
+              <li>Контент-план и ведение блога как канал роста</li>
+              <li>Линкбилдинг + PR-подход (гостевые, упоминания, каталоги, медиа)</li>
+              <li>Работа с репутацией и карточками (по задаче)</li>
+              <li>Усиление связки: SEO + <a href="/yandex-direct/" style="text-decoration:underline">Директ</a> + <a href="/crm-integracii/" style="text-decoration:underline">CRM</a></li>
+            </ul>
+            <div class="tariffActions">
+              <a class="btn btnSmall btnPrimary" href="#cta">Обсудить стратегию</a>
+              <a class="btn btnSmall" href="/seo/">Страница SEO</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="muted mt12" style="font-size:13px">
+          Примечание: бюджеты на размещения и контент могут быть включены в тариф или считаться отдельно - зависит от модели проекта и ниши.
+        </div>
+      </section>
+
+      <!-- How we work -->
+      <section class="section" id="how">
+        <h2 class="sectionTitle">Как мы делаем SEO-продвижение - по шагам.</h2>
+        <p class="sectionSub">
+          Порядок важен. Если перескочить фундамент - потом будет "дорого чинить" и непонятно, почему нет роста.
+        </p>
+
+        <div class="steps">
+          <div class="step">
+            <div class="stepNum">1</div>
+            <h3>Диагностика и цели</h3>
+            <p>Понимаем, что продвигаем, кому, какие страницы нужны, какие KPI и что мешает расти сейчас.</p>
+          </div>
+          <div class="step">
+            <div class="stepNum">2</div>
+            <h3>Семантика и структура</h3>
+            <p>Собираем спрос, группируем, строим карту страниц. Без этого SEO превращается в угадайку.</p>
+          </div>
+          <div class="step">
+            <div class="stepNum">3</div>
+            <h3>Контент и конверсия</h3>
+            <p>Делаем страницы, которые закрывают интент и продают: офферы, блоки, ответы, доверие, CTA.</p>
+          </div>
+          <div class="step">
+            <div class="stepNum">4</div>
+            <h3>Техчасть и индексация</h3>
+            <p>Скорость, микроразметка, мета, каноникалы, sitemap/robots, дубль-контент, мобильность.</p>
+          </div>
+          <div class="step">
+            <div class="stepNum">5</div>
+            <h3>Линкбилдинг и упоминания</h3>
+            <p>Укрепляем доверие к домену: качественные доноры, релевантные площадки, естественный профиль.</p>
+          </div>
+          <div class="step">
+            <div class="stepNum">6</div>
+            <h3>Контроль и масштабирование</h3>
+            <p>Ежемесячный цикл: задачи - измерение - выводы - корректировки. Это и есть "продвижение".</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SEO vs Direct -->
+      <section class="section" id="compare">
+        <h2 class="sectionTitle">SEO vs контекстная реклама - коротко и по делу.</h2>
+        <p class="sectionSub">
+          Часто лучше работает связка. Контекст дает быстрый трафик, SEO строит актив, который приносит заявки без оплаты каждого клика.
+        </p>
+
+        <div class="tableWrap">
+          <table aria-label="Сравнение SEO и контекстной рекламы">
+            <thead>
+              <tr>
+                <th>Параметр</th>
+                <th>SEO-продвижение</th>
+                <th>Контекст (Яндекс.Директ)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Скорость эффекта</td>
+                <td><span class="warn">Средняя/длинная</span> (нужно время на рост)</td>
+                <td><span class="good">Быстрая</span> (показы почти сразу)</td>
+              </tr>
+              <tr>
+                <td>Стоимость лида в долгую</td>
+                <td><span class="good">Часто ниже</span> при системной работе</td>
+                <td><span class="warn">Зависит от аукциона</span> и конкуренции</td>
+              </tr>
+              <tr>
+                <td>Зависимость от бюджета</td>
+                <td><span class="good">Ниже</span> (не платите за каждый клик)</td>
+                <td><span class="bad">Высокая</span> (выключили бюджет - трафик упал)</td>
+              </tr>
+              <tr>
+                <td>Требования к сайту</td>
+                <td>Критично: структура, контент, скорость, доверие</td>
+                <td>Тоже важно: плохая посадочная повышает цену и снижает конверсию</td>
+              </tr>
+              <tr>
+                <td>Идеальная схема</td>
+                <td colspan="2">Запуск Директа на старте + параллельно SEO, затем перераспределение бюджета по эффективности</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="mt12 muted" style="font-size:13px">
+          Хотите "быстро" - подключаем <a href="/yandex-direct/" style="text-decoration:underline">Директ</a>. Хотите "в долгую" - строим SEO-актив.
+          Часто выигрывает связка.
+        </div>
+      </section>
+
+      <!-- Linkbuilding & safety -->
+      <section class="section" id="linksafety">
+        <h2 class="sectionTitle">Про ссылочное продвижение - без мифов.</h2>
+        <p class="sectionSub">
+          Ссылки все еще важны, но подход изменился. Наша задача - выстроить доверие к сайту и бренду, а не сыграть в "накрутку".
+        </p>
+
+        <div class="grid2">
+          <div class="card">
+            <h3>Что мы считаем нормальным линкбилдингом</h3>
+            <ul>
+              <li>Релевантные площадки и темы (а не "любой донор")</li>
+              <li>Упоминания бренда и естественные анкоры</li>
+              <li>Разнообразие типов: статьи, каталоги, партнерства, профили, медиа</li>
+              <li>Аккуратный темп роста, без "взрывов"</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>Чего мы не делаем</h3>
+            <ul>
+              <li>Массовые токсичные сетки "для галочки"</li>
+              <li>Переспам анкорами</li>
+              <li>Схемы, которые живут 2 месяца и потом ломают проект</li>
+              <li>Обещания "топ за 14 дней" без понимания ниши</li>
+            </ul>
+            <p class="mt12">
+              Если вам нужно агрессивно - честно скажем, какие риски и почему это не наш формат.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Content Q/A block -->
+      <section class="section" id="contentqa">
+        <h2 class="sectionTitle">Вопрос-ответ про контент: кто пишет и откуда берется "экспертиза".</h2>
+        <p class="sectionSub">
+          Контент - это не только текст. Это структура страницы, смысловые блоки, доказательства, ответы на вопросы,
+          офферы и правильная логика заявки.
+        </p>
+
+        <div class="grid2">
+          <div class="card">
+            <h3>Нужно ли вам писать тексты самим?</h3>
+            <p>
+              Обычно нет. Мы проводим бриф, задаем правильные вопросы и берем подготовку контента на себя:
+              структура, тексты, блоки, SEO-правки. От вас - фактура и согласование.
+            </p>
+          </div>
+          <div class="card">
+            <h3>А если у нас сложная ниша?</h3>
+            <p>
+              Тем более. Мы собираем семантику, изучаем конкурентов, вытаскиваем "фишки" из ваших преимуществ
+              и упаковываем так, чтобы клиент понимал ценность за 5-10 секунд.
+            </p>
+          </div>
+          <div class="card">
+            <h3>А если сайт на CMS и контент в админке?</h3>
+            <p>
+              Ок. Работаем с WordPress, OpenCart, 1C-Битрикс и другими. Можем писать под шаблоны, блоки, категории,
+              карточки, страницы услуг - как удобно вам и проекту.
+            </p>
+          </div>
+          <div class="card">
+            <h3>Контент нужен только для SEO?</h3>
+            <p>
+              Нет. Хороший контент повышает конверсию и снижает стоимость лида в рекламе.
+              Поэтому SEO и <a href="/yandex-direct/" style="text-decoration:underline">Директ</a> у нас дружат, а не спорят.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Freelancer vs studio -->
+      <section class="section" id="compare2">
+        <h2 class="sectionTitle">Почему веб-студия, а не фрилансер.</h2>
+        <p class="sectionSub">
+          Хорошие фрилансеры есть. Но чаще бизнесу нужен не один человек, а связка: SEO, контент, разработка, аналитика, CRM.
+        </p>
+
+        <div class="grid2">
+          <div class="card">
+            <h3>Фрилансер</h3>
+            <ul>
+              <li>Часто один профиль: "только ссылки" или "только тексты"</li>
+              <li>Зависимость от человека: заболел/пропал - проект встал</li>
+              <li>Сложнее закрыть интеграции: сайт + аналитика + CRM + реклама</li>
+              <li>Ограниченные ресурсы по масштабированию</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>Веб-студия (наш формат)</h3>
+            <ul>
+              <li>Комплекс: SEO + сайт + реклама + контент + CRM - в одной логике</li>
+              <li>Прозрачный процесс: задачи - сроки - отчеты - план</li>
+              <li>Гипотезы проверяем на собственных проектах, а не "учимся на клиенте"</li>
+              <li>Можно начать с малого и наращивать объем</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Related services -->
+      <section class="section" id="links">
+        <h2 class="sectionTitle">Связанные услуги - чтобы SEO работало сильнее.</h2>
+        <p class="sectionSub">
+          SEO редко живет отдельно. Ниже - страницы, которые чаще всего усиливают результат в разы.
+        </p>
+
+        <div class="linksGrid">
+          <div class="linkCard">
+            <div class="top">
+              <h3>Семантическое ядро</h3>
+              <span class="tag" style="background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.12); color:var(--text)">подготовка</span>
+            </div>
+            <p>Сбор спроса, чистка мусора, группировка, карта страниц. База для SEO и рекламы.</p>
+            <a class="go" href="/seo/semanticheckoe-yadro/">Перейти -</a>
+          </div>
+
+          <div class="linkCard">
+            <div class="top">
+              <h3>SEO-оптимизация</h3>
+              <span class="tag" style="background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.12); color:var(--text)">фундамент</span>
+            </div>
+            <p>Скорость, структура, мета-теги, индексация, микроразметка, дубль-страницы.</p>
+            <a class="go" href="/seo/optimizaciya-sayta/">Перейти -</a>
+          </div>
+
+          <div class="linkCard">
+            <div class="top">
+              <h3>Контекстная реклама</h3>
+              <span class="tag" style="background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.12); color:var(--text)">быстрый трафик</span>
+            </div>
+            <p>Директ для быстрого потока заявок. Идеально запускать параллельно с SEO.</p>
+            <a class="go" href="/yandex-direct/">Перейти -</a>
+          </div>
+
+          <div class="linkCard">
+            <div class="top">
+              <h3>Разработка сайтов</h3>
+              <span class="tag" style="background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.12); color:var(--text)">под ключ</span>
+            </div>
+            <p>Прототип - дизайн - верстка - CMS. Сразу учитываем SEO и конверсию.</p>
+            <a class="go" href="/sozdanie-saytov/">Перейти -</a>
+          </div>
+
+          <div class="linkCard">
+            <div class="top">
+              <h3>Редизайн сайта</h3>
+              <span class="tag" style="background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.12); color:var(--text)">конверсия</span>
+            </div>
+            <p>Обновление UX/UI + техчасть, с сохранением SEO-структуры и позиций.</p>
+            <a class="go" href="/sozdanie-saytov/redizayn-sayta/">Перейти -</a>
+          </div>
+
+          <div class="linkCard">
+            <div class="top">
+              <h3>CRM и интеграции</h3>
+              <span class="tag" style="background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.12); color:var(--text)">контроль</span>
+            </div>
+            <p>Собираем заявки в одну систему, настраиваем воронки, отчеты и автоматизацию.</p>
+            <a class="go" href="/crm-integracii/">Перейти -</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section class="section" id="faq">
+        <h2 class="sectionTitle">FAQ - частые вопросы по SEO-продвижению.</h2>
+        <p class="sectionSub">
+          Закрываем то, о чем обычно думают, но не спрашивают вслух.
+        </p>
+
+        <div class="faq" role="region" aria-label="FAQ">
+          <div class="qa">
+            <button class="q" type="button">
+              <div>Когда будут первые результаты?<span></span></div>
+              <div class="icon" aria-hidden="true"></div>
+            </button>
+            <div class="a">
+              Зависит от ниши, региона, состояния сайта и объема работ. В простых тематиках первые движения видны быстрее,
+              в конкурентных - заметный рост часто требует месяцев системной работы. Мы фиксируем план на 4-12 недель и показываем прогресс по метрикам.
+            </div>
+          </div>
+
+          <div class="qa">
+            <button class="q" type="button">
+              <div>Можно ли продвигаться без SEO-оптимизации?<span></span></div>
+              <div class="icon" aria-hidden="true"></div>
+            </button>
+            <div class="a">
+              Это как лить воду в дырявое ведро. Без фундамента вы либо переплатите, либо упретесь в потолок.
+              Если оптимизации нет - начинаем с <a href="/seo/optimizaciya-sayta/" style="text-decoration:underline">SEO-оптимизации</a>.
+            </div>
+          </div>
+
+          <div class="qa">
+            <button class="q" type="button">
+              <div>Вы даете гарантии по позициям?<span></span></div>
+              <div class="icon" aria-hidden="true"></div>
+            </button>
+            <div class="a">
+              Позиции зависят от алгоритмов и конкурентов, поэтому "гарантии топ-1" обычно маркетинг. Мы гарантируем процесс:
+              план, объем работ, прозрачность, контроль KPI и корректировки. И, главное, работаем на трафик и заявки, а не на красивые отчеты.
+            </div>
+          </div>
+
+          <div class="qa">
+            <button class="q" type="button">
+              <div>Ссылки нужны? Это не опасно?<span></span></div>
+              <div class="icon" aria-hidden="true"></div>
+            </button>
+            <div class="a">
+              Внешние факторы важны, но "опасно" становится, когда делают токсично. Мы выстраиваем профиль аккуратно:
+              качество, релевантность, естественность, темп. Без "взрывов" и переспама.
+            </div>
+          </div>
+
+          <div class="qa">
+            <button class="q" type="button">
+              <div>Что вы считаете KPI в SEO?<span></span></div>
+              <div class="icon" aria-hidden="true"></div>
+            </button>
+            <div class="a">
+              KPI подбираем под бизнес: рост целевого трафика, заявки/звонки, конверсия, видимость по кластерам,
+              динамика позиций по приоритетам, качество страниц и поведенческие метрики.
+            </div>
+          </div>
+
+          <div class="qa">
+            <button class="q" type="button">
+              <div>SEO работает для лендинга?<span></span></div>
+              <div class="icon" aria-hidden="true"></div>
+            </button>
+            <div class="a">
+              Может работать, но чаще потолок быстрее, чем у многостраничника. В SEO обычно выигрывает структура:
+              отдельные страницы под услуги/категории и спрос. Если у вас только лендинг - предложим карту расширения.
+            </div>
+          </div>
+
+          <div class="qa">
+            <button class="q" type="button">
+              <div>Как вы работаете с интернет-магазинами?<span></span></div>
+              <div class="icon" aria-hidden="true"></div>
+            </button>
+            <div class="a">
+              Обычно продвигаются категории и товары-локомотивы, плюс фильтры и посадочные под спрос. Важны шаблоны мета,
+              скорость, дубль-страницы, навигация, микроразметка. Для магазинов часто нужен более высокий объем работ.
+            </div>
+          </div>
+
+          <div class="qa">
+            <button class="q" type="button">
+              <div>Вы можете вести и SEO, и Директ вместе?<span></span></div>
+              <div class="icon" aria-hidden="true"></div>
+            </button>
+            <div class="a">
+              Да, и это часто дает лучший результат: Директ быстро показывает, какие офферы и кластеры конвертят,
+              а SEO превращает это в долгосрочный актив. Смотрите <a href="/yandex-direct/" style="text-decoration:underline">контекстную рекламу</a>.
+            </div>
+          </div>
+
+          <div class="qa">
+            <button class="q" type="button">
+              <div>Если сайт старый, с чего начать?<span></span></div>
+              <div class="icon" aria-hidden="true"></div>
+            </button>
+            <div class="a">
+              Часто - с технического аудита и плана модернизации. Затем оптимизация, затем продвижение.
+              Для старых проектов полезна страница <a href="/sozdanie-saytov/tekhnicheskij-audit-sayta/" style="text-decoration:underline">технического аудита</a>.
+            </div>
+          </div>
+
+          <div class="qa">
+            <button class="q" type="button">
+              <div>Нужно ли постоянно обновлять семантику?<span></span></div>
+              <div class="icon" aria-hidden="true"></div>
+            </button>
+            <div class="a">
+              Да, спрос меняется. Мы периодически пересматриваем кластеры, расширяем ядро и добавляем новые посадочные.
+              База - <a href="/seo/semanticheckoe-yadro/" style="text-decoration:underline">семантическое ядро</a>.
+            </div>
+          </div>
+
+          <div class="qa">
+            <button class="q" type="button">
+              <div>Какие CMS вы поддерживаете?<span></span></div>
+              <div class="icon" aria-hidden="true"></div>
+            </button>
+            <div class="a">
+              Работаем с HTML, WordPress, OpenCart, 1C-Битрикс и другими решениями. Важно не название CMS,
+              а насколько корректно сделаны структура, скорость, контент, индексация и логика страниц.
+            </div>
+          </div>
+
+          <div class="qa">
+            <button class="q" type="button">
+              <div>Как вы отчитываетесь?<span></span></div>
+              <div class="icon" aria-hidden="true"></div>
+            </button>
+            <div class="a">
+              В удобном формате: список задач, что сделано, какие метрики изменились, выводы и план на следующий период.
+              По запросу - доступ к таблицам и рабочим документам.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA -->
+      <section class="section" id="cta">
+        <div class="cta">
+          <div>
+            <h2>Хотите понять, сколько реально стоит SEO в вашей нише.</h2>
+            <p>
+              Оставьте контакты - мы сделаем мини-диагностику и предложим 2-3 сценария: от "минимума" до "максимума".
+              Без воды и без давления. Если нужно быстро - подключим <a href="/yandex-direct/" style="text-decoration:underline">Директ</a> параллельно.
+            </p>
+
+            <div class="divider"></div>
+            <p class="muted" style="font-size:13px">
+              Подарки для новых клиентов на старте можно обсудить отдельно: тестовый хостинг на время разработки, домен,
+              сервисы захвата заявок, скидки на CRM и семантику - зависит от формата проекта.
+            </p>
+          </div>
+
+          <div class="ctaBox">
+            <div style="font-weight:950; letter-spacing:-.01em">Заявка на расчет</div>
+
+            <form class="mt12" action="#" method="post">
+              <div class="formRow">
+                <input name="name" placeholder="Имя" />
+                <input name="phone" placeholder="Телефон / WhatsApp" />
+              </div>
+              <div class="formRow">
+                <input name="site" placeholder="Сайт (если есть)" />
+                <select name="goal">
+                  <option value="" selected>Цель: выбрать</option>
+                  <option>Рост заявок</option>
+                  <option>Рост трафика</option>
+                  <option>Продвижение услуг</option>
+                  <option>Интернет-магазин</option>
+                  <option>Восстановить позиции</option>
+                </select>
+              </div>
+
+              <div class="btnRow mt12">
+                <button class="btn btnPrimary" type="submit">Отправить</button>
+                <a class="btn" href="/seo/optimizaciya-sayta/">Проверить сайт сначала</a>
+              </div>
+
+              <div class="formHint">
+                Нажимая "Отправить", вы соглашаетесь на обработку персональных данных и связь с вами по указанным контактам.
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <script>
+    // FAQ accordion
+    (function(){
+      const items = document.querySelectorAll('.qa');
+      items.forEach(item => {
+        const btn = item.querySelector('.q');
+        btn.addEventListener('click', () => {
+          const isOpen = item.classList.contains('open');
+          items.forEach(i => i.classList.remove('open'));
+          if(!isOpen) item.classList.add('open');
+        });
+      });
+      // open first by default
+      if(items[0]) items[0].classList.add('open');
+    })();
+  </script>
+</body>
+</html>
+

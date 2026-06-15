@@ -1,0 +1,1251 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SEO аудит сайта | заказать технический аудит сайта</title>
+  <meta name="description" content="SEO аудит сайта: проверим индексацию, скорость, разметку, логи, дубли страниц, структуру, перелинковку, метатеги и robots. Дадим план работ и приоритеты." />
+  <meta name="keywords" content="seo аудит сайта, технический аудит сайта, индексация и скорость, разметка и микроразметка, ошибки и дубли, перелинковка сайта, метатеги и robots" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="SEO аудит сайта - найдём ошибки, риски и точки роста" />
+  <meta property="og:description" content="Проверим 100+ факторов: индексация, скорость, структура, мета, дубли, разметка, ссылки. Итог - отчет + план работ с приоритетами." />
+  <meta property="og:url" content="/seo/audit-sayta/" />
+
+  <style>
+    :root{
+      --bg:#0b0f14;
+      --panel:#0f1621;
+      --panel2:#0c131d;
+      --stroke:rgba(255,255,255,.10);
+      --stroke2:rgba(255,255,255,.14);
+      --text:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.72);
+      --muted2:rgba(255,255,255,.60);
+      --brand:#66ffd6;
+      --brand2:#6aa6ff;
+      --warn:#ffcc66;
+      --good:#69ffa7;
+      --bad:#ff6b6b;
+      --shadow: 0 14px 40px rgba(0,0,0,.55);
+      --radius:18px;
+      --radius2:22px;
+      --max:1180px;
+      --codebg: rgba(255,255,255,.06);
+      --link: #9be7ff;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
+      background: radial-gradient(1200px 700px at 20% -10%, rgba(102,255,214,.14), transparent 60%),
+                  radial-gradient(1100px 700px at 85% -20%, rgba(106,166,255,.14), transparent 60%),
+                  var(--bg);
+      color:var(--text);
+      line-height:1.55;
+    }
+    a{color:inherit; text-decoration:none}
+    a.inline{color:var(--link); text-decoration:underline; text-decoration-color:rgba(155,231,255,.45)}
+    a.inline:hover{opacity:.9}
+
+    .container{max-width:var(--max); margin:0 auto; padding:0 22px}
+    .topbar{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(14px);
+      background: rgba(11,15,20,.62);
+      border-bottom:1px solid var(--stroke);
+    }
+    .nav{
+      display:flex; align-items:center; justify-content:space-between;
+      height:72px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:12px;
+      font-weight:750; letter-spacing:.2px;
+    }
+    .logo{
+      width:34px; height:34px; border-radius:12px;
+      background: linear-gradient(135deg, rgba(102,255,214,.9), rgba(106,166,255,.85));
+      box-shadow: 0 10px 26px rgba(102,255,214,.14);
+    }
+    .menu{display:flex; gap:14px; align-items:center}
+    .menu a{
+      padding:10px 12px;
+      border-radius:12px;
+      color:var(--muted);
+      border:1px solid transparent;
+      font-weight:600;
+      font-size:14px;
+    }
+    .menu a:hover{
+      color:var(--text);
+      background: rgba(255,255,255,.04);
+      border-color: rgba(255,255,255,.06);
+    }
+    .menu a.active{
+      color:var(--text);
+      background: rgba(102,255,214,.08);
+      border-color: rgba(102,255,214,.18);
+    }
+    .cta{
+      display:flex; gap:10px; align-items:center;
+    }
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      padding:10px 14px;
+      border-radius:14px;
+      font-weight:750;
+      border:1px solid var(--stroke2);
+      background: rgba(255,255,255,.04);
+      color:var(--text);
+      cursor:pointer;
+      font-size:14px;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+    }
+    .btn:hover{transform: translateY(-1px); border-color: rgba(255,255,255,.18)}
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(102,255,214,.92), rgba(106,166,255,.86));
+      color:#071018;
+      border-color: transparent;
+    }
+    .btn.primary:hover{transform: translateY(-1px)}
+    .btn.ghost{
+      background: rgba(255,255,255,.03);
+    }
+    .hamb{display:none}
+
+    .hero{
+      padding:54px 0 18px;
+    }
+    .crumbs{
+      display:flex; flex-wrap:wrap; gap:8px; align-items:center;
+      color:var(--muted2);
+      font-size:13px;
+    }
+    .crumbs a{color:var(--muted2)}
+    .crumbs a:hover{color:var(--text)}
+    .hero-grid{
+      margin-top:16px;
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:18px;
+      align-items:stretch;
+    }
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border:1px solid var(--stroke);
+      border-radius: var(--radius2);
+      box-shadow: var(--shadow);
+    }
+    .hero-main{padding:26px}
+    h1{
+      margin:0 0 10px;
+      font-size:40px;
+      line-height:1.12;
+      letter-spacing:-.6px;
+    }
+    .lead{
+      margin:0 0 16px;
+      color:var(--muted);
+      font-size:16px;
+      max-width: 60ch;
+    }
+    .badges{
+      display:flex; flex-wrap:wrap; gap:10px;
+      margin:16px 0 0;
+    }
+    .badge{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:10px 12px;
+      border-radius: 14px;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.03);
+      color: var(--muted);
+      font-size:13px;
+      font-weight:650;
+    }
+    .dot{
+      width:10px; height:10px; border-radius:99px;
+      background: var(--brand);
+      box-shadow: 0 0 0 6px rgba(102,255,214,.10);
+    }
+    .dot.blue{background: var(--brand2); box-shadow: 0 0 0 6px rgba(106,166,255,.10)}
+    .dot.warn{background: var(--warn); box-shadow: 0 0 0 6px rgba(255,204,102,.10)}
+
+    .hero-side{padding:18px 18px 12px}
+    .side-title{
+      margin:0 0 10px;
+      font-size:14px;
+      color: var(--muted);
+      font-weight:800;
+      letter-spacing:.2px;
+      text-transform:uppercase;
+    }
+    .toc{
+      display:flex; flex-direction:column; gap:10px;
+      padding:0; margin:0;
+      list-style:none;
+    }
+    .toc a{
+      display:flex; justify-content:space-between; align-items:center;
+      padding:12px 12px;
+      border-radius: 14px;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.02);
+      color: var(--text);
+      font-weight:700;
+      font-size:14px;
+    }
+    .toc a:hover{
+      border-color: rgba(255,255,255,.18);
+      background: rgba(255,255,255,.03);
+    }
+    .toc span{
+      color: var(--muted2);
+      font-weight:750;
+      font-size:12px;
+    }
+
+    section{padding:18px 0}
+    .grid-3{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:14px;
+    }
+    .grid-2{
+      display:grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap:14px;
+    }
+    .block{
+      padding:18px;
+      border-radius: var(--radius);
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.02);
+    }
+    .h2{
+      margin:0 0 10px;
+      font-size:26px;
+      letter-spacing:-.2px;
+    }
+    .sub{
+      margin:0 0 14px;
+      color: var(--muted);
+      font-size:15px;
+    }
+    .pill{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:8px 10px;
+      border-radius: 999px;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.03);
+      color: var(--muted);
+      font-weight:750;
+      font-size:12px;
+    }
+    .kpi{
+      display:flex; flex-wrap:wrap; gap:10px;
+      margin-top:12px;
+    }
+    .kpi .pill b{color:var(--text)}
+
+    .list{
+      margin:0; padding-left:18px; color: var(--muted);
+    }
+    .list li{margin:8px 0}
+
+    .note{
+      margin-top:12px;
+      padding:12px 12px;
+      border-radius: 14px;
+      border:1px solid rgba(102,255,214,.18);
+      background: rgba(102,255,214,.06);
+      color: var(--muted);
+      font-size:14px;
+    }
+
+    .compare{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:14px;
+      align-items:stretch;
+    }
+    .cmp{
+      padding:18px;
+      border-radius: var(--radius2);
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.02);
+      position:relative;
+      overflow:hidden;
+    }
+    .cmp::before{
+      content:"";
+      position:absolute; inset:-40px -60px auto auto;
+      width:180px; height:180px; border-radius: 999px;
+      filter: blur(0);
+      opacity:.18;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.35), transparent 60%);
+      transform: rotate(20deg);
+    }
+    .cmp.bad{border-color: rgba(255,107,107,.22)}
+    .cmp.good{border-color: rgba(105,255,167,.22)}
+    .cmp h3{
+      margin:0 0 10px;
+      font-size:18px;
+      letter-spacing:-.2px;
+      display:flex; align-items:center; gap:10px;
+    }
+    .chip{
+      display:inline-flex; align-items:center; justify-content:center;
+      min-width:30px; height:30px;
+      border-radius: 999px;
+      font-weight:900;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.03);
+    }
+    .chip.bad{background: rgba(255,107,107,.10); border-color: rgba(255,107,107,.25); color: #ffd2d2}
+    .chip.good{background: rgba(105,255,167,.10); border-color: rgba(105,255,167,.25); color: #d9ffe9}
+
+    .pricing{
+      display:grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap:14px;
+      align-items:stretch;
+    }
+    .price{
+      padding:18px;
+      border-radius: var(--radius2);
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.02);
+    }
+    .price h3{margin:0 0 8px; font-size:18px}
+    .money{
+      font-size:28px; font-weight:900; letter-spacing:-.4px;
+      margin:0 0 8px;
+    }
+    .muted{color:var(--muted)}
+    .small{font-size:13px; color: var(--muted2)}
+    code, .code{
+      background: var(--codebg);
+      border:1px solid rgba(255,255,255,.08);
+      padding:2px 8px;
+      border-radius:10px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 12.5px;
+      color: rgba(255,255,255,.88);
+    }
+
+    .faq{
+      border-radius: var(--radius2);
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.02);
+      overflow:hidden;
+    }
+    .faq-item{border-top:1px solid var(--stroke)}
+    .faq-item:first-child{border-top:0}
+    .faq-q{
+      width:100%;
+      text-align:left;
+      padding:16px 16px;
+      background: transparent;
+      border:0;
+      color: var(--text);
+      font-weight:850;
+      font-size:15px;
+      display:flex; justify-content:space-between; align-items:center;
+      cursor:pointer;
+      gap:12px;
+    }
+    .faq-q:hover{background: rgba(255,255,255,.02)}
+    .faq-a{
+      display:none;
+      padding:0 16px 16px;
+      color: var(--muted);
+      font-size:14px;
+    }
+    .faq-a p{margin:10px 0 0}
+    .plus{
+      width:28px; height:28px; border-radius: 12px;
+      border:1px solid var(--stroke);
+      display:inline-flex; align-items:center; justify-content:center;
+      background: rgba(255,255,255,.03);
+      flex: 0 0 auto;
+    }
+
+    .footer{
+      padding:26px 0 40px;
+      color: var(--muted2);
+      border-top: 1px solid var(--stroke);
+      margin-top: 22px;
+    }
+    .footer-grid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:14px;
+      align-items:start;
+    }
+    .links{
+      display:flex; flex-wrap:wrap; gap:10px;
+    }
+    .link{
+      padding:10px 12px;
+      border-radius: 14px;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.02);
+      color: var(--muted);
+      font-weight:700;
+      font-size:13px;
+    }
+    .link:hover{color:var(--text); border-color: rgba(255,255,255,.18)}
+
+    @media (max-width: 980px){
+      .hero-grid{grid-template-columns: 1fr}
+      .pricing{grid-template-columns: 1fr}
+      .grid-3{grid-template-columns: 1fr}
+      .grid-2{grid-template-columns: 1fr}
+      .compare{grid-template-columns: 1fr}
+      .footer-grid{grid-template-columns: 1fr}
+      h1{font-size:34px}
+      .menu{display:none}
+      .hamb{display:inline-flex}
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="container">
+      <div class="nav">
+        <a class="brand" href="/">
+          <span class="logo" aria-hidden="true"></span>
+          <span>Venner Digital</span>
+        </a>
+
+        <nav class="menu" aria-label="Основное меню">
+          <a href="/sozdanie-saytov/">Разработка сайтов</a>
+          <a href="/yandex-direct/">Яндекс Директ</a>
+          <a class="active" href="/seo/">SEO</a>
+          <a href="/crm-integracii/">CRM и интеграции</a>
+        </nav>
+
+        <div class="cta">
+          <a class="btn ghost" href="#pricing">Цены</a>
+          <a class="btn primary" href="#cta">Получить аудит</a>
+          <button class="btn hamb" type="button" onclick="toggleMenu()">Меню</button>
+        </div>
+      </div>
+      <div id="mnav" style="display:none; padding: 0 0 14px;">
+        <div style="display:flex; flex-wrap:wrap; gap:10px;">
+          <a class="link" href="/sozdanie-saytov/">Разработка сайтов</a>
+          <a class="link" href="/yandex-direct/">Яндекс Директ</a>
+          <a class="link" href="/seo/">SEO</a>
+          <a class="link" href="/crm-integracii/">CRM и интеграции</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="crumbs">
+          <a href="/">Главная</a>
+          <span>/</span>
+          <a href="/seo/">SEO</a>
+          <span>/</span>
+          <span>SEO аудит сайта</span>
+        </div>
+
+        <div class="hero-grid">
+          <div class="card hero-main">
+            <h1>SEO аудит сайта - найдём ошибки, риски и точки роста</h1>
+            <p class="lead">
+              Если трафик просел, сайт долго грузится, страницы плохо индексируются или SEO делали "когда-то давно" -
+              аудит покажет, где именно теряются позиции и заявки. Итог - понятный план работ с приоритетами и прогнозом эффекта.
+            </p>
+
+            <div class="cta" style="margin-top:14px; flex-wrap:wrap;">
+              <a class="btn primary" href="#cta">Получить аудит</a>
+              <a class="btn" href="#deliverables">Что вы получите</a>
+              <a class="btn ghost" href="#compare">Типовые ошибки</a>
+            </div>
+
+            <div class="badges">
+              <span class="badge"><span class="dot"></span>SEO и перфоманс - с 2013 года</span>
+              <span class="badge"><span class="dot blue"></span>Фокус на "реклама + сайт + аналитика"</span>
+              <span class="badge"><span class="dot warn"></span>Не просто список багов, а план работ</span>
+            </div>
+          </div>
+
+          <aside class="card hero-side">
+            <div class="side-title">Навигация по странице</div>
+            <ul class="toc">
+              <li><a href="#when">Когда нужен аудит <span>6 сценариев</span></a></li>
+              <li><a href="#scope">Что проверяем <span>100+ факторов</span></a></li>
+              <li><a href="#compare">Типовые ошибки <span>как бывает</span></a></li>
+              <li><a href="#deliverables">Что получите <span>отчет + план</span></a></li>
+              <li><a href="#pricing">Стоимость <span>от 15 000 ₽</span></a></li>
+              <li><a href="#faq">FAQ <span>12 ответов</span></a></li>
+            </ul>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section id="when">
+      <div class="container">
+        <div class="block">
+          <div class="pill">SEO аудит сайта</div>
+          <h2 class="h2">Кому и когда нужен SEO аудит</h2>
+          <p class="sub">
+            Аудит нужен не "на всякий случай", а когда есть риск потери трафика или вы хотите внятно понять,
+            что именно делать дальше - без гаданий и разрозненных правок.
+          </p>
+
+          <div class="grid-3">
+            <div class="block" style="background:rgba(255,255,255,.015)">
+              <b>Трафик и позиции падают</b>
+              <ul class="list">
+                <li>страницы выпадают из индекса</li>
+                <li>снижается видимость по ключам</li>
+                <li>лиды дорожают или "исчезают"</li>
+              </ul>
+            </div>
+            <div class="block" style="background:rgba(255,255,255,.015)">
+              <b>Перед редизайном или переносом</b>
+              <ul class="list">
+                <li>важно сохранить URL и структуру</li>
+                <li>настроить 301 и каноникалы</li>
+                <li>не сломать семантику и выдачу</li>
+              </ul>
+              <div class="note">
+                Редизайн без аудита - риск "уронить" SEO. Смотрите также:
+                <a class="inline" href="/sozdanie-saytov/redizayn-sayta/">редизайн сайта</a>.
+              </div>
+            </div>
+            <div class="block" style="background:rgba(255,255,255,.015)">
+              <b>SEO делали давно</b>
+              <ul class="list">
+                <li>остался технический долг</li>
+                <li>мета и структура устарели</li>
+                <li>много мусорных страниц и дублей</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="grid-3" style="margin-top:14px;">
+            <div class="block" style="background:rgba(255,255,255,.015)">
+              <b>Сайт медленный</b>
+              <ul class="list">
+                <li>проблемы Core Web Vitals</li>
+                <li>тяжелые изображения, скрипты</li>
+                <li>плохая мобильная версия</li>
+              </ul>
+            </div>
+            <div class="block" style="background:rgba(255,255,255,.015)">
+              <b>Запускаете рекламу</b>
+              <ul class="list">
+                <li>платный трафик усиливает слабые места</li>
+                <li>конверсия проседает из-за багов</li>
+                <li>проверяем "реклама + посадка"</li>
+              </ul>
+              <div class="note">
+                Если Директ уже идет - полезно связать аудит с
+                <a class="inline" href="/yandex-direct/audit/">аудитом Яндекс Директ</a>.
+              </div>
+            </div>
+            <div class="block" style="background:rgba(255,255,255,.015)">
+              <b>Меняете подрядчика</b>
+              <ul class="list">
+                <li>нужен "снимок здоровья" проекта</li>
+                <li>нужны приоритеты и быстрые победы</li>
+                <li>фиксируем точку А и план на 30-60-90 дней</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="kpi">
+            <span class="pill"><b>Фокус</b>: индексация, скорость, структура, мета, контент, ссылки</span>
+            <span class="pill"><b>Итог</b>: список задач + приоритеты + ожидаемый эффект</span>
+            <span class="pill"><b>Формат</b>: отчет + таблица (Google Sheets)</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="scope">
+      <div class="container">
+        <div class="block">
+          <div class="pill">Что входит</div>
+          <h2 class="h2">Что мы проверяем в SEO аудите</h2>
+          <p class="sub">
+            Мы смотрим сайт "глазами поискового робота и пользователя". Не только ошибки, но и причины,
+            почему сайт не добирает трафик и заявки.
+          </p>
+
+          <div class="grid-2">
+            <div class="block" style="background:rgba(255,255,255,.015)">
+              <b>1) Технический аудит и индексация</b>
+              <ul class="list">
+                <li>robots.txt, sitemap.xml, статус-коды, редиректы, каноникалы</li>
+                <li>дубли страниц, пагинация, параметры URL, фильтры</li>
+                <li>структура сайта, глубина, хлебные крошки, перелинковка</li>
+                <li>мета robots, noindex/nofollow, закрытия от индексации</li>
+              </ul>
+              <p class="small" style="margin:10px 0 0;">
+                Важно: корректная индексация и техническая целостность - база для SEO. :contentReference[oaicite:1]{index=1}
+              </p>
+            </div>
+
+            <div class="block" style="background:rgba(255,255,255,.015)">
+              <b>2) Скорость и Core Web Vitals</b>
+              <ul class="list">
+                <li>анализ CWV и "узких мест" загрузки</li>
+                <li>картинки (WebP/AVIF), шрифты, кеширование, критический CSS</li>
+                <li>JS, сторонние виджеты, порядок загрузки</li>
+                <li>мобильная версия и стабильность интерфейса</li>
+              </ul>
+              <p class="small" style="margin:10px 0 0;">
+                Производительность и удобство страницы - часть факторов Page Experience. :contentReference[oaicite:2]{index=2}
+              </p>
+            </div>
+
+            <div class="block" style="background:rgba(255,255,255,.015)">
+              <b>3) Контент и семантика</b>
+              <ul class="list">
+                <li>соответствие страниц ключевым запросам (НЧ/СЧ/ВЧ)</li>
+                <li>структура H1-H6, логика разделов, FAQ, таблицы</li>
+                <li>каннибализация (одни запросы на разные страницы)</li>
+                <li>рекомендации по обновлению контента и структуры</li>
+              </ul>
+              <div class="note">
+                Если семантика не собрана или устарела - начнем с
+                <a class="inline" href="/seo/semanticheskoe-yadro/">семантического ядра</a>.
+              </div>
+            </div>
+
+            <div class="block" style="background:rgba(255,255,255,.015)">
+              <b>4) Коммерческие факторы и UX</b>
+              <ul class="list">
+                <li>контакты, реквизиты, доверие, офферы, CTA</li>
+                <li>карточки товаров/услуг, фильтры, структура категорий</li>
+                <li>поведенческие факторы: путь до заявки, формы, ошибки</li>
+                <li>соответствие "обещаний" контенту (особенно под рекламу)</li>
+              </ul>
+            </div>
+
+            <div class="block" style="background:rgba(255,255,255,.015)">
+              <b>5) Ссылочный профиль и упоминания</b>
+              <ul class="list">
+                <li>качество доноров, анкор-лист, динамика</li>
+                <li>переспам анкорами, токсичные ссылки</li>
+                <li>ссылки на ключевые посадочные, распределение веса</li>
+                <li>рекомендации по линкбилдингу и PR</li>
+              </ul>
+            </div>
+
+            <div class="block" style="background:rgba(255,255,255,.015)">
+              <b>6) Метаданные, разметка, внешний вид в выдаче</b>
+              <ul class="list">
+                <li>Title/Description: дубли, длина, релевантность</li>
+                <li>Open Graph для соцсетей и мессенджеров</li>
+                <li>Schema.org (организация, товары, FAQ, статьи)</li>
+                <li>изображения: alt, размеры, lazy-load</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="note" style="margin-top:14px;">
+            Если у сайта "провалы" не только в SEO, часто всплывают технические проблемы - тогда подключаем и
+            <a class="inline" href="/sozdanie-saytov/tekhnicheskij-audit-sayta/">технический аудит сайта</a>
+            (сервер, ошибки, логи, база, кеш, безопасность).
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="compare">
+      <div class="container">
+        <div class="block">
+          <div class="pill">Типовые ошибки</div>
+          <h2 class="h2">Почему SEO "не работает" - наглядно</h2>
+          <p class="sub">
+            В аудите мы всегда показываем контраст: как обычно бывает на сайте и как должно быть,
+            чтобы SEO могло расти.
+          </p>
+
+          <div class="compare">
+            <div class="cmp bad">
+              <h3><span class="chip bad">!</span> Как обычно бывает</h3>
+              <ul class="list">
+                <li>дубли страниц, параметры, фильтры индексируются</li>
+                <li>Title/Description повторяются, смысл размытый</li>
+                <li>robots.txt закрывает важные разделы</li>
+                <li>сайтмап устарел или не обновляется</li>
+                <li>медленная загрузка, тяжелые скрипты и картинки</li>
+                <li>страницы "про услуги" без нормальной структуры и оффера</li>
+                <li>ссылки покупались хаотично, анкор-лист переспамлен</li>
+              </ul>
+            </div>
+
+            <div class="cmp good">
+              <h3><span class="chip good">✓</span> Как должно быть</h3>
+              <ul class="list">
+                <li>индексация управляемая: каноникалы, noindex, чистые URL</li>
+                <li>уникальные мета под интент, без дублей</li>
+                <li>корректные sitemap.xml и robots.txt, нет "случайных" запретов</li>
+                <li>скорость и мобильность в норме, кеширование настроено</li>
+                <li>логичная структура: 1 страница = 1 кластер</li>
+                <li>контент отвечает на вопросы и ведет к заявке</li>
+                <li>ссылки и упоминания усиливают нужные посадочные</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="kpi" style="margin-top:14px;">
+            <span class="pill"><b>Результат</b>: перестаем "чинить хаос" и делаем рост управляемым</span>
+            <span class="pill"><b>Приоритет</b>: сначала индексация и техничка, потом контент и ссылки</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tools">
+      <div class="container">
+        <div class="block">
+          <div class="pill">Инструменты</div>
+          <h2 class="h2">Чем делаем аудит</h2>
+          <p class="sub">
+            Инструменты сами по себе не дают результат. Результат дает интерпретация и приоритизация задач.
+            Но хороший стек ускоряет диагностику и снижает вероятность пропустить критичные вещи.
+          </p>
+
+          <div class="grid-3">
+            <div class="block" style="background:rgba(255,255,255,.015)">
+              <b>Краулинг и структура</b>
+              <ul class="list">
+                <li>Screaming Frog (краулинг, статус-коды, дубли, мета)</li>
+                <li>SiteAnalyzer (точечные проверки)</li>
+                <li>проверка логики URL и перелинковки</li>
+              </ul>
+            </div>
+            <div class="block" style="background:rgba(255,255,255,.015)">
+              <b>Скорость и CWV</b>
+              <ul class="list">
+                <li>PageSpeed Insights (CWV, рекомендации)</li>
+                <li>проверка кеша, шрифтов, изображений</li>
+                <li>анализ "тяжелых" скриптов</li>
+              </ul>
+              <p class="small" style="margin:10px 0 0;">CWV и метрики доступны через PSI. :contentReference[oaicite:3]{index=3}</p>
+            </div>
+            <div class="block" style="background:rgba(255,255,255,.015)">
+              <b>Индексация и ошибки</b>
+              <ul class="list">
+                <li>Google Search Console</li>
+                <li>Яндекс Вебмастер</li>
+                <li>проверка sitemap.xml, robots.txt</li>
+              </ul>
+            </div>
+            <div class="block" style="background:rgba(255,255,255,.015)">
+              <b>Позиции и видимость</b>
+              <ul class="list">
+                <li>Топвизор (мониторинг позиций)</li>
+                <li>сегментация по кластерам</li>
+                <li>поиск страниц, которые "почти в топе"</li>
+              </ul>
+            </div>
+            <div class="block" style="background:rgba(255,255,255,.015)">
+              <b>Ссылки и упоминания</b>
+              <ul class="list">
+                <li>оценка доноров и анкоров</li>
+                <li>динамика ссылочного профиля</li>
+                <li>анализ рискованных ссылок</li>
+              </ul>
+            </div>
+            <div class="block" style="background:rgba(255,255,255,.015)">
+              <b>Контент и семантика</b>
+              <ul class="list">
+                <li>сопоставление страниц и интентов</li>
+                <li>выявление каннибализации</li>
+                <li>план обновления структуры и текстов</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="note" style="margin-top:14px;">
+            Если нужно - превращаем выводы аудита в работы "под ключ": от правок сайта до комплексного продвижения.
+            Смотрите: <a class="inline" href="/seo/optimizaciya-sayta/">SEO оптимизация</a> и
+            <a class="inline" href="/seo/prodvizhenie-sayta/">SEO продвижение</a>.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="deliverables">
+      <div class="container">
+        <div class="block">
+          <div class="pill">Что вы получите</div>
+          <h2 class="h2">Результат SEO аудита</h2>
+          <p class="sub">
+            Мы не ограничиваемся "вот список проблем". Вы получаете дорожную карту - что делать, в каком порядке,
+            и какой эффект ожидать.
+          </p>
+
+          <div class="grid-3">
+            <div class="block" style="background:rgba(255,255,255,.015)">
+              <b>1) Отчет по блокам</b>
+              <ul class="list">
+                <li>техничка и индексация</li>
+                <li>скорость и мобильность</li>
+                <li>контент и семантика</li>
+                <li>ссылки и коммерция</li>
+              </ul>
+            </div>
+            <div class="block" style="background:rgba(255,255,255,.015)">
+              <b>2) Таблица задач</b>
+              <ul class="list">
+                <li>приоритет: критично / важно / желательно</li>
+                <li>оценка трудоемкости</li>
+                <li>ответственный: разработчик / SEO / контент</li>
+                <li>рекомендованные сроки</li>
+              </ul>
+            </div>
+            <div class="block" style="background:rgba(255,255,255,.015)">
+              <b>3) План на 30-60-90 дней</b>
+              <ul class="list">
+                <li>быстрые победы (quick wins)</li>
+                <li>структурные правки</li>
+                <li>контент-план (если нужен)</li>
+                <li>что делать со ссылками</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="note" style="margin-top:14px;">
+            Если сайт на CMS - в плане будут конкретные рекомендации по обновлению и безопасности:
+            <a class="inline" href="/sozdanie-saytov/sayt-na-wordpress/">WordPress</a>,
+            <a class="inline" href="/sozdanie-saytov/sayt-na-opencart/">OpenCart</a>,
+            <a class="inline" href="/sozdanie-saytov/sayt-na-1c-bitrix/">1C-Битрикс</a>.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="pricing">
+      <div class="container">
+        <div class="block">
+          <div class="pill">Стоимость</div>
+          <h2 class="h2">Сколько стоит SEO аудит</h2>
+          <p class="sub">
+            Цена зависит от объема сайта, наличия фильтров/каталога, истории продвижения и целей.
+            Ниже - ориентиры (итоговую стоимость подтвердим после короткого брифа).
+          </p>
+
+          <div class="pricing">
+            <div class="price">
+              <h3>Базовый аудит</h3>
+              <p class="money">от 15 000 ₽</p>
+              <p class="muted">Для небольших сайтов, услуг, лендингов.</p>
+              <ul class="list">
+                <li>индексация, дубли, мета</li>
+                <li>скорость и мобильность</li>
+                <li>базовые рекомендации</li>
+              </ul>
+              <div class="cta" style="margin-top:12px; flex-wrap:wrap;">
+                <a class="btn primary" href="#cta">Запросить аудит</a>
+                <a class="btn ghost" href="#faq">FAQ</a>
+              </div>
+            </div>
+
+            <div class="price" style="border-color: rgba(102,255,214,.18)">
+              <h3>Расширенный аудит</h3>
+              <p class="money">от 29 999 ₽</p>
+              <p class="muted">Если есть блог, много страниц, история SEO.</p>
+              <ul class="list">
+                <li>контент и семантика глубже</li>
+                <li>перелинковка и структура</li>
+                <li>план на 30-60-90 дней</li>
+              </ul>
+              <p class="small">Сильный вариант перед масштабированием и ростом.</p>
+            </div>
+
+            <div class="price">
+              <h3>Аудит + внедрение</h3>
+              <p class="money">индивидуально</p>
+              <p class="muted">Когда нужно не только найти проблемы, но и закрыть их "под ключ".</p>
+              <ul class="list">
+                <li>правки на сайте и CMS</li>
+                <li>ускорение и кеширование</li>
+                <li>обновление структуры и контента</li>
+              </ul>
+              <p class="small">
+                Часто это логичный шаг к <a class="inline" href="/seo/optimizaciya-sayta/">SEO оптимизации</a> и
+                <a class="inline" href="/seo/prodvizhenie-sayta/">продвижению</a>.
+              </p>
+            </div>
+          </div>
+
+          <div class="note" style="margin-top:14px;">
+            Важно: SEO аудит - это про сайты, где уже есть хотя бы минимальная SEO-логика или история.
+            Если сайт "с нуля" без структуры - сначала делаем фундамент: структура + ядро + оптимизация.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="process">
+      <div class="container">
+        <div class="block">
+          <div class="pill">Как работаем</div>
+          <h2 class="h2">Процесс - без воды</h2>
+          <p class="sub">Так клиент понимает сроки, этапы и что происходит на каждом шаге.</p>
+
+          <div class="grid-2">
+            <div class="block" style="background:rgba(255,255,255,.015)">
+              <b>1) Бриф и доступы</b>
+              <ul class="list">
+                <li>цели, приоритетные услуги/категории</li>
+                <li>доступ к метрике/консоли (если есть)</li>
+                <li>история работ по SEO (если была)</li>
+              </ul>
+            </div>
+            <div class="block" style="background:rgba(255,255,255,.015)">
+              <b>2) Диагностика 100+ факторов</b>
+              <ul class="list">
+                <li>краулинг и структура</li>
+                <li>скорость, CWV, мобильность</li>
+                <li>индексация, дубли, мета</li>
+              </ul>
+            </div>
+            <div class="block" style="background:rgba(255,255,255,.015)">
+              <b>3) Выводы и приоритеты</b>
+              <ul class="list">
+                <li>критично: влияет на индексацию/трафик</li>
+                <li>важно: влияет на рост и качество лидов</li>
+                <li>желательно: улучшает CTR и доверие</li>
+              </ul>
+            </div>
+            <div class="block" style="background:rgba(255,255,255,.015)">
+              <b>4) Дорожная карта и следующий шаг</b>
+              <ul class="list">
+                <li>план на 30-60-90 дней</li>
+                <li>варианты внедрения: ваша команда или мы</li>
+                <li>если надо - подключаем SEO/Директ/контент</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="note" style="margin-top:14px;">
+            У нас часто получается связка: аудит -> оптимизация -> продвижение. Это дает стабильный рост,
+            а не "вечные точечные правки".
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="related">
+      <div class="container">
+        <div class="block">
+          <div class="pill">Связанные услуги</div>
+          <h2 class="h2">Куда обычно ведет SEO аудит</h2>
+          <p class="sub">
+            По итогу аудита мы либо даем ТЗ вашей команде, либо закрываем работы внутри студии.
+            Ниже - самые частые сценарии.
+          </p>
+
+          <div class="grid-3">
+            <a class="block" href="/seo/optimizaciya-sayta/" style="background:rgba(255,255,255,.015)">
+              <b>SEO оптимизация сайта</b>
+              <p class="muted" style="margin:8px 0 0">Метатеги, структура, скорость, разметка - приводим сайт в порядок.</p>
+            </a>
+            <a class="block" href="/seo/prodvizhenie-sayta/" style="background:rgba(255,255,255,.015)">
+              <b>SEO продвижение</b>
+              <p class="muted" style="margin:8px 0 0">Контент + ссылки + репутация - растим видимость и заявки.</p>
+            </a>
+            <a class="block" href="/seo/semanticheskoe-yadro/" style="background:rgba(255,255,255,.015)">
+              <b>Семантическое ядро</b>
+              <p class="muted" style="margin:8px 0 0">Собираем спрос и кластеры - чтобы знать, какие страницы нужны.</p>
+            </a>
+            <a class="block" href="/sozdanie-saytov/redizayn-sayta/" style="background:rgba(255,255,255,.015)">
+              <b>Редизайн с сохранением SEO</b>
+              <p class="muted" style="margin:8px 0 0">Обновляем визуал и техничку, не ломая индекс и URL.</p>
+            </a>
+            <a class="block" href="/yandex-direct/" style="background:rgba(255,255,255,.015)">
+              <b>Контекстная реклама</b>
+              <p class="muted" style="margin:8px 0 0">Если нужен трафик "здесь и сейчас" - Директ + посадка.</p>
+            </a>
+            <a class="block" href="/crm-integracii/amocrm/" style="background:rgba(255,255,255,.015)">
+              <b>amoCRM и аналитика</b>
+              <p class="muted" style="margin:8px 0 0">Связка лидов, источников и продаж - чтобы считать ROI.</p>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq">
+      <div class="container">
+        <div class="block">
+          <div class="pill">FAQ</div>
+          <h2 class="h2">Частые вопросы про SEO аудит</h2>
+          <p class="sub">Закрываем самые частые сомнения и недопонимания до созвона.</p>
+
+          <div class="faq">
+            <div class="faq-item">
+              <button class="faq-q" type="button">
+                Сколько времени занимает SEO аудит?
+                <span class="plus">+</span>
+              </button>
+              <div class="faq-a">
+                <p>
+                  Зависит от объема сайта и задач. Небольшие сайты обычно быстрее, каталоги и интернет-магазины - дольше.
+                  Мы согласуем сроки после короткого брифа.
+                </p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-q" type="button">
+                Нужны ли доступы к CMS и хостингу?
+                <span class="plus">+</span>
+              </button>
+              <div class="faq-a">
+                <p>
+                  Для базового аудита - не всегда. Для глубокой диагностики (логи, кеш, серверные ошибки) доступы полезны.
+                  Если доступов нет - начнем с внешней диагностики и данных аналитики.
+                </p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-q" type="button">
+                Это технический аудит или SEO аудит - в чем разница?
+                <span class="plus">+</span>
+              </button>
+              <div class="faq-a">
+                <p>
+                  SEO аудит смотрит на индексацию, семантику, мета, структуру и факторы ранжирования.
+                  Технический аудит шире по инженерии: ошибки сервера, PHP/DB, кеширование, безопасность, логи.
+                  Иногда делаем оба, если проблема комплексная.
+                </p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-q" type="button">
+                Делаете ли вы аудит "реклама + сайт"?
+                <span class="plus">+</span>
+              </button>
+              <div class="faq-a">
+                <p>
+                  Да. Часто просадки в заявках связаны не с ключами, а с посадочной страницей, скоростью, оффером и формами.
+                  Тогда подключаем аналитику и смотрим связку целиком.
+                </p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-q" type="button">
+                Будут ли рекомендации "что исправить прямо сейчас"?
+                <span class="plus">+</span>
+              </button>
+              <div class="faq-a">
+                <p>
+                  Да. Мы выделяем quick wins - задачи, которые дают эффект быстрее и стоят дешевле по внедрению.
+                  И отдельно - стратегические правки, которые создают рост в долгую.
+                </p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-q" type="button">
+                Можно ли заказать только аудит без внедрения?
+                <span class="plus">+</span>
+              </button>
+              <div class="faq-a">
+                <p>
+                  Конечно. Вы получите отчет и таблицу задач. Внедрение может сделать ваша команда или мы.
+                  Если вы захотите внедрение - просто согласуем план и смету.
+                </p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-q" type="button">
+                Есть ли смысл делать SEO аудит, если SEO никогда не делали?
+                <span class="plus">+</span>
+              </button>
+              <div class="faq-a">
+                <p>
+                  Обычно эффективнее начать с фундамента: структура + семантика + оптимизация.
+                  Но если у сайта уже есть хоть какой-то органический трафик и много страниц, аудит все равно даст пользу.
+                </p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-q" type="button">
+                Что будет с позициями при редизайне?
+                <span class="plus">+</span>
+              </button>
+              <div class="faq-a">
+                <p>
+                  Если делать редизайн без аудита и плана миграции - можно потерять часть трафика.
+                  Мы заранее фиксируем структуру, URL, настраиваем 301, каноникалы и проверяем индексацию после релиза.
+                </p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-q" type="button">
+                Вы работаете с любыми CMS?
+                <span class="plus">+</span>
+              </button>
+              <div class="faq-a">
+                <p>
+                  Да. Часто встречаем WordPress, OpenCart, 1C-Битрикс, а также самописные сайты. В аудите учитываем особенности движка,
+                  плагины, структуру шаблонов и технические ограничения.
+                </p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-q" type="button">
+                Дадите ли прогноз по росту трафика?
+                <span class="plus">+</span>
+              </button>
+              <div class="faq-a">
+                <p>
+                  Мы даем прогноз по приоритетам и потенциальному эффекту задач. Точный рост зависит от конкуренции, сезонности,
+                  объема внедрения и темпов работ.
+                </p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-q" type="button">
+                В каком формате вы отдаете результат?
+                <span class="plus">+</span>
+              </button>
+              <div class="faq-a">
+                <p>
+                  Обычно отчет + таблица задач в Google Sheets, чтобы можно было согласовывать и дополнять онлайн.
+                  При необходимости выгружаем в Excel.
+                </p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-q" type="button">
+                С чего начать - аудит, оптимизация или продвижение?
+                <span class="plus">+</span>
+              </button>
+              <div class="faq-a">
+                <p>
+                  Если непонятно, что "болит" - начните с аудита. Если фундамент слабый - оптимизация. Если фундамент сильный,
+                  но нужно масштабировать спрос - продвижение.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="note" style="margin-top:14px;">
+            Хотите, чтобы мы сразу подготовили список приоритетных страниц и целей под ваш бизнес?
+            Напишите пару слов - ниша, город, сайт, что сейчас происходит с трафиком.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="cta">
+      <div class="container">
+        <div class="card" style="padding:20px;">
+          <div class="grid-2" style="gap:14px; align-items:center;">
+            <div class="block" style="background:rgba(255,255,255,.015)">
+              <div class="pill">Старт</div>
+              <h2 class="h2" style="margin-top:10px;">Запросить SEO аудит</h2>
+              <p class="sub">
+                Напишите, что у вас за сайт, ниша и город. Мы уточним цель, объем и предложим формат аудита.
+                После этого назовем стоимость и сроки.
+              </p>
+              <div class="kpi">
+                <span class="pill"><b>Вход</b>: ссылка на сайт</span>
+                <span class="pill"><b>Цель</b>: трафик / позиции / лиды</span>
+                <span class="pill"><b>Дальше</b>: аудит или аудит + внедрение</span>
+              </div>
+            </div>
+            <div class="block" style="background:rgba(255,255,255,.015)">
+              <b>Свяжемся удобным способом</b>
+              <ul class="list">
+                <li>мессенджер или созвон</li>
+                <li>вопросы по доступам - без лишней бюрократии</li>
+                <li>если нужно - подключим разработку, SEO, Директ и CRM</li>
+              </ul>
+
+              <div class="cta" style="margin-top:12px; flex-wrap:wrap;">
+                <a class="btn primary" href="/contacts/">Оставить заявку</a>
+                <a class="btn" href="/seo/">Вернуться в раздел SEO</a>
+                <a class="btn ghost" href="/sozdanie-saytov/">Разработка сайтов</a>
+              </div>
+
+              <p class="small" style="margin:12px 0 0;">
+                Примечание: цены на сайте могут меняться. Итог фиксируем в смете после брифа.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="block" style="background:rgba(255,255,255,.01)">
+          <b>Venner Digital</b>
+          <p class="muted" style="margin:8px 0 0">
+            Делаем сайты, SEO и рекламу в одной логике - чтобы маркетинг и разработка не спорили, а давали результат.
+            Работаем системно: аналитика -> план -> внедрение -> контроль.
+          </p>
+        </div>
+        <div class="block" style="background:rgba(255,255,255,.01)">
+          <b>Быстрые ссылки</b>
+          <div class="links" style="margin-top:10px;">
+            <a class="link" href="/seo/semanticheskoe-yadro/">Семантическое ядро</a>
+            <a class="link" href="/seo/optimizaciya-sayta/">SEO оптимизация</a>
+            <a class="link" href="/seo/prodvizhenie-sayta/">SEO продвижение</a>
+            <a class="link" href="/yandex-direct/">Яндекс Директ</a>
+            <a class="link" href="/crm-integracii/amocrm/">amoCRM</a>
+            <a class="link" href="/sozdanie-saytov/redizayn-sayta/">Редизайн</a>
+          </div>
+        </div>
+      </div>
+      <p class="small" style="margin:14px 0 0;">© Venner Digital. Все права защищены.</p>
+    </div>
+  </footer>
+
+  <script>
+    function toggleMenu(){
+      const el = document.getElementById('mnav');
+      el.style.display = (el.style.display === 'none' || !el.style.display) ? 'block' : 'none';
+    }
+
+    // FAQ accordion
+    document.querySelectorAll('.faq-q').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const item = btn.closest('.faq-item');
+        const a = item.querySelector('.faq-a');
+        const open = a.style.display === 'block';
+        document.querySelectorAll('.faq-a').forEach(x=>x.style.display='none');
+        document.querySelectorAll('.faq-q .plus').forEach(x=>x.textContent='+');
+        if(!open){
+          a.style.display='block';
+          btn.querySelector('.plus').textContent='-';
+        }
+      });
+    });
+  </script>
+</body>
+</html>

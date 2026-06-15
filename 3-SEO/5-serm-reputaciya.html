@@ -1,0 +1,992 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>SERM и репутационный маркетинг - отзывы, рейтинги, доверие | Venner Digital</title>
+  <meta name="description" content="SERM (репутационный маркетинг): оформление карточек на Яндекс/Google/2GIS, контроль отзывов, ответы, рост рейтинга и доверия. Свяжем с SEO и Директ, подключим виджет отзывов." />
+  <meta name="keywords" content="serm, репутационный маркетинг, управление репутацией, отзывы, рейтинг компании, отзывы на яндекс, отзывы 2gis, отзывы google, myreviews, виджет отзывов, seo и репутация" />
+
+  <meta property="og:title" content="SERM и репутационный маркетинг - системное управление доверием" />
+  <meta property="og:description" content="Оформим площадки, наведем порядок в отзывах, выстроим процесс получения новых отзывов и связку с SEO/Директ. Контроль, ответы, аналитика." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="" />
+  <meta property="og:image" content="" />
+
+  <style>
+    :root{
+      --bg:#0b0f14;
+      --bg2:#0f1620;
+      --card:#121b26;
+      --muted:#8ea0b7;
+      --text:#e7eef8;
+      --line:rgba(255,255,255,.08);
+      --accent:#43ffb8;
+      --accent2:#6aa7ff;
+      --warn:#ffcb6a;
+      --bad:#ff6a6a;
+      --good:#43ffb8;
+      --shadow: 0 20px 60px rgba(0,0,0,.45);
+      --radius:18px;
+      --radius2:26px;
+      --max:1180px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
+      background: radial-gradient(1200px 800px at 20% -10%, rgba(67,255,184,.10), transparent 60%),
+                  radial-gradient(900px 600px at 90% 0%, rgba(106,167,255,.12), transparent 55%),
+                  linear-gradient(180deg, var(--bg), var(--bg2));
+      color:var(--text);
+      line-height:1.55;
+    }
+    a{color:inherit}
+    .wrap{max-width:var(--max); margin:0 auto; padding:0 18px;}
+    .topbar{
+      position:sticky; top:0; z-index:50;
+      background:rgba(11,15,20,.72);
+      backdrop-filter: blur(10px);
+      border-bottom:1px solid var(--line);
+    }
+    .topbar .inner{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:12px 0;
+      gap:12px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px; text-decoration:none;
+    }
+    .logo{
+      width:34px; height:34px; border-radius:10px;
+      background: linear-gradient(135deg, rgba(67,255,184,.9), rgba(106,167,255,.85));
+      box-shadow: 0 12px 30px rgba(67,255,184,.12);
+    }
+    .brand b{font-size:14px; letter-spacing:.3px}
+    .nav{
+      display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end;
+    }
+    .nav a{
+      text-decoration:none;
+      padding:8px 10px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      color:var(--muted);
+      font-size:13px;
+      transition:.2s ease;
+      background: rgba(255,255,255,.02);
+    }
+    .nav a:hover{border-color: rgba(67,255,184,.35); color:var(--text); transform: translateY(-1px)}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:12px 16px;
+      border-radius:999px;
+      border:1px solid rgba(67,255,184,.35);
+      background: linear-gradient(135deg, rgba(67,255,184,.18), rgba(106,167,255,.10));
+      color:var(--text);
+      text-decoration:none;
+      font-weight:700;
+      gap:10px;
+      transition:.2s ease;
+      box-shadow: 0 18px 40px rgba(0,0,0,.25);
+    }
+    .btn:hover{transform: translateY(-1px); border-color: rgba(67,255,184,.7)}
+    .btn.secondary{
+      border-color: var(--line);
+      background: rgba(255,255,255,.03);
+      font-weight:600;
+      color:var(--muted);
+      box-shadow:none;
+    }
+    .btn.secondary:hover{color:var(--text); border-color: rgba(106,167,255,.35)}
+    .hero{
+      padding:44px 0 18px;
+    }
+    .grid-hero{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:18px;
+      align-items:stretch;
+    }
+    @media (max-width: 980px){
+      .grid-hero{grid-template-columns:1fr; }
+    }
+    .card{
+      background: rgba(18,27,38,.72);
+      border:1px solid var(--line);
+      border-radius: var(--radius2);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .card .pad{padding:22px}
+    .kicker{
+      display:inline-flex; gap:8px; align-items:center;
+      font-size:13px; color:var(--muted);
+      padding:6px 10px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background: rgba(255,255,255,.02);
+    }
+    .dot{
+      width:8px; height:8px; border-radius:999px; background: var(--accent);
+      box-shadow: 0 0 0 4px rgba(67,255,184,.12);
+    }
+    h1{
+      margin:14px 0 10px;
+      font-size:38px;
+      line-height:1.15;
+      letter-spacing:-.3px;
+    }
+    @media (max-width: 560px){ h1{font-size:30px} }
+    .lead{color:var(--muted); font-size:16px; margin:0 0 16px}
+    .chips{display:flex; gap:10px; flex-wrap:wrap; margin:14px 0 0}
+    .chip{
+      font-size:13px; color:var(--muted);
+      padding:8px 10px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background: rgba(255,255,255,.02);
+    }
+    .hero-actions{display:flex; gap:12px; flex-wrap:wrap; margin-top:16px}
+    .mini{
+      color:var(--muted); font-size:13px; margin-top:10px;
+    }
+    .aside{
+      height:100%;
+      display:flex; flex-direction:column; gap:12px;
+    }
+    .aside .box{
+      border-radius: var(--radius2);
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.02);
+      padding:18px;
+    }
+    .aside h3{margin:0 0 8px; font-size:16px}
+    .aside p{margin:0; color:var(--muted); font-size:13px}
+    .aside ul{margin:10px 0 0; padding:0; list-style:none; display:grid; gap:10px}
+    .aside li{
+      display:flex; gap:10px; align-items:flex-start;
+      padding:10px;
+      border:1px solid var(--line);
+      border-radius:14px;
+      background: rgba(18,27,38,.45);
+    }
+    .ico{
+      width:28px; height:28px; border-radius:10px;
+      display:grid; place-items:center;
+      background: rgba(67,255,184,.12);
+      border:1px solid rgba(67,255,184,.25);
+      color: var(--accent);
+      flex: 0 0 auto;
+      font-weight:900;
+    }
+    section{padding:18px 0}
+    .section-title{
+      display:flex; align-items:flex-end; justify-content:space-between; gap:12px; flex-wrap:wrap;
+      margin: 0 0 12px;
+    }
+    .section-title h2{
+      margin:0;
+      font-size:26px;
+      letter-spacing:-.2px;
+    }
+    .section-title p{
+      margin:0; color:var(--muted); max-width:680px;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:12px;
+    }
+    @media (max-width: 980px){ .grid{grid-template-columns:1fr 1fr} }
+    @media (max-width: 640px){ .grid{grid-template-columns:1fr} }
+    .item{
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(18,27,38,.55);
+      padding:16px;
+      min-height: 150px;
+    }
+    .item h3{margin:0 0 8px; font-size:16px}
+    .item p{margin:0; color:var(--muted); font-size:13px}
+    .item .meta{margin-top:10px; display:flex; gap:8px; flex-wrap:wrap}
+    .tag{
+      font-size:12px;
+      color: var(--muted);
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.02);
+      padding:6px 8px;
+      border-radius:999px;
+    }
+    .cols{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+    }
+    @media (max-width: 980px){ .cols{grid-template-columns:1fr} }
+    .note{
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      border-radius: var(--radius);
+      padding:14px;
+      color: var(--muted);
+      font-size:13px;
+    }
+    .compare{
+      border:1px solid var(--line);
+      border-radius: var(--radius2);
+      overflow:hidden;
+      background: rgba(18,27,38,.55);
+    }
+    .compare .head{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:0;
+      border-bottom:1px solid var(--line);
+    }
+    .compare .head div{
+      padding:14px 16px;
+      font-weight:800;
+      font-size:14px;
+    }
+    .compare .head .bad{background: rgba(255,106,106,.10); color: #ffd2d2}
+    .compare .head .good{background: rgba(67,255,184,.10); color: #d7ffef}
+    .compare .row{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      border-bottom:1px solid var(--line);
+    }
+    .compare .row:last-child{border-bottom:0}
+    .compare .cell{
+      padding:14px 16px;
+      color: var(--muted);
+      font-size:13px;
+    }
+    .compare .cell strong{color: var(--text)}
+    .steps{
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap:12px;
+    }
+    @media (max-width: 980px){ .steps{grid-template-columns:1fr 1fr} }
+    @media (max-width: 640px){ .steps{grid-template-columns:1fr} }
+    .step{
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(18,27,38,.55);
+      padding:16px;
+    }
+    .step .num{
+      width:34px; height:34px; border-radius:12px;
+      display:grid; place-items:center;
+      background: rgba(106,167,255,.12);
+      border:1px solid rgba(106,167,255,.25);
+      color: var(--accent2);
+      font-weight:900;
+      margin-bottom:10px;
+    }
+    .step h3{margin:0 0 6px; font-size:15px}
+    .step p{margin:0; color:var(--muted); font-size:13px}
+    .cta{
+      border:1px solid rgba(67,255,184,.22);
+      background: radial-gradient(900px 300px at 10% 0%, rgba(67,255,184,.16), transparent 60%),
+                  radial-gradient(900px 300px at 90% 100%, rgba(106,167,255,.14), transparent 60%),
+                  rgba(18,27,38,.55);
+      border-radius: var(--radius2);
+      padding:20px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      flex-wrap:wrap;
+    }
+    .cta h3{margin:0; font-size:18px}
+    .cta p{margin:4px 0 0; color:var(--muted); font-size:13px; max-width:640px}
+    .faq{
+      border:1px solid var(--line);
+      border-radius: var(--radius2);
+      overflow:hidden;
+      background: rgba(18,27,38,.55);
+    }
+    details{
+      border-bottom:1px solid var(--line);
+      padding:14px 16px;
+    }
+    details:last-child{border-bottom:0}
+    summary{
+      cursor:pointer;
+      list-style:none;
+      font-weight:800;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+    }
+    summary::-webkit-details-marker{display:none}
+    .faq p{margin:10px 0 0; color:var(--muted); font-size:13px}
+    .footer{
+      padding:26px 0 46px;
+      color: var(--muted);
+      font-size:13px;
+    }
+    .footer a{color: var(--muted)}
+    .anchors{
+      display:flex; gap:10px; flex-wrap:wrap;
+      margin-top:14px;
+    }
+    .anchors a{
+      font-size:13px;
+      color: var(--muted);
+      text-decoration:none;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.02);
+      padding:8px 10px;
+      border-radius:999px;
+      transition:.2s ease;
+    }
+    .anchors a:hover{color: var(--text); border-color: rgba(67,255,184,.35); transform: translateY(-1px)}
+  </style>
+</head>
+
+<body>
+
+  <!-- Topbar -->
+  <div class="topbar">
+    <div class="wrap">
+      <div class="inner">
+        <a class="brand" href="/">
+          <span class="logo" aria-hidden="true"></span>
+          <b>Venner Digital</b>
+        </a>
+
+        <div class="nav" aria-label="Навигация">
+          <a href="/seo/">SEO</a>
+          <a href="/yandex-direct/">Яндекс Директ</a>
+          <a href="/sozdanie-saytov/">Разработка сайтов</a>
+          <a href="/crm-integracii/">CRM и интеграции</a>
+          <a href="#faq">FAQ</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <header class="hero" id="top">
+    <div class="wrap">
+      <div class="grid-hero">
+        <div class="card">
+          <div class="pad">
+            <div class="kicker"><span class="dot"></span> SERM и репутационный маркетинг - управление доверием</div>
+            <h1>SERM - это не "зачистка". Это система, которая помогает продавать.</h1>
+            <p class="lead">
+              В 2026 году отзывы и рейтинг - это часть воронки. Они влияют на клики в поиске, конверсию из рекламы и доверие на сайте.
+              Мы наводим порядок в площадках, строим процесс получения отзывов и связываем репутацию с <a href="/seo/optimizaciya-sayta/">SEO-оптимизацией</a>,
+              <a href="/seo/prodvizhenie-sayta/">SEO-продвижением</a> и <a href="/yandex-direct/">Яндекс Директ</a>.
+            </p>
+
+            <div class="chips">
+              <span class="chip">Работаем с 2013 года</span>
+              <span class="chip">Яндекс, Google, 2GIS и справочники</span>
+              <span class="chip">Ответы на отзывы + регламенты</span>
+              <span class="chip">Связка с сайтом и конверсией</span>
+            </div>
+
+            <div class="hero-actions">
+              <a class="btn" href="#cta">
+                Запросить аудит репутации
+                <span aria-hidden="true">→</span>
+              </a>
+              <a class="btn secondary" href="#platforms">Площадки и что делаем</a>
+              <a class="btn secondary" href="#compare">Сравнение "до/после"</a>
+            </div>
+
+            <div class="mini">
+              Цена - индивидуально. Для шаблона: от <b>99 999</b> руб. (меняем позже).
+              Хотите быстро - сделаем стартовую диагностику и план действий.
+            </div>
+
+            <div class="anchors" aria-label="Якоря по странице">
+              <a href="#why">Зачем SERM</a>
+              <a href="#what">Что входит</a>
+              <a href="#myreviews">Виджет отзывов</a>
+              <a href="#seoimpact">Влияние на SEO и Директ</a>
+              <a href="#steps">Этапы</a>
+              <a href="#faq">FAQ</a>
+            </div>
+          </div>
+        </div>
+
+        <aside class="aside">
+          <div class="box">
+            <h3>Что обычно болит у бизнеса</h3>
+            <p>И почему "просто сделать сайт" или "просто запустить рекламу" не вытягивает.</p>
+            <ul>
+              <li>
+                <div class="ico">★</div>
+                <div>
+                  <b>Рейтинг просел</b>
+                  <p>Кликов меньше, заявки дороже, доверие падает еще до первого контакта.</p>
+                </div>
+              </li>
+              <li>
+                <div class="ico">⚡</div>
+                <div>
+                  <b>Негатив без ответа</b>
+                  <p>Площадка видит молчание. Пользователь видит "все ясно".</p>
+                </div>
+              </li>
+              <li>
+                <div class="ico">✓</div>
+                <div>
+                  <b>Слабая карточка</b>
+                  <p>Нет фото, прайса, услуг, графика - и вы проигрываете тем, кто это заполнил.</p>
+                </div>
+              </li>
+              <li>
+                <div class="ico">⚙</div>
+                <div>
+                  <b>Нет системы</b>
+                  <p>Отзывы "по настроению". Ответы шаблонные. Контроля нет.</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="box">
+            <h3>Быстрые ссылки по SEO</h3>
+            <p>Чтобы не раздувать эту страницу "водой".</p>
+            <ul>
+              <li>
+                <div class="ico">SEO</div>
+                <div>
+                  <b><a href="/seo/semanticheckoe-yadro/">Семантическое ядро</a></b>
+                  <p>Понимаем спрос и формируем структуру запросов.</p>
+                </div>
+              </li>
+              <li>
+                <div class="ico">✓</div>
+                <div>
+                  <b><a href="/seo/optimizaciya-sayta/">SEO-оптимизация</a></b>
+                  <p>Фундамент: мета-теги, структура, скорость, разметка.</p>
+                </div>
+              </li>
+              <li>
+                <div class="ico">↑</div>
+                <div>
+                  <b><a href="/seo/prodvizhenie-sayta/">SEO-продвижение</a></b>
+                  <p>Контент, ссылки, репутация - рост видимости и заявок.</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </aside>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- Why -->
+  <section id="why">
+    <div class="wrap">
+      <div class="section-title">
+        <div>
+          <h2>Зачем SERM в 2026 году.</h2>
+          <p>Это не "косметика". Это управление доверием в поиске, в рекламе и на площадках, где люди принимают решение.</p>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="item">
+          <h3>1) Вы выше в выдаче - и вас чаще выбирают</h3>
+          <p>Рейтинг и отзывы влияют на поведение пользователя в выдаче: клики, время на сайте, возвраты. Это сигналы для алгоритмов.</p>
+          <div class="meta">
+            <span class="tag">Поведенческие факторы</span>
+            <span class="tag">CTR в поиске</span>
+            <span class="tag">E-E-A-T</span>
+          </div>
+        </div>
+        <div class="item">
+          <h3>2) Реклама становится дешевле</h3>
+          <p>Когда доверие выше, конверсия растет, а стоимость лида падает. Это видно и в Яндекс Директ, и в любых платных источниках.</p>
+          <div class="meta">
+            <span class="tag">Конверсия</span>
+            <span class="tag">CPL/CPA</span>
+            <span class="tag">Сайт + репутация</span>
+          </div>
+        </div>
+        <div class="item">
+          <h3>3) AI-ответы и "краткие справки" про бренд</h3>
+          <p>Нейросети и ассистенты опираются на публичные источники: отзывы, карточки, упоминания. Репутация становится видимой "в одну строку".</p>
+          <div class="meta">
+            <span class="tag">AEO/GEO</span>
+            <span class="tag">Яндекс.Нейро</span>
+            <span class="tag">Google SGE</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="note" style="margin-top:12px;">
+        Важно: мы не делаем "серые чудеса". Наша задача - системно улучшить восприятие компании на площадках,
+        выстроить процесс получения отзывов и снизить репутационные риски. Это устойчивее и безопаснее для бизнеса.
+      </div>
+    </div>
+  </section>
+
+  <!-- What included -->
+  <section id="what">
+    <div class="wrap">
+      <div class="section-title">
+        <div>
+          <h2>Что входит в SERM.</h2>
+          <p>Можно начать с базы (наведение порядка), а дальше наращивать: ответы, процесс получения отзывов, интеграция с сайтом и аналитика.</p>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="item">
+          <h3>Аудит репутации и площадок</h3>
+          <p>Проверяем карточки, рейтинг, динамику, проблемные точки, сравниваем с конкурентами и собираем план работ.</p>
+          <div class="meta"><span class="tag">Точка А</span><span class="tag">План действий</span></div>
+        </div>
+        <div class="item">
+          <h3>Оформление и "упаковка" карточек</h3>
+          <p>Фото, услуги, прайс, график, описание, витрина, атрибуты - чтобы карточка выглядела живой и конверсионной.</p>
+          <div class="meta"><span class="tag">Конверсия</span><span class="tag">Доверие</span></div>
+        </div>
+        <div class="item">
+          <h3>Ответы на отзывы и регламенты</h3>
+          <p>Настраиваем тон, сценарии ответов, SLA, работу с негативом и "сигналы доверия" для новых клиентов.</p>
+          <div class="meta"><span class="tag">Скрипты</span><span class="tag">SLA</span></div>
+        </div>
+        <div class="item">
+          <h3>Наращивание отзывов (система)</h3>
+          <p>Делаем процесс: как просить, когда просить, что писать, как не нарушать правила площадок. Убираем хаос.</p>
+          <div class="meta"><span class="tag">Процесс</span><span class="tag">Контроль</span></div>
+        </div>
+        <div class="item">
+          <h3>Мониторинг упоминаний</h3>
+          <p>Отслеживаем новые отзывы/упоминания, чтобы реагировать быстро и не копить негатив "в тишине".</p>
+          <div class="meta"><span class="tag">Оповещения</span><span class="tag">Антикризис</span></div>
+        </div>
+        <div class="item">
+          <h3>Интеграция с сайтом и маркетингом</h3>
+          <p>Подключаем отзывы на сайт, микроразметку, доверительные блоки. Связываем с SEO и рекламой.</p>
+          <div class="meta"><span class="tag">Schema.org</span><span class="tag">Связка</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Platforms -->
+  <section id="platforms">
+    <div class="wrap">
+      <div class="section-title">
+        <div>
+          <h2>Площадки, с которыми работаем.</h2>
+          <p>Площадок больше, но упор делаем на те, где реально формируется доверие и идет поток решений.</p>
+        </div>
+      </div>
+
+      <div class="cols">
+        <div class="card">
+          <div class="pad">
+            <h3 style="margin:0 0 10px;">Основной фокус</h3>
+            <div class="grid" style="grid-template-columns:1fr 1fr; gap:10px;">
+              <div class="item" style="min-height:auto;">
+                <h3>Яндекс</h3>
+                <p>Карточка, отзывы, фото, прайс, вопросы/ответы - часто главный источник доверия в РФ.</p>
+              </div>
+              <div class="item" style="min-height:auto;">
+                <h3>Google</h3>
+                <p>Даже при ограничениях по трафику - влияет на восприятие бренда и видимость в ряде ниш.</p>
+              </div>
+              <div class="item" style="min-height:auto;">
+                <h3>2GIS</h3>
+                <p>Справочник с сильной поведенческой моделью: люди ищут рядом и быстро принимают решение.</p>
+              </div>
+              <div class="item" style="min-height:auto;">
+                <h3>Flamp / Zoon</h3>
+                <p>Усилители доверия и "доп. слой" внешних сигналов для пользователей и поисковиков.</p>
+              </div>
+            </div>
+
+            <div class="note" style="margin-top:12px;">
+              Дополнительно по задаче подключаем отраслевые площадки, каталоги и отзывы в соцсетях (например, ВКонтакте).
+              Главное - не "везде сразу", а там, где это дает максимальный эффект в вашей нише.
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="pad">
+            <h3 style="margin:0 0 10px;">Что именно улучшаем на площадках</h3>
+            <div class="steps" style="grid-template-columns:1fr 1fr; gap:10px;">
+              <div class="step">
+                <div class="num">✓</div>
+                <h3>Заполнение и актуальность</h3>
+                <p>Контакты, график, услуги, описание, фото, прайс, витрина - чтобы площадка "верила" карточке.</p>
+              </div>
+              <div class="step">
+                <div class="num">★</div>
+                <h3>Рейтинг и тональность</h3>
+                <p>Работаем над ростом доли позитивных отзывов, снижаем эффект негатива через правильную реакцию.</p>
+              </div>
+              <div class="step">
+                <div class="num">⚡</div>
+                <h3>Скорость ответа</h3>
+                <p>Скрипты и регламенты: что отвечать, кому, когда, и как не усугубить ситуацию.</p>
+              </div>
+              <div class="step">
+                <div class="num">↗</div>
+                <h3>Конверсия</h3>
+                <p>Оформление и контент карточки повышают звонки, заявки, маршруты, клики на сайт.</p>
+              </div>
+            </div>
+
+            <div class="hero-actions" style="margin-top:12px;">
+              <a class="btn secondary" href="/seo/audit-sayta/">Связать с SEO-аудитом</a>
+              <a class="btn secondary" href="/yandex-direct/audit/">Связать с аудитом Директ</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MyReviews -->
+  <section id="myreviews">
+    <div class="wrap">
+      <div class="section-title">
+        <div>
+          <h2>Отзывы на сайте - через MyReviews Widget.</h2>
+          <p>Собираем отзывы со всех площадок в одно место, показываем на сайте, добавляем доверие и улучшаем конверсию.</p>
+        </div>
+      </div>
+
+      <div class="cols">
+        <div class="card">
+          <div class="pad">
+            <h3 style="margin:0 0 8px;">Что дает виджет</h3>
+            <div class="grid" style="grid-template-columns:1fr 1fr; gap:10px;">
+              <div class="item" style="min-height:auto;">
+                <h3>Единый "дашборд"</h3>
+                <p>Отзывы и рейтинг из разных источников - в одном интерфейсе и на сайте.</p>
+              </div>
+              <div class="item" style="min-height:auto;">
+                <h3>Доверие и конверсия</h3>
+                <p>Пользователь видит реальные площадки - и быстрее решается оставить заявку.</p>
+              </div>
+              <div class="item" style="min-height:auto;">
+                <h3>Удобство контроля</h3>
+                <p>Меньше хаоса. Больше понимания, где что происходит и как реагировать.</p>
+              </div>
+              <div class="item" style="min-height:auto;">
+                <h3>Связка с SEO</h3>
+                <p>Отзывы на сайте - это контент, вовлеченность, поведенческие сигналы.</p>
+              </div>
+            </div>
+
+            <div class="note" style="margin-top:12px;">
+              Ссылку на страницу MyReviews можно привязать к вашей структуре сайта.
+              Сейчас поставили как шаблон: <a href="/myreviews/">/myreviews/</a> (если URL другой - заменим).
+            </div>
+
+            <div class="hero-actions">
+              <a class="btn secondary" href="/myreviews/">Подробнее про MyReviews</a>
+              <a class="btn secondary" href="/sozdanie-saytov/redizayn-sayta/">Редизайн + отзывы</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="compare" id="compare">
+          <div class="head">
+            <div class="bad">Без SERM и отзывов на сайте</div>
+            <div class="good">С SERM + MyReviews</div>
+          </div>
+
+          <div class="row">
+            <div class="cell"><strong>Пользователь сомневается</strong><br>Непонятно, кто вы и почему вам доверять.</div>
+            <div class="cell"><strong>Пользователь "успокаивается"</strong><br>Видит реальные источники, рейтинг, ответы компании.</div>
+          </div>
+          <div class="row">
+            <div class="cell"><strong>Реклама дороже</strong><br>Ниже конверсия - выше стоимость заявки.</div>
+            <div class="cell"><strong>Реклама эффективнее</strong><br>Доверие растет - конверсия растет - CPL снижается.</div>
+          </div>
+          <div class="row">
+            <div class="cell"><strong>Негатив копится</strong><br>Нет регламента, ответы случайные или их нет.</div>
+            <div class="cell"><strong>Контроль и скорость</strong><br>Скрипты, SLA, мониторинг - негатив не "разрастается".</div>
+          </div>
+          <div class="row">
+            <div class="cell"><strong>SEO слабее</strong><br>ПФ хуже, брендовые запросы не растут.</div>
+            <div class="cell"><strong>SEO сильнее</strong><br>Улучшение ПФ, E-E-A-T и брендовое доверие.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SEO impact -->
+  <section id="seoimpact">
+    <div class="wrap">
+      <div class="section-title">
+        <div>
+          <h2>Как SERM влияет на SEO и Яндекс Директ.</h2>
+          <p>Репутация - это общий усилитель: повышает доверие, улучшает конверсию и снижает "трение" воронки.</p>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="item">
+          <h3>SEO - внешние сигналы и E-E-A-T</h3>
+          <p>Отзывы и упоминания на независимых площадках усиливают доверие. Это поддерживает рост видимости в органике.</p>
+          <div class="meta"><span class="tag">E-E-A-T</span><span class="tag">Брендовые запросы</span></div>
+        </div>
+        <div class="item">
+          <h3>Директ - повышение CR</h3>
+          <p>Клиент приходит из рекламы и проверяет репутацию. Если "все чисто" - быстрее оставляет заявку.</p>
+          <div class="meta"><span class="tag">CR</span><span class="tag">CPL</span><span class="tag">Качество лида</span></div>
+        </div>
+        <div class="item">
+          <h3>Сайт - удержание и доверительные блоки</h3>
+          <p>Отзывы на сайте, микроразметка, блоки доверия и кейсы повышают вовлеченность и снижают отказ.</p>
+          <div class="meta"><span class="tag">ПФ</span><span class="tag">Снижение отказов</span></div>
+        </div>
+      </div>
+
+      <div class="note" style="margin-top:12px;">
+        Если вы в процессе <a href="/sozdanie-saytov/redizayn-sayta/">редизайна сайта</a> - SERM особенно важен.
+        При обновлении дизайна и структуры мы сохраняем SEO-начинку и "социальные сигналы", чтобы не потерять видимость и доверие.
+      </div>
+    </div>
+  </section>
+
+  <!-- Steps -->
+  <section id="steps">
+    <div class="wrap">
+      <div class="section-title">
+        <div>
+          <h2>Как мы делаем SERM - по шагам.</h2>
+          <p>Понятный процесс вместо "попробуем что-нибудь". Вы видите план, приоритеты и контрольные точки.</p>
+        </div>
+      </div>
+
+      <div class="steps">
+        <div class="step">
+          <div class="num">1</div>
+          <h3>Диагностика и цели</h3>
+          <p>Понимаем задачу: доверие, конверсия, кризис, рост присутствия. Определяем KPI и приоритеты.</p>
+        </div>
+        <div class="step">
+          <div class="num">2</div>
+          <h3>Аудит площадок</h3>
+          <p>Проверяем карточки, контент, рейтинг, негатив, динамику. Сравниваем с конкурентами.</p>
+        </div>
+        <div class="step">
+          <div class="num">3</div>
+          <h3>Упаковка карточек</h3>
+          <p>Заполняем услуги, прайс, фото, описания, UTP, витрину. Убираем "пустоты" и несоответствия.</p>
+        </div>
+        <div class="step">
+          <div class="num">4</div>
+          <h3>Скрипты и регламенты</h3>
+          <p>Настраиваем ответы, тональность, SLA, правила работы с негативом и "сложными" случаями.</p>
+        </div>
+        <div class="step">
+          <div class="num">5</div>
+          <h3>Система отзывов</h3>
+          <p>Строим процесс получения отзывов: когда, как, кому и чем мотивировать корректно.</p>
+        </div>
+        <div class="step">
+          <div class="num">6</div>
+          <h3>Интеграция с сайтом</h3>
+          <p>Подключаем виджет, микроразметку, доверительные блоки и элементы для роста конверсии.</p>
+        </div>
+        <div class="step">
+          <div class="num">7</div>
+          <h3>Мониторинг и контроль</h3>
+          <p>Отслеживаем новые отзывы/упоминания, реагируем быстро, корректируем стратегию.</p>
+        </div>
+        <div class="step">
+          <div class="num">8</div>
+          <h3>Связка с SEO/Директ</h3>
+          <p>Используем репутацию как усилитель: снижаем трение воронки, повышаем CR и качество лидов.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section id="cta">
+    <div class="wrap">
+      <div class="cta">
+        <div>
+          <h3>Хотите понять, что мешает доверять вашему бренду?</h3>
+          <p>
+            Сделаем экспресс-диагностику площадок и дадим понятный план: что исправить срочно, что улучшать системно и
+            как связать это с <a href="/seo/">SEO</a> и <a href="/yandex-direct/">рекламой</a>.
+          </p>
+        </div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <a class="btn" href="/contacts/">Получить план работ →</a>
+          <a class="btn secondary" href="/brief/">Заполнить бриф</a>
+        </div>
+      </div>
+
+      <div class="note" style="margin-top:12px;">
+        Параллельно можем подключить смежные услуги: <a href="/sozdanie-saytov/">разработка/редизайн сайта</a>,
+        <a href="/seo/optimizaciya-sayta/">SEO-оптимизация</a>, <a href="/seo/prodvizhenie-sayta/">SEO-продвижение</a>,
+        <a href="/yandex-direct/">Яндекс Директ</a>, <a href="/crm-integracii/">CRM и интеграции</a>.
+        Но здесь фокус - именно SERM и доверие.
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="wrap">
+      <div class="section-title">
+        <div>
+          <h2>FAQ - коротко, по делу.</h2>
+          <p>Закрываем типовые вопросы, которые мешают принять решение.</p>
+        </div>
+      </div>
+
+      <div class="faq">
+        <details>
+          <summary>1) SERM - это удаление негатива?</summary>
+          <p>
+            Нет. Удаление - не стратегия. Мы выстраиваем систему: оформление площадок, корректная реакция на негатив, рост доли позитивных отзывов,
+            процесс и контроль. Это устойчивее и безопаснее для бизнеса.
+          </p>
+        </details>
+
+        <details>
+          <summary>2) Почему отзывы так влияют на продажи?</summary>
+          <p>
+            Потому что это "социальное доказательство" с независимых площадок. Люди сравнивают компании по рейтингу, тональности, ответам и полноте карточки.
+            Это влияет на клики из поиска и на конверсию из рекламы.
+          </p>
+        </details>
+
+        <details>
+          <summary>3) Какие площадки важнее - Яндекс, Google или 2GIS?</summary>
+          <p>
+            Зависит от ниши и региона. В большинстве локальных услуг сильнее всего работают Яндекс и 2GIS, но мы смотрим по фактам:
+            где аудитория ищет и где конкуренты получают доверие.
+          </p>
+        </details>
+
+        <details>
+          <summary>4) Можно ли сделать SERM без сайта?</summary>
+          <p>
+            Да. Но сайт усиливает эффект: отзывы на сайте, доверительные блоки, кейсы, микроразметка.
+            Если сайта нет или он слабый - можем подключить <a href="/sozdanie-saytov/">разработку сайта</a> или <a href="/sozdanie-saytov/redizayn-sayta/">редизайн</a>.
+          </p>
+        </details>
+
+        <details>
+          <summary>5) MyReviews Widget обязателен?</summary>
+          <p>
+            Не обязателен, но сильно помогает. Он сводит отзывы в одно место и повышает доверие на сайте. Подключаем, если это дает пользу в вашей воронке.
+            Страница сервиса: <a href="/myreviews/">MyReviews</a> (URL можно заменить на ваш).
+          </p>
+        </details>
+
+        <details>
+          <summary>6) Что делать, если есть "тяжелый" негатив?</summary>
+          <p>
+            Сначала - диагностика: где, от кого, что за паттерн. Дальше - сценарии ответа, сбор фактов, корректная коммуникация, усиление позитивного слоя,
+            и главное - не допустить повторения. Иногда подключаем внутренние процессы и контроль качества.
+          </p>
+        </details>
+
+        <details>
+          <summary>7) За сколько времени виден эффект?</summary>
+          <p>
+            Быстрые улучшения - после упаковки карточек и настройки ответов. Системный эффект - когда запущен процесс отзывов и мониторинг.
+            Срок зависит от текущей точки и конкуренции.
+          </p>
+        </details>
+
+        <details>
+          <summary>8) Вы гарантируете рост рейтинга?</summary>
+          <p>
+            Мы гарантируем процесс и контроль: оформление, регламенты, сценарии, мониторинг, системная работа с отзывами.
+            Итоговый рейтинг зависит от реального сервиса бизнеса и реакции аудитории. Мы помогаем сделать это управляемым.
+          </p>
+        </details>
+
+        <details>
+          <summary>9) Можно ли совмещать SERM и рекламу?</summary>
+          <p>
+            Нужно. Репутация повышает конверсию трафика. Мы часто связываем SERM с <a href="/yandex-direct/vedenie/">ведением Директ</a> и
+            <a href="/yandex-direct/audit/">аудитом</a> - чтобы снизить стоимость заявки и повысить качество лидов.
+          </p>
+        </details>
+
+        <details>
+          <summary>10) Как SERM влияет на SEO?</summary>
+          <p>
+            Через доверие, поведенческие сигналы, рост брендовых запросов и внешние источники. Плюс отзывы на сайте повышают вовлеченность.
+            Если нужна база - начинаем с <a href="/seo/audit-sayta/">SEO-аудита</a> и <a href="/seo/optimizaciya-sayta/">SEO-оптимизации</a>.
+          </p>
+        </details>
+
+        <details>
+          <summary>11) Сколько стоит SERM?</summary>
+          <p>
+            Индивидуально: зависит от ниши, количества площадок, текущей репутации и глубины работ.
+            Для шаблона на сайте можно поставить "от 99 999" и позже заменить на реальную вилку.
+          </p>
+        </details>
+
+        <details>
+          <summary>12) Что нужно от клиента для старта?</summary>
+          <p>
+            Доступы к площадкам (если есть), базовая информация о компании, фото/кейсы/прайс (или мы подготовим),
+            и готовность внедрить простой процесс получения отзывов. Остальное берем на себя.
+          </p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="wrap">
+      <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:space-between;">
+        <div>
+          <b>Venner Digital</b> - SERM и репутационный маркетинг
+          <div style="margin-top:6px;">
+            Смежные страницы:
+            <a href="/seo/">SEO</a> ·
+            <a href="/seo/optimizaciya-sayta/">SEO-оптимизация</a> ·
+            <a href="/seo/prodvizhenie-sayta/">SEO-продвижение</a> ·
+            <a href="/yandex-direct/">Яндекс Директ</a> ·
+            <a href="/sozdanie-saytov/">Разработка сайтов</a>
+          </div>
+        </div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <a class="btn secondary" href="#top">Наверх ↑</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- FAQ Schema (optional) -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"FAQPage",
+    "mainEntity":[
+      {"@type":"Question","name":"SERM - это удаление негатива?","acceptedAnswer":{"@type":"Answer","text":"Нет. Мы выстраиваем систему: оформление площадок, корректная реакция на негатив, рост доли позитивных отзывов, процесс и контроль."}},
+      {"@type":"Question","name":"Почему отзывы так влияют на продажи?","acceptedAnswer":{"@type":"Answer","text":"Отзывы - социальное доказательство с независимых площадок. Они влияют на клики в выдаче и конверсию из рекламы."}},
+      {"@type":"Question","name":"Можно ли сделать SERM без сайта?","acceptedAnswer":{"@type":"Answer","text":"Да, но сайт усиливает эффект: отзывы на сайте, доверительные блоки и микроразметка."}},
+      {"@type":"Question","name":"Как SERM влияет на SEO?","acceptedAnswer":{"@type":"Answer","text":"Через доверие, поведенческие сигналы, рост брендовых запросов и внешние источники. Отзывы на сайте повышают вовлеченность."}}
+    ]
+  }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1280" />
+  <title>Разработка сайта на WordPress под ключ | Venner Digital</title>
+  <style>
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:#071017;
+      color:#f5f7fb;
+      min-width:1280px;
+    }
+    a{ color:inherit; text-decoration:none; }
+
+    .topbar{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(10px);
+      background: rgba(7,16,23,0.78);
+      border-bottom:1px solid rgba(255,255,255,0.06);
+    }
+    .topbar-inner{
+      max-width:1200px; margin:0 auto; padding:14px 40px;
+      display:flex; align-items:center; justify-content:space-between; gap:14px;
+    }
+    .brand{ display:flex; align-items:center; gap:10px; font-weight:850; letter-spacing:0.2px; }
+    .brand-badge{
+      width:34px; height:34px; border-radius:12px;
+      background: linear-gradient(135deg, rgba(90,231,255,0.28), rgba(255,47,122,0.28));
+      border:1px solid rgba(255,255,255,0.12);
+      display:flex; align-items:center; justify-content:center;
+      font-weight:950;
+    }
+
+    .nav{ display:flex; gap:14px; color:#cfd7ea; font-size:13px; }
+    .nav a{ padding:8px 10px; border-radius:999px; border:1px solid transparent; }
+    .nav a:hover{ border-color:rgba(255,255,255,0.12); background:rgba(255,255,255,0.04); }
+
+    .top-cta{ display:flex; align-items:center; gap:10px; }
+    .phone{ font-weight:750; font-size:13px; color:#e8eefc; opacity:0.95; }
+    .mini-icons{ display:flex; gap:8px; }
+    .mini-ic{
+      width:34px; height:34px; border-radius:12px;
+      display:flex; align-items:center; justify-content:center;
+      border:1px solid rgba(255,255,255,0.14);
+      background:rgba(255,255,255,0.04);
+      font-size:13px; font-weight:900;
+    }
+
+    .page{ max-width:1200px; margin:0 auto; padding:24px 40px 90px; }
+
+    section{
+      margin-top:22px;
+      border-radius:24px;
+      padding:32px 36px;
+      background:#0f1c25;
+      border:1px solid rgba(255,255,255,0.04);
+    }
+
+    h1,h2,h3{ margin:0 0 14px; line-height:1.22; }
+    h1{ font-size:34px; }
+    h2{ font-size:26px; }
+    h3{ font-size:18px; }
+
+    p{ margin:0 0 10px; line-height:1.55; color:#d6dbe6; }
+    .muted{ color:#9aa4ba; font-size:14px; }
+    .muted-small{ color:#8e9ab3; font-size:12px; }
+
+    .breadcrumbs{ color:#9aa4ba; font-size:12px; margin-bottom:12px; }
+    .breadcrumbs a{ color:#cfd7ea; opacity:0.95; }
+    .breadcrumbs span{ opacity:0.7; }
+
+    .hero{
+      display:grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap:26px;
+      align-items:center;
+      background: radial-gradient(circle at top left, #253849 0, #050b10 52%, #050b10 100%);
+      overflow:hidden;
+      position:relative;
+    }
+    .hero:before{
+      content:"";
+      position:absolute; inset:-80px -120px auto auto;
+      width:520px; height:520px; border-radius:50%;
+      background: radial-gradient(circle, rgba(90,231,255,0.24), rgba(90,231,255,0.02));
+      filter: blur(1px);
+      pointer-events:none;
+    }
+
+    .chips{ display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
+    .chip{
+      font-size:13px;
+      padding:6px 10px;
+      border-radius:999px;
+      background:rgba(255,255,255,0.06);
+      border:1px solid rgba(255,255,255,0.08);
+      color:#e7edfb;
+      white-space:nowrap;
+    }
+
+    .btn-row{ display:flex; flex-wrap:wrap; gap:12px; margin-top:18px; align-items:center; }
+    .btn{
+      padding:12px 18px;
+      border-radius:999px;
+      font-size:14px;
+      font-weight:750;
+      cursor:pointer;
+      border:none;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      white-space:nowrap;
+      transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+    }
+    .btn:hover{ transform: translateY(-1px); }
+    .btn-primary{ background:#ff2f7a; color:#fff; box-shadow:0 10px 25px rgba(255,47,122,0.35); }
+    .btn-secondary{ background:transparent; color:#f5f7fb; border:1px solid rgba(255,255,255,0.18); }
+    .btn-ghost{ background:rgba(255,255,255,0.05); color:#f5f7fb; border:1px solid rgba(255,255,255,0.08); }
+
+    .messenger-badges{ display:flex; gap:8px; margin-left:4px; }
+    .badge{
+      width:36px; height:36px; border-radius:12px;
+      display:flex; align-items:center; justify-content:center;
+      font-weight:950; color:#fff; font-size:13px;
+      border: 1px solid rgba(255,255,255,0.10);
+    }
+    .wa{ background:#25d366; }
+    .tg{ background:#27a6e5; }
+    .mx{ background:#7c5cff; }
+
+    .image-placeholder{
+      height:280px;
+      border-radius:24px;
+      background: linear-gradient(135deg, #374a5c, #1c2732);
+      border:1px solid rgba(255,255,255,0.05);
+      display:flex; align-items:center; justify-content:center;
+      color:#c2cad8; font-size:13px; text-align:center; padding:14px;
+    }
+
+    .two-col{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:18px;
+      margin-top:14px;
+    }
+
+    .cards-grid{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap:14px;
+      margin-top:14px;
+    }
+    .card{
+      background:#101b25;
+      border-radius:18px;
+      padding:16px 16px 18px;
+      border:1px solid rgba(255,255,255,0.06);
+      min-height:120px;
+    }
+    .card .kicker{ color:#9aa4ba; font-size:12px; margin-bottom:8px; }
+    .card p{ margin:0; color:#cfd7ea; }
+
+    .accent{
+      border:1px solid rgba(255,47,122,0.18);
+      background: linear-gradient(135deg, rgba(255,47,122,0.10), rgba(90,231,255,0.06));
+    }
+
+    .list{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:10px;
+      margin-top:12px;
+    }
+    .li{
+      display:flex;
+      gap:10px;
+      padding:12px 12px;
+      border-radius:16px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .dot{
+      width:10px; height:10px; margin-top:6px;
+      border-radius:50%;
+      background: #5ae7ff;
+      box-shadow:0 0 0 4px rgba(90,231,255,0.10);
+      flex:0 0 10px;
+    }
+
+    .timeline{
+      display:grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap:14px;
+      margin-top:14px;
+    }
+    .step{
+      border-radius:18px;
+      padding:16px;
+      background:#101b25;
+      border:1px solid rgba(255,255,255,0.06);
+    }
+    .step .num{
+      width:28px; height:28px; border-radius:10px;
+      display:flex; align-items:center; justify-content:center;
+      background:rgba(255,255,255,0.06);
+      border:1px solid rgba(255,255,255,0.08);
+      font-weight:900; font-size:13px;
+      margin-bottom:10px;
+    }
+
+    .pricing{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap:14px;
+      margin-top:14px;
+    }
+    .price-card{
+      border-radius:22px;
+      padding:18px;
+      background:#101b25;
+      border:1px solid rgba(255,255,255,0.06);
+    }
+    .price-card h3{ margin-bottom:8px; }
+    .price{
+      font-size:22px;
+      font-weight:900;
+      margin:10px 0 12px;
+      color:#e8eefc;
+    }
+
+    .anchor{
+      border-bottom:1px dashed rgba(90,231,255,0.55);
+      color:#eaf6ff;
+      padding-bottom:1px;
+    }
+    .anchor:hover{ color:#ffffff; border-bottom-color:rgba(255,47,122,0.6); }
+
+    .cta-banner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      border-radius:24px;
+      padding:22px 22px;
+      background: linear-gradient(135deg, rgba(255,47,122,0.16), rgba(90,231,255,0.10));
+      border:1px solid rgba(255,255,255,0.08);
+      margin-top:14px;
+    }
+
+    .faq{
+      margin-top:14px;
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:10px;
+    }
+    details{
+      background:#101b25;
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,0.06);
+      padding:14px 16px;
+    }
+    summary{
+      cursor:pointer;
+      list-style:none;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      font-weight:800;
+      color:#e8eefc;
+    }
+    summary::-webkit-details-marker{ display:none; }
+    .plus{
+      width:30px; height:30px; border-radius:12px;
+      display:flex; align-items:center; justify-content:center;
+      background:rgba(255,255,255,0.06);
+      border:1px solid rgba(255,255,255,0.08);
+      font-weight:900;
+    }
+    details[open] .plus{ background:rgba(255,47,122,0.16); border-color:rgba(255,47,122,0.22); }
+    .faq-body{ padding-top:10px; color:#cfd7ea; }
+
+    .footer-note{ margin-top:10px; color:#93a0b8; font-size:12px; }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="brand-badge">V</div>
+        <div>
+          Venner Digital<br><span class="muted-small">интернет-маркетинг и разработка</span>
+        </div>
+      </div>
+
+      <div class="nav" aria-label="Навигация">
+        <a href="/sozdanie-saytov/">Разработка сайтов</a>
+        <a href="/seo/">SEO</a>
+        <a href="/yandex-direct/">Контекст</a>
+        <a href="/crm-integracii/">CRM и интеграции</a>
+      </div>
+
+      <div class="top-cta">
+        <div class="phone">8 (952) 807-06-01</div>
+        <div class="mini-icons" title="Мессенджеры">
+          <div class="mini-ic">WA</div>
+          <div class="mini-ic">TG</div>
+          <div class="mini-ic">MX</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page">
+
+    <section class="hero">
+      <div>
+        <div class="breadcrumbs">
+          <a href="/">Главная</a> <span>/</span>
+          <a href="/sozdanie-saytov/">Разработка сайтов</a> <span>/</span>
+          <span>Сайт на WordPress</span>
+        </div>
+        <h1>Разработка сайта на WordPress под ключ</h1>
+        <p class="muted">WordPress выбирают, когда нужна админка: быстро редактировать контент, добавлять страницы, вести портфолио или статьи без постоянных правок через разработчика.</p>
+
+        <div class="chips" aria-label="Ключевые преимущества">
+          <div class="chip">13+ лет на рынке (с 2013)</div>
+          <div class="chip">контент и структура - на нас</div>
+          <div class="chip">проверенные плагины</div>
+          <div class="chip">аналитика и цели</div>
+          <div class="chip">техническая SEO-основа</div>
+          <div class="chip">прозрачные этапы и сроки</div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn btn-primary">Рассчитать стоимость</button>
+          <button class="btn btn-secondary">Обсудить по телефону</button>
+          <div class="messenger-badges" aria-label="Мессенджеры">
+            <div class="badge wa" title="WhatsApp">WA</div>
+            <div class="badge tg" title="Telegram">TG</div>
+            <div class="badge mx" title="Max">MX</div>
+          </div>
+        </div>
+
+        <div class="footer-note">Прототип. Десктоп-версия. Тексты готовы под продакшн с минимальными правками.</div>
+      </div>
+
+      <div>
+        <div class="image-placeholder">
+          Плейсхолдер под иллюстрацию / скрин админки WordPress<br>
+          (покажем, что клиент реально сможет менять контент сам)
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Почему WordPress часто выбирают на практике</h2>
+      <div class="two-col">
+        <div>
+          <p>Если клиенту нужна хотя бы минимальная админка - WordPress часто самый быстрый и понятный вариант. Не потому что "дешево и сердито", а потому что можно нормально управлять сайтом: менять блоки, добавлять страницы, публиковать статьи, вести портфолио.</p>
+          <p>Мы делаем WordPress как коммерческий продукт: с нормальной структурой, скоростью, безопасностью, базовой аналитикой и подготовкой к продвижению.</p>
+        </div>
+        <div class="list">
+          <div class="li"><div class="dot"></div><div><b>Админка для бизнеса.</b> Контент меняется быстро - без переписки на 3 дня из-за одной кнопки.</div></div>
+          <div class="li"><div class="dot"></div><div><b>Развитие без боли.</b> Сегодня лендинг, завтра раздел "Портфолио" или "Блог" - и это нормально.</div></div>
+          <div class="li"><div class="dot"></div><div><b>Готовая экосистема.</b> Плагины под формы, безопасность, скорость, SEO - и мы ставим только те, что реально работают годами.</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Какие сайты делаем на WordPress</h2>
+      <p class="muted">Под разные задачи - от простого лендинга до многостраничного сайта с блогом и портфолио. Интернет-магазины на WordPress мы не берем, для этого есть <a class="anchor" href="/sozdanie-saytov/internet-magazin/">отдельные решения</a>.</p>
+
+      <div class="cards-grid">
+        <div class="card accent">
+          <div class="kicker">Быстрый запуск</div>
+          <h3>Лендинг под услугу</h3>
+          <p>Оффер, структура, доверие, заявки. Часто используется как посадочная под <a class="anchor" href="/yandex-direct/">рекламу</a>.</p>
+        </div>
+        <div class="card">
+          <div class="kicker">Классика</div>
+          <h3>Сайт компании</h3>
+          <p>Услуги, кейсы, команда, контакты, FAQ. Удобно расширять новые разделы по мере роста.</p>
+        </div>
+        <div class="card">
+          <div class="kicker">Контент и органика</div>
+          <h3>Блог</h3>
+          <p>Публикации под поисковые запросы, экспертность, ответы на вопросы, рост видимости в <a class="anchor" href="/seo/">SEO</a>.</p>
+        </div>
+        <div class="card">
+          <div class="kicker">Для экспертов</div>
+          <h3>Портфолио</h3>
+          <p>Фотограф, дизайнер, агентство, частный мастер. Удобно добавлять работы и кейсы.</p>
+        </div>
+        <div class="card">
+          <div class="kicker">Под лиды</div>
+          <h3>Многостраничный сайт услуг</h3>
+          <p>Структура под направления, отдельные посадочные внутри, сквозные блоки, заявки и аналитика.</p>
+        </div>
+        <div class="card">
+          <div class="kicker">Под запуск</div>
+          <h3>Страница под акцию</h3>
+          <p>Когда нужно быстро проверить оффер, сегмент или цену. Можно подключить аналитику и тесты.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Кому подходит WordPress</h2>
+      <p class="muted">Сценарии, где WordPress реально помогает, а не просто "чтобы было".</p>
+
+      <div class="cards-grid">
+        <div class="card"><h3>Нужна админка</h3><p>Клиент хочет сам править тексты, добавлять страницы, вести портфолио или статьи.</p></div>
+        <div class="card"><h3>Нужен быстрый старт</h3><p>Запуск в короткие сроки, но с нормальной базой - скорость, безопасность, аналитика.</p></div>
+        <div class="card"><h3>Планируется развитие</h3><p>Сегодня 5 страниц, завтра 20. WordPress подходит для роста структуры.</p></div>
+        <div class="card"><h3>Нужны заявки и цифры</h3><p>Настраиваем цели, события, UTM, чтобы понимать что дает результат, а что просто "красиво".</p></div>
+        <div class="card"><h3>Нужны интеграции</h3><p>Подключаем <a class="anchor" href="/crm-integracii/">CRM и интеграции</a>, мессенджеры, телефонию, виджеты.</p></div>
+        <div class="card"><h3>Нужен маркетинг в связке</h3><p>Сайт как часть системы: <a class="anchor" href="/seo/">SEO</a> + <a class="anchor" href="/yandex-direct/">контекст</a> + аналитика + отчеты.</p></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Плагины и функционал - ставим только проверенное</h2>
+      <p class="muted">Плагинов тысячи. Мы используем те, что реально выдержали годы и проекты, а не хайп недели.</p>
+
+      <div class="cards-grid">
+        <div class="card"><div class="kicker">Заявки</div><h3>Формы и лиды</h3><p>Формы, антиспам, уведомления, отправка заявок в <a class="anchor" href="/crm-integracii/amocrm/">amoCRM</a> или мессенджеры.</p></div>
+        <div class="card"><div class="kicker">Скорость</div><h3>Кеширование</h3><p>Ускорение загрузки, оптимизация, правильная настройка хостинга и кеша.</p></div>
+        <div class="card"><div class="kicker">Безопасность</div><h3>Защита</h3><p>Обновления, базовые меры безопасности, защита входа, бэкапы.</p></div>
+        <div class="card"><div class="kicker">Аналитика</div><h3>Метрика и GA</h3><p>События, цели, UTM-метки, отслеживание конверсий. Это база для решений.</p></div>
+        <div class="card"><div class="kicker">Продвижение</div><h3>SEO-основа</h3><p>Техническая SEO-настройка, структура, скорости, подготовка контента под <a class="anchor" href="/seo/">SEO</a>.</p></div>
+        <div class="card"><div class="kicker">Доверие</div><h3>Отзывы и виджеты</h3><p>Подключаем виджеты и сбор отзывов, например <a class="anchor" href="/lidogeneraciya/myreviews/">MyReviews</a>.</p></div>
+      </div>
+
+      <div class="cta-banner">
+        <div>
+          <h3 style="margin:0 0 6px;">Нужно быстро оценить объем работ?</h3>
+          <div class="muted">Подскажем формат сайта на WordPress и дадим ориентир по бюджету и срокам.</div>
+        </div>
+        <div class="btn-row" style="margin:0;">
+          <button class="btn btn-primary">Узнать предварительную стоимость</button>
+          <div class="messenger-badges" aria-label="Мессенджеры">
+            <div class="badge wa" title="WhatsApp">WA</div>
+            <div class="badge tg" title="Telegram">TG</div>
+            <div class="badge mx" title="Max">MX</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Как мы делаем сайт на WordPress</h2>
+      <p class="muted">Пошагово, без сюрпризов. Сначала смыслы и структура, потом дизайн и сборка.</p>
+
+      <div class="timeline">
+        <div class="step"><div class="num">1</div><h3>Бриф и цель</h3><p class="muted">Разбираем задачу, аудиторию, оффер и где сайт будет продавать.</p></div>
+        <div class="step"><div class="num">2</div><h3>Структура</h3><p class="muted">Прототипируем блоки, логику, CTA, сценарии заявок.</p></div>
+        <div class="step"><div class="num">3</div><h3>Контент</h3><p class="muted">Тексты, смыслы, выгоды. Если нужно - придумываем все с нуля.</p></div>
+        <div class="step"><div class="num">4</div><h3>Дизайн и сборка</h3><p class="muted">Собираем на WordPress, настраиваем шаблоны страниц, блоки, стили.</p></div>
+        <div class="step"><div class="num">5</div><h3>Функционал</h3><p class="muted">Плагины, формы, безопасность, скорость, базовые настройки.</p></div>
+        <div class="step"><div class="num">6</div><h3>Аналитика</h3><p class="muted">Метрика, GA, цели, события, UTM - чтобы видеть конверсию.</p></div>
+        <div class="step"><div class="num">7</div><h3>SEO-основа</h3><p class="muted">Техническая оптимизация и подготовка контента под продвижение.</p></div>
+        <div class="step"><div class="num">8</div><h3>Запуск</h3><p class="muted">Размещаем на <a class="anchor" href="/hosting/">хостинге</a>, проверяем, обучаем как пользоваться админкой.</p></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Сайт как часть системы, а не "просто страница"</h2>
+      <p class="muted">WordPress отлично работает, когда выстроена связка: сайт + трафик + аналитика + обработка заявок.</p>
+
+      <div class="two-col">
+        <div class="list">
+          <div class="li"><div class="dot"></div><div><b>SEO.</b> Если нужен стабильный поток заявок из поиска - смотрим структуру, семантику и контент. Подключаем <a class="anchor" href="/seo/semanticheskoe-yadro/">семантическое ядро</a> и план работ.</div></div>
+          <div class="li"><div class="dot"></div><div><b>Контекст.</b> Для быстрого старта - запускаем <a class="anchor" href="/yandex-direct/vedenie/">ведение рекламы</a>, тестируем офферы и посадочные.</div></div>
+          <div class="li"><div class="dot"></div><div><b>Интеграции.</b> Заявки не должны теряться - подключаем <a class="anchor" href="/crm-integracii/">CRM</a>, мессенджеры, телефонию, виджеты.</div></div>
+        </div>
+        <div class="list">
+          <div class="li"><div class="dot"></div><div><b>Коммуникации.</b> Если нужно - настраиваем интеграции через <a class="anchor" href="/crm-integracii/wazzup/">Wazzup</a> или <a class="anchor" href="/crm-integracii/chatapp/">ChatApp</a> (WhatsApp, Telegram).</div></div>
+          <div class="li"><div class="dot"></div><div><b>Репутация.</b> Подключаем и прокачиваем отзывы и карточки - это влияет и на доверие, и на конверсию. Сюда же <a class="anchor" href="/lidogeneraciya/myreviews/">виджеты отзывов</a>.</div></div>
+          <div class="li"><div class="dot"></div><div><b>Контроль и отчетность.</b> Еженедельно: задачи - метрики - выводы - план. Чтобы вы видели, что сделано и что дает деньги.</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Пакеты</h2>
+      <p class="muted">Три понятных формата, чтобы выбрать по задаче. Детали уточняем после обсуждения проекта.</p>
+
+      <div class="pricing">
+        <div class="price-card">
+          <h3>Старт</h3>
+          <p class="muted">WordPress-сайт под ключ</p>
+          <div class="price">для быстрого запуска</div>
+          <div class="list">
+            <div class="li"><div class="dot"></div><div>структура + базовый контент</div></div>
+            <div class="li"><div class="dot"></div><div>сборка на WordPress</div></div>
+            <div class="li"><div class="dot"></div><div>аналитика: цели и события</div></div>
+          </div>
+          <div class="btn-row"><button class="btn btn-ghost">Узнать предварительную стоимость</button></div>
+        </div>
+
+        <div class="price-card accent">
+          <h3>Бизнес</h3>
+          <p class="muted">WordPress + рост конверсии</p>
+          <div class="price">когда важны заявки</div>
+          <div class="list">
+            <div class="li"><div class="dot"></div><div>контент и офферы - глубже</div></div>
+            <div class="li"><div class="dot"></div><div>усиленная аналитика</div></div>
+            <div class="li"><div class="dot"></div><div>интеграции с <a class="anchor" href="/crm-integracii/">CRM</a></div></div>
+          </div>
+          <div class="btn-row"><button class="btn btn-primary">Рассчитать стоимость</button></div>
+        </div>
+
+        <div class="price-card">
+          <h3>Перфоманс</h3>
+          <p class="muted">WordPress + трафик и сопровождение</p>
+          <div class="price">когда нужен комплекс</div>
+          <div class="list">
+            <div class="li"><div class="dot"></div><div>запуск <a class="anchor" href="/yandex-direct/">рекламы</a></div></div>
+            <div class="li"><div class="dot"></div><div>тесты, гипотезы, улучшения</div></div>
+            <div class="li"><div class="dot"></div><div>отчеты и план работ</div></div>
+          </div>
+          <div class="btn-row"><button class="btn btn-ghost">Обсудить задачу</button></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>FAQ - короткий</h2>
+      <p class="muted">Ответы на вопросы, которые чаще всего задают до старта.</p>
+
+      <div class="faq">
+        <details>
+          <summary>Сколько стоит разработка сайта на WordPress?<span class="plus">+</span></summary>
+          <div class="faq-body">Зависит от объема: лендинг или многостраничный сайт, нужен ли контент с нуля, какие интеграции, аналитика, подготовка под <a class="anchor" href="/seo/">SEO</a>. Проще всего - дать вводные и получить ориентир в формате "что входит" и "что влияет на цену".</div>
+        </details>
+        <details>
+          <summary>Сколько времени занимает разработка сайта на WordPress?<span class="plus">+</span></summary>
+          <div class="faq-body">Срок зависит от скорости согласований и объема контента. В среднем: чем меньше правок и чем четче цель, тем быстрее запускаем. На старте фиксируем этапы и контрольные точки.</div>
+        </details>
+        <details>
+          <summary>Я смогу сам менять контент в админке?<span class="plus">+</span></summary>
+          <div class="faq-body">Да. Мы делаем структуру так, чтобы вы могли править тексты, добавлять страницы, публиковать статьи и портфолио. Плюс даем короткую инструкцию по админке.</div>
+        </details>
+        <details>
+          <summary>Что с безопасностью и обновлениями WordPress?<span class="plus">+</span></summary>
+          <div class="faq-body">Настраиваем базовую защиту, обновления, бэкапы. Если нужен регулярный контроль - можно подключить поддержку и мониторинг. Это дешевле, чем восстанавливать сайт после сюрпризов.</div>
+        </details>
+        <details>
+          <summary>Делаете ли вы SEO-оптимизацию WordPress-сайта?<span class="plus">+</span></summary>
+          <div class="faq-body">Да. Минимум - техническая SEO-основа при запуске. Дальше можно расширять: <a class="anchor" href="/seo/optimizaciya-sayta/">SEO оптимизация</a>, контент, семантика, внутренние страницы, продвижение.</div>
+        </details>
+        <details>
+          <summary>Можно ли подключить CRM и мессенджеры?<span class="plus">+</span></summary>
+          <div class="faq-body">Да. Подключаем <a class="anchor" href="/crm-integracii/">CRM и интеграции</a>, уведомления, виджеты, связки с мессенджерами. Для WhatsApp и Telegram часто используем <a class="anchor" href="/crm-integracii/wazzup/">Wazzup</a> или <a class="anchor" href="/crm-integracii/chatapp/">ChatApp</a>.</div>
+        </details>
+      </div>
+    </section>
+
+    <section>
+      <h2>Нужен WordPress, который реально приносит заявки?</h2>
+      <p class="muted">Напишите в удобный мессенджер - подскажем формат сайта, покажем варианты и дадим ориентир по бюджету.</p>
+
+      <div class="cta-banner">
+        <div>
+          <h3 style="margin:0 0 6px;">Быстрый расчет и план работ</h3>
+          <div class="muted">Без длинных созвонов. Сначала вводные - потом конкретика.</div>
+        </div>
+        <div class="btn-row" style="margin:0;">
+          <button class="btn btn-primary">Рассчитать стоимость</button>
+          <button class="btn btn-secondary">Обсудить по телефону</button>
+          <div class="messenger-badges" aria-label="Мессенджеры">
+            <div class="badge wa" title="WhatsApp">WA</div>
+            <div class="badge tg" title="Telegram">TG</div>
+            <div class="badge mx" title="Max">MX</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>FAQ - расширенный</h2>
+      <p class="muted">Больше экспертных ответов: про скорость, структуру, маркетинг и развитие.</p>
+
+      <div class="faq">
+        <details>
+          <summary>WordPress не будет "тормозить"?<span class="plus">+</span></summary>
+          <div class="faq-body">WordPress тормозит, когда его собирают бездумно: тяжелые плагины, нет кеша, плохой хостинг, кривые темы. Мы настраиваем скорость, кеширование, оптимизацию и размещение на нормальном <a class="anchor" href="/hosting/">хостинге</a>.</div>
+        </details>
+        <details>
+          <summary>Насколько WordPress подходит для продвижения в поиске?<span class="plus">+</span></summary>
+          <div class="faq-body">Подходит, если делать структуру и контент. Сам движок не продвигает. Продвигает: семантика, посадочные, тексты, скорость, внутренняя перелинковка, доверие. Это уже работа <a class="anchor" href="/seo/">SEO</a>.</div>
+        </details>
+        <details>
+          <summary>Что важнее - дизайн или структура и оффер?<span class="plus">+</span></summary>
+          <div class="faq-body">Для заявок важнее смысл: оффер, структура, доверие, CTA, логика блоков. Дизайн усиливает, но не заменяет. Поэтому начинаем с прототипа и контента.</div>
+        </details>
+        <details>
+          <summary>Можно ли вести блог и получать заявки из статей?<span class="plus">+</span></summary>
+          <div class="faq-body">Да, если есть стратегия: темы под запросы, внутренние ссылки на услуги, ответы на вопросы, регулярность. Для этого можно подключить <a class="anchor" href="/seo/blog/">SEO-блог</a> и контент-план.</div>
+        </details>
+        <details>
+          <summary>Как контролировать результат после запуска?<span class="plus">+</span></summary>
+          <div class="faq-body">Через аналитику и отчетность: цели, события, источники заявок, стоимость лида. Дальше - улучшения, тесты, гипотезы, трафик. Если нужен комплекс - подключаем <a class="anchor" href="/yandex-direct/vedenie/">ведение рекламы</a> и работу по <a class="anchor" href="/seo/prodvizhenie-sayta/">продвижению</a>.</div>
+        </details>
+        <details>
+          <summary>Нужны ли отзывы и виджеты на сайте?<span class="plus">+</span></summary>
+          <div class="faq-body">В большинстве ниш - да. Они повышают доверие и конверсию. Можно подключить <a class="anchor" href="/lidogeneraciya/myreviews/">виджет отзывов</a> и управление репутацией.</div>
+        </details>
+        <details>
+          <summary>Можно ли связать сайт с amoCRM и мессенджерами в одном окне?<span class="plus">+</span></summary>
+          <div class="faq-body">Да. Если задача про продажи и скорость реакции - делаем связку: сайт + <a class="anchor" href="/crm-integracii/amocrm/">amoCRM</a> + мессенджеры через <a class="anchor" href="/crm-integracii/wazzup/">Wazzup</a> или <a class="anchor" href="/crm-integracii/chatapp/">ChatApp</a> + аналитика.</div>
+        </details>
+      </div>
+
+      <div class="footer-note">Дальше на реальном сайте пойдут сквозные блоки: Доп. услуги, Наши работы, С чего начать, Контакты.</div>
+    </section>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,621 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Сквозной блок - CRM и интеграции (amoCRM)</title>
+
+  <style>
+    :root{
+      --bg:#0b0f16;
+      --card:rgba(255,255,255,.06);
+      --card2:rgba(255,255,255,.03);
+      --line:rgba(255,255,255,.12);
+      --text:#eaf0ff;
+      --muted:rgba(234,240,255,.72);
+      --accent:#63a8ff;
+      --accent2:#7ef0c7;
+      --warn:#ffd27a;
+      --shadow:0 22px 70px rgba(0,0,0,.45);
+      --r:18px;
+      --r2:26px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,"Noto Sans","Helvetica Neue",sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(900px 520px at 12% 10%, rgba(126,240,199,.16), transparent 60%),
+        radial-gradient(900px 520px at 92% 5%, rgba(99,168,255,.18), transparent 62%),
+        radial-gradient(700px 460px at 72% 88%, rgba(255,210,122,.10), transparent 60%),
+        var(--bg);
+    }
+    a{color:inherit}
+    .wrap{max-width:1200px;margin:0 auto;padding:34px 18px 70px}
+    .offer{
+      border-radius:var(--r2);
+      border:1px solid var(--line);
+      background:linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+    .offer::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(720px 340px at 12% 18%, rgba(126,240,199,.16), transparent 60%),
+        radial-gradient(720px 340px at 92% 12%, rgba(99,168,255,.18), transparent 62%);
+      pointer-events:none;
+      filter:saturate(1.15);
+    }
+    .offer-inner{
+      position:relative;
+      padding:18px;
+      display:grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap:14px;
+      align-items:stretch;
+      min-height:360px;
+    }
+    @media (max-width: 980px){
+      .offer-inner{grid-template-columns:1fr; min-height:auto}
+    }
+
+    /* left */
+    .left{
+      border-radius:22px;
+      border:1px solid rgba(255,255,255,.10);
+      background:linear-gradient(180deg, rgba(0,0,0,.20), rgba(0,0,0,.08));
+      padding:16px;
+    }
+    .topbar{
+      display:flex; gap:10px; flex-wrap:wrap;
+      align-items:center; justify-content:flex-start;
+      margin-bottom:10px;
+    }
+    .chip{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:8px 12px;border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(0,0,0,.16);
+      color:var(--muted);
+      font-size:13px;
+      white-space:nowrap;
+    }
+    .dot{
+      width:9px;height:9px;border-radius:50%;
+      background:var(--accent2);
+      box-shadow:0 0 0 4px rgba(126,240,199,.14);
+    }
+
+    .h{
+      font-size:30px; line-height:1.12; margin:10px 0 8px;
+      letter-spacing:.2px;
+    }
+    .p{
+      margin:0;
+      color:var(--muted);
+      line-height:1.55;
+      font-size:14.5px;
+    }
+    .hr{height:1px;background:rgba(255,255,255,.10);margin:12px 0}
+    .bullets{
+      display:grid; gap:10px;
+      margin-top:10px;
+    }
+    .b{
+      display:flex; gap:10px; align-items:flex-start;
+      padding:11px 12px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(0,0,0,.14);
+    }
+    .b svg{flex:0 0 auto; opacity:.95}
+    .b .t{font-weight:800; font-size:14px; margin:0 0 2px}
+    .b .d{margin:0; color:var(--muted); font-size:13.5px}
+
+    .actions{
+      display:flex; gap:10px; flex-wrap:wrap;
+      margin-top:12px;
+      align-items:center;
+    }
+    .btn{
+      display:inline-flex;align-items:center;gap:10px;
+      padding:12px 14px;border-radius:14px;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.04);
+      color:var(--text);
+      text-decoration:none;
+      transition:transform .15s ease,border-color .15s ease, background .15s ease;
+      white-space:nowrap;
+    }
+    .btn:hover{transform:translateY(-1px);border-color:rgba(99,168,255,.38);background:rgba(99,168,255,.10)}
+    .btn.primary{
+      border-color:rgba(99,168,255,.45);
+      background:linear-gradient(180deg, rgba(99,168,255,.22), rgba(99,168,255,.06));
+    }
+    .note{
+      margin-top:10px;
+      padding:10px 12px;
+      border-radius:14px;
+      border:1px dashed rgba(255,255,255,.18);
+      background:rgba(255,255,255,.03);
+      color:rgba(234,240,255,.70);
+      font-size:12.8px;
+      line-height:1.45;
+    }
+
+    /* right (tabs + FAQ per tab) */
+    .right{
+      border-radius:22px;
+      border:1px solid rgba(255,255,255,.10);
+      background:linear-gradient(180deg, rgba(0,0,0,.18), rgba(0,0,0,.08));
+      padding:14px;
+      display:grid;
+      gap:10px;
+      align-content:start;
+    }
+
+    .tabs{
+      display:flex; gap:8px; flex-wrap:wrap;
+    }
+    .tab{
+      cursor:pointer;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.03);
+      color:rgba(234,240,255,.82);
+      padding:8px 12px;
+      font-size:13px;
+      transition:transform .15s ease,border-color .15s ease, background .15s ease;
+      user-select:none;
+    }
+    .tab:hover{transform:translateY(-1px);border-color:rgba(126,240,199,.25)}
+    .tab.active{
+      border-color:rgba(126,240,199,.35);
+      background:rgba(126,240,199,.10);
+      color:var(--text);
+    }
+
+    .panel{
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(0,0,0,.14);
+      padding:12px;
+      display:none;
+    }
+    .panel.active{display:block}
+    .panel h3{
+      margin:0 0 8px;
+      font-size:15px;
+      letter-spacing:.2px;
+    }
+    .panel .grid{
+      display:grid; gap:10px;
+    }
+    .pill{
+      display:flex; gap:10px; align-items:flex-start;
+      padding:10px 11px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.03);
+    }
+    .ico{
+      width:28px;height:28px;border-radius:10px;
+      display:grid;place-items:center;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(0,0,0,.18);
+      flex:0 0 auto;
+    }
+    .pill .tt{font-weight:800; margin:0 0 2px; font-size:13.6px}
+    .pill .dd{margin:0; color:var(--muted); font-size:13px; line-height:1.4}
+
+    .faq-title{
+      margin:10px 0 8px;
+      display:inline-flex;align-items:center;gap:10px;
+      padding:8px 12px;border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(0,0,0,.16);
+      color:rgba(234,240,255,.90);
+      font-weight:800;
+      font-size:13px;
+      width:fit-content;
+    }
+    .faq-dot{
+      width:9px;height:9px;border-radius:50%;
+      background:var(--accent);
+      box-shadow:0 0 0 4px rgba(99,168,255,.14);
+    }
+
+    details{
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(0,0,0,.14);
+      padding:10px 12px;
+      overflow:hidden;
+      margin-top:8px;
+    }
+    summary{
+      cursor:pointer;
+      list-style:none;
+      display:flex;align-items:center;justify-content:space-between;gap:12px;
+      font-weight:800;
+      color:rgba(234,240,255,.92);
+      font-size:13.8px;
+    }
+    summary::-webkit-details-marker{display:none}
+    .ans{
+      color:var(--muted);
+      font-size:13px;
+      margin-top:8px;
+      line-height:1.45;
+    }
+    .caret{
+      width:10px;height:10px;transform:rotate(45deg);
+      border-right:2px solid rgba(255,255,255,.55);
+      border-bottom:2px solid rgba(255,255,255,.55);
+      transition:transform .15s ease;
+      flex:0 0 auto;
+    }
+    details[open] .caret{transform:rotate(225deg)}
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+
+    <section class="offer" aria-label="Сквозной блок CRM и интеграции">
+      <div class="offer-inner">
+
+        <!-- LEFT -->
+        <div class="left">
+          <div class="topbar">
+            <div class="chip"><span class="dot"></span>CRM и интеграции - отдел продаж в одном окне</div>
+          </div>
+
+          <h2 class="h">amoCRM + интеграции - чтобы заявки не терялись и менеджеры работали по системе</h2>
+          <p class="p">
+            Если у вас уже есть трафик и обращения, следующий шаг - привести продажи в порядок:
+            собрать все каналы в CRM, настроить воронку, автоматизации и контроль.
+            Это почти всегда дает рост конверсии без увеличения рекламного бюджета.
+          </p>
+
+          <div class="hr"></div>
+
+          <div class="bullets">
+            <div class="b">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M20 7L10 17l-5-5" stroke="var(--accent2)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <div>
+                <p class="t">Все обращения фиксируются</p>
+                <p class="d">Сайт, квизы, мессенджеры, звонки, площадки - всё падает в сделки и задачи.</p>
+              </div>
+            </div>
+
+            <div class="b">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"
+                      stroke="var(--accent)" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+              <div>
+                <p class="t">Руководитель видит цифры</p>
+                <p class="d">Конверсия по этапам, скорость ответа, просрочки, эффективность менеджеров.</p>
+              </div>
+            </div>
+
+            <div class="b">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 1l3 5 6 .9-4.3 4.2 1 6-5.7-3-5.7 3 1-6L3 6.9 9 6l3-5z"
+                      stroke="var(--warn)" stroke-width="1.8" stroke-linejoin="round"/>
+              </svg>
+              <div>
+                <p class="t">Без лишних доступов к сервисам</p>
+                <p class="d">Менеджеры работают в CRM, а каналы подключены через интеграции - безопаснее для бизнеса.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="actions">
+            <a class="btn primary" href="/crm-integracii/">Подробнее про CRM и интеграции</a>
+            <a class="btn" href="/crm-integracii/amocrm/">amoCRM</a>
+            <a class="btn" href="/crm-integracii/bitrix24/">Bitrix24</a>
+          </div>
+
+          <div class="note">
+            Про "серые" интеграции: если у сервиса нет удобного официального подключения - обсуждаем варианты, риски и выбираем решение, которое не ломает безопасность и не создает проблем проекту. По умолчанию - официальный путь и проверенные коннекторы.
+          </div>
+        </div>
+
+        <!-- RIGHT -->
+        <div class="right">
+          <div class="chip" style="justify-content:space-between">
+            <span style="display:inline-flex;align-items:center;gap:8px">
+              <span class="dot" style="background:var(--accent);box-shadow:0 0 0 4px rgba(99,168,255,.14)"></span>
+              Что подключаем и как это работает
+            </span>
+          </div>
+
+          <div class="tabs" role="tablist" aria-label="CRM tabs">
+            <button class="tab active" data-tab="t1" type="button" role="tab" aria-selected="true">amoCRM</button>
+            <button class="tab" data-tab="t2" type="button" role="tab" aria-selected="false">Мессенджеры</button>
+            <button class="tab" data-tab="t3" type="button" role="tab" aria-selected="false">Телефония</button>
+            <button class="tab" data-tab="t4" type="button" role="tab" aria-selected="false">Автоматизации</button>
+          </div>
+
+          <!-- TAB 1 -->
+          <div class="panel active" id="t1" role="tabpanel">
+            <h3>amoCRM - воронка, дисциплина, контроль</h3>
+
+            <div class="grid">
+              <div class="pill">
+                <div class="ico">📌</div>
+                <div>
+                  <p class="tt">Этапы и обязательные поля</p>
+                  <p class="dd">Чтобы менеджер не мог "проскочить" сделку без вводных и следующих шагов.</p>
+                </div>
+              </div>
+              <div class="pill">
+                <div class="ico">👥</div>
+                <div>
+                  <p class="tt">Роли и права доступа</p>
+                  <p class="dd">Отдел продаж работает в одном окне, база и переписки остаются у компании.</p>
+                </div>
+              </div>
+              <div class="pill">
+                <div class="ico">📊</div>
+                <div>
+                  <p class="tt">Отчеты и аналитика</p>
+                  <p class="dd">Скорость ответа, конверсия по этапам, причины отказов, контроль просрочек.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-title"><span class="faq-dot"></span>FAQ по amoCRM</div>
+
+            <details>
+              <summary>Сколько времени занимает внедрение?<span class="caret" aria-hidden="true"></span></summary>
+              <div class="ans">
+                Зависит от объема задач и количества каналов. Обычно делаем по этапам: сначала воронка и дисциплина, затем интеграции и автоматизации. Так быстрее получить эффект и не устроить "перестройку" отдела продаж.
+              </div>
+            </details>
+
+            <details>
+              <summary>Что нужно от вас на старте?<span class="caret" aria-hidden="true"></span></summary>
+              <div class="ans">
+                Коротко: цель (заявки/продажи), текущие источники лидов, как сейчас обрабатываете заявки, кто в команде и какие этапы продаж. Этого достаточно, чтобы собрать структуру и план работ.
+              </div>
+            </details>
+
+            <details>
+              <summary>Можно внедрять поэтапно, без остановки продаж?<span class="caret" aria-hidden="true"></span></summary>
+              <div class="ans">
+                Да. Ставим "минимальный боевой" контур: этапы, поля, задачи, контроль. Дальше спокойно наращиваем: мессенджеры, звонки, отчеты, автоматизации и дожим.
+              </div>
+            </details>
+
+            <details>
+              <summary>Если CRM уже есть, но в ней хаос - что делаете?<span class="caret" aria-hidden="true"></span></summary>
+              <div class="ans">
+                Проводим аудит: этапы, поля, права, источники, дубли, просрочки. Затем чистим и приводим к системе, не ломая текущую работу и не теряя данные.
+              </div>
+            </details>
+          </div>
+
+          <!-- TAB 2 -->
+          <div class="panel" id="t2" role="tabpanel">
+            <h3>Мессенджеры - общение внутри CRM</h3>
+
+            <div class="grid">
+              <div class="pill">
+                <div class="ico">💬</div>
+                <div>
+                  <p class="tt">WhatsApp и Telegram</p>
+                  <p class="dd">Единая история переписки в карточке сделки, быстрые ответы, контроль качества.</p>
+                </div>
+              </div>
+              <div class="pill">
+                <div class="ico">🧩</div>
+                <div>
+                  <p class="tt">Wazzup и альтернативы</p>
+                  <p class="dd">Подбираем коннектор под задачу: Wazzup, Radist.online, ChatApp.</p>
+                </div>
+              </div>
+              <div class="pill">
+                <div class="ico">🔒</div>
+                <div>
+                  <p class="tt">Без личных аккаунтов менеджеров</p>
+                  <p class="dd">Коммуникации не "живут" у сотрудника - проект защищен при смене команды.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="actions" style="margin-top:10px">
+              <a class="btn" href="/crm-integracii/wazzup/">Wazzup</a>
+              <a class="btn" href="/crm-integracii/radist-online/">Radist</a>
+              <a class="btn" href="/crm-integracii/chatapp/">ChatApp</a>
+            </div>
+
+            <div class="faq-title"><span class="faq-dot"></span>FAQ по мессенджерам</div>
+
+            <details>
+              <summary>Какие каналы подключаете в CRM?<span class="caret" aria-hidden="true"></span></summary>
+              <div class="ans">
+                Обычно WhatsApp и Telegram. Дальше - по задаче: дополнительные номера, аккаунты, связки с виджетами сайта, распределение по менеджерам.
+              </div>
+            </details>
+
+            <details>
+              <summary>Переписка точно сохранится в сделке?<span class="caret" aria-hidden="true"></span></summary>
+              <div class="ans">
+                Да, цель интеграции - чтобы история общения жила в карточке клиента и сделки: кто отвечал, что обещали, когда писали, на каком этапе находится обращение.
+              </div>
+            </details>
+
+            <details>
+              <summary>Можно ли подключить несколько номеров/аккаунтов?<span class="caret" aria-hidden="true"></span></summary>
+              <div class="ans">
+                Да. Настраиваем структуру так, чтобы менеджеры работали в одном окне, а распределение обращений было понятным: по направлениям, очереди или ответственным.
+              </div>
+            </details>
+
+            <details>
+              <summary>Что по безопасности и рискам блокировок?<span class="caret" aria-hidden="true"></span></summary>
+              <div class="ans">
+                Делаем нормальную архитектуру: права доступа, контроль сотрудников, и аккуратные сценарии общения. Если требуется нестандартное подключение - заранее обсуждаем риски и выбираем самый безопасный вариант.
+              </div>
+            </details>
+          </div>
+
+          <!-- TAB 3 -->
+          <div class="panel" id="t3" role="tabpanel">
+            <h3>Звонки и записи - чтобы видеть реальную работу</h3>
+
+            <div class="grid">
+              <div class="pill">
+                <div class="ico">📞</div>
+                <div>
+                  <p class="tt">Фиксация звонков в сделках</p>
+                  <p class="dd">Пропущенные, входящие, исходящие - с привязкой к клиенту и этапу.</p>
+                </div>
+              </div>
+              <div class="pill">
+                <div class="ico">🎙️</div>
+                <div>
+                  <p class="tt">Записи разговоров</p>
+                  <p class="dd">Контроль качества, обучение менеджеров, разбор спорных ситуаций.</p>
+                </div>
+              </div>
+              <div class="pill">
+                <div class="ico">💡</div>
+                <div>
+                  <p class="tt">Бюджетный сценарий</p>
+                  <p class="dd">Для старта часто хватает "Мои Звонки" на Android и корректной связки с CRM.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="actions" style="margin-top:10px">
+              <a class="btn" href="/crm-integracii/moi-zvonki/">Мои Звонки</a>
+            </div>
+
+            <div class="faq-title"><span class="faq-dot"></span>FAQ по телефонии</div>
+
+            <details>
+              <summary>Можно оставить текущий номер и операторов?<span class="caret" aria-hidden="true"></span></summary>
+              <div class="ans">
+                Да, чаще всего можно. Мы подбираем схему подключения, чтобы звонки фиксировались в CRM, а отдел продаж не менял привычный процесс.
+              </div>
+            </details>
+
+            <details>
+              <summary>Записи разговоров где хранятся?<span class="caret" aria-hidden="true"></span></summary>
+              <div class="ans">
+                Зависит от выбранного решения: у провайдера телефонии или в связке с CRM. Главное - чтобы записи были доступны руководителю и привязаны к сделкам.
+              </div>
+            </details>
+
+            <details>
+              <summary>Что будет с пропущенными звонками?<span class="caret" aria-hidden="true"></span></summary>
+              <div class="ans">
+                Настраиваем так, чтобы пропущенный звонок создавал задачу/сделку и не терялся. Плюс контроль SLA: кто и когда перезвонил.
+              </div>
+            </details>
+
+            <details>
+              <summary>Если менеджеры звонят с мобильных - это тоже можно привязать?<span class="caret" aria-hidden="true"></span></summary>
+              <div class="ans">
+                Да. Есть сценарии через приложения и сервисы, которые фиксируют звонки, записи и события в CRM. Выбираем вариант по бюджету и удобству.
+              </div>
+            </details>
+          </div>
+
+          <!-- TAB 4 -->
+          <div class="panel" id="t4" role="tabpanel">
+            <h3>Автоматизации - меньше ручного, больше продаж</h3>
+
+            <div class="grid">
+              <div class="pill">
+                <div class="ico">⏱️</div>
+                <div>
+                  <p class="tt">Автозадачи и SLA</p>
+                  <p class="dd">CRM сама напоминает: перезвонить, отправить КП, уточнить вводные, дожать.</p>
+                </div>
+              </div>
+              <div class="pill">
+                <div class="ico">🧾</div>
+                <div>
+                  <p class="tt">Шаблоны и быстрые ответы</p>
+                  <p class="dd">Единый стиль общения, меньше ошибок, быстрее обработка - выше конверсия.</p>
+                </div>
+              </div>
+              <div class="pill">
+                <div class="ico">🎯</div>
+                <div>
+                  <p class="tt">Распределение лидов</p>
+                  <p class="dd">По очереди/загрузке/направлению - чтобы заявки не "зависали" в чате.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-title"><span class="faq-dot"></span>FAQ по автоматизациям</div>
+
+            <details>
+              <summary>Какие автоматизации дают самый быстрый эффект?<span class="caret" aria-hidden="true"></span></summary>
+              <div class="ans">
+                Обычно это автозадачи по этапам, контроль просрочек, быстрые шаблоны сообщений и распределение лидов. Это сразу ускоряет обработку и снижает потери.
+              </div>
+            </details>
+
+            <details>
+              <summary>Можно без сложных ботов и "роботов"?<span class="caret" aria-hidden="true"></span></summary>
+              <div class="ans">
+                Да. Часто достаточно правильной воронки, задач, шаблонов и правил работы. Ботов подключаем только там, где они реально экономят время и повышают конверсию.
+              </div>
+            </details>
+
+            <details>
+              <summary>Как понять, что автоматизации не мешают продажам?<span class="caret" aria-hidden="true"></span></summary>
+              <div class="ans">
+                Делаем аккуратно: сначала базовые сценарии, затем тестируем на части потока, смотрим цифры и только потом масштабируем. Никаких "внезапных" изменений в отделе продаж.
+              </div>
+            </details>
+
+            <details>
+              <summary>Можно связать CRM с аналитикой и целями?<span class="caret" aria-hidden="true"></span></summary>
+              <div class="ans">
+                Да. Связываем заявки и качество лидов с источниками, чтобы видеть экономику: что приносит продажи, а что просто создает шум.
+              </div>
+            </details>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    (function(){
+      const tabs = Array.from(document.querySelectorAll('.tab'));
+      const panels = Array.from(document.querySelectorAll('.panel'));
+
+      function activate(id){
+        tabs.forEach(t=>{
+          const on = t.dataset.tab === id;
+          t.classList.toggle('active', on);
+          t.setAttribute('aria-selected', on ? 'true' : 'false');
+        });
+        panels.forEach(p=>p.classList.toggle('active', p.id === id));
+      }
+
+      tabs.forEach(t=>{
+        t.addEventListener('click', ()=>activate(t.dataset.tab));
+      });
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,1121 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>SEO продвижение сайтов - семантика, оптимизация, ссылки, блог, репутация | Venner Digital</title>
+  <meta name="description" content="Комплексное SEO с 2013 года: семантика, SEO-оптимизация, продвижение ссылками и контентом, аудит, SERM, блог, SEO-копирайтинг и аналитика. Тарифы: базовый, средний, максимальный." />
+
+  <style>
+    :root{
+      --bg:#0b0f14;
+      --bg2:#0f1621;
+      --card:#0f1a26cc;
+      --card2:#0c1420cc;
+      --text:#eaf2ff;
+      --muted:#a9b7cc;
+      --line:#233247;
+      --accent:#38f2c6;
+      --accent2:#00c2ff;
+
+      --good:#40f08a;
+      --warn:#ffb020;
+      --bad:#ff5a6a;
+
+      --shadow: 0 18px 60px rgba(0,0,0,.45);
+      --radius: 22px;
+      --radius2: 16px;
+      --container: 1120px;
+      --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:var(--font);
+      color:var(--text);
+      background:
+        radial-gradient(1200px 700px at 10% 0%, rgba(56,242,198,.18), transparent 55%),
+        radial-gradient(900px 600px at 95% 10%, rgba(0,194,255,.18), transparent 52%),
+        radial-gradient(900px 700px at 30% 100%, rgba(56,242,198,.10), transparent 55%),
+        linear-gradient(180deg, var(--bg), var(--bg2));
+      overflow-x:hidden;
+    }
+
+    a{color:inherit}
+    .container{max-width:var(--container); margin:0 auto; padding:0 22px}
+
+    .pill{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:8px 12px;
+      border:1px solid rgba(56,242,198,.25);
+      background: linear-gradient(180deg, rgba(15,26,38,.65), rgba(12,20,32,.35));
+      border-radius:999px;
+      color:var(--muted);
+      font-size:13px;
+    }
+    .dot{
+      width:10px;height:10px;border-radius:999px;
+      background: radial-gradient(circle at 30% 30%, #fff, rgba(255,255,255,.2) 35%, transparent 60%),
+                  linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow:0 0 0 6px rgba(56,242,198,.10);
+    }
+
+    .hero{padding:56px 0 28px; position:relative}
+    .h1{font-size:50px; line-height:1.05; margin:14px 0 10px; letter-spacing:-.02em}
+    .lead{font-size:18px; line-height:1.55; color:var(--muted); margin:0; max-width:920px}
+
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap:18px;
+      margin-top:24px;
+      align-items:stretch;
+    }
+    @media(max-width: 980px){
+      .hero-grid{grid-template-columns:1fr}
+      .h1{font-size:40px}
+    }
+
+    .card{
+      background: linear-gradient(180deg, rgba(15,26,38,.78), rgba(12,20,32,.55));
+      border:1px solid rgba(35,50,71,.8);
+      border-radius:var(--radius);
+      box-shadow: var(--shadow);
+      padding:22px;
+      backdrop-filter: blur(8px);
+    }
+    .card.soft{
+      background: linear-gradient(180deg, rgba(15,26,38,.55), rgba(12,20,32,.35));
+      box-shadow: 0 16px 45px rgba(0,0,0,.35);
+    }
+
+    .btns{display:flex; gap:12px; flex-wrap:wrap; margin-top:16px}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      padding:12px 16px;
+      border-radius:14px;
+      border:1px solid rgba(56,242,198,.28);
+      background: linear-gradient(135deg, rgba(56,242,198,.18), rgba(0,194,255,.12));
+      text-decoration:none;
+      font-weight:800;
+      letter-spacing:.01em;
+      box-shadow: 0 10px 25px rgba(0,0,0,.25);
+    }
+    .btn:hover{transform: translateY(-1px)}
+    .btn.secondary{
+      border:1px solid rgba(35,50,71,.9);
+      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      color:var(--text);
+      font-weight:650;
+    }
+    .btn.small{padding:10px 14px; border-radius:13px; font-size:14px}
+    .btn .arr{opacity:.9}
+
+    .kpi-grid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:12px;
+      margin-top:14px;
+    }
+    @media(max-width: 980px){ .kpi-grid{grid-template-columns:1fr} }
+
+    .kpi{
+      border:1px solid rgba(35,50,71,.8);
+      border-radius:18px;
+      padding:16px;
+      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+    }
+    .kpi .t{font-size:13px; color:var(--muted); margin-bottom:8px}
+    .kpi .v{font-size:18px; font-weight:900; letter-spacing:-.01em}
+    .kpi .s{font-size:13px; color:var(--muted); margin-top:6px; line-height:1.45}
+
+    .section{padding:28px 0}
+    .h2{font-size:30px; margin:0 0 12px; letter-spacing:-.01em}
+    .sub{color:var(--muted); margin:0 0 18px; line-height:1.6}
+    .divider{height:1px; background:linear-gradient(90deg, transparent, rgba(56,242,198,.22), rgba(0,194,255,.18), transparent); margin:10px 0 0}
+
+    .grid-2{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+    @media(max-width: 980px){ .grid-2{grid-template-columns:1fr} }
+
+    .grid-3{display:grid; grid-template-columns:repeat(3,1fr); gap:14px}
+    @media(max-width: 980px){ .grid-3{grid-template-columns:1fr} }
+
+    .list{display:grid; gap:10px; margin:0; padding:0; list-style:none}
+    .li{
+      display:flex; gap:12px; align-items:flex-start;
+      padding:12px 12px;
+      border:1px solid rgba(35,50,71,.75);
+      border-radius:16px;
+      background: linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.02));
+    }
+    .ic{
+      flex:0 0 26px; height:26px; border-radius:10px;
+      background: linear-gradient(135deg, rgba(56,242,198,.35), rgba(0,194,255,.22));
+      border:1px solid rgba(56,242,198,.25);
+      display:flex; align-items:center; justify-content:center;
+      margin-top:1px;
+      font-weight:900;
+      color:#081019;
+    }
+    .li b{display:block; margin-bottom:4px}
+    .li span{color:var(--muted); line-height:1.55}
+
+    .compare{
+      display:grid; grid-template-columns: 1fr 1fr; gap:14px;
+    }
+    @media(max-width: 980px){ .compare{grid-template-columns:1fr} }
+    .box{
+      border:1px solid rgba(35,50,71,.8);
+      border-radius:18px;
+      overflow:hidden;
+      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+    }
+    .box .head{
+      padding:14px 16px;
+      font-weight:900;
+      display:flex; align-items:center; gap:10px;
+      border-bottom:1px solid rgba(35,50,71,.7);
+    }
+    .badge{
+      font-size:12px;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(35,50,71,.8);
+      color:var(--muted);
+      background: rgba(0,0,0,.15);
+    }
+    .box .body{padding:14px 16px}
+    .box ul{margin:0; padding-left:18px; color:var(--muted); line-height:1.65}
+    .box.good .head{background: rgba(64,240,138,.10)}
+    .box.bad .head{background: rgba(255,90,106,.10)}
+    .box.good .badge{border-color: rgba(64,240,138,.35); color: rgba(64,240,138,.95)}
+    .box.bad .badge{border-color: rgba(255,90,106,.35); color: rgba(255,90,106,.95)}
+
+    .tiles{display:grid; grid-template-columns:repeat(3,1fr); gap:14px}
+    @media(max-width: 980px){ .tiles{grid-template-columns:1fr} }
+    .tile{
+      border:1px solid rgba(35,50,71,.8);
+      border-radius:18px;
+      padding:16px;
+      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+    }
+    .tile .top{display:flex; align-items:center; justify-content:space-between; gap:10px}
+    .tile .name{font-weight:900; font-size:16px}
+    .tile .desc{color:var(--muted); margin:10px 0 0; line-height:1.6}
+    .tile .links{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px}
+    .link{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:9px 12px;
+      border-radius:13px;
+      border:1px solid rgba(35,50,71,.85);
+      background: rgba(0,0,0,.16);
+      text-decoration:none;
+      color:rgba(233,242,255,.92);
+      font-weight:700;
+      font-size:13px;
+    }
+    .link:hover{transform: translateY(-1px)}
+    .link .arr{opacity:.85}
+
+    .tariffs{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:14px;
+      align-items:stretch;
+    }
+    @media(max-width: 980px){ .tariffs{grid-template-columns:1fr} }
+
+    .plan{
+      border:1px solid rgba(35,50,71,.8);
+      border-radius:20px;
+      padding:18px;
+      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      position:relative;
+      overflow:hidden;
+    }
+    .plan.reco{
+      border-color: rgba(56,242,198,.28);
+      box-shadow: 0 22px 60px rgba(0,0,0,.40);
+      background:
+        radial-gradient(800px 260px at 15% 0%, rgba(56,242,198,.18), transparent 55%),
+        radial-gradient(800px 260px at 90% 0%, rgba(0,194,255,.14), transparent 55%),
+        linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+    }
+    .plan .cap{display:flex; align-items:center; justify-content:space-between; gap:12px}
+    .plan .title{font-weight:950; font-size:18px; letter-spacing:-.01em}
+    .plan .price{color:var(--muted); font-size:13px}
+    .plan .note{color:var(--muted); font-size:13px; line-height:1.55; margin-top:10px}
+    .plan ul{margin:12px 0 0; padding-left:18px; color:var(--muted); line-height:1.75}
+    .plan .mini{margin-top:14px; display:flex; gap:10px; flex-wrap:wrap}
+    .chip{
+      font-size:12px;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(35,50,71,.85);
+      color:var(--muted);
+      background: rgba(0,0,0,.12);
+    }
+
+    .cta{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      padding:18px;
+      border-radius:20px;
+      border:1px solid rgba(56,242,198,.22);
+      background:
+        radial-gradient(900px 300px at 10% 0%, rgba(56,242,198,.20), transparent 55%),
+        radial-gradient(900px 300px at 90% 0%, rgba(0,194,255,.16), transparent 55%),
+        linear-gradient(180deg, rgba(15,26,38,.70), rgba(12,20,32,.35));
+    }
+    .cta .left{max-width:820px}
+    .cta .title{font-size:18px; font-weight:950; margin:0 0 6px}
+    .cta .desc{margin:0; color:var(--muted); line-height:1.55}
+    @media(max-width: 980px){
+      .cta{flex-direction:column; align-items:flex-start}
+    }
+
+    details{
+      border:1px solid rgba(35,50,71,.75);
+      border-radius:16px;
+      padding:12px 14px;
+      background: linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.02));
+    }
+    details summary{
+      cursor:pointer;
+      font-weight:900;
+      list-style:none;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+    }
+    details summary::-webkit-details-marker{display:none}
+    details p{margin:10px 0 0; color:var(--muted); line-height:1.6}
+
+    .footer-note{
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.55;
+      padding:18px 0 44px;
+      border-top:1px solid rgba(35,50,71,.65);
+      margin-top:18px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HERO -->
+  <section class="hero" id="top">
+    <div class="container">
+      <div class="pill"><span class="dot"></span><span>SEO</span><span class="badge">комплексный подход</span></div>
+
+      <h1 class="h1">SEO продвижение - трафик, доверие и заявки из поиска</h1>
+      <p class="lead">
+        SEO - это не "пара правок и ждём топ". Это система: семантика, структура сайта, техническая база, контент, ссылки, репутация и аналитика.
+        Мы делаем SEO с 2013 года - видели, как менялись алгоритмы, и строим продвижение так, чтобы сайт рос, а не зависел от одного источника трафика.
+      </p>
+
+      <div class="hero-grid">
+        <div class="card">
+          <div class="kpi-grid">
+            <div class="kpi">
+              <div class="t">Что даёт SEO</div>
+              <div class="v">Долгий трафик</div>
+              <div class="s">В отличие от рекламы, органика работает и после того, как бюджет “на паузе”.</div>
+            </div>
+            <div class="kpi">
+              <div class="t">Для бизнеса</div>
+              <div class="v">Ниже цена лида</div>
+              <div class="s">При системном подходе заявки из поиска обычно дешевле и “чище”.</div>
+            </div>
+            <div class="kpi">
+              <div class="t">Для бренда</div>
+              <div class="v">Доверие</div>
+              <div class="s">Отзывы, репутация и экспертность повышают конверсию во всех каналах.</div>
+            </div>
+          </div>
+
+          <div class="btns">
+            <a class="btn" href="#tariffs">Тарифы SEO <span class="arr">→</span></a>
+            <a class="btn secondary" href="#steps">Как работает SEO</a>
+            <a class="btn secondary" href="#faq">FAQ</a>
+          </div>
+
+          <div class="divider"></div>
+          <p class="sub" style="margin-top:12px">
+            Важно: мы не начинаем SEO “вслепую”. Сначала - диагностика и фундамент, а потом - рост за счёт контента, ссылок и репутации.
+          </p>
+        </div>
+
+        <div class="card soft">
+          <div style="font-weight:950; font-size:18px; margin-bottom:10px">SEO подходит, если вы хотите</div>
+          <ul class="list">
+            <li class="li"><div class="ic">1</div><div><b>Регулярные заявки</b><span>Из Яндекс и Google без зависимости от одного канала.</span></div></li>
+            <li class="li"><div class="ic">2</div><div><b>Рост в конкурентной нише</b><span>Не “магией”, а системной работой по точкам роста.</span></div></li>
+            <li class="li"><div class="ic">3</div><div><b>Понятный план</b><span>Что делаем, почему, что даёт деньги и как измеряем результат.</span></div></li>
+          </ul>
+
+          <div class="cta" style="margin-top:14px">
+            <div class="left">
+              <p class="title">Связка сильнее одиночных действий</p>
+              <p class="desc">Сайт + SEO + реклама + репутация + аналитика + CRM дают эффект в разы быстрее, чем “делаем только одно”.</p>
+            </div>
+            <a class="btn secondary small" href="/services/">Смежные услуги →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT IS SEO -->
+  <section class="section" id="what">
+    <div class="container">
+      <h2 class="h2">Что такое SEO и почему оно работает</h2>
+      <p class="sub">
+        SEO (Search Engine Optimization) - это набор работ, которые помогают сайту соответствовать ожиданиям поисковых систем и пользователей.
+        Задача не “обмануть алгоритмы”, а сделать сайт понятным: по структуре, по контенту, по скорости, по доверительным сигналам.
+      </p>
+
+      <div class="grid-2">
+        <div class="card">
+          <h3 style="margin:0 0 10px; font-size:18px">Органическая выдача простыми словами</h3>
+          <ul class="list">
+            <li class="li"><div class="ic">✓</div><div><b>Бесплатные клики</b><span>Вы не платите за каждый переход, как в контекстной рекламе.</span></div></li>
+            <li class="li"><div class="ic">✓</div><div><b>Доверие выше</b><span>Пользователи чаще доверяют “естественным” результатам поиска.</span></div></li>
+            <li class="li"><div class="ic">✓</div><div><b>Эффект накопления</b><span>Контент, структура и репутация со временем усиливают домен.</span></div></li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3 style="margin:0 0 10px; font-size:18px">SEO и контекстная реклама - в чём разница</h3>
+          <div class="compare">
+            <div class="box bad">
+              <div class="head">
+                <span class="badge">Контекст</span>
+                <span>Быстро, но пока платите</span>
+              </div>
+              <div class="body">
+                <ul>
+                  <li>Есть бюджет - есть трафик.</li>
+                  <li>Пауза бюджета - трафик обнуляется.</li>
+                  <li>Хорошо для стартов, тестов, сезонности.</li>
+                </ul>
+              </div>
+            </div>
+            <div class="box good">
+              <div class="head">
+                <span class="badge">SEO</span>
+                <span>Дольше, но накапливает эффект</span>
+              </div>
+              <div class="body">
+                <ul>
+                  <li>Трафик растет постепенно.</li>
+                  <li>После “фундамента” результаты держатся дольше.</li>
+                  <li>Снижает зависимость от рекламы.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+          <p class="sub" style="margin-top:12px">
+            Идеальная стратегия - не выбирать “или”, а использовать “и”: реклама даёт быстрые заявки, SEO - устойчивость и рост в долгую.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEPS -->
+  <section class="section" id="steps">
+    <div class="container">
+      <h2 class="h2">Как мы выстраиваем SEO. Пошагово</h2>
+      <p class="sub">
+        SEO - это процесс. Мы делаем его понятным: начинаем с диагностики и фундамента, затем масштабируем рост через контент, ссылки и репутацию.
+      </p>
+
+      <div class="grid-3">
+        <div class="card">
+          <h3 style="margin:0 0 10px; font-size:18px">1) Семантика и спрос</h3>
+          <p class="sub" style="margin:0 0 12px">
+            Сначала понимаем, что ищет аудитория, как она формулирует запросы и какие страницы нужны.
+          </p>
+          <ul class="list">
+            <li class="li"><div class="ic">•</div><div><b>Сбор и чистка</b><span>Убираем мусор, фиксируем частотность, формируем основу.</span></div></li>
+            <li class="li"><div class="ic">•</div><div><b>Кластеризация</b><span>Группируем запросы - это будущая структура сайта.</span></div></li>
+          </ul>
+          <div class="btns">
+            <a class="link" href="/seo/semanticicheskoe-yadro/">Подробнее про семантику <span class="arr">→</span></a>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3 style="margin:0 0 10px; font-size:18px">2) SEO-оптимизация</h3>
+          <p class="sub" style="margin:0 0 12px">
+            Подготовка сайта к росту: техчасть, структура, метатеги, контент, перелинковка, скорость.
+          </p>
+          <ul class="list">
+            <li class="li"><div class="ic">•</div><div><b>Техническая база</b><span>Скорость, индексация, карты сайта, robots, разметка.</span></div></li>
+            <li class="li"><div class="ic">•</div><div><b>Контент и метатеги</b><span>Тайтлы, дескрипшены, заголовки, тексты, alt, структура.</span></div></li>
+          </ul>
+          <div class="btns">
+            <a class="link" href="/seo/optimizaciya-sayta/">Подробнее про оптимизацию <span class="arr">→</span></a>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3 style="margin:0 0 10px; font-size:18px">3) SEO-продвижение</h3>
+          <p class="sub" style="margin:0 0 12px">
+            Рост видимости и трафика: ссылки, контент, блог, репутация, улучшение CTR и пользовательских факторов.
+          </p>
+          <ul class="list">
+            <li class="li"><div class="ic">•</div><div><b>Ссылочное</b><span>План доноров, анкоры/безанкоры, безопасность, качество.</span></div></li>
+            <li class="li"><div class="ic">•</div><div><b>Контент и обновления</b><span>Усиление коммерческих страниц и регулярный контент.</span></div></li>
+          </ul>
+          <div class="btns">
+            <a class="link" href="/seo/prodvizhenie-sayta/">Подробнее про продвижение <span class="arr">→</span></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="cta" style="margin-top:14px">
+        <div class="left">
+          <p class="title">SEO без фундамента - деньги в шум</p>
+          <p class="desc">Если сайт не подготовлен, ссылки и статьи могут не дать эффекта. Поэтому оптимизация всегда идет перед масштабированием.</p>
+        </div>
+        <a class="btn secondary small" href="/services/razrabotka-sayta/">Сайт под SEO →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES SUMMARY -->
+  <section class="section" id="services">
+    <div class="container">
+      <h2 class="h2">Что входит в SEO. Коротко по направлениям</h2>
+      <p class="sub">
+        Ниже - блоки по всем внутренним страницам раздела SEO. Здесь мы показываем картину целиком, а детали - на отдельных страницах.
+      </p>
+
+      <div class="tiles">
+        <div class="tile">
+          <div class="top">
+            <div class="name">Семантическое ядро</div>
+            <span class="badge">основа</span>
+          </div>
+          <p class="desc">Сбор запросов, чистка, частотность, кластеры. Дает понимание спроса и структуру будущих страниц.</p>
+          <div class="links">
+            <a class="link" href="/seo/semanticicheskoe-yadro/">Подробнее <span class="arr">→</span></a>
+          </div>
+        </div>
+
+        <div class="tile">
+          <div class="top">
+            <div class="name">SEO-оптимизация</div>
+            <span class="badge">фундамент</span>
+          </div>
+          <p class="desc">Техническая часть + контент: метатеги, структура, перелинковка, скорость, индексация, микроразметка.</p>
+          <div class="links">
+            <a class="link" href="/seo/optimizaciya-sayta/">Подробнее <span class="arr">→</span></a>
+          </div>
+        </div>
+
+        <div class="tile">
+          <div class="top">
+            <div class="name">SEO-продвижение</div>
+            <span class="badge">рост</span>
+          </div>
+          <p class="desc">Ссылки, контент, усиление коммерческих страниц, работа с факторами доверия и видимости.</p>
+          <div class="links">
+            <a class="link" href="/seo/prodvizhenie-sayta/">Подробнее <span class="arr">→</span></a>
+          </div>
+        </div>
+
+        <div class="tile">
+          <div class="top">
+            <div class="name">SEO-аудит сайта</div>
+            <span class="badge">точка А</span>
+          </div>
+          <p class="desc">Диагностика технической базы, индексации, структуры, ссылок и позиций. Нужен для сайтов, где SEO уже делали.</p>
+          <div class="links">
+            <a class="link" href="/seo/audit-sayta/">Подробнее <span class="arr">→</span></a>
+          </div>
+        </div>
+
+        <div class="tile">
+          <div class="top">
+            <div class="name">SERM - репутация</div>
+            <span class="badge">доверие</span>
+          </div>
+          <p class="desc">Карточки на площадках, оформление, контент, работа с отзывами и рейтингами. Усиливает SEO и рекламу.</p>
+          <div class="links">
+            <a class="link" href="/seo/serm-reputaciya/">Подробнее <span class="arr">→</span></a>
+            <a class="link" href="/myreviews/">MyReviews widget <span class="arr">→</span></a>
+          </div>
+        </div>
+
+        <div class="tile">
+          <div class="top">
+            <div class="name">SEO-блог</div>
+            <span class="badge">НЧ-трафик</span>
+          </div>
+          <p class="desc">Регулярные статьи закрывают низкочастотные запросы, дают перелинковку и рост авторитета домена.</p>
+          <div class="links">
+            <a class="link" href="/seo/blog/">Подробнее <span class="arr">→</span></a>
+          </div>
+        </div>
+
+        <div class="tile">
+          <div class="top">
+            <div class="name">SEO-копирайтинг</div>
+            <span class="badge">контент</span>
+          </div>
+          <p class="desc">Тексты, которые ранжируются и продают: структура, смысл, LSI, ответы на вопросы, E-E-A-T.</p>
+          <div class="links">
+            <a class="link" href="/seo/kopirayting/">Подробнее <span class="arr">→</span></a>
+          </div>
+        </div>
+
+        <div class="tile">
+          <div class="top">
+            <div class="name">Topvisor - аналитика</div>
+            <span class="badge">контроль</span>
+          </div>
+          <p class="desc">Мониторинг позиций, семантика, отчеты и прозрачность для клиента. Это “панель приборов” SEO.</p>
+          <div class="links">
+            <a class="link" href="/seo/topvisor/">Подробнее <span class="arr">→</span></a>
+          </div>
+        </div>
+
+        <div class="tile">
+          <div class="top">
+            <div class="name">Сайт + SEO + реклама + CRM</div>
+            <span class="badge">система</span>
+          </div>
+          <p class="desc">SEO лучше работает в связке: сайт под конверсию, аналитика, заявки в CRM, контроль качества лидов.</p>
+          <div class="links">
+            <a class="link" href="/services/crm/">CRM и автоматизация <span class="arr">→</span></a>
+            <a class="link" href="/kontekst/">Контекстная реклама <span class="arr">→</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY SEO FAILS (compare) -->
+  <section class="section" id="why-fails">
+    <div class="container">
+      <h2 class="h2">Почему у многих SEO “не работает”. И как должно быть</h2>
+      <p class="sub">
+        На рынке много “SEO по шаблону”: отчеты есть, роста нет. Обычно проблема не в SEO как канале, а в подходе и фундаменте.
+      </p>
+
+      <div class="compare">
+        <div class="box bad">
+          <div class="head">
+            <span class="badge">Типовые ошибки</span>
+            <span>Из-за этого результата нет</span>
+          </div>
+          <div class="body">
+            <ul>
+              <li>Продвижение без оптимизации: сайт технически не готов.</li>
+              <li>Нет семантики и структуры: продвигают “всё и сразу”.</li>
+              <li>Контент ради объёма: без смысла, без пользы, без связки с услугами.</li>
+              <li>Ссылки “как получится”: риск фильтров и пустой расход бюджета.</li>
+              <li>Ноль репутации: низкое доверие, слабая конверсия из трафика.</li>
+              <li>Нет аналитики: спорят о результате, а не управляют им.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="box good">
+          <div class="head">
+            <span class="badge">Наш стандарт</span>
+            <span>Так SEO становится управляемым</span>
+          </div>
+          <div class="body">
+            <ul>
+              <li>Семантика и кластеры → понятная структура сайта.</li>
+              <li>Оптимизация → технический фундамент + контент под спрос.</li>
+              <li>Продвижение → ссылки + обновления + поведенческие факторы.</li>
+              <li>Репутация → доверие и выше конверсия в заявке.</li>
+              <li>Блог и статьи → расширение охвата и рост домена.</li>
+              <li>Topvisor → прозрачность, контроль, история изменений.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="cta" style="margin-top:14px">
+        <div class="left">
+          <p class="title">SEO - это инвестиция, если подход системный</p>
+          <p class="desc">Можно начать с базового тарифа и постепенно усиливать: контентом, ссылками, репутацией и блогом.</p>
+        </div>
+        <a class="btn secondary small" href="#tariffs">Перейти к тарифам →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- TARIFFS -->
+  <section class="section" id="tariffs">
+    <div class="container">
+      <h2 class="h2">Тарифы SEO-продвижения</h2>
+      <p class="sub">
+        Стоимость зависит от ниши, региона, конкуренции и количества направлений. Ниже - три базовых формата работы, которые закрывают большинство задач.
+        Любой тариф можно масштабировать под проект.
+      </p>
+
+      <div class="tariffs">
+        <div class="plan">
+          <div class="cap">
+            <div class="title">Минимум - базовое продвижение</div>
+            <div class="price">от 30 000 ₽/мес</div>
+          </div>
+          <div class="note">
+            Подходит, если нужно начать “правильно”, без перегруза, и наращивать видимость постепенно.
+          </div>
+          <ul>
+            <li>Ссылочное продвижение (план, доноры, безопасность).</li>
+            <li>Контроль позиций и динамики (Topvisor/аналог).</li>
+            <li>Ежемесячная фиксация результатов и корректировки приоритетов.</li>
+            <li>Рекомендации по точкам роста (что усиливать на сайте).</li>
+          </ul>
+          <div class="mini">
+            <span class="chip">подходит для старта</span>
+            <span class="chip">накапливает эффект</span>
+            <span class="chip">минимум вмешательств</span>
+          </div>
+        </div>
+
+        <div class="plan reco">
+          <div class="cap">
+            <div class="title">Средний - комплексный рост</div>
+            <div class="price">от 50 000 ₽/мес</div>
+          </div>
+          <div class="note">
+            Самый частый формат: ссылки + контент + регулярные улучшения сайта. Дает устойчивый рост в конкурентных нишах.
+          </div>
+          <ul>
+            <li>Ссылочное продвижение + корректировки стратегии.</li>
+            <li>Работа с метатегами и контентом коммерческих страниц.</li>
+            <li>Улучшение структуры, перелинковки, сниппетов (CTR).</li>
+            <li>Регулярная аналитика: позиции, страницы роста, приоритеты.</li>
+          </ul>
+          <div class="mini">
+            <span class="chip">оптимальный баланс</span>
+            <span class="chip">контент + ссылки</span>
+            <span class="chip">управляемый рост</span>
+          </div>
+        </div>
+
+        <div class="plan">
+          <div class="cap">
+            <div class="title">Максимум - топ и бренд</div>
+            <div class="price">от 70 000 ₽/мес</div>
+          </div>
+          <div class="note">
+            Для проектов, где важен максимум видимости: SEO + блог + репутация + усиление доверия. Особенно полезно для высококонкурентных ниш.
+          </div>
+          <ul>
+            <li>Ссылочное + контентное продвижение на максимуме.</li>
+            <li>SEO-блог: регулярные экспертные статьи и обновления старых.</li>
+            <li>SERM: оформление площадок, работа с репутацией и рейтингами.</li>
+            <li>Глубокая аналитика, расширение структуры, масштабирование запросов.</li>
+          </ul>
+          <div class="mini">
+            <span class="chip">максимальная видимость</span>
+            <span class="chip">блог + репутация</span>
+            <span class="chip">сильный бренд</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+      <p class="sub" style="margin-top:12px">
+        Важно: перед подключением продвижения мы оцениваем состояние сайта. Если фундамент не заложен - сначала делаем SEO-оптимизацию или аудит, затем масштабируем.
+      </p>
+    </div>
+  </section>
+
+  <!-- AUDIT BLOCK -->
+  <section class="section" id="audit">
+    <div class="container">
+      <h2 class="h2">SEO-аудит. Когда он нужен</h2>
+      <p class="sub">
+        Аудит нужен в первую очередь сайтам, где SEO уже делали: есть история изменений, ссылки, попытки “оптимизации”.
+        Цель - понять точку А и составить план, как дойти до точки Б без лишних трат.
+      </p>
+
+      <div class="grid-2">
+        <div class="card">
+          <h3 style="margin:0 0 10px; font-size:18px">Что проверяем</h3>
+          <ul class="list">
+            <li class="li"><div class="ic">✓</div><div><b>Индексация и структура</b><span>robots, sitemap, дубли, URL-логика, каноникал.</span></div></li>
+            <li class="li"><div class="ic">✓</div><div><b>Метатеги и контент</b><span>тайтлы, дескрипшены, заголовки, релевантность запросам.</span></div></li>
+            <li class="li"><div class="ic">✓</div><div><b>Скорость и техошибки</b><span>Core Web Vitals, мобильность, безопасность, разметка.</span></div></li>
+            <li class="li"><div class="ic">✓</div><div><b>Ссылочный профиль</b><span>качество доноров, анкоры, риск санкций.</span></div></li>
+          </ul>
+          <div class="btns">
+            <a class="link" href="/seo/audit-sayta/">Подробнее про SEO-аудит <span class="arr">→</span></a>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3 style="margin:0 0 10px; font-size:18px">Где аудит особенно полезен</h3>
+          <ul class="list">
+            <li class="li"><div class="ic">1</div><div><b>Перед редизайном</b><span>Сохраняем SEO-начинку, чтобы позиции не “поплыли”.</span></div></li>
+            <li class="li"><div class="ic">2</div><div><b>Если трафик просел</b><span>Ищем причину: техчасть, контент, санкции, конкуренты.</span></div></li>
+            <li class="li"><div class="ic">3</div><div><b>Если SEO “делали раньше”</b><span>Проверяем, что было сделано и что реально работает сейчас.</span></div></li>
+          </ul>
+
+          <div class="cta" style="margin-top:14px">
+            <div class="left">
+              <p class="title">Редизайн без потери SEO</p>
+              <p class="desc">Когда есть трафик и позиции - редизайн нужно делать аккуратно. Мы сохраняем структуру, URL и важные SEO-сигналы.</p>
+            </div>
+            <a class="btn secondary small" href="/services/redizayn/">Про редизайн →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REPUTATION -->
+  <section class="section" id="reputation">
+    <div class="container">
+      <h2 class="h2">SERM - репутация, которая усиливает SEO и рекламу</h2>
+      <p class="sub">
+        Репутация - это не “красиво на картинке”. Это доверие в выдаче, конверсия из трафика и дополнительный сигнал качества для поисковиков.
+        Чем лучше рейтинг и больше подтвержденной активности на площадках, тем легче продавать и дешевле привлекать лиды.
+      </p>
+
+      <div class="grid-2">
+        <div class="card">
+          <h3 style="margin:0 0 10px; font-size:18px">Что делаем в SERM</h3>
+          <ul class="list">
+            <li class="li"><div class="ic">✓</div><div><b>Оформление площадок</b><span>Карточки, фото, услуги, прайс, посты/новости - где это возможно.</span></div></li>
+            <li class="li"><div class="ic">✓</div><div><b>Управление отзывами</b><span>Процесс получения отзывов, реакции, ответы, контроль качества.</span></div></li>
+            <li class="li"><div class="ic">✓</div><div><b>Связка с сайтом</b><span>Виджеты, блоки доверия, микроразметка, рост конверсии.</span></div></li>
+          </ul>
+          <div class="btns">
+            <a class="link" href="/seo/serm-reputaciya/">Подробнее про SERM <span class="arr">→</span></a>
+            <a class="link" href="/myreviews/">MyReviews widget <span class="arr">→</span></a>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3 style="margin:0 0 10px; font-size:18px">Наглядно: с репутацией и без</h3>
+          <div class="compare">
+            <div class="box bad">
+              <div class="head"><span class="badge">Без репутации</span><span>Трафик есть, заявок меньше</span></div>
+              <div class="body">
+                <ul>
+                  <li>Пользователь сомневается и уходит сравнивать.</li>
+                  <li>Реклама работает хуже: доверия меньше.</li>
+                  <li>В выдаче нет “соцдоказательств”.</li>
+                </ul>
+              </div>
+            </div>
+            <div class="box good">
+              <div class="head"><span class="badge">С репутацией</span><span>Конверсия выше</span></div>
+              <div class="body">
+                <ul>
+                  <li>Быстрее принятие решения.</li>
+                  <li>Выше CTR и лучше поведенческие сигналы.</li>
+                  <li>Усиление бренда и возвратных обращений.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="divider"></div>
+          <p class="sub" style="margin-top:12px">
+            Репутация влияет сразу на 3 вещи: SEO, контекстную рекламу и продажи. Поэтому в максимальном тарифе она входит как обязательная часть.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOG + COPYWRITING -->
+  <section class="section" id="content">
+    <div class="container">
+      <h2 class="h2">Контент, который приносит трафик и продаёт</h2>
+      <p class="sub">
+        В SEO контент - это “топливо”. Но работает не объём, а смысл: структура, польза, ответы на вопросы, правильная перелинковка и регулярность.
+      </p>
+
+      <div class="grid-2">
+        <div class="card">
+          <h3 style="margin:0 0 10px; font-size:18px">SEO-блог</h3>
+          <ul class="list">
+            <li class="li"><div class="ic">✓</div><div><b>НЧ-трафик</b><span>Закрываем длинные запросы, которые часто дают “горячую” аудиторию.</span></div></li>
+            <li class="li"><div class="ic">✓</div><div><b>Перелинковка</b><span>Усиливаем коммерческие страницы ссылками из статей.</span></div></li>
+            <li class="li"><div class="ic">✓</div><div><b>Регулярность</b><span>Проект “живой” - поисковики чаще заходят и быстрее переиндексируют.</span></div></li>
+          </ul>
+          <div class="btns">
+            <a class="link" href="/seo/blog/">Подробнее про SEO-блог <span class="arr">→</span></a>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3 style="margin:0 0 10px; font-size:18px">SEO-копирайтинг</h3>
+          <ul class="list">
+            <li class="li"><div class="ic">✓</div><div><b>Тексты не “про ключи”</b><span>Сейчас важнее смысл, структура и экспертность, чем набивка слов.</span></div></li>
+            <li class="li"><div class="ic">✓</div><div><b>Коммерческая польза</b><span>Текст отвечает на возражения и помогает продавать без “впаривания”.</span></div></li>
+            <li class="li"><div class="ic">✓</div><div><b>Встраивание в сайт</b><span>Правильные заголовки, списки, разметка, интенты, LSI-слой.</span></div></li>
+          </ul>
+          <div class="btns">
+            <a class="link" href="/seo/kopirayting/">Подробнее про SEO-копирайтинг <span class="arr">→</span></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="cta" style="margin-top:14px">
+        <div class="left">
+          <p class="title">Контент связан с разработкой</p>
+          <p class="desc">Семантика задает структуру страниц, а структура - дизайн и навигацию. Поэтому “сайт под ключ” мы часто делаем сразу с SEO-фундаментом.</p>
+        </div>
+        <a class="btn secondary small" href="/services/razrabotka-sayta/">Разработка сайта →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ANALYTICS -->
+  <section class="section" id="analytics">
+    <div class="container">
+      <h2 class="h2">Аналитика и контроль результата</h2>
+      <p class="sub">
+        SEO без контроля превращается в “мы что-то делаем”. С аналитикой становится понятно: что растёт, что буксует и где точки роста.
+      </p>
+
+      <div class="grid-2">
+        <div class="card">
+          <h3 style="margin:0 0 10px; font-size:18px">Topvisor - наша панель приборов</h3>
+          <ul class="list">
+            <li class="li"><div class="ic">✓</div><div><b>История позиций</b><span>Понимаем динамику и влияние изменений на сайте.</span></div></li>
+            <li class="li"><div class="ic">✓</div><div><b>Семантика и кластеры</b><span>Удобно строить структуру и план развития.</span></div></li>
+            <li class="li"><div class="ic">✓</div><div><b>Доступ клиенту</b><span>Прозрачность: отчеты и графики можно смотреть самостоятельно.</span></div></li>
+          </ul>
+          <div class="btns">
+            <a class="link" href="/seo/topvisor/">Подробнее про Topvisor <span class="arr">→</span></a>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3 style="margin:0 0 10px; font-size:18px">Что вы получаете как клиент</h3>
+          <ul class="list">
+            <li class="li"><div class="ic">1</div><div><b>Понятный план работ</b><span>Что делаем в этом месяце и почему это важно.</span></div></li>
+            <li class="li"><div class="ic">2</div><div><b>Динамика и выводы</b><span>Позиции/страницы роста/что усиливаем дальше.</span></div></li>
+            <li class="li"><div class="ic">3</div><div><b>Связку с продажами</b><span>SEO лучше работает с сайтами под конверсию, аналитикой и CRM.</span></div></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- FAQ -->
+<section class="section" id="faq">
+  <div class="container">
+    <h2 class="h2">FAQ - коротко отвечаем на частые вопросы</h2>
+    <p class="sub">
+      Этот лендинг объединяет семантику, оптимизацию, продвижение, аудит, репутацию, блог, копирайтинг и аналитику.
+      Поэтому собрали расширенный FAQ - чтобы закрыть основные вопросы до созвона и до сметы.
+    </p>
+
+    <div class="grid-2">
+
+      <!-- 1 (из старых) -->
+      <details open>
+        <summary>Через сколько SEO начинает давать результат? <span class="badge">зависит</span></summary>
+        <p>
+          SEO - накопительный канал. Скорость зависит от конкуренции, региона, состояния сайта и того, насколько системно вы работаете.
+          В конкурентных нишах первые заметные изменения обычно приходят не мгновенно - зато при правильной базе результат держится дольше.
+        </p>
+      </details>
+
+      <!-- 2 (из старых) -->
+      <details>
+        <summary>Можно ли делать SEO без оптимизации? <span class="badge">нет</span></summary>
+        <p>
+          Если сайт не готов технически и по структуре, продвижение будет дорогим и слабым. Поэтому оптимизация - обязательный фундамент:
+          индексация, скорость, структура, метатеги, контент и перелинковка.
+        </p>
+      </details>
+
+      <!-- 3 (из старых) -->
+      <details>
+        <summary>Почему вы не “гарантируете топ-1”? <span class="badge">честно</span></summary>
+        <p>
+          На позиции влияет конкуренция, алгоритмы, сезонность, бюджет и скорость внедрения. Мы гарантируем подход: диагностика, план,
+          качественные внедрения и прозрачная аналитика. Это даёт управляемый рост и предсказуемую динамику.
+        </p>
+      </details>
+
+      <!-- 4 (из старых) -->
+      <details>
+        <summary>SEO нужно, если уже есть контекстная реклама? <span class="badge">да</span></summary>
+        <p>
+          Да. Контекст даёт быстрые заявки, SEO - устойчивость и рост в долгую. Плюс SEO улучшает эффективность рекламы:
+          растёт доверие, повышается конверсия, обычно снижается стоимость лида.
+        </p>
+      </details>
+
+      <!-- 5 (из старых) -->
+      <details>
+        <summary>С какими сайтами работаете? <span class="badge">любой стек</span></summary>
+        <p>
+          HTML, WordPress, OpenCart и другие CMS. Важно не “движок”, а качество технической базы, контента и стратегии.
+          Если сайт старый и “с историей” - часто начинаем с аудита, чтобы не повторять старые ошибки.
+        </p>
+      </details>
+
+      <!-- 6 (из старых) -->
+      <details>
+        <summary>Можно ли начать с малого? <span class="badge">можно</span></summary>
+        <p>
+          Да. Базовый формат - рабочий старт: ссылки + контроль + приоритеты. Дальше усиливаем контентом, блогом и репутацией,
+          если нужно быстрее и выше в конкурентной нише.
+        </p>
+      </details>
+
+      <!-- новые -->
+      <details>
+        <summary>В чём разница между SEO и контекстной рекламой? <span class="badge">простыми словами</span></summary>
+        <p>
+          Контекстная реклама покупает показы и клики: платите - получаете трафик, остановили - трафик остановился.
+          SEO улучшает сайт и его “вес” в поиске: результат растёт постепенно, но держится дольше и даёт эффект накопления.
+          Лучший сценарий - связка SEO + контекст, а не выбор “или/или”.
+        </p>
+      </details>
+
+      <details>
+        <summary>Что важнее: Яндекс или Google? <span class="badge">оба</span></summary>
+        <p>
+          Зависит от тематики, региона и аудитории. В большинстве проектов мы строим SEO так, чтобы сайт был понятен обоим поисковикам:
+          чистая техчасть, правильная структура, релевантный контент, доверие и ссылки. Где-то быстрее стреляет Яндекс, где-то - Google,
+          но фундамент почти всегда одинаковый.
+        </p>
+      </details>
+
+      <details>
+        <summary>Что такое семантическое ядро и зачем оно нужно? <span class="badge">основа</span></summary>
+        <p>
+          Семантика - это список поисковых запросов вашей аудитории, сгруппированный по смыслам (кластерам).
+          Она нужна, чтобы построить структуру сайта, понять спрос, подобрать правильные страницы и не продвигать “в воздух”.
+          Семантика со временем устаревает - запросы и конкуренты меняются, поэтому её полезно обновлять.
+        </p>
+      </details>
+
+      <details>
+        <summary>Зачем нужен SEO-аудит и когда он реально полезен? <span class="badge">точка А</span></summary>
+        <p>
+          Аудит нужен, если SEO уже делали или сайт давно живёт: есть история правок, ссылки, редизайны, возможно просадки трафика.
+          Мы фиксируем текущую точку А (техчасть, контент, индексация, ссылки, позиции) и даём план, что делать дальше,
+          чтобы прийти к точке Б без лишних расходов.
+        </p>
+      </details>
+
+      <details>
+        <summary>Что входит в SEO-оптимизацию: техническое или тексты? <span class="badge">и то и другое</span></summary>
+        <p>
+          SEO-оптимизация состоит из двух больших частей. Техническая: скорость, индексация, дубль-страницы, robots/sitemap,
+          микроразметка, мобильность, безопасность, структура URL. Контентная: структура заголовков, метатеги, тексты,
+          релевантность запросам, перелинковка. Если сделать только одну часть - результат обычно слабее.
+        </p>
+      </details>
+
+      <details>
+        <summary>Ссылки в SEO - это не опасно? <span class="badge">если без “колхоза”</span></summary>
+        <p>
+          Опасно не “ссылки”, а хаотичная закупка без стратегии: плохие доноры, переспам анкорами, резкие всплески.
+          Мы строим ссылочное аккуратно: качество доноров, понятный темп, баланс анкорных и безанкорных, и обязательно оцениваем риски.
+          В ряде ниш упор можно делать на контент и репутацию, а ссылочное использовать как усилитель.
+        </p>
+      </details>
+
+      <details>
+        <summary>Почему блог так важен для SEO и нужен ли он всем? <span class="badge">часто - да</span></summary>
+        <p>
+          Блог закрывает низкочастотные запросы, даёт дополнительную перелинковку и повышает “экспертность” сайта.
+          Поисковики любят проекты, которые регулярно обновляются и отвечают на вопросы пользователей.
+          Если ниша конкурентная - блог обычно ускоряет рост и помогает продвигать коммерческие страницы без перегруза ссылками.
+        </p>
+      </details>
+
+      <details>
+        <summary>SEO-копирайтинг - это просто “тексты с ключами”? <span class="badge">уже нет</span></summary>
+        <p>
+          Сейчас SEO-копирайтинг - это смысловой контент: структура, ответы на вопросы, польза, доказательства, понятный язык.
+          Ключевые слова учитываем, но без переспама: важнее закрыть интент пользователя и помочь ему принять решение.
+          Хороший текст повышает конверсию и помогает ранжированию.
+        </p>
+      </details>
+
+      <details>
+        <summary>Что такое SERM и как репутация влияет на SEO? <span class="badge">сильно</span></summary>
+        <p>
+          SERM - управление репутацией в поиске и на площадках (карты, справочники, каталоги, отзывы).
+          Репутация влияет на кликабельность (CTR), доверие и конверсию, а ещё усиливает E-E-A-T-сигналы.
+          Плюс отзывы и рейтинг повышают эффективность контекстной рекламы - люди охотнее оставляют заявки.
+        </p>
+      </details>
+
+      <details>
+        <summary>Как понять, что SEO делают реально, а не “рисуют отчёты”? <span class="badge">прозрачно</span></summary>
+        <p>
+          Должны быть: понятный план работ, приоритеты по страницам, список внедрений, динамика позиций/страниц роста,
+          контроль индексации и техошибок, и измеримые улучшения (CTR, видимость, трафик, заявки).
+          Мы используем аналитические сервисы (например, Topvisor/аналоги) и даём доступ клиенту - чтобы всё было видно.
+        </p>
+      </details>
+
+      <details>
+        <summary>Вы работаете по пакетам или всё индивидуально? <span class="badge">индивидуально</span></summary>
+        <p>
+          У нас есть три базовых формата (минимум/средний/максимум), но внутри они подстраиваются под проект:
+          тематика, регион, конкуренция, количество направлений и готовность сайта.
+          Итог - не “пакет ради пакета”, а состав работ под вашу цель.
+        </p>
+      </details>
+
+      <details>
+        <summary>Какие данные и доступы нужны для старта? <span class="badge">минимум</span></summary>
+        <p>
+          Зависит от формата, но обычно нужны доступы к аналитике (Метрика/GA), Search Console (если есть),
+          доступ к сайту (CMS/FTP) для внедрений или согласованный процесс “мы даём ТЗ - вы внедряете”.
+          Для аудита и мониторинга позиций - список ключевых запросов или семантика (если уже собирали).
+        </p>
+      </details>
+
+    </div>
+  </div>
+</section>
+
+  <!-- FINAL CTA (без формы) -->
+  <section class="section" id="final">
+    <div class="container">
+      <div class="cta">
+        <div class="left">
+          <p class="title">Хотите SEO, которое растёт, а не “ведется для отчета”?</p>
+          <p class="desc">
+            Мы построим понятную систему: семантика → оптимизация → продвижение → репутация/контент → аналитика.
+            Если нужен максимум - подключаем блог и SERM, чтобы усилить доверие и конверсию.
+          </p>
+        </div>
+        <a class="btn" href="#tariffs">Выбрать тариф →</a>
+      </div>
+
+      <div class="footer-note">
+        <b>Примечание.</b> На сайте есть отдельные страницы по каждому направлению: семантика, оптимизация, продвижение, аудит, SERM, блог, копирайтинг и Topvisor.
+        Мы собрали этот лендинг как главную точку входа в SEO-раздел, чтобы было понятно: что такое SEO, из чего оно состоит и как выбрать формат работы.
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>
+

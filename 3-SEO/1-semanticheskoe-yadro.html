@@ -1,0 +1,1056 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Семантическое ядро сайта | сбор и кластеризация</title>
+  <meta name="description" content="Сбор семантического ядра: ключевые фразы, чистка мусора, кластеризация по интенту и структуре. Таблица в Google Sheets. Основа для SEO и Яндекс.Директ." />
+  <meta name="keywords" content="семантическое ядро, сбор семантики, кластеризация запросов, ключевые слова, частотность, минус слова, семантика для SEO, семантика для Яндекс Директ" />
+
+  <meta property="og:title" content="Семантическое ядро сайта - сбор и кластеризация" />
+  <meta property="og:description" content="Соберем спрос, почистим мусор, разложим запросы по группам и соберем структуру страниц. Основа для SEO и Яндекс.Директ." />
+  <meta property="og:type" content="website" />
+
+  <style>
+    :root{
+      --bg:#0b0f14;
+      --bg2:#0f1520;
+      --card: rgba(255,255,255,.06);
+      --card2: rgba(255,255,255,.08);
+      --line: rgba(255,255,255,.10);
+      --text:#eaf0ff;
+      --muted: rgba(234,240,255,.72);
+      --muted2: rgba(234,240,255,.55);
+      --accent:#37f3a7;
+      --accent2:#64a8ff;
+      --warn:#ffcf5a;
+      --danger:#ff6b8b;
+
+      --radius:18px;
+      --radius2:26px;
+      --shadow: 0 12px 40px rgba(0,0,0,.35);
+      --shadow2: 0 10px 30px rgba(0,0,0,.25);
+      --max: 1160px;
+
+      --h1: clamp(28px, 3.2vw, 44px);
+      --h2: clamp(20px, 2.2vw, 30px);
+      --h3: 18px;
+      --p: 16px;
+      --p2: 14px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
+      background:
+        radial-gradient(1200px 600px at 20% 10%, rgba(55,243,167,.14), transparent 60%),
+        radial-gradient(900px 520px at 82% 18%, rgba(100,168,255,.12), transparent 55%),
+        radial-gradient(900px 540px at 55% 90%, rgba(255,107,139,.10), transparent 60%),
+        linear-gradient(180deg, var(--bg) 0%, #080b10 100%);
+      color:var(--text);
+      line-height:1.55;
+    }
+
+    a{color:inherit}
+    .container{max-width:var(--max); margin:0 auto; padding:0 20px}
+    .section{padding:56px 0}
+    .section.tight{padding:38px 0}
+    .section-title{
+      margin:0 0 18px;
+      font-size:var(--h2);
+      letter-spacing:.2px;
+    }
+    .sub{
+      margin:8px 0 0;
+      color:var(--muted);
+      font-size:var(--p);
+      max-width:820px;
+    }
+
+    /* Topbar */
+    .topbar{
+      position:sticky;
+      top:0;
+      z-index:50;
+      backdrop-filter: blur(14px);
+      background: rgba(10,14,20,.55);
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .topbar__inner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:14px 0;
+      gap:16px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      text-decoration:none;
+    }
+    .logo{
+      width:34px; height:34px;
+      border-radius:12px;
+      background:
+        radial-gradient(14px 14px at 30% 30%, rgba(255,255,255,.25), transparent 55%),
+        linear-gradient(135deg, rgba(55,243,167,.95), rgba(100,168,255,.95));
+      box-shadow: 0 8px 24px rgba(55,243,167,.15);
+      border: 1px solid rgba(255,255,255,.14);
+    }
+    .brand b{font-size:14px; letter-spacing:.2px}
+    .brand span{display:block; font-size:12px; color:var(--muted2)}
+    .nav{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:center;
+      justify-content:flex-end;
+    }
+    .nav a{
+      text-decoration:none;
+      font-size:13px;
+      color:var(--muted);
+      padding:8px 10px;
+      border-radius:12px;
+      border:1px solid transparent;
+    }
+    .nav a:hover{
+      color:var(--text);
+      border-color: rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+    }
+
+    /* Hero */
+    .hero{
+      padding:44px 0 24px;
+    }
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.25fr .75fr;
+      gap:18px;
+      align-items:stretch;
+    }
+    @media (max-width: 980px){
+      .hero-grid{grid-template-columns:1fr}
+    }
+    .hero-card{
+      border-radius: var(--radius2);
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+      border:1px solid rgba(255,255,255,.12);
+      box-shadow: var(--shadow);
+      padding:26px;
+      position:relative;
+      overflow:hidden;
+    }
+    .hero-card:before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background:
+        radial-gradient(420px 260px at 20% 10%, rgba(55,243,167,.18), transparent 60%),
+        radial-gradient(380px 240px at 80% 20%, rgba(100,168,255,.16), transparent 60%);
+      opacity:.9;
+      pointer-events:none;
+    }
+    .hero-card > *{position:relative}
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.05);
+      color: var(--muted);
+      font-size:13px;
+      width:fit-content;
+    }
+    .badge i{
+      width:10px; height:10px; border-radius:999px;
+      background: var(--accent);
+      box-shadow: 0 0 0 4px rgba(55,243,167,.18);
+    }
+    h1{
+      margin:14px 0 10px;
+      font-size:var(--h1);
+      line-height:1.14;
+      letter-spacing:.2px;
+    }
+    .hero-p{
+      margin:0;
+      color:var(--muted);
+      font-size:var(--p);
+      max-width:860px;
+    }
+    .cta-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:16px;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding:12px 14px;
+      border-radius: 14px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      text-decoration:none;
+      font-weight:700;
+      font-size:14px;
+      box-shadow: var(--shadow2);
+      cursor:pointer;
+      user-select:none;
+    }
+    .btn:hover{background: rgba(255,255,255,.09)}
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(55,243,167,.92), rgba(100,168,255,.92));
+      color:#061018;
+      border-color: rgba(255,255,255,.18);
+    }
+    .btn.primary:hover{filter: brightness(1.05)}
+    .btn .dot{
+      width:9px;height:9px;border-radius:999px;background: rgba(6,16,24,.7);
+      box-shadow: 0 0 0 4px rgba(6,16,24,.18);
+    }
+
+    .hero-aside{
+      border-radius: var(--radius2);
+      background: rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.10);
+      box-shadow: var(--shadow2);
+      padding:18px;
+    }
+    .mini-title{margin:0 0 10px; font-size:14px; color:var(--muted); letter-spacing:.2px}
+    .checks{margin:0; padding:0; list-style:none; display:grid; gap:10px}
+    .checks li{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      padding:12px 12px;
+      border-radius: 16px;
+      background: rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.08);
+    }
+    .ico{
+      width:28px;height:28px;border-radius:12px;
+      display:flex;align-items:center;justify-content:center;
+      background: rgba(55,243,167,.12);
+      border:1px solid rgba(55,243,167,.25);
+      flex:0 0 auto;
+    }
+    .ico.blue{background: rgba(100,168,255,.12); border-color: rgba(100,168,255,.25)}
+    .ico.warn{background: rgba(255,207,90,.12); border-color: rgba(255,207,90,.25)}
+    .ico span{font-weight:900}
+    .checks b{display:block; font-size:13px; margin-bottom:2px}
+    .checks p{margin:0; font-size:13px; color:var(--muted); line-height:1.35}
+
+    /* Grid cards */
+    .grid{
+      display:grid;
+      gap:12px;
+    }
+    .grid.cols-3{grid-template-columns: repeat(3, 1fr)}
+    .grid.cols-2{grid-template-columns: repeat(2, 1fr)}
+    @media (max-width: 980px){
+      .grid.cols-3{grid-template-columns:1fr}
+      .grid.cols-2{grid-template-columns:1fr}
+    }
+    .card{
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.10);
+      box-shadow: var(--shadow2);
+      padding:18px;
+    }
+    .card h3{
+      margin:0 0 8px;
+      font-size:16px;
+      letter-spacing:.2px;
+    }
+    .card p{margin:0; color:var(--muted); font-size:14px}
+    .pill{
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+      padding:7px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      color:var(--muted);
+      font-size:12px;
+      width:fit-content;
+      margin-bottom:10px;
+    }
+    .pill i{width:8px;height:8px;border-radius:999px;background:var(--accent2);opacity:.85}
+
+    /* Steps */
+    .steps{
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap:12px;
+    }
+    @media (max-width: 980px){
+      .steps{grid-template-columns:1fr}
+    }
+    .step{
+      padding:16px;
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.03));
+      border:1px solid rgba(255,255,255,.10);
+      position:relative;
+      overflow:hidden;
+    }
+    .step:before{
+      content:"";
+      position:absolute;
+      inset:auto -50px -50px auto;
+      width:140px;height:140px;
+      border-radius:50%;
+      background: radial-gradient(circle at 30% 30%, rgba(55,243,167,.18), transparent 65%);
+      transform: rotate(20deg);
+    }
+    .step > *{position:relative}
+    .num{
+      display:inline-flex;
+      width:34px;height:34px;
+      align-items:center;justify-content:center;
+      border-radius:14px;
+      background: rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.12);
+      font-weight:900;
+      color: var(--text);
+      margin-bottom:10px;
+    }
+    .step b{display:block; margin:0 0 6px; font-size:14px}
+    .step p{margin:0; font-size:13px; color:var(--muted); line-height:1.4}
+
+    /* Two-column */
+    .two{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+    }
+    @media (max-width: 980px){
+      .two{grid-template-columns:1fr}
+    }
+
+    /* FAQ */
+    details{
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.10);
+      padding:14px 14px;
+      box-shadow: var(--shadow2);
+    }
+    details + details{margin-top:10px}
+    summary{
+      cursor:pointer;
+      list-style:none;
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+      font-weight:800;
+      font-size:14px;
+    }
+    summary::-webkit-details-marker{display:none}
+    .faq-a{
+      margin-top:10px;
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.5;
+    }
+    .chev{
+      width:26px;height:26px;border-radius:12px;
+      background: rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.12);
+      display:flex;align-items:center;justify-content:center;
+      flex:0 0 auto;
+      transform: rotate(0deg);
+      transition: transform .18s ease;
+      margin-top:-2px;
+    }
+    details[open] .chev{transform: rotate(180deg)}
+    .chev span{font-weight:900; color:var(--muted)}
+
+    /* Links */
+    .linkline{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:12px;
+    }
+    .chiplink{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 12px;
+      border-radius: 14px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      text-decoration:none;
+      color:var(--muted);
+      font-size:13px;
+    }
+    .chiplink:hover{
+      color:var(--text);
+      background: rgba(255,255,255,.06);
+    }
+    .chiplink i{
+      width:8px;height:8px;border-radius:999px;background:var(--accent);opacity:.9;
+      box-shadow:0 0 0 4px rgba(55,243,167,.14);
+    }
+
+    /* CTA */
+    .cta{
+      border-radius: var(--radius2);
+      background:
+        radial-gradient(520px 240px at 20% 10%, rgba(55,243,167,.16), transparent 60%),
+        radial-gradient(520px 240px at 80% 20%, rgba(100,168,255,.14), transparent 60%),
+        rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.12);
+      box-shadow: var(--shadow);
+      padding:22px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      flex-wrap:wrap;
+    }
+    .cta b{font-size:16px}
+    .cta p{margin:6px 0 0; color:var(--muted); font-size:14px; max-width:720px}
+    .cta .cta-row{margin-top:0}
+
+    /* Footer */
+    footer{
+      padding:36px 0 56px;
+      color:var(--muted2);
+      font-size:13px;
+      border-top: 1px solid rgba(255,255,255,.06);
+      background: rgba(0,0,0,.12);
+    }
+    .footer-grid{
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap:14px;
+      align-items:start;
+    }
+    @media (max-width: 980px){
+      .footer-grid{grid-template-columns:1fr}
+    }
+
+    .small{font-size:12px; color:var(--muted2)}
+    .muted{color:var(--muted)}
+    .hr{height:1px; background: rgba(255,255,255,.08); margin:14px 0}
+
+    /* Highlight list */
+    ul.clean{
+      margin:0;
+      padding-left:18px;
+      color:var(--muted);
+      font-size:14px;
+    }
+    ul.clean li{margin:6px 0}
+  </style>
+</head>
+
+<body>
+  <!-- Topbar -->
+  <div class="topbar">
+    <div class="container">
+      <div class="topbar__inner">
+        <a class="brand" href="/">
+          <div class="logo" aria-hidden="true"></div>
+          <div>
+            <b>Venner Digital</b>
+            <span>Маркетинг и разработка с 2013 года</span>
+          </div>
+        </a>
+
+        <nav class="nav" aria-label="Навигация">
+          <!-- Подставь реальные URL из таблицы -->
+          <a href="/seo/">SEO</a>
+          <a href="/yandex-direct/">Яндекс.Директ</a>
+          <a href="/sozadanie-saytov/">Разработка сайтов</a>
+          <a href="/crm-integracii/">CRM и интеграции</a>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <header class="hero">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-card">
+          <div class="badge"><i></i> SEO раздел - внутренняя страница</div>
+          <h1>Семантическое ядро сайта - сбор и кластеризация</h1>
+          <p class="hero-p">
+            Соберем ключевые запросы, почистим мусор, разложим по группам и соберем структуру страниц.
+            Результат - таблица в Google Sheets, которую можно использовать для <a href="/seo/" class="muted">SEO</a> и
+            <a href="/yandex-direct/" class="muted">Яндекс.Директ</a>.
+          </p>
+
+          <div class="cta-row">
+            <a class="btn primary" href="#form"><span class="dot"></span>Рассчитать стоимость</a>
+            <a class="btn" href="#example">Получить пример таблицы</a>
+            <a class="btn" href="#faq">Вопрос-ответ</a>
+          </div>
+
+          <div class="linkline" style="margin-top:14px">
+            <a class="chiplink" href="/seo/optimizaciya-sayta/"><i></i>SEO оптимизация</a>
+            <a class="chiplink" href="/seo/prodvizhenie-sayta/"><i></i>SEO продвижение</a>
+            <a class="chiplink" href="/yandex-direct/audit/"><i></i>Аудит Директ</a>
+            <a class="chiplink" href="/yandex-direct/vedenie/"><i></i>Ведение Директ</a>
+          </div>
+        </div>
+
+        <aside class="hero-aside">
+          <p class="mini-title">Коротко. Что важно</p>
+          <ul class="checks">
+            <li>
+              <div class="ico"><span>✓</span></div>
+              <div>
+                <b>Google Sheets</b>
+                <p>Онлайн-согласование, правки без пересылки файлов, удобно работать командой.</p>
+              </div>
+            </li>
+            <li>
+              <div class="ico blue"><span>≋</span></div>
+              <div>
+                <b>Частотность и соответствия</b>
+                <p>Размечаем точную и прогнозную частотность, а также формат "!" по задаче.</p>
+              </div>
+            </li>
+            <li>
+              <div class="ico warn"><span>⛭</span></div>
+              <div>
+                <b>Основа под SEO и рекламу</b>
+                <p>Семантика помогает строить структуру сайта и экономить бюджет в Директе.</p>
+              </div>
+            </li>
+          </ul>
+
+          <div class="hr"></div>
+          <p class="mini-title">Старт по бюджету</p>
+          <div class="card" style="padding:14px; background: rgba(255,255,255,.03)">
+            <h3 style="margin:0 0 6px">От 12 000 руб.</h3>
+            <p style="margin:0; color:var(--muted)">Дальше - зависит от ниши, региона, объема услуг и глубины кластеризации.</p>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </header>
+
+  <!-- What is it -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">Что такое семантическое ядро.</h2>
+      <p class="sub">
+        Семантическое ядро - это не просто список ключевых слов. Это карта спроса, по которой становится понятно,
+        что именно ищут ваши клиенты, какими словами они формулируют запрос, и какие посадочные страницы реально нужны.
+      </p>
+
+      <div class="grid cols-3" style="margin-top:14px">
+        <div class="card">
+          <div class="pill"><i></i> Структура сайта</div>
+          <h3>Понимание страниц</h3>
+          <p>Ядро показывает, какие услуги/категории стоит разделить, а какие можно объединить, чтобы сайт был релевантным и понятным.</p>
+        </div>
+        <div class="card">
+          <div class="pill"><i></i> Спрос и приоритеты</div>
+          <h3>Куда идти первым</h3>
+          <p>Вы видите, какие направления дают быстрый потенциал роста, а какие лучше закрывать позже или отдельными посадочными.</p>
+        </div>
+        <div class="card">
+          <div class="pill"><i></i> Экономия бюджета</div>
+          <h3>Меньше мусора</h3>
+          <p>Минус-слова и интент позволяют отсечь нецелевой трафик и не сливать бюджет на запросы "как выбрать" и "своими руками".</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Who needs it -->
+  <section class="section tight">
+    <div class="container">
+      <h2 class="section-title">Кому нужно семантическое ядро.</h2>
+
+      <div class="grid cols-2" style="margin-top:14px">
+        <div class="card">
+          <h3>Если вы делаете новый сайт</h3>
+          <p>Чтобы сразу собрать правильную структуру страниц, заголовков и посадочных - без переделок через пару месяцев.</p>
+          <div class="linkline">
+            <a class="chiplink" href="/sozadanie-saytov/"><i></i>Разработка сайта под ключ</a>
+            <a class="chiplink" href="/sozadanie-saytov/prototip-sayta/"><i></i>Прототип сайта</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Если сайт уже есть, но заявок мало</h3>
+          <p>Чтобы найти упущенные направления, расширить охват, усилить посадочные и подготовить план роста.</p>
+          <div class="linkline">
+            <a class="chiplink" href="/seo/optimizaciya-sayta/"><i></i>SEO оптимизация</a>
+            <a class="chiplink" href="/seo/audit-sayta/"><i></i>SEO аудит</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Если планируете Яндекс.Директ</h3>
+          <p>Чтобы разделить коммерцию и инфо, собрать минус-слова, выстроить связку "объявление - посадочная" и не сливать бюджет.</p>
+          <div class="linkline">
+            <a class="chiplink" href="/yandex-direct/"><i></i>Настройка Директ</a>
+            <a class="chiplink" href="/yandex-direct/audit/"><i></i>Аудит кампаний</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Если услуг много или сложная ниша</h3>
+          <p>Семантика помогает разложить спрос по интентам и сделать сайт, который отвечает на запросы клиентов, а не "просто красиво выглядит".</p>
+          <div class="linkline">
+            <a class="chiplink" href="/seo/prodvizhenie-sayta/"><i></i>Продвижение сайта</a>
+            <a class="chiplink" href="/crm-integracii/"><i></i>CRM и интеграции</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Deliverables -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">Что вы получите на выходе.</h2>
+      <p class="sub">
+        Результат - таблица в Google Sheets (по запросу - выгрузка в Excel). Документ, с которым удобно работать:
+        согласовывать, дорабатывать и быстро запускать следующий этап - сайт, SEO или рекламу.
+      </p>
+
+      <div class="two" style="margin-top:14px">
+        <div class="card">
+          <h3>В таблице будет</h3>
+          <ul class="clean">
+            <li>Ключевые фразы по вашей нише и региону</li>
+            <li>Частотность: точная и прогнозная, форматы соответствия (включая "!")</li>
+            <li>Чистка мусора: нецелевые и смежные запросы (по задаче)</li>
+            <li>Кластеризация: группировка по смыслу и интенту</li>
+            <li>Разметка под структуру сайта: какие страницы нужны и как их назвать</li>
+            <li>Минус-слова и стоп-слова для рекламы</li>
+            <li>Приоритеты: что делать в первую очередь</li>
+          </ul>
+        </div>
+
+        <div class="card" id="example">
+          <h3>Как используется дальше</h3>
+          <p>
+            Семантика - это фундамент. С ней проще и дешевле собирать сайт, писать тексты и запускать рекламу, потому что вы
+            работаете по спросу, а не "по ощущениям".
+          </p>
+          <div class="hr"></div>
+          <div class="grid" style="gap:10px">
+            <div class="card" style="padding:14px">
+              <h3 style="margin:0 0 6px">Для сайта</h3>
+              <p style="margin:0">Структура страниц, заголовки, посадочные под услуги и категории.</p>
+            </div>
+            <div class="card" style="padding:14px">
+              <h3 style="margin:0 0 6px">Для SEO</h3>
+              <p style="margin:0">План развития: что оптимизировать, какие страницы делать, где будет рост.</p>
+            </div>
+            <div class="card" style="padding:14px">
+              <h3 style="margin:0 0 6px">Для рекламы</h3>
+              <p style="margin:0">Разделение интентов, минус-слова, релевантные связки "объявление - посадочная".</p>
+            </div>
+          </div>
+
+          <div class="linkline" style="margin-top:12px">
+            <a class="chiplink" href="/seo/optimizaciya-sayta/"><i></i>Тех. оптимизация</a>
+            <a class="chiplink" href="/seo/prodvizhenie-sayta/"><i></i>Продвижение</a>
+            <a class="chiplink" href="/yandex-direct/"><i></i>Директ</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why not old -->
+  <section class="section tight">
+    <div class="container">
+      <h2 class="section-title">Почему нельзя взять "старое ядро" или "ядро из другого города".</h2>
+      <p class="sub">
+        Запросы и формулировки меняются. Частотность и конкуренция отличаются по регионам. И даже если часть фраз совпадает,
+        без чистки и кластеризации ядро чаще мешает, чем помогает.
+      </p>
+
+      <div class="grid cols-3" style="margin-top:14px">
+        <div class="card">
+          <h3>Меняется спрос</h3>
+          <p>Появляются новые формулировки, тренды, меняется сезонность. Старые таблицы быстро становятся "не про сейчас".</p>
+        </div>
+        <div class="card">
+          <h3>Разная география</h3>
+          <p>Одинаковые слова в разных городах имеют разную частоту и интент. Это влияет на структуру и приоритеты.</p>
+        </div>
+        <div class="card">
+          <h3>Замусоренность</h3>
+          <p>Часто в ядрах много информационных и смежных запросов. Результат - нецелевой трафик и слабая релевантность.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Not only SEO -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">Семантика - это не только про SEO.</h2>
+      <p class="sub">
+        Семантическое ядро помогает строить рекламу, оценивать рынок и конкуренцию, а также выбирать правильные посадочные.
+        Это особенно заметно в сложных и конкурентных нишах, где цена ошибки дорого стоит.
+      </p>
+
+      <div class="card" style="margin-top:14px">
+        <h3>Что дает ядро в Яндекс.Директ</h3>
+        <ul class="clean">
+          <li>Понимание спроса - что реально ищут и за что конкурируют</li>
+          <li>Разделение интента - продажа, прогрев, бренд, гео</li>
+          <li>Минус-слова - меньше мусора и скликивания</li>
+          <li>Логика посадочных - объявления и страницы совпадают по смыслу</li>
+        </ul>
+
+        <div class="linkline">
+          <a class="chiplink" href="/yandex-direct/"><i></i>Настройка Яндекс.Директ</a>
+          <a class="chiplink" href="/yandex-direct/vedenie/"><i></i>Ведение кампаний</a>
+          <a class="chiplink" href="/yandex-direct/audit/"><i></i>Аудит кампаний</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How we do -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">Как мы собираем семантическое ядро.</h2>
+      <p class="sub">
+        Используем несколько источников и подходов. По частотности и спросу опираемся в первую очередь на Яндекс.
+        По Google применяем альтернативные способы, так как классический сбор через Ads недоступен уже несколько лет.
+      </p>
+
+      <div class="steps" style="margin-top:14px">
+        <div class="step">
+          <div class="num">1</div>
+          <b>Бриф и цели</b>
+          <p>Услуги, регионы, приоритеты, маржинальность, KPI, ограничения и пожелания по структуре.</p>
+        </div>
+        <div class="step">
+          <div class="num">2</div>
+          <b>Сбор "сырья"</b>
+          <p>Собираем все варианты формулировок спроса, включая коммерцию, гео и смежные уточнения.</p>
+        </div>
+        <div class="step">
+          <div class="num">3</div>
+          <b>Чистка и интент</b>
+          <p>Убираем мусор, разделяем по интентам, готовим основу под структуру и посадочные.</p>
+        </div>
+        <div class="step">
+          <div class="num">4</div>
+          <b>Частотность</b>
+          <p>Размечаем точную и прогнозную частотность, а также форматы соответствия (включая "!") по задаче.</p>
+        </div>
+
+        <div class="step">
+          <div class="num">5</div>
+          <b>Кластеризация</b>
+          <p>Группируем запросы по смыслу и будущим страницам. Формат зависит от ниши и цели проекта.</p>
+        </div>
+        <div class="step">
+          <div class="num">6</div>
+          <b>Структура страниц</b>
+          <p>Подсказываем, какие страницы реально нужны, как их назвать и как связать между собой.</p>
+        </div>
+        <div class="step">
+          <div class="num">7</div>
+          <b>Минус-слова</b>
+          <p>Собираем стоп-слова под рекламу, чтобы отсечь нецелевой трафик и "инфо" в Директе.</p>
+        </div>
+        <div class="step">
+          <div class="num">8</div>
+          <b>Передача и рекомендации</b>
+          <p>Отдаем таблицу + подсказки "что делать дальше": SEO, реклама, посадочные, контент.</p>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:14px">
+        <div class="pill"><i></i> Под ключ</div>
+        <h3>Можем продолжить дальше - не только собрать таблицу</h3>
+        <p>
+          Часто семантика - это первый шаг. Дальше мы делаем структуру сайта, прототип, контент, SEO-оптимизацию, подключаем аналитику,
+          и при необходимости запускаем Яндекс.Директ. Все в одной связке, чтобы меньше ошибок и быстрее к заявкам.
+        </p>
+        <div class="linkline">
+          <a class="chiplink" href="/sozadanie-saytov/"><i></i>Разработка сайтов</a>
+          <a class="chiplink" href="/seo/optimizaciya-sayta/"><i></i>SEO оптимизация</a>
+          <a class="chiplink" href="/yandex-direct/"><i></i>Яндекс.Директ</a>
+          <a class="chiplink" href="/crm-integracii/"><i></i>CRM и интеграции</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mistakes -->
+  <section class="section tight">
+    <div class="container">
+      <h2 class="section-title">Типовые ошибки, из-за которых SEO и реклама не растут.</h2>
+
+      <div class="grid cols-2" style="margin-top:14px">
+        <div class="card">
+          <h3>Собирают "много ключей", но не делают структуру</h3>
+          <p>Без кластеризации ядро превращается в склад слов. В итоге либо одна страница на все, либо хаос из дублей.</p>
+        </div>
+        <div class="card">
+          <h3>Не чистят инфо и смежные запросы</h3>
+          <p>Получают нецелевой трафик, падает конверсия, растет стоимость заявки и появляется ощущение "SEO не работает".</p>
+        </div>
+        <div class="card">
+          <h3>Не учитывают гео и сезонность</h3>
+          <p>Запросы и частота в регионах отличаются. Плюс есть сезонные пики, которые нужно учитывать заранее.</p>
+        </div>
+        <div class="card">
+          <h3>Не собирают минус-слова</h3>
+          <p>В рекламе это почти всегда приводит к мусорным кликам и скликиванию. В SEO - к нерелевантным страницам.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing factors -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">Что влияет на стоимость.</h2>
+      <p class="sub">Мы не продаем "пакеты". Семантика считается индивидуально - по объему и сложности задачи.</p>
+
+      <div class="grid cols-3" style="margin-top:14px">
+        <div class="card">
+          <h3>Ниша и конкуренция</h3>
+          <p>Чем сложнее рынок и больше формулировок, тем больше работы по чистке и кластеризации.</p>
+        </div>
+        <div class="card">
+          <h3>География</h3>
+          <p>Один город или несколько точек присутствия - влияет на объем и подход к группировке.</p>
+        </div>
+        <div class="card">
+          <h3>Количество направлений</h3>
+          <p>Когда услуг много, важно правильно разложить интенты и не утонуть в дублях.</p>
+        </div>
+        <div class="card">
+          <h3>Глубина разметки</h3>
+          <p>Интент, частотность, типы соответствия, минус-слова, приоритеты - можно делать глубже или проще.</p>
+        </div>
+        <div class="card">
+          <h3>Нужна ли структура страниц</h3>
+          <p>Если строим сайт/посадочные сразу - добавляется проработка структуры и логики страниц.</p>
+        </div>
+        <div class="card">
+          <h3>Цель проекта</h3>
+          <p>Под SEO, под рекламу или под "все сразу" - разные требования к точности и группировке.</p>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:14px">
+        <h3>Стоимость</h3>
+        <p class="muted">
+          Старт - от <b>12 000 руб.</b> Дальше считаем индивидуально по объему задач. Обычно достаточно короткого брифа,
+          чтобы оценить работу и назвать вилку.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- UTP -->
+  <section class="section tight">
+    <div class="container">
+      <h2 class="section-title">Почему Venner Digital.</h2>
+
+      <div class="grid cols-3" style="margin-top:14px">
+        <div class="card">
+          <div class="pill"><i></i> Опыт</div>
+          <h3>Работаем с 2013 года</h3>
+          <p>Видели, как менялись SEO и реклама. Следим за рынком и адаптируем подход под текущие реалии.</p>
+        </div>
+        <div class="card">
+          <div class="pill"><i></i> Контент</div>
+          <h3>Контент берем на себя</h3>
+          <p>Проводим бриф, собираем структуру, тексты, смысловые блоки и SEO-правки. Клиент экономит время и нервы.</p>
+        </div>
+        <div class="card">
+          <div class="pill"><i></i> Комплекс</div>
+          <h3>Сайт + SEO + Директ + CRM</h3>
+          <p>Умеем собирать связку целиком: посадочные, трафик, аналитика, CRM и отчетность - в одной системе.</p>
+        </div>
+        <div class="card">
+          <div class="pill"><i></i> Гипотезы</div>
+          <h3>Проверенные решения</h3>
+          <p>Мы тестируем связки в собственных проектах и приносим в клиентские задачи то, что уже показало результат.</p>
+        </div>
+        <div class="card">
+          <div class="pill"><i></i> Контроль</div>
+          <h3>Прозрачность и понятность</h3>
+          <p>Понятная смета по этапам и задачам. Коммуникации без хаоса, с фокусом на результат.</p>
+        </div>
+        <div class="card">
+          <div class="pill"><i></i> Оплата</div>
+          <h3>Постепенно и по этапам</h3>
+          <p>Дробим проект на этапы и привязываем оплату к факту работ. Удобно планировать бюджет.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section" id="faq">
+    <div class="container">
+      <h2 class="section-title">Вопрос-ответ.</h2>
+
+      <details open>
+        <summary>
+          <span>1) Сколько ключевых фраз нужно?</span>
+          <span class="chev" aria-hidden="true"><span>⌄</span></span>
+        </summary>
+        <div class="faq-a">
+          Не важна цифра. Важна структура и чистота. Иногда 800-1500 фраз дают больше результата, чем огромная таблица, где много мусора и дублей.
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <span>2) Вы делаете кластеризацию?</span>
+          <span class="chev" aria-hidden="true"><span>⌄</span></span>
+        </summary>
+        <div class="faq-a">
+          Да. Формат кластеризации зависит от цели: структура сайта, посадочные под рекламу или контент-план под SEO. Это обсуждаем на старте.
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <span>3) Семантика подойдет и для SEO, и для Яндекс.Директ?</span>
+          <span class="chev" aria-hidden="true"><span>⌄</span></span>
+        </summary>
+        <div class="faq-a">
+          Да. Мы разделяем интенты и собираем минус-слова, чтобы ядро можно было использовать в обе стороны без переделок.
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <span>4) Почему вы опираетесь на Яндекс?</span>
+          <span class="chev" aria-hidden="true"><span>⌄</span></span>
+        </summary>
+        <div class="faq-a">
+          Потому что это стабильный источник частотности и спроса. По Google используем альтернативные методы и источники данных, так как классический сбор через Ads недоступен уже несколько лет.
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <span>5) Нужно ли обновлять семантическое ядро?</span>
+          <span class="chev" aria-hidden="true"><span>⌄</span></span>
+        </summary>
+        <div class="faq-a">
+          Да. Запросы меняются, появляются новые формулировки и тренды. Обычно имеет смысл пересматривать семантику раз в 6-12 месяцев, либо при смене услуг, региона или позиционирования.
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <span>6) Можно ли сделать ядро, если сайта еще нет?</span>
+          <span class="chev" aria-hidden="true"><span>⌄</span></span>
+        </summary>
+        <div class="faq-a">
+          Да. Это даже правильнее - вы строите структуру сайта сразу по спросу, а не наоборот.
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <span>7) Что делать после ядра?</span>
+          <span class="chev" aria-hidden="true"><span>⌄</span></span>
+        </summary>
+        <div class="faq-a">
+          Есть несколько типовых путей: техническая SEO-оптимизация, продвижение сайта или запуск Яндекс.Директ.
+          Если делаем сайт с нуля - семантика сразу ложится в структуру и прототип.
+          <div class="linkline">
+            <a class="chiplink" href="/seo/optimizaciya-sayta/"><i></i>SEO оптимизация</a>
+            <a class="chiplink" href="/seo/prodvizhenie-sayta/"><i></i>SEO продвижение</a>
+            <a class="chiplink" href="/yandex-direct/"><i></i>Яндекс.Директ</a>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <span>8) Вы помогаете внедрить семантику в сайт?</span>
+          <span class="chev" aria-hidden="true"><span>⌄</span></span>
+        </summary>
+        <div class="faq-a">
+          Да. Можем сделать структуру, подготовить ТЗ на страницы и тексты, собрать прототип, дизайн и верстку - и дальше довести до результата под ключ.
+          <div class="linkline">
+            <a class="chiplink" href="/sozadanie-saytov/"><i></i>Разработка сайтов</a>
+            <a class="chiplink" href="/sozadanie-saytov/prototip-sayta/"><i></i>Прототип</a>
+          </div>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section" id="form">
+    <div class="container">
+      <div class="cta">
+        <div>
+          <b>Хотите понять спрос в нише и получить структуру страниц без хаоса?</b>
+          <p>Оставьте заявку - оценим объем семантики и предложим план работ. Можно стартовать только с ядра, а дальше двигаться по этапам.</p>
+        </div>
+        <div class="cta-row">
+          <a class="btn primary" href="#"><span class="dot"></span>Оставить заявку</a>
+          <a class="btn" href="#example">Пример Google Sheets</a>
+        </div>
+      </div>
+
+      <!-- Плейсхолдер формы -->
+      <div class="card" style="margin-top:12px">
+        <h3 style="margin:0 0 6px">Форма заявки (плейсхолдер)</h3>
+        <p style="margin:0; color:var(--muted)">
+          Здесь позже подключишь форму/квиз/CRM. Можно сделать отправку в amoCRM или в Telegram.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <b>Venner Digital</b>
+          <div class="small">Разработка, SEO и performance-маркетинг с 2013 года. Работаем по этапам, прозрачно, с фокусом на результат.</div>
+          <div class="hr"></div>
+          <div class="small">Анкоры и URL на странице - плейсхолдеры. Подставь финальные адреса из своей таблицы структуры.</div>
+        </div>
+        <div>
+          <div class="small muted">Следующие страницы раздела SEO:</div>
+          <div class="linkline" style="margin-top:10px">
+            <a class="chiplink" href="/seo/prodvizhenie-sayta/"><i></i>Продвижение сайта</a>
+            <a class="chiplink" href="/seo/optimizaciya-sayta/"><i></i>SEO оптимизация</a>
+            <a class="chiplink" href="/seo/audit-sayta/"><i></i>SEO аудит</a>
+            <a class="chiplink" href="/seo/kopirajting/"><i></i>SEO тексты</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

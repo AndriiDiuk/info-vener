@@ -1,0 +1,615 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Контакты | Venner Digital</title>
+  <meta name="description" content="Контакты Venner Digital: телефон, почта, WhatsApp, Telegram, Max, соцсети. Работаем удаленно по русскоязычному пространству." />
+
+  <style>
+    :root{
+      --bg1:#27e3c8;
+      --bg2:#04b8ff;
+      --ink:#0b1320;
+      --muted:#51627d;
+      --card:#ffffff;
+      --stroke:rgba(11,19,32,.10);
+      --stroke2:rgba(255,255,255,.35);
+      --shadow: 0 16px 50px rgba(0,0,0,.10);
+      --shadow2: 0 10px 30px rgba(0,0,0,.08);
+      --radius:24px;
+      --radius2:18px;
+      --accent:#ff5c5c;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--ink);
+      background:
+        radial-gradient(900px 600px at 65% 15%, rgba(255,255,255,.70), rgba(255,255,255,0) 55%),
+        linear-gradient(135deg, var(--bg1), var(--bg2));
+      min-height:100vh;
+    }
+    a{color:inherit; text-decoration:none}
+    .wrap{max-width:1200px; margin:0 auto; padding:28px 20px 70px}
+
+    .topline{
+      display:flex; gap:12px; align-items:center; justify-content:space-between;
+      padding:14px 16px;
+      border:1px solid var(--stroke2);
+      background:rgba(255,255,255,.22);
+      border-radius:999px;
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow2);
+    }
+    .brand{display:flex; gap:10px; align-items:center; font-weight:900; letter-spacing:.2px; white-space:nowrap;}
+    .brand-badge{
+      width:38px; height:38px; border-radius:14px;
+      background:rgba(255,255,255,.75);
+      border:1px solid rgba(0,0,0,.06);
+      display:grid; place-items:center;
+      box-shadow: 0 10px 20px rgba(0,0,0,.08);
+      font-weight:950;
+      color:#ff2d2d;
+    }
+    .nav{display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:center;}
+    .nav a{
+      padding:9px 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.35);
+      background:rgba(255,255,255,.12);
+      font-weight:700;
+      color:rgba(11,19,32,.85);
+      transition:.2s;
+    }
+    .nav a:hover{transform: translateY(-1px); background:rgba(255,255,255,.18)}
+    .contacts{display:flex; gap:10px; align-items:center; justify-content:flex-end; flex-wrap:wrap;}
+    .pill{
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.45);
+      background:rgba(255,255,255,.22);
+      font-weight:850;
+      color:rgba(11,19,32,.92);
+      display:inline-flex; gap:8px; align-items:center;
+      white-space:nowrap;
+    }
+    .btn{
+      padding:12px 16px;
+      border-radius:999px;
+      border:1px solid rgba(0,0,0,.08);
+      background:rgba(255,255,255,.85);
+      font-weight:900;
+      box-shadow: 0 14px 30px rgba(0,0,0,.12);
+      transition:.2s;
+      display:inline-flex; gap:10px; align-items:center;
+      cursor:pointer;
+    }
+    .btn:hover{transform: translateY(-1px)}
+    .btn-accent{
+      background: linear-gradient(135deg, #ff7a7a, #ff4b4b);
+      color:#fff;
+      border:0;
+    }
+    .btn-dark{
+      background: rgba(11,19,32,.88);
+      border:1px solid rgba(255,255,255,.10);
+      color:#fff;
+      box-shadow: var(--shadow);
+    }
+
+    .hero{
+      margin-top:22px;
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap:18px;
+      align-items:stretch;
+    }
+    .hero-card{
+      background: rgba(255,255,255,.70);
+      border:1px solid rgba(0,0,0,.06);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding:28px;
+      position:relative;
+      overflow:hidden;
+    }
+    .hero-card:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(540px 260px at 90% 15%, rgba(255,255,255,.95), rgba(255,255,255,0) 55%),
+        radial-gradient(500px 260px at 20% 90%, rgba(255,255,255,.65), rgba(255,255,255,0) 60%);
+      pointer-events:none;
+    }
+    .hero-inner{position:relative; z-index:1}
+    .crumbs{font-size:13px; color:rgba(11,19,32,.55); margin-bottom:12px;}
+    .crumbs a{color:rgba(11,19,32,.65); font-weight:850}
+
+    h1{margin:0 0 10px; font-size:48px; line-height:1.05; letter-spacing:-.7px;}
+    .ghost-title{
+      position:absolute; left:28px; top:64px;
+      font-size:84px; font-weight:950; letter-spacing:-1px;
+      color:rgba(11,19,32,.06);
+      user-select:none; pointer-events:none;
+      text-transform:uppercase;
+    }
+    .sub{
+      margin:0 0 16px;
+      font-size:16px;
+      line-height:1.55;
+      color:rgba(11,19,32,.78);
+      max-width:760px;
+    }
+
+    .quick{
+      display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top:12px;
+    }
+
+    .anchors{margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;}
+    .anchor{
+      padding:9px 12px;
+      border-radius:999px;
+      border:1px dashed rgba(0,0,0,.18);
+      background: rgba(255,255,255,.50);
+      font-weight:900;
+      color:rgba(11,19,32,.72);
+    }
+
+    .hero-side{
+      background: rgba(255,255,255,.18);
+      border:1px solid rgba(255,255,255,.35);
+      border-radius: var(--radius);
+      padding:18px;
+      box-shadow: var(--shadow2);
+      backdrop-filter: blur(10px);
+    }
+    .hero-side .card{
+      background: rgba(255,255,255,.82);
+      border:1px solid rgba(0,0,0,.06);
+      border-radius: 18px;
+      padding:16px;
+      box-shadow: var(--shadow2);
+    }
+    .muted{color:rgba(11,19,32,.62); font-size:14px; line-height:1.55;}
+    .kpi{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+      margin-top:12px;
+    }
+    .kpi .k{
+      background: rgba(255,255,255,.70);
+      border:1px solid rgba(0,0,0,.06);
+      border-radius:18px;
+      padding:14px;
+      box-shadow: var(--shadow2);
+    }
+    .k strong{display:block; font-size:16px; font-weight:950;}
+    .k span{display:block; margin-top:6px; font-size:13px; color:rgba(11,19,32,.68); line-height:1.35}
+
+    .section{
+      margin-top:18px;
+      background: rgba(255,255,255,.72);
+      border:1px solid rgba(0,0,0,.06);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding:26px;
+      overflow:hidden;
+    }
+    .section h2{margin:0 0 10px; font-size:34px; letter-spacing:-.4px;}
+    .lead{margin:0 0 18px; color:rgba(11,19,32,.74); line-height:1.55; max-width:980px;}
+
+    .grid4{display:grid; grid-template-columns: repeat(4, 1fr); gap:14px}
+    .grid3{display:grid; grid-template-columns: repeat(3, 1fr); gap:14px}
+    .grid2{display:grid; grid-template-columns: 1fr 1fr; gap:14px}
+
+    .box{
+      background: rgba(255,255,255,.82);
+      border:1px solid rgba(0,0,0,.06);
+      border-radius: 20px;
+      padding:18px;
+      box-shadow: var(--shadow2);
+      min-height:132px;
+      position:relative;
+      overflow:hidden;
+    }
+    .ttl{
+      display:flex; align-items:center; gap:10px;
+      font-weight:950;
+      letter-spacing:-.2px;
+      margin-bottom:8px;
+      font-size:16px;
+    }
+    .ic{
+      width:38px; height:38px; border-radius:14px;
+      background: rgba(4,184,255,.14);
+      border:1px solid rgba(4,184,255,.25);
+      display:grid; place-items:center;
+      font-weight:950;
+      color:#075b8a;
+    }
+    .box p{margin:0; color:rgba(11,19,32,.72); line-height:1.5; font-size:14px;}
+    .box .actions{margin-top:14px; display:flex; gap:10px; flex-wrap:wrap; align-items:center;}
+    .mini{
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid rgba(0,0,0,.08);
+      background: rgba(255,255,255,.70);
+      font-weight:900;
+      color:rgba(11,19,32,.80);
+      transition:.2s;
+      cursor:pointer;
+    }
+    .mini:hover{transform: translateY(-1px)}
+
+    .tag{
+      position:absolute;
+      top:14px; right:14px;
+      padding:7px 10px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:950;
+      border:1px solid rgba(0,0,0,.08);
+      background: rgba(255,255,255,.72);
+      color:rgba(11,19,32,.72);
+    }
+    .tag.soon{
+      background: rgba(255,226,120,.55);
+      border:1px solid rgba(255,184,0,.20);
+    }
+
+    .how{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:14px;
+      margin-top:10px;
+    }
+    .step{
+      background: rgba(255,255,255,.82);
+      border:1px solid rgba(0,0,0,.06);
+      border-radius:20px;
+      padding:18px;
+      box-shadow: var(--shadow2);
+    }
+    .step .n{
+      width:42px; height:42px; border-radius:16px;
+      display:grid; place-items:center;
+      font-weight:950;
+      background: rgba(39,227,200,.20);
+      border:1px solid rgba(39,227,200,.30);
+      color:#0d7b6a;
+      margin-bottom:10px;
+    }
+    .step strong{display:block; font-size:16px; font-weight:950; margin-bottom:6px}
+    .step span{display:block; font-size:14px; color:rgba(11,19,32,.70); line-height:1.5}
+
+    .links-row{
+      display:flex; gap:10px; flex-wrap:wrap; margin-top:12px;
+    }
+    .links-row a{
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid rgba(0,0,0,.08);
+      background: rgba(255,255,255,.70);
+      font-weight:900;
+      color:rgba(11,19,32,.80);
+      transition:.2s;
+    }
+    .links-row a:hover{transform: translateY(-1px)}
+
+    .cta{
+      margin-top:18px;
+      display:flex; gap:12px; align-items:center; justify-content:space-between;
+      padding:18px 18px;
+      border-radius: var(--radius);
+      background: rgba(11,19,32,.86);
+      color:#fff;
+      border:1px solid rgba(255,255,255,.10);
+      box-shadow: var(--shadow);
+      flex-wrap:wrap;
+    }
+    .cta strong{font-size:18px; font-weight:950;}
+    .cta span{color:rgba(255,255,255,.80); display:block; margin-top:6px; line-height:1.45}
+    .cta .actions{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
+    .cta .ghost{
+      background: rgba(255,255,255,.12);
+      border:1px solid rgba(255,255,255,.22);
+      color:#fff;
+      box-shadow:none;
+    }
+
+    .toast{
+      position:fixed;
+      left:50%;
+      bottom:22px;
+      transform:translateX(-50%);
+      background: rgba(11,19,32,.92);
+      color:#fff;
+      padding:10px 14px;
+      border-radius:999px;
+      font-weight:850;
+      border:1px solid rgba(255,255,255,.12);
+      box-shadow: var(--shadow2);
+      opacity:0;
+      pointer-events:none;
+      transition:.25s;
+      z-index:50;
+    }
+    .toast.show{opacity:1}
+
+    @media (max-width: 980px){
+      .hero{grid-template-columns:1fr}
+      h1{font-size:40px}
+      .ghost-title{font-size:64px}
+      .grid4{grid-template-columns:1fr}
+      .grid3{grid-template-columns:1fr}
+      .grid2{grid-template-columns:1fr}
+      .how{grid-template-columns:1fr}
+      .nav{display:none}
+      .kpi{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="topline">
+      <div class="brand">
+        <div class="brand-badge">V</div>
+        <div>Venner Digital</div>
+      </div>
+
+      <div class="contacts">
+        <a class="pill" href="tel:+79528070601">📞 8 (952) 807-06-01</a>
+        <a class="btn" href="/zakaz-uslugi/">Оставить заявку</a>
+      </div>
+    </div>
+
+    <div class="hero" id="top">
+      <section class="hero-card">
+        <div class="hero-inner">
+          <div class="ghost-title">Контакты</div>
+          <div class="crumbs">
+            <a href="/">Главная</a> / <a href="/kontakty/">Контакты</a>
+          </div>
+
+          <h1>Контакты</h1>
+          <p class="sub">
+            Мы работаем удаленно - в русскоязычном пространстве, независимо от города и страны.
+            Быстрее всего отвечаем в мессенджерах, а если удобнее - созвонимся и разберем задачу за 10-15 минут.
+          </p>
+
+      </div>
+      </section>
+
+      <aside class="hero-side">
+        <div class="card">
+          <div style="font-weight:950; font-size:16px; letter-spacing:-.2px;">На связи</div>
+          <div class="muted" style="margin-top:8px;">
+            Если вопрос срочный - напишите в мессенджер и коротко укажите:
+            услугу, ссылку на сайт (если есть) и что хотите получить на выходе.
+          </div>
+
+          <div class="kpi">
+            <div class="k">
+              <strong>Удаленно</strong>
+              <span>Работаем с проектами из разных городов и стран.</span>
+            </div>
+            <div class="k">
+              <strong>Быстро</strong>
+              <span>Мессенджеры - самый быстрый канал.</span>
+            </div>
+            <div class="k">
+              <strong>По делу</strong>
+              <span>Сразу уточняем цель, сроки, бюджет и делаем план.</span>
+            </div>
+            <div class="k">
+              <strong>Официально</strong>
+              <span>Договор, смета в таблице, этапы и контроль.</span>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <section class="section" id="cards">
+      <h2>Все способы связи.</h2>
+      <p class="lead">
+        Выберите удобный вариант - мы подстроимся. Для быстрых вопросов лучше мессенджер, для обсуждения проекта - созвон.
+      </p>
+
+      <div class="grid4">
+        <div class="box">
+          <div class="ttl"><span class="ic">🧠</span>Обратная связь</div>
+          <p>Есть вопрос или задача? Оставьте заявку - мы уточним вводные и предложим решение.</p>
+          <div class="actions">
+            <a class="mini" href="/zakaz-uslugi/">Оставить заявку</a>
+          </div>
+        </div>
+
+        <div class="box">
+          <div class="ttl"><span class="ic">✉️</span>Напишите на почту</div>
+          <p>
+            Почта для задач, документов и материалов проекта:
+            <br><strong id="emailText">venner.digital@gmail.com</strong>
+            <br><strong id="emailText">venner-web@yandex.ru</strong>
+          </p>
+        </div>
+
+        <div class="box">
+          <div class="ttl"><span class="ic">📞</span>Позвоните</div>
+          <p>
+            Телефон для консультации и созвона:
+            <br><strong id="phoneText">8 (952) 807-06-01</strong>
+          </p>
+          <div class="actions">
+            <a class="mini" href="tel:+79528070601">Позвонить</a>
+          </div>
+        </div>
+    </section>
+
+    <section class="section" id="messengers">
+      <h2>Написать в мессенджер.</h2>
+      <p class="lead">
+        Самый быстрый способ связи. Выберите платформу - откроется диалог.
+      </p>
+
+      <div class="grid3">
+        <div class="box">
+          <div class="tag">WhatsApp</div>
+          <div class="ttl"><span class="ic">WA</span>WhatsApp</div>
+          <p>Удобно для быстрых вопросов, голосовых и обмена файлами.</p>
+          <div class="actions">
+            <a class="mini" href="#" target="_blank" rel="noopener">Открыть WhatsApp</a>
+          </div>
+        </div>
+
+        <div class="box">
+          <div class="tag">Telegram</div>
+          <div class="ttl"><span class="ic">TG</span>Telegram</div>
+          <p>Чат, документы, обсуждение задач, быстрые уточнения по проекту.</p>
+          <div class="actions">
+            <a class="mini" href="#" target="_blank" rel="noopener">Открыть Telegram</a>
+          </div>
+        </div>
+
+        <div class="box">
+          <div class="tag">Max</div>
+          <div class="ttl"><span class="ic">MX</span>Max</div>
+          <p>Альтернативный канал связи - на случай, если так удобнее.</p>
+          <div class="actions">
+            <a class="mini" href="#" target="_blank" rel="noopener">Открыть Max</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="links-row" style="margin-top:14px;">
+        <a href="/ceny/">Посмотреть цены</a>
+        <a href="/portfolio/">Посмотреть портфолио</a>
+        <a href="/otzyvy/">Посмотреть отзывы</a>
+      </div>
+    </section>
+
+    <section class="section" id="social">
+      <h2>Соцсети и канал.</h2>
+      <p class="lead">
+        Там мы показываем проекты, делимся полезным и публикуем новости.
+      </p>
+
+      <div class="grid2">
+        <div class="box">
+          <div class="ttl"><span class="ic">🌐</span>Наши страницы</div>
+          <p>
+            VK и Instagram - для новостей, примеров работ и контакта с аудиторией.
+          </p>
+          <div class="actions">
+            <a class="mini" href="https://vk.com/venner_digital" target="_blank" rel="noopener">VK</a>
+            <a class="mini" href="#" target="_blank" rel="noopener">Instagram</a>
+          </div>
+        </div>
+
+        <div class="box">
+          <div class="tag soon">Скоро</div>
+          <div class="ttl"><span class="ic">📣</span>Telegram-канал</div>
+          <p>
+            Здесь будет Telegram-канал с кейсами, разбором решений и полезными материалами.
+          </p>
+          <div class="actions">
+            <a class="mini" href="#" target="_blank" rel="noopener">Открыть канал</a>
+            <a class="mini" href="/blog/">Перейти в блог</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="howfast">
+      <h2>Как быстрее получить ответ.</h2>
+      <p class="lead">
+        Это помогает быстро понять задачу и дать точный ответ без лишних кругов.
+      </p>
+
+      <div class="how">
+        <div class="step">
+          <div class="n">1</div>
+          <strong>Напишите, что нужно</strong>
+          <span>Разработка сайта, SEO, реклама, лидогенерация, CRM - или просто "хочу больше заявок".</span>
+        </div>
+        <div class="step">
+          <div class="n">2</div>
+          <strong>Дайте вводные</strong>
+          <span>Ссылка на сайт/соцсети (если есть), город/гео, ниша, цель, пример конкурента - по желанию.</span>
+        </div>
+        <div class="step">
+          <div class="n">3</div>
+          <strong>Согласуем формат</strong>
+          <span>Быстрый ответ в чате или созвон. Далее - смета в таблице и понятный план действий.</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="cta">
+      <div>
+        <strong>Нужен расчет или план работ под вашу задачу?</strong>
+        <span>Оставьте заявку - соберем вводные и предложим решение. Если есть сайт - приложите ссылку.</span>
+      </div>
+      <div class="actions">
+        <a class="btn btn-accent" href="/zakaz-uslugi/">Оставить заявку</a>
+        <a class="btn ghost" href="tel:+79528070601">Позвонить</a>
+        <a class="btn ghost" href="#messengers">Написать</a>
+      </div>
+    </div>
+
+    <p class="muted" style="margin:16px 6px 0;">
+      Перелинковка: <a href="/ceny/" style="text-decoration:underline; font-weight:950;">цены</a> -
+      <a href="/portfolio/" style="text-decoration:underline; font-weight:950;">портфолио</a> -
+      <a href="/otzyvy/" style="text-decoration:underline; font-weight:950;">отзывы</a> -
+      <a href="/zakaz-uslugi/" style="text-decoration:underline; font-weight:950;">заказать услугу</a> -
+      <a href="/blog/" style="text-decoration:underline; font-weight:950;">блог</a>.
+    </p>
+  </div>
+
+  <div class="toast" id="toast">Скопировано</div>
+
+  <script>
+    // Copy helpers
+    const toast = document.getElementById('toast');
+    function showToast(text){
+      toast.textContent = text || 'Скопировано';
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 1200);
+    }
+
+    document.querySelectorAll('[data-copy]').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const sel = btn.getAttribute('data-copy');
+        const el = document.querySelector(sel);
+        if (!el) return;
+        const val = (el.textContent || '').trim();
+        try{
+          await navigator.clipboard.writeText(val);
+          showToast('Скопировано');
+        }catch(e){
+          showToast('Не получилось скопировать');
+        }
+      });
+    });
+
+    document.querySelectorAll('[data-copy-text]').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const val = (btn.getAttribute('data-copy-text') || '').trim();
+        if (!val) return;
+        try{
+          await navigator.clipboard.writeText(val);
+          showToast('Скопировано');
+        }catch(e){
+          showToast('Не получилось скопировать');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
+

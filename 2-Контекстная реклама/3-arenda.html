@@ -1,0 +1,828 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Аренда рекламных кампаний Яндекс.Директ - готовые РК помесячно</title>
+  <meta name="description" content="Аренда рекламных кампаний Яндекс.Директ: готовые, обкатанные РК помесячно от 5 000 ₽. Быстрый старт без оплаты разработки, можно отказаться в любой момент." />
+  <meta property="og:title" content="Аренда рекламных кампаний Яндекс.Директ - готовые РК помесячно" />
+  <meta property="og:description" content="Берете в аренду готовую рекламную кампанию: без оплаты разработки, с понятной ценой и быстрым стартом. Подходит для теста ниши и снижения рисков." />
+  <meta property="og:type" content="website" />
+
+  <style>
+    :root{
+      --bg:#0b0f14;
+      --card:#0f1620;
+      --text:#e7eef7;
+      --muted:#9bb0c6;
+      --line:rgba(255,255,255,.09);
+      --accent:#57d39c;
+      --accent2:#2dd4bf;
+      --warn:#f59e0b;
+      --bad:#fb7185;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --r:18px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue";
+      background: radial-gradient(1200px 700px at 20% 10%, rgba(45,212,191,.12), transparent 60%),
+                  radial-gradient(900px 600px at 80% 20%, rgba(87,211,156,.10), transparent 55%),
+                  var(--bg);
+      color:var(--text);
+      line-height:1.45;
+    }
+    a{color:inherit; text-decoration:none}
+    .container{max-width:1160px; margin:0 auto; padding:0 18px}
+    .topbar{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(10px);
+      background: rgba(11,15,20,.65);
+      border-bottom:1px solid var(--line);
+    }
+    .topbar__in{display:flex; align-items:center; justify-content:space-between; padding:12px 0; gap:14px}
+    .brand{display:flex; align-items:center; gap:10px}
+    .logo{
+      width:34px; height:34px; border-radius:12px;
+      background: linear-gradient(135deg, rgba(87,211,156,.9), rgba(45,212,191,.9));
+      box-shadow: 0 10px 20px rgba(45,212,191,.15);
+    }
+    .brand b{letter-spacing:.2px}
+    .nav{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end}
+    .nav a{
+      padding:8px 10px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      font-size:13px;
+      color:var(--muted);
+      background: rgba(255,255,255,.03);
+      transition:.2s;
+      white-space:nowrap;
+    }
+    .nav a:hover{border-color: rgba(87,211,156,.35); color:var(--text)}
+    .actions{display:flex; gap:10px; align-items:center; flex-wrap:wrap; justify-content:flex-end}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:8px;
+      padding:10px 14px;
+      border-radius:12px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      color:var(--text);
+      font-weight:700;
+      cursor:pointer;
+      transition:.2s;
+      white-space:nowrap;
+    }
+    .btn:hover{transform: translateY(-1px); border-color: rgba(87,211,156,.35)}
+    .btn--primary{
+      background: linear-gradient(135deg, rgba(87,211,156,.95), rgba(45,212,191,.95));
+      color:#071012;
+      border-color: rgba(255,255,255,.0);
+    }
+    .btn--primary:hover{filter:saturate(1.05) brightness(1.02)}
+    .btn--ghost{color:var(--muted)}
+    .messengers{display:flex; gap:8px; flex-wrap:wrap}
+    .m{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      color:var(--muted);
+      font-size:13px;
+      transition:.2s;
+    }
+    .m:hover{border-color: rgba(87,211,156,.35); color:var(--text)}
+    .dot{width:10px; height:10px; border-radius:50%}
+    .dot--wa{background:#25D366}
+    .dot--tg{background:#2AABEE}
+    .dot--mx{background:#7c3aed}
+
+    /* hero */
+    .hero{padding:34px 0 10px}
+    .hero__grid{display:grid; grid-template-columns: 1.35fr .65fr; gap:16px; align-items:stretch}
+    @media (max-width: 980px){.hero__grid{grid-template-columns:1fr}}
+    .panel{
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      border-radius: var(--r);
+      box-shadow: var(--shadow);
+    }
+    .hero__left{padding:22px}
+    .kicker{
+      display:inline-flex; gap:8px; align-items:center;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(87,211,156,.35);
+      color: rgba(87,211,156,.95);
+      background: rgba(87,211,156,.08);
+      font-size:13px;
+      font-weight:800;
+      letter-spacing:.2px;
+    }
+    h1{margin:12px 0 8px; font-size:38px; line-height:1.12}
+    @media (max-width: 520px){h1{font-size:30px}}
+    .lead{color:var(--muted); font-size:16px; margin:0 0 16px}
+    .hero__bullets{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:16px 0 0}
+    @media (max-width: 640px){.hero__bullets{grid-template-columns:1fr}}
+    .chip{
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      border-radius:14px;
+      padding:12px 12px;
+      color:var(--text);
+      font-size:14px;
+    }
+    .chip span{display:block; color:var(--muted); font-size:13px; margin-top:3px}
+
+    .hero__right{padding:18px}
+    .price{
+      display:flex; align-items:flex-end; justify-content:space-between; gap:10px;
+      padding:14px;
+      border-radius:14px;
+      background: rgba(255,255,255,.03);
+      border:1px solid var(--line);
+    }
+    .price b{font-size:22px}
+    .price small{color:var(--muted)}
+    .form{
+      margin-top:12px;
+      padding:14px;
+      border-radius:14px;
+      background: rgba(255,255,255,.03);
+      border:1px solid var(--line);
+    }
+    .form label{display:block; color:var(--muted); font-size:12px; margin:0 0 6px}
+    .inp{
+      width:100%;
+      border-radius:12px;
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.22);
+      color:var(--text);
+      padding:12px 12px;
+      outline:none;
+      transition:.2s;
+    }
+    .inp:focus{border-color: rgba(87,211,156,.35)}
+    .form__row{display:grid; grid-template-columns:1fr 1fr; gap:10px}
+    @media (max-width: 520px){.form__row{grid-template-columns:1fr}}
+    .hint{color:var(--muted); font-size:12px; margin-top:10px}
+
+    /* sections */
+    section{padding:26px 0}
+    .h2{font-size:26px; margin:0 0 10px}
+    .sub{color:var(--muted); margin:0 0 16px}
+    .grid-3{display:grid; grid-template-columns:repeat(3,1fr); gap:12px}
+    .grid-2{display:grid; grid-template-columns:repeat(2,1fr); gap:12px}
+    @media (max-width: 980px){.grid-3{grid-template-columns:1fr} .grid-2{grid-template-columns:1fr}}
+    .card{
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      border-radius: var(--r);
+      padding:16px;
+    }
+    .card h3{margin:0 0 6px; font-size:16px}
+    .card p{margin:0; color:var(--muted); font-size:14px}
+    .badge{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:6px 10px; border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      color:var(--muted);
+      font-size:12px;
+      margin-bottom:10px;
+    }
+    .badge i{display:inline-block; width:10px; height:10px; border-radius:50%}
+    .i-ok{background: var(--accent)}
+    .i-warn{background: var(--warn)}
+    .i-bad{background: var(--bad)}
+    .list{margin:10px 0 0; padding:0 0 0 18px; color:var(--muted)}
+    .list li{margin:6px 0}
+    .link{
+      color: rgba(87,211,156,.95);
+      border-bottom:1px dashed rgba(87,211,156,.35);
+      padding-bottom:1px;
+    }
+
+    /* callout */
+    .callout{
+      display:grid; grid-template-columns:1.2fr .8fr; gap:12px; align-items:stretch;
+      border:1px solid rgba(87,211,156,.25);
+      background: linear-gradient(135deg, rgba(87,211,156,.10), rgba(45,212,191,.06));
+      border-radius: var(--r);
+      padding:16px;
+    }
+    @media (max-width: 980px){.callout{grid-template-columns:1fr}}
+    .callout h3{margin:0 0 6px}
+    .callout p{margin:0; color:var(--muted)}
+    .callout__box{
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.18);
+      border-radius: var(--r);
+      padding:14px;
+    }
+
+    /* pricing */
+    .pricing{display:grid; grid-template-columns:repeat(3,1fr); gap:12px}
+    @media (max-width: 980px){.pricing{grid-template-columns:1fr}}
+    .plan{
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      border-radius: var(--r);
+      padding:16px;
+      position:relative;
+      overflow:hidden;
+    }
+    .plan--best{border-color: rgba(87,211,156,.35)}
+    .plan__tag{
+      position:absolute; top:14px; right:14px;
+      padding:6px 10px; border-radius:999px;
+      background: rgba(87,211,156,.12);
+      border:1px solid rgba(87,211,156,.35);
+      color: rgba(87,211,156,.95);
+      font-size:12px; font-weight:800;
+    }
+    .plan h3{margin:0 0 6px}
+    .plan .p{color:var(--muted); margin:0 0 12px; font-size:14px}
+    .plan .money{font-size:28px; font-weight:900; margin:0}
+    .plan .money small{font-size:12px; color:var(--muted); font-weight:700}
+    .plan .mini{color:var(--muted); font-size:12px; margin-top:6px}
+    .divider{height:1px; background: var(--line); margin:12px 0}
+
+    /* niche list */
+    .tags{display:flex; flex-wrap:wrap; gap:8px; margin-top:10px}
+    .tag{
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    /* table */
+    .table{
+      border:1px solid var(--line);
+      border-radius: var(--r);
+      overflow:hidden;
+      background: rgba(255,255,255,.02);
+    }
+    .row{
+      display:grid;
+      grid-template-columns: 1.1fr .9fr 1fr;
+      gap:10px;
+      padding:14px;
+      border-top:1px solid var(--line);
+      align-items:center;
+    }
+    .row:first-child{border-top:none}
+    .th{color:var(--muted); font-size:12px; text-transform:uppercase; letter-spacing:.12em}
+    @media (max-width: 860px){
+      .row{grid-template-columns:1fr}
+      .th{display:none}
+    }
+    .k{font-weight:900}
+    .v{color:var(--muted); font-size:14px}
+    .ctaRow{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px}
+
+    /* faq */
+    .faq{border:1px solid var(--line); border-radius: var(--r); overflow:hidden}
+    .faq details{border-top:1px solid var(--line); background: rgba(255,255,255,.02)}
+    .faq details:first-child{border-top:none}
+    .faq summary{
+      cursor:pointer;
+      padding:14px 14px;
+      list-style:none;
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px;
+      font-weight:800;
+    }
+    .faq summary::-webkit-details-marker{display:none}
+    .faq .a{padding:0 14px 14px; color:var(--muted)}
+    .plus{
+      width:28px; height:28px; border-radius:10px;
+      display:grid; place-items:center;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      color:var(--muted);
+      flex:0 0 auto;
+      font-weight:900;
+    }
+    details[open] .plus{color:var(--text); border-color: rgba(87,211,156,.35)}
+
+    .footer{
+      border-top:1px solid var(--line);
+      padding:18px 0 30px;
+      color:var(--muted);
+      font-size:13px;
+    }
+    .mini-nav{display:flex; flex-wrap:wrap; gap:10px; margin-top:8px}
+    .mini-nav a{color:var(--muted); border-bottom:1px dashed rgba(255,255,255,.2)}
+    .hr{height:1px; background: var(--line); margin:10px 0 0}
+  </style>
+</head>
+
+<body>
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="container">
+      <div class="topbar__in">
+        <a class="brand" href="/">
+          <span class="logo" aria-hidden="true"></span>
+          <b>Venner Digital</b>
+        </a>
+
+        <div class="nav" aria-label="Навигация по разделу">
+          <a href="/yandex-direct/" title="Основной лендинг по Яндекс.Директ">Яндекс.Директ</a>
+          <a href="/yandex-direct/audit/" title="Аудит рекламных кампаний">Аудит</a>
+          <a href="/yandex-direct/vedenie/" title="Ведение рекламных кампаний">Ведение</a>
+          <a href="/yandex-direct/arenda/" title="Аренда рекламных кампаний">Аренда РК</a>
+        </div>
+
+        <div class="actions">
+          <div class="messengers" aria-label="Мессенджеры">
+            <a class="m" href="#cta"><span class="dot dot--wa" aria-hidden="true"></span> WhatsApp</a>
+            <a class="m" href="#cta"><span class="dot dot--tg" aria-hidden="true"></span> Telegram</a>
+            <a class="m" href="#cta"><span class="dot dot--mx" aria-hidden="true"></span> Max</a>
+          </div>
+          <a class="btn btn--primary" href="#cta">Подобрать РК в аренду</a>
+          <a class="btn btn--ghost" href="tel:+70000000000">Обсудить по телефону</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="container">
+      <div class="hero__grid">
+        <div class="panel hero__left">
+          <div class="kicker">Аренда рекламных кампаний</div>
+          <h1>Готовая РК Яндекс.Директ в аренду - тестируете нишу без оплаты разработки</h1>
+          <p class="lead">
+            Обычный рынок продаёт "сделаем кампанию за ваши деньги и проверим гипотезы". Мы делаем наоборот.
+            Аренда РК - это готовый обкатанный продукт по подписке: вы платите помесячно и можете остановиться в любой момент.
+          </p>
+
+          <div class="hero__bullets">
+            <div class="chip">
+              Быстрый старт
+              <span>Запуск за считанные дни, без этапа "собираем с нуля"</span>
+            </div>
+            <div class="chip">
+              Минимум рисков
+              <span>Нет оплаты разработки 50 000 ₽ сразу - можно начать с 5 000 ₽/мес</span>
+            </div>
+            <div class="chip">
+              Обкатанные гипотезы
+              <span>Кампании собраны на опыте и тестах в реальных проектах</span>
+            </div>
+            <div class="chip">
+              Честно про ведение
+              <span>Ведение полезно всегда, но не "навязываем": можно вести самому</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel hero__right">
+          <div class="price">
+            <div>
+              <small>Аренда рекламной кампании</small><br />
+              <b>от 5 000 ₽/мес</b>
+            </div>
+            <div style="text-align:right">
+              <small>Вместо разработки</small><br />
+              <b>~50 000 ₽</b>
+            </div>
+          </div>
+
+          <div class="form" id="cta">
+            <div class="badge"><i class="i-ok"></i> Подбор РК под вашу нишу</div>
+
+            <div class="form__row">
+              <div>
+                <label>Имя</label>
+                <input class="inp" placeholder="Как к вам обращаться" />
+              </div>
+              <div>
+                <label>Телефон</label>
+                <input class="inp" placeholder="+7 (___) ___-__-__" />
+              </div>
+            </div>
+
+            <div style="margin-top:10px">
+              <label>Ниша и город (коротко)</label>
+              <input class="inp" placeholder="Например: Заборы, Красноярск" />
+            </div>
+
+            <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px">
+              <a class="btn btn--primary" href="#">Получить варианты РК</a>
+              <a class="btn" href="/yandex-direct/">Разработка РК под ключ</a>
+            </div>
+
+            <p class="hint">
+              Если уже есть реклама и хочется "починить" - начните с
+              <a class="link" href="/yandex-direct/audit/">аудита кампаний</a>.
+              Если нужна ежемесячная оптимизация - смотрите
+              <a class="link" href="/yandex-direct/vedenie/">ведение Директ</a>.
+            </p>
+          </div>
+
+          <div class="hr"></div>
+
+          <div style="padding:14px 14px 18px">
+            <div class="badge"><i class="i-ok"></i> Связанные услуги</div>
+            <div class="mini-nav">
+              <a href="/sozdanie-saytov/" class="link">Разработка сайтов</a>
+              <a href="/sozdanie-saytov/lending-page/" class="link">Лендинг под рекламу</a>
+              <a href="/sozdanie-saytov/kviz-sayt/" class="link">Квиз/посадочная</a>
+              <a href="/crm-integracii/amocrm/" class="link">amoCRM</a>
+              <a href="/seo/" class="link">SEO</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- WHAT IS -->
+  <section>
+    <div class="container">
+      <h2 class="h2">Что такое аренда рекламной кампании</h2>
+      <p class="sub">
+        Это формат подписки на готовую РК. Вместо того чтобы разово платить за разработку (например, 50 000 ₽),
+        вы арендуете готовую кампанию помесячно (например, 5 000-6 000 ₽/мес) и можете остановить аренду в любой момент.
+      </p>
+
+      <div class="grid-3">
+        <div class="card">
+          <div class="badge"><i class="i-ok"></i> Вы получаете готовый продукт</div>
+          <h3>Кампании "обкатаны"</h3>
+          <p>Мы сдаём в аренду только те направления, где уже проверили связки, гипотезы и структуру на практике.</p>
+        </div>
+        <div class="card">
+          <div class="badge"><i class="i-ok"></i> Снижение рисков</div>
+          <h3>Тест без больших вложений</h3>
+          <p>Подходит, если вы не хотите сразу вкладывать крупную сумму в разработку или проверяете новое направление.</p>
+        </div>
+        <div class="card">
+          <div class="badge"><i class="i-ok"></i> Быстрее запуск</div>
+          <h3>Без этапа "с нуля"</h3>
+          <p>Не тратим недели на сбор структуры с нуля. Подстраиваем готовый шаблон под ваш город, оффер и посадочную.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY IT'S RARE + TRUST -->
+  <section>
+    <div class="container">
+      <div class="callout">
+        <div>
+          <h2 class="h2" style="margin:0 0 8px">Почему это почти нигде не встретишь</h2>
+          <p class="sub" style="margin:0">
+            Потому что это "ставка" студии на качество. Мы делаем кампанию за свой счет, первые месяцы она почти не окупается,
+            и только при долгосрочной аренде становится выгодной. Это возможно только если продукт реально рабочий.
+          </p>
+
+          <div class="ctaRow">
+            <a class="btn btn--primary" href="#cta">Подобрать РК в аренду</a>
+            <a class="btn" href="/yandex-direct/vedenie/">Ведение (если нужно)</a>
+            <a class="btn" href="/yandex-direct/audit/">Аудит вашей РК</a>
+          </div>
+        </div>
+
+        <div class="callout__box">
+          <div class="badge"><i class="i-warn"></i> Честная оговорка</div>
+          <ul class="list">
+            <li>Аренда - это экономия на разработке, но не отмена ведения.</li>
+            <li>Можно вести самостоятельно - на ваш риск.</li>
+            <li>Если хотите рост и контроль - подключайте <a class="link" href="/yandex-direct/vedenie/">ведение</a>.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING MODELS -->
+  <section>
+    <div class="container">
+      <h2 class="h2">Как выглядит ценообразование</h2>
+      <p class="sub">
+        Цены ориентировочные, чтобы показать механику. Итог зависит от ниши, города, объема и целей.
+      </p>
+
+      <div class="pricing">
+        <div class="plan">
+          <h3>Разработка "под ключ"</h3>
+          <p class="p">Платите за создание кампании один раз и получаете индивидуальную структуру под вашу задачу.</p>
+          <p class="money">50 000 ₽ <small>разово</small></p>
+          <p class="mini">Подходит, если точно надолго и нужен кастом под сложную структуру.</p>
+          <div class="divider"></div>
+          <ul class="list">
+            <li>индивидуальная сборка</li>
+            <li>сильнее кастомизация</li>
+            <li>оплата "здесь и сейчас"</li>
+          </ul>
+          <div class="ctaRow">
+            <a class="btn" href="/yandex-direct/">Подробнее</a>
+          </div>
+        </div>
+
+        <div class="plan plan--best">
+          <div class="plan__tag">Оптимально для теста</div>
+          <h3>Аренда РК</h3>
+          <p class="p">Помесячная подписка на готовую обкатанную кампанию в вашей нише.</p>
+          <p class="money">от 5 000 ₽ <small>/мес</small></p>
+          <p class="mini">Можно остановить аренду в любой момент, без потери большой суммы.</p>
+          <div class="divider"></div>
+          <ul class="list">
+            <li>готовая структура и объявления</li>
+            <li>быстрый старт</li>
+            <li>минимум рисков</li>
+          </ul>
+          <div class="ctaRow">
+            <a class="btn btn--primary" href="#cta">Подобрать вариант</a>
+          </div>
+        </div>
+
+        <div class="plan">
+          <h3>Ведение (опционально)</h3>
+          <p class="p">Оптимизация кампании ежемесячно: ставки, запросы, объявления, стратегии, площадки, аналитика.</p>
+          <p class="money">от 15 000 ₽ <small>/мес</small></p>
+          <p class="mini">Нужно для стабильности и роста. Подходит и для аренды, и для "своей" РК.</p>
+          <div class="divider"></div>
+          <ul class="list">
+            <li>контроль аукциона</li>
+            <li>A/B тесты и гипотезы</li>
+            <li>фокус на стоимости лида</li>
+          </ul>
+          <div class="ctaRow">
+            <a class="btn" href="/yandex-direct/vedenie/">Подробнее</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT YOU GET -->
+  <section>
+    <div class="container">
+      <h2 class="h2">Что вы получаете на выходе</h2>
+      <p class="sub">Не "файл где-то там", а рабочий инструмент, который можно запускать.</p>
+
+      <div class="grid-2">
+        <div class="card">
+          <div class="badge"><i class="i-ok"></i> Готовая структура</div>
+          <h3>Кампании, группы, объявления, расширения</h3>
+          <p>Собрано под типовые сценарии спроса, чтобы стартовать быстро и не тратить время на изобретение велосипеда.</p>
+          <ul class="list">
+            <li>Поиск / РСЯ / ретаргет (если актуально)</li>
+            <li>набор объявлений и расширений</li>
+            <li>настройки и базовые исключения</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="badge"><i class="i-ok"></i> Настройка под ваш контекст</div>
+          <h3>Город, оффер, посадочная, цели</h3>
+          <p>Готовую РК адаптируем: гео, тексты, УТП, ссылки, быстрые ссылки. При необходимости поможем с целями в Метрике.</p>
+          <ul class="list">
+            <li>подстановка ваших контактов/ссылок</li>
+            <li>проверка соответствия оффера</li>
+            <li>минимальный чек-лист запуска</li>
+          </ul>
+        </div>
+      </div>
+
+      <div style="height:12px"></div>
+
+      <div class="card">
+        <div class="badge"><i class="i-warn"></i> Важно</div>
+        <p style="margin:0; color:var(--muted)">
+          Результат в Директе всегда зависит от посадочной страницы. Если сайт слабый или медленный, стоимость лида будет выше.
+          Если нужно усилить посадочную - делаем: <a class="link" href="/sozdanie-saytov/lending-page/">лендинг</a>,
+          <a class="link" href="/sozdanie-saytov/kviz-sayt/">квиз/посадочная</a>, а также <a class="link" href="/sozdanie-saytov/tehnicheskij-audit-sayta/">технический аудит сайта</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- NICHES LIST -->
+  <section>
+    <div class="container">
+      <h2 class="h2">Какие кампании уже готовы для аренды</h2>
+      <p class="sub">
+        Это те направления, где у нас уже накоплен опыт, тесты и понятные сценарии. Список будет расширяться.
+      </p>
+
+      <div class="card">
+        <div class="badge"><i class="i-ok"></i> Доступные направления</div>
+        <div class="tags" aria-label="Список ниш">
+          <span class="tag">Заборы</span>
+          <span class="tag">Бани</span>
+          <span class="tag">Дома</span>
+          <span class="tag">Гаражи</span>
+          <span class="tag">Пластиковые окна</span>
+          <span class="tag">Ремонт/отделка квартир</span>
+          <span class="tag">Натяжные потолки</span>
+        </div>
+        <p class="hint" style="margin:12px 0 0">
+          Если вашей ниши нет в списке - скорее всего нужна <a class="link" href="/yandex-direct/">разработка РК</a>.
+          Но иногда можем предложить близкий шаблон и честно сказать, где границы применимости.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section>
+    <div class="container">
+      <h2 class="h2">Как это работает по шагам</h2>
+      <p class="sub">Прозрачная схема, без "мы потом расскажем".</p>
+
+      <div class="table" role="table" aria-label="Этапы аренды РК">
+        <div class="row th" role="row">
+          <div role="columnheader">Шаг</div>
+          <div role="columnheader">Что делаем</div>
+          <div role="columnheader">Что нужно от вас</div>
+        </div>
+
+        <div class="row" role="row">
+          <div role="cell"><span class="k">1. Подбор</span><br><span class="v">Выбираем нишу и формат</span></div>
+          <div role="cell" class="v">Подбираем ближайшую рабочую РК под вашу услугу и город.</div>
+          <div role="cell" class="v">Ниша, город, ваш сайт/посадочная, контакты.</div>
+        </div>
+
+        <div class="row" role="row">
+          <div role="cell"><span class="k">2. Адаптация</span><br><span class="v">Под ваш оффер</span></div>
+          <div role="cell" class="v">Правим объявления, ссылки, расширения, гео. Проверяем логичность обещаний и посадочной.</div>
+          <div role="cell" class="v">Короткий бриф: УТП, цены/акции, режим работы.</div>
+        </div>
+
+        <div class="row" role="row">
+          <div role="cell"><span class="k">3. Запуск</span><br><span class="v">Контроль старта</span></div>
+          <div role="cell" class="v">Запускаем и смотрим первые метрики: показы, клики, запросы, модерация.</div>
+          <div role="cell" class="v">Доступы к Яндекс.Директ и Метрике (если есть).</div>
+        </div>
+
+        <div class="row" role="row">
+          <div role="cell"><span class="k">4. Дальше</span><br><span class="v">Самостоятельно или с ведением</span></div>
+          <div role="cell" class="v">Можно вести самому, можно подключить <a class="link" href="/yandex-direct/vedenie/">ведение</a> для роста и стабильности.</div>
+          <div role="cell" class="v">Вы выбираете формат: "минимум" или "рост".</div>
+        </div>
+      </div>
+
+      <div class="ctaRow">
+        <a class="btn btn--primary" href="#cta">Подобрать РК</a>
+        <a class="btn" href="/yandex-direct/vedenie/">Узнать про ведение</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPARE -->
+  <section>
+    <div class="container">
+      <h2 class="h2">Сравнение: аренда vs разработка</h2>
+      <p class="sub">Чтобы сразу было понятно, когда что выбирать.</p>
+
+      <div class="grid-2">
+        <div class="card">
+          <div class="badge"><i class="i-ok"></i> Аренда РК</div>
+          <ul class="list">
+            <li>подходит для теста и снижения рисков</li>
+            <li>быстрый запуск</li>
+            <li>готовые обкатанные связки</li>
+            <li>оплата помесячно, можно остановить</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="badge"><i class="i-warn"></i> Разработка под ключ</div>
+          <ul class="list">
+            <li>лучше для сложных проектов и нестандартных услуг</li>
+            <li>максимальная кастомизация под ваш бизнес</li>
+            <li>разовая оплата "сразу"</li>
+            <li>дольше по срокам, но глубже по структуре</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section>
+    <div class="container">
+      <h2 class="h2">Вопросы и ответы</h2>
+      <p class="sub">Закрываем сомнения по формату аренды.</p>
+
+      <div class="faq">
+        <details>
+          <summary>Это точно не "сырое", где гипотезы тестируются за мои деньги?<span class="plus">+</span></summary>
+          <div class="a">
+            Нет. В аренду идут направления, где мы уже прошли этап тестов и понимаем рабочие связки.
+            Но важно: результат всё равно зависит от посадочной, оффера и конкуренции в вашем городе.
+          </div>
+        </details>
+
+        <details>
+          <summary>Можно ли отказаться в любой момент?<span class="plus">+</span></summary>
+          <div class="a">
+            Да, смысл аренды именно в этом: вы не платите большую сумму за разработку и можете остановиться, если формат не подошел.
+          </div>
+        </details>
+
+        <details>
+          <summary>Ведение обязательно?<span class="plus">+</span></summary>
+          <div class="a">
+            Не обязательно, но почти всегда полезно. Кампания работает в аукционе, конкуренты и алгоритмы меняются.
+            Хотите стабильность и рост - подключайте <a class="link" href="/yandex-direct/vedenie/">ведение</a>.
+          </div>
+        </details>
+
+        <details>
+          <summary>Чем аренда выгодна вам, как студии?<span class="plus">+</span></summary>
+          <div class="a">
+            Окупаемость аренды - на дистанции. Это стратегия: мы уверены в продукте, поэтому готовы дать его по подписке,
+            а не "продать один раз и забыть".
+          </div>
+        </details>
+
+        <details>
+          <summary>Какие данные нужны для старта?<span class="plus">+</span></summary>
+          <div class="a">
+            Город, услуга, ссылки на сайт/посадочную, контакты и ваше УТП. Если нужна посадочная под Директ - сделаем
+            <a class="link" href="/sozdanie-saytov/lending-page/">лендинг</a> или <a class="link" href="/sozdanie-saytov/kviz-sayt/">квиз</a>.
+          </div>
+        </details>
+
+        <details>
+          <summary>Если у меня уже есть РК, но она плохая - аренда поможет?<span class="plus">+</span></summary>
+          <div class="a">
+            Иногда да, но чаще правильнее начать с <a class="link" href="/yandex-direct/audit/">аудита</a>,
+            чтобы понять причины. Аренда - формат "вместо разработки", а аудит - "исправить то, что есть".
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section>
+    <div class="container">
+      <div class="callout">
+        <div>
+          <h2 class="h2" style="margin:0 0 8px">Хотите запустить рекламу быстро и без риска на разработку?</h2>
+          <p class="sub" style="margin:0">
+            Напишите нишу и город - предложим, какие готовые РК можно взять в аренду и как быстро запуститься.
+          </p>
+          <div class="ctaRow">
+            <a class="btn btn--primary" href="#cta">Подобрать РК</a>
+            <a class="btn" href="/yandex-direct/vedenie/">Ведение РК</a>
+            <a class="btn" href="/yandex-direct/audit/">Аудит РК</a>
+          </div>
+        </div>
+        <div class="callout__box">
+          <div class="badge"><i class="i-ok"></i> Каналы связи</div>
+          <div class="messengers">
+            <a class="m" href="#cta"><span class="dot dot--wa"></span> WhatsApp</a>
+            <a class="m" href="#cta"><span class="dot dot--tg"></span> Telegram</a>
+            <a class="m" href="#cta"><span class="dot dot--mx"></span> Max</a>
+          </div>
+          <div style="margin-top:10px">
+            <a class="btn" style="width:100%" href="tel:+70000000000">Обсудить по телефону</a>
+          </div>
+          <p class="hint" style="margin:10px 0 0">
+            Если нужна разработка с нуля - смотрите <a class="link" href="/yandex-direct/">настройку Яндекс.Директ</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:space-between">
+        <div>© <b>Venner Digital</b> - аренда рекламных кампаний</div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap">
+          <a href="/yandex-direct/" class="link">Разработка РК</a>
+          <a href="/yandex-direct/audit/" class="link">Аудит</a>
+          <a href="/yandex-direct/vedenie/" class="link">Ведение</a>
+          <a href="/yandex-direct/arenda/" class="link">Аренда РК</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // FAQ: меняем знак
+    document.querySelectorAll('.faq details').forEach(d => {
+      d.addEventListener('toggle', () => {
+        const plus = d.querySelector('.plus');
+        if (!plus) return;
+        plus.textContent = d.open ? '−' : '+';
+      });
+    });
+  </script>
+</body>
+</html>

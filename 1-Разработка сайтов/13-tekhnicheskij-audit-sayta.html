@@ -1,0 +1,696 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=1200" />
+  <title>Технический аудит сайта | Venner Digital</title>
+  <meta name="description" content="Технический аудит сайта: скорость, SEO-техника, безопасность, ошибки CMS и сервера. 100-500 параметров, понятный отчет и план работ. Подходит перед рекламой, редизайном и при падении позиций." />
+  <style>
+    :root{
+      --bg:#0b1220;
+      --card:#0f1a2d;
+      --card2:#0c172a;
+      --text:#e8eefc;
+      --muted:#a9b7d6;
+      --line:rgba(255,255,255,.08);
+      --accent:#33e0c4;
+      --accent2:#5aa7ff;
+      --danger:#ff5a6a;
+      --warn:#ffcf5a;
+      --ok:#42e39a;
+      --shadow:0 18px 50px rgba(0,0,0,.35);
+      --radius:18px;
+      --radius2:26px;
+      --font:ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Liberation Sans", sans-serif;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:var(--font);
+      color:var(--text);
+      background:
+        radial-gradient(1200px 700px at 20% -10%, rgba(51,224,196,.25), transparent 60%),
+        radial-gradient(900px 600px at 85% 0%, rgba(90,167,255,.18), transparent 55%),
+        radial-gradient(1200px 700px at 60% 110%, rgba(255,90,106,.08), transparent 55%),
+        var(--bg);
+    }
+    a{color:inherit; text-decoration:none}
+    .wrap{width:1180px; margin:0 auto; padding:28px 0 90px}
+    .topbar{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px 18px;
+      border:1px solid var(--line);
+      border-radius:var(--radius2);
+      background:rgba(15,26,45,.55);
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow);
+    }
+    .brand{display:flex; gap:12px; align-items:center}
+    .logo{
+      width:38px; height:38px; border-radius:14px;
+      background:linear-gradient(135deg, rgba(51,224,196,1), rgba(90,167,255,1));
+      box-shadow:0 14px 35px rgba(51,224,196,.18);
+    }
+    .brand b{letter-spacing:.3px}
+    .brand small{display:block; margin-top:2px; color:var(--muted); font-size:12px}
+    .nav{display:flex; gap:14px; align-items:center}
+    .nav a{
+      padding:10px 12px; border-radius:12px;
+      color:var(--muted);
+      border:1px solid transparent;
+    }
+    .nav a:hover{border-color:var(--line); color:var(--text)}
+    .actions{display:flex; gap:10px; align-items:center}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      height:42px; padding:0 14px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+      color:var(--text);
+      cursor:pointer;
+      transition:.15s ease;
+      white-space:nowrap;
+    }
+    .btn:hover{transform:translateY(-1px); border-color:rgba(255,255,255,.16)}
+    .btn.primary{
+      background:linear-gradient(135deg, rgba(51,224,196,.95), rgba(90,167,255,.95));
+      border-color:transparent;
+      color:#04131b;
+      font-weight:700;
+    }
+    .btn.ghost{background:transparent}
+    .btn.pill{border-radius:999px}
+    .btn.w{border-color:rgba(66,227,154,.22)}
+    .btn.tg{border-color:rgba(90,167,255,.26)}
+    .btn.mx{border-color:rgba(255,207,90,.22)}
+    .crumbs{
+      margin:18px 0 0;
+      color:var(--muted);
+      font-size:13px;
+    }
+    .crumbs a{color:var(--muted); border-bottom:1px dashed rgba(255,255,255,.18)}
+    .crumbs a:hover{color:var(--text); border-bottom-color:rgba(255,255,255,.35)}
+    .hero{
+      margin-top:18px;
+      padding:28px;
+      border:1px solid var(--line);
+      border-radius:var(--radius2);
+      background:linear-gradient(180deg, rgba(15,26,45,.62), rgba(15,26,45,.38));
+      box-shadow: var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+    .hero:before{
+      content:"";
+      position:absolute; inset:-60px -60px auto auto;
+      width:420px; height:420px;
+      background:radial-gradient(circle at 30% 30%, rgba(51,224,196,.28), transparent 60%),
+                 radial-gradient(circle at 70% 70%, rgba(90,167,255,.20), transparent 60%);
+      filter: blur(2px);
+      border-radius:50%;
+      opacity:.85;
+    }
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap:22px;
+      position:relative;
+      z-index:1;
+    }
+    h1{
+      margin:0 0 10px;
+      font-size:42px;
+      line-height:1.1;
+      letter-spacing:.2px;
+    }
+    .lead{
+      margin:0 0 16px;
+      color:var(--muted);
+      font-size:16px;
+      line-height:1.6;
+      max-width:720px;
+    }
+    .hero-cta{display:flex; gap:10px; flex-wrap:wrap; margin-top:14px}
+    .badges{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:10px;
+      align-content:start;
+    }
+    .badge{
+      padding:12px 12px;
+      border-radius:16px;
+      border:1px solid var(--line);
+      background:rgba(12,23,42,.55);
+    }
+    .badge b{display:block; font-size:13px}
+    .badge span{display:block; margin-top:6px; color:var(--muted); font-size:12px; line-height:1.45}
+    .badge .dot{
+      display:inline-block;
+      width:8px; height:8px;
+      border-radius:50%;
+      margin-right:8px;
+      vertical-align:middle;
+      background:var(--accent);
+      box-shadow:0 0 0 4px rgba(51,224,196,.12);
+    }
+    .section{margin-top:18px}
+    .card{
+      padding:22px;
+      border:1px solid var(--line);
+      border-radius:var(--radius2);
+      background:rgba(15,26,45,.50);
+      box-shadow: var(--shadow);
+    }
+    .grid2{display:grid; grid-template-columns: 1fr 1fr; gap:16px}
+    .grid3{display:grid; grid-template-columns: 1fr 1fr 1fr; gap:16px}
+    .h2{
+      margin:0 0 12px;
+      font-size:26px;
+      letter-spacing:.2px;
+    }
+    .muted{color:var(--muted)}
+    .list{margin:0; padding-left:18px; color:var(--muted); line-height:1.65}
+    .list b{color:var(--text)}
+    .kpi{
+      display:flex; gap:10px; flex-wrap:wrap; margin-top:12px
+    }
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:9px 12px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+      color:var(--muted);
+      font-size:13px;
+      white-space:nowrap;
+    }
+    .pill i{
+      width:8px; height:8px; border-radius:50%;
+      background:var(--accent2);
+      box-shadow:0 0 0 4px rgba(90,167,255,.12);
+      display:inline-block;
+    }
+    .link{
+      color:var(--text);
+      border-bottom:1px dashed rgba(255,255,255,.24);
+    }
+    .link:hover{border-bottom-color:rgba(255,255,255,.45)}
+    .steps{
+      display:grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap:12px;
+      margin-top:12px;
+    }
+    .step{
+      padding:14px;
+      border-radius:18px;
+      border:1px solid var(--line);
+      background:rgba(12,23,42,.55);
+    }
+    .step .n{
+      width:26px; height:26px; border-radius:10px;
+      display:inline-flex; align-items:center; justify-content:center;
+      font-weight:800; font-size:12px;
+      color:#071821;
+      background:linear-gradient(135deg, rgba(51,224,196,.95), rgba(90,167,255,.95));
+      margin-bottom:10px;
+    }
+    .step b{display:block; margin-bottom:6px}
+    .step p{margin:0; color:var(--muted); line-height:1.55; font-size:13px}
+    .pricing{display:grid; grid-template-columns: 1fr 1fr 1fr; gap:16px; margin-top:12px}
+    .price{
+      padding:18px;
+      border-radius:22px;
+      border:1px solid var(--line);
+      background:rgba(12,23,42,.55);
+      position:relative;
+      overflow:hidden;
+    }
+    .price .tag{
+      position:absolute; top:14px; right:14px;
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:12px;
+      border:1px solid rgba(255,255,255,.14);
+      color:var(--muted);
+      background:rgba(255,255,255,.03);
+    }
+    .price h3{margin:0 0 6px; font-size:18px}
+    .price .sub{margin:0 0 12px; color:var(--muted); font-size:13px; line-height:1.55}
+    .price ul{margin:0; padding-left:18px; color:var(--muted); line-height:1.65}
+    .price .cta{margin-top:14px; display:flex; gap:10px; flex-wrap:wrap}
+    details{
+      border:1px solid var(--line);
+      border-radius:18px;
+      background:rgba(12,23,42,.55);
+      padding:14px 14px;
+    }
+    details + details{margin-top:10px}
+    summary{
+      cursor:pointer;
+      list-style:none;
+      font-weight:700;
+    }
+    summary::-webkit-details-marker{display:none}
+    details p{margin:10px 0 0; color:var(--muted); line-height:1.65}
+    .cta-big{
+      padding:22px;
+      border-radius:26px;
+      border:1px solid rgba(51,224,196,.18);
+      background:
+        radial-gradient(700px 280px at 20% 0%, rgba(51,224,196,.22), transparent 60%),
+        radial-gradient(700px 280px at 90% 100%, rgba(90,167,255,.18), transparent 60%),
+        rgba(12,23,42,.55);
+      box-shadow: var(--shadow);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:16px;
+    }
+    .cta-big b{font-size:18px}
+    .cta-big p{margin:8px 0 0; color:var(--muted); line-height:1.6}
+    .footer-note{
+      margin-top:14px;
+      color:var(--muted);
+      font-size:12px;
+      line-height:1.6;
+    }
+    .scvoz{margin-top:18px; color:var(--muted); font-size:13px}
+    .scvoz code{
+      background:rgba(255,255,255,.04);
+      border:1px solid var(--line);
+      padding:4px 8px;
+      border-radius:10px;
+      color:var(--text);
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <b>Venner Digital</b>
+          <small>Комплексный интернет-маркетинг и разработка сайтов</small>
+        </div>
+      </div>
+
+      <div class="nav" aria-label="Навигация">
+        <a href="/sozdanie-saytov/" title="Разработка сайтов">Разработка сайтов</a>
+        <a href="/seo/" title="SEO">SEO</a>
+        <a href="/yandex-direct/" title="Яндекс Директ">Яндекс Директ</a>
+        <a href="/crm-integracii/" title="CRM и интеграции">CRM и интеграции</a>
+        <a href="/kontakty/" title="Контакты">Контакты</a>
+      </div>
+
+      <div class="actions">
+        <a class="btn ghost pill" href="tel:+79528070601">8 (952) 807-06-01</a>
+        <a class="btn primary" href="#calc">Узнать предварительную стоимость</a>
+      </div>
+    </div>
+
+    <div class="crumbs">
+      <a href="/">Главная</a> / <a href="/sozdanie-saytov/">Разработка сайтов</a> / <span>Технический аудит сайта</span>
+    </div>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-grid">
+        <div>
+          <h1>Технический аудит сайта - чтобы перестать гадать и начать чинить по плану</h1>
+          <p class="lead">
+            Это не "посмотрим одним глазом". Это диагностика сайта как системы - код, CMS, сервер, скорость, индексация, безопасность.
+            Проверяем <b>100-500 параметров</b>, показываем, что реально мешает SEO, рекламе и конверсии, и даем понятный план работ.
+          </p>
+
+          <div class="kpi">
+            <span class="pill"><i></i> Core Web Vitals и скорость</span>
+            <span class="pill"><i></i> SEO-техника и индексация</span>
+            <span class="pill"><i></i> Безопасность и обновления</span>
+            <span class="pill"><i></i> Сервер, кеш, базы данных</span>
+          </div>
+
+          <div class="hero-cta" id="calc">
+            <a class="btn primary" href="#form">Узнать предварительную стоимость</a>
+            <a class="btn" href="tel:+79528070601">Обсудить по телефону</a>
+            <a class="btn w" href="#wa">WhatsApp</a>
+            <a class="btn tg" href="#tg">Telegram</a>
+            <a class="btn mx" href="#mx">Max</a>
+          </div>
+
+          <div class="footer-note">
+            Часто аудит нужен, когда сайт "вроде работает", но заявки просели, позиции упали или реклама стала дорогой. Это как ТО - лучше сделать вовремя, чем потом "почему внезапно все умерло".
+          </div>
+        </div>
+
+        <div class="badges">
+          <div class="badge">
+            <b><span class="dot"></span>Выход - не отчет ради отчета</b>
+            <span>Даем список задач с приоритетами, оценкой сложности и быстрыми победами на 1-3 дня.</span>
+          </div>
+          <div class="badge">
+            <b><span class="dot"></span>Понимаем связку "техника -> трафик"</b>
+            <span>Если планируете <a class="link" href="/yandex-direct/">Яндекс Директ</a> или <a class="link" href="/seo/">SEO</a> - аудит окупается быстрее всего.</span>
+          </div>
+          <div class="badge">
+            <b><span class="dot"></span>CMS не важна - подход один</b>
+            <span>Проверяем WordPress, 1С-Битрикс, OpenCart, самописные проекты и "сборные солянки".</span>
+          </div>
+          <div class="badge">
+            <b><span class="dot"></span>Сохраняем SEO при изменениях</b>
+            <span>Если дальше планируете <a class="link" href="/redizayn-sayta/">редизайн</a> или обновление CMS - показываем, как не потерять позиции.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: WHAT IS AUDIT -->
+    <section class="section">
+      <div class="card">
+        <div class="h2">Что такое технический аудит</div>
+        <p class="muted" style="margin:0; line-height:1.7">
+          Технический аудит - это взгляд на сайт "глазами инженера и поискового робота".
+          Мы ищем ошибки и узкие места, которые напрямую или косвенно влияют на скорость, индексацию, безопасность и стабильность.
+          Если планируете рост трафика через <a class="link" href="/seo/">SEO</a> или запуск <a class="link" href="/yandex-direct/">рекламы</a>, без техаудита вы часто платите за клики, которые не конвертятся.
+        </p>
+
+        <div class="grid2" style="margin-top:14px">
+          <div class="card" style="background:rgba(12,23,42,.55)">
+            <b style="display:block; margin-bottom:10px">Что обычно "ломает" результат</b>
+            <ul class="list">
+              <li><b>Скорость</b> - тяжелые изображения, скрипты, отсутствие кеша, медленный сервер.</li>
+              <li><b>Индексация</b> - ошибки robots.txt, sitemap.xml, дубли, каноникалы, битые редиректы.</li>
+              <li><b>CMS</b> - устаревшие версии, конфликт плагинов, мусорные модули, уязвимости.</li>
+              <li><b>Верстка</b> - кривой HTML, хаос в заголовках, отсутствие семантики.</li>
+            </ul>
+          </div>
+
+          <div class="card" style="background:rgba(12,23,42,.55)">
+            <b style="display:block; margin-bottom:10px">Что вы получаете после аудита</b>
+            <ul class="list">
+              <li><b>Карту проблем</b> - где теряются деньги, позиции и заявки.</li>
+              <li><b>План работ</b> - что сделать в первую очередь, что можно отложить.</li>
+              <li><b>Быстрые улучшения</b> - правки, которые дают эффект уже в ближайшие дни.</li>
+              <li><b>Основание для редизайна/переработки</b> - если сайт возрастной (5+ лет).</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: WHO NEEDS -->
+    <section class="section">
+      <div class="card">
+        <div class="h2">Кому и когда аудит нужен особенно</div>
+        <div class="grid3">
+          <div class="card" style="background:rgba(12,23,42,.55)">
+            <b>Падает SEO-трафик и позиции</b>
+            <p class="muted" style="margin:8px 0 0; line-height:1.65">
+              Сайт может "выпасть" из выдачи из-за дублей, техошибок, переезда, обновлений CMS или хаоса в структуре.
+              Дальше логично связать аудит с <a class="link" href="/seo/">SEO</a> и корректировкой семантики.
+            </p>
+          </div>
+          <div class="card" style="background:rgba(12,23,42,.55)">
+            <b>Перед запуском рекламы</b>
+            <p class="muted" style="margin:8px 0 0; line-height:1.65">
+              Платный трафик нетерпелив. Если страница грузится 3-5 секунд, вы просто покупаете отказы.
+              Тут обычно подключается <a class="link" href="/yandex-direct/">Яндекс Директ</a> и аналитика целей.
+            </p>
+          </div>
+          <div class="card" style="background:rgba(12,23,42,.55)">
+            <b>Перед редизайном и обновлением CMS</b>
+            <p class="muted" style="margin:8px 0 0; line-height:1.65">
+              Важно сохранить URL-структуру, настроить 301, не выбросить из индекса важные страницы.
+              Для этого аудит идеально связывается с <a class="link" href="/redizayn-sayta/">редизайном</a>.
+            </p>
+          </div>
+        </div>
+
+        <div class="kpi">
+          <span class="pill"><i></i> сайт 3-7 лет без обслуживания</span>
+          <span class="pill"><i></i> сайт "после программиста" и без документации</span>
+          <span class="pill"><i></i> миграции, обновления, смена хостинга</span>
+          <span class="pill"><i></i> нестабильные формы, заявки пропадают</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: WHAT WE CHECK -->
+    <section class="section">
+      <div class="card">
+        <div class="h2">Что проверяем (те самые 100-500 параметров)</div>
+        <p class="muted" style="margin:0; line-height:1.7">
+          Список всегда подстраивается под проект, но ядро проверок одинаковое - скорость, индексация, сервер и безопасность.
+          Ниже - основные группы. Это то, что напрямую влияет на <a class="link" href="/seo/">SEO</a>, конверсию и стабильность.
+        </p>
+
+        <div class="grid2" style="margin-top:14px">
+          <div class="card" style="background:rgba(12,23,42,.55)">
+            <b style="display:block; margin-bottom:10px">Скорость и производительность</b>
+            <ul class="list">
+              <li><b>Core Web Vitals</b> - LCP, INP, CLS, проблемы рендера.</li>
+              <li><b>Изображения</b> - WebP/AVIF, размеры, lazy-load, критический вес страницы.</li>
+              <li><b>CSS/JS</b> - лишние библиотеки, блокирующие ресурсы, порядок загрузки.</li>
+              <li><b>Кеш</b> - браузерный, серверный, страничный, объектный - что реально работает.</li>
+              <li><b>Сервер</b> - TTFB, PHP, база, диски, лимиты, "узкие горлышки".</li>
+            </ul>
+          </div>
+
+          <div class="card" style="background:rgba(12,23,42,.55)">
+            <b style="display:block; margin-bottom:10px">SEO-техника и индексация</b>
+            <ul class="list">
+              <li><b>robots.txt</b> и <b>sitemap.xml</b> - корректность и актуальность.</li>
+              <li><b>Структура URL</b> - дубли, параметры, пагинация, фильтры (особенно магазины).</li>
+              <li><b>Canonical</b>, редиректы 301/302, битые ссылки, ошибки 404/500.</li>
+              <li><b>Заголовки</b> - один H1, логика H2-H6, семантические блоки.</li>
+              <li><b>Open Graph</b> и метаданные - чтобы ссылки выглядели нормально в соцсетях и мессенджерах.</li>
+              <li><b>Микроразметка</b> - где уместно, без "декоративного SEO".</li>
+            </ul>
+          </div>
+
+          <div class="card" style="background:rgba(12,23,42,.55)">
+            <b style="display:block; margin-bottom:10px">CMS и безопасность</b>
+            <ul class="list">
+              <li><b>Версии CMS</b> и модулей - что пора обновить, что конфликтует.</li>
+              <li><b>Уязвимости</b> - типовые дыры WordPress/OpenCart/Битрикс, права доступа.</li>
+              <li><b>SSL</b>, заголовки безопасности, защита админки, бэкапы.</li>
+              <li><b>Спам</b> - формы, почта, увод трафика, скрытые редиректы.</li>
+              <li><b>Логи</b> - ошибки, крон, подозрительные запросы.</li>
+            </ul>
+          </div>
+
+          <div class="card" style="background:rgba(12,23,42,.55)">
+            <b style="display:block; margin-bottom:10px">Конверсия и данные</b>
+            <ul class="list">
+              <li><b>Формы</b> - отправка, валидация, доставка заявок, защита от ботов.</li>
+              <li><b>Аналитика</b> - Метрика/GA: цели, события, корректность данных.</li>
+              <li><b>Сквозная аналитика</b> - если используете CRM, коллтрекинг, метки.</li>
+              <li><b>Карта пути</b> - где люди бросают заявку (на основе данных, а не фантазии).</li>
+              <li><b>Готовность к трафику</b> - посадочные, офферы, структура, релевантность.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: PROCESS -->
+    <section class="section">
+      <div class="card">
+        <div class="h2">Как проходит аудит (без магии, по шагам)</div>
+        <div class="steps">
+          <div class="step">
+            <div class="n">1</div>
+            <b>Собираем вводные</b>
+            <p>Цели бизнеса, проблемы, доступы (если есть), текущие источники трафика. Если планируете <a class="link" href="/yandex-direct/">рекламу</a> - фиксируем это сразу.</p>
+          </div>
+          <div class="step">
+            <div class="n">2</div>
+            <b>Сканируем и измеряем</b>
+            <p>Краул, скорость, индексация, сервер, ошибки, логи. Проверяем типовые места, где сайты любят "умирать молча".</p>
+          </div>
+          <div class="step">
+            <div class="n">3</div>
+            <b>Формируем план</b>
+            <p>Выдаем список задач с приоритетом, объясняем эффект. Можно выполнить силами вашей команды или у нас - как удобнее.</p>
+          </div>
+        </div>
+
+        <div class="grid2" style="margin-top:14px">
+          <div class="card" style="background:rgba(12,23,42,.55)">
+            <b style="display:block; margin-bottom:10px">Результат аудита</b>
+            <ul class="list">
+              <li><b>Отчет</b> - что не так и почему это важно.</li>
+              <li><b>Roadmap</b> - порядок работ по неделям/спринтам.</li>
+              <li><b>Quick wins</b> - быстрые правки, которые дают эффект первыми.</li>
+              <li><b>ТЗ</b> - если нужна передача задач сторонним разработчикам.</li>
+            </ul>
+          </div>
+
+          <div class="card" style="background:rgba(12,23,42,.55)">
+            <b style="display:block; margin-bottom:10px">Частые продолжения после аудита</b>
+            <ul class="list">
+              <li>Оптимизация и скорость + настройка кеша (часто вместе с <a class="link" href="/hosting/">хостингом</a>).</li>
+              <li>Техническая <a class="link" href="/seo/">SEO-оптимизация</a> и работа с семантикой.</li>
+              <li><a class="link" href="/redizayn-sayta/">Редизайн</a> с сохранением SEO и корректными редиректами.</li>
+              <li>Интеграции с <a class="link" href="/crm-integracii/">CRM</a>, мессенджерами и аналитикой.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRICING -->
+    <section class="section">
+      <div class="card">
+        <div class="h2">Форматы аудита</div>
+        <p class="muted" style="margin:0; line-height:1.7">
+          Выбирайте по задаче. Если сомневаетесь - напишите в Telegram, подскажем без пафоса, какой формат даст максимум пользы.
+        </p>
+
+        <div class="pricing">
+          <div class="price">
+            <div class="tag">Старт</div>
+            <h3>Аудит "быстрый скрининг"</h3>
+            <p class="sub">Для понимания, где болит и с чего начать. Подходит, если сайт небольшой или нужно быстро принять решение.</p>
+            <ul>
+              <li>скорость + базовые CWV</li>
+              <li>индексация: robots/sitemap/ошибки</li>
+              <li>типовые проблемы CMS</li>
+              <li>список quick wins</li>
+            </ul>
+            <div class="cta">
+              <a class="btn primary" href="#form">Узнать стоимость</a>
+              <a class="btn" href="tel:+79528070601">Позвонить</a>
+            </div>
+          </div>
+
+          <div class="price">
+            <div class="tag">Бизнес</div>
+            <h3>Полный технический аудит</h3>
+            <p class="sub">Глубокая диагностика 100-500 параметров. Оптимальный вариант для большинства проектов.</p>
+            <ul>
+              <li>скорость, кеш, сервер, база</li>
+              <li>SEO-техника, дубли, редиректы</li>
+              <li>безопасность, обновления, уязвимости</li>
+              <li>roadmap работ и приоритеты</li>
+            </ul>
+            <div class="cta">
+              <a class="btn primary" href="#form">Узнать стоимость</a>
+              <a class="btn w" href="#wa">WhatsApp</a>
+              <a class="btn tg" href="#tg">Telegram</a>
+              <a class="btn mx" href="#mx">Max</a>
+            </div>
+          </div>
+
+          <div class="price">
+            <div class="tag">Перфоманс</div>
+            <h3>Аудит + внедрение</h3>
+            <p class="sub">Когда нужен не только отчет, но и результат. Чиним, ускоряем, настраиваем и доводим до нормы.</p>
+            <ul>
+              <li>аудит + исправления по плану</li>
+              <li>аналитика целей и событий</li>
+              <li>подготовка к <a class="link" href="/yandex-direct/">рекламе</a> и <a class="link" href="/seo/">SEO</a></li>
+              <li>контроль изменений и стабильности</li>
+            </ul>
+            <div class="cta">
+              <a class="btn primary" href="#form">Узнать стоимость</a>
+              <a class="btn" href="/kontakty/">Контакты</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ 1 -->
+    <section class="section">
+      <div class="card">
+        <div class="h2">FAQ - коротко</div>
+
+        <details>
+          <summary>Сколько длится технический аудит сайта?</summary>
+          <p>Зависит от размера проекта и доступов. Малые сайты - быстрее. Магазины и "взрослые" проекты - дольше. В любом случае сначала даем план и формат, чтобы вы понимали объем.</p>
+        </details>
+
+        <details>
+          <summary>Нужны ли доступы к админке и хостингу?</summary>
+          <p>Не всегда. Базовую часть можно сделать без доступов. Но для точных выводов по серверу, кешу, логам и безопасности доступы сильно ускоряют и улучшают качество.</p>
+        </details>
+
+        <details>
+          <summary>Аудит поможет, если сайт сделан давно и никто его не обслуживал?</summary>
+          <p>Это как раз самый частый кейс. На таких сайтах накапливается техдолг: CMS, плагины, модули, скрипты, "костыли". Аудит показывает, что реально критично, а что просто "раздражает перфекциониста".</p>
+        </details>
+
+        <details>
+          <summary>Можно ли после аудита сразу запускать рекламу?</summary>
+          <p>Часто - да, но лучше сначала закрыть критические проблемы скорости, форм и аналитики. Иначе <a class="link" href="/yandex-direct/">Яндекс Директ</a> будет покупать вам отказы вместо заявок.</p>
+        </details>
+      </div>
+    </section>
+
+    <!-- CTA BIG -->
+    <section class="section">
+      <div class="cta-big" id="form">
+        <div>
+          <b>Хотите понять, что именно "тормозит" ваш сайт и продажи?</b>
+          <p>
+            Напишите, на какой CMS сайт, сколько страниц примерно и какие симптомы: падение SEO, медленно грузится, реклама не окупается, заявки пропадают.
+            Дальше предложим формат аудита и план работ.
+          </p>
+        </div>
+        <div class="hero-cta" style="margin:0">
+          <a class="btn primary" href="#tg">Написать в Telegram</a>
+          <a class="btn w" href="#wa">WhatsApp</a>
+          <a class="btn mx" href="#mx">Max</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ 2 -->
+    <section class="section">
+      <div class="card">
+        <div class="h2">FAQ - подробнее (для тех, кто любит ясность)</div>
+
+        <details>
+          <summary>Вы проверяете техническую часть SEO или только скорость?</summary>
+          <p>Проверяем комплексно: скорость, индексацию, дубли, редиректы, каноникалы, семантику заголовков, карты сайта, robots, микроразметку. Технический SEO-блок напрямую связан с <a class="link" href="/seo/">SEO</a>.</p>
+        </details>
+
+        <details>
+          <summary>Что делать, если после обновления CMS все "поехало"?</summary>
+          <p>Это классика. Сначала фиксируем ошибки и источники конфликтов (плагины/модули/шаблон), потом собираем безопасный план обновлений и откатов. Лучше один раз навести порядок, чем жить на "авось".</p>
+        </details>
+
+        <details>
+          <summary>Сохраняются ли позиции при редизайне и доработках?</summary>
+          <p>Сохраняются, если делать правильно: структура URL, 301-редиректы, каноникалы, карта сайта, контроль индексации. Поэтому аудит часто идет перед <a class="link" href="/redizayn-sayta/">редизайном</a> как обязательный шаг.</p>
+        </details>
+
+        <details>
+          <summary>Вы можете внедрить все исправления сами?</summary>
+          <p>Да. Можно ограничиться аудитом и ТЗ, а можно сделать "аудит + внедрение". Часто это быстрее и дешевле по итогу, потому что не нужно десять кругов "передайте это программисту".</p>
+        </details>
+
+        <details>
+          <summary>Какие инструменты используете?</summary>
+          <p>Используем проф-инструменты для краула и диагностики, плюс замеры скорости и проверку серверной части. Названия инструментов не самоцель - важен результат и понятный план работ.</p>
+        </details>
+
+        <details>
+          <summary>Как аудит связан с CRM и заявками?</summary>
+          <p>Если формы не доходят, утекают или метки ломаются, это напрямую бьет по продажам. Поэтому аудит часто включает проверку форм, отправки, аналитики и интеграций с <a class="link" href="/crm-integracii/">CRM</a>.</p>
+        </details>
+      </div>
+
+      <div class="scvoz">
+        Сквозные блоки дальше (плейсхолдер): <code>Дополнительные услуги</code> -> <code>Наши работы</code> -> <code>С чего начать</code> -> <code>Контакты</code>
+      </div>
+    </section>
+
+  </div>
+</body>
+</html>
+

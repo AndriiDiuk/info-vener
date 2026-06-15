@@ -1,0 +1,382 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Сквозной блок - Репутация в справочниках</title>
+  <style>
+    :root{
+      --bg0:#070A12;
+      --bg1:#0B1224;
+      --card:#0E1B34CC;
+      --stroke:rgba(255,255,255,.10);
+      --stroke2:rgba(255,255,255,.14);
+      --txt:#EAF2FF;
+      --muted:rgba(234,242,255,.72);
+      --muted2:rgba(234,242,255,.55);
+      --accent:#20E3B2;
+      --accent2:#00B4FF;
+      --cta:#FF5A4E;
+      --shadow: 0 24px 70px rgba(0,0,0,.55);
+      --radius:28px;
+      --radius2:20px;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
+      color:var(--txt);
+      background:
+        radial-gradient(1100px 700px at 10% 15%, rgba(32,227,178,.18), transparent 60%),
+        radial-gradient(900px 600px at 85% 25%, rgba(0,180,255,.16), transparent 55%),
+        radial-gradient(900px 700px at 50% 110%, rgba(255,90,78,.10), transparent 60%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      padding:48px 16px;
+    }
+
+    .wrap{max-width:1120px;margin:0 auto}
+
+    .offer{
+      position:relative;
+      border-radius:var(--radius);
+      background: linear-gradient(135deg, rgba(16,36,68,.85), rgba(10,22,46,.85));
+      border:1px solid var(--stroke);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .offer::before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background:
+        radial-gradient(900px 450px at 14% 22%, rgba(32,227,178,.33), transparent 60%),
+        radial-gradient(820px 440px at 88% 30%, rgba(0,180,255,.26), transparent 60%),
+        radial-gradient(650px 520px at 72% 112%, rgba(255,90,78,.12), transparent 65%);
+      pointer-events:none;
+      filter: blur(10px);
+      opacity:.80;
+    }
+
+    .offer__inner{
+      position:relative;
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap:18px;
+      padding:26px;
+    }
+    @media (max-width: 980px){
+      .offer__inner{grid-template-columns:1fr}
+    }
+
+    .col{
+      border-radius:var(--radius2);
+      border:1px solid var(--stroke);
+      background: linear-gradient(180deg, rgba(8,18,40,.62), rgba(7,14,32,.62));
+      padding:22px;
+    }
+
+    .topline{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-bottom:14px;
+    }
+
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:9px 12px;
+      border-radius:999px;
+      border:1px solid var(--stroke2);
+      background: rgba(255,255,255,.06);
+      color:var(--txt);
+      font-weight:800;
+      font-size:13px;
+      letter-spacing:.2px;
+      white-space:nowrap;
+    }
+    .chip .dot{
+      width:9px;height:9px;border-radius:999px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow: 0 0 0 4px rgba(32,227,178,.12);
+    }
+
+    .mini-actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+
+    .mini-link{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:9px 12px;
+      border-radius:999px;
+      border:1px solid var(--stroke2);
+      background: rgba(255,255,255,.05);
+      color: var(--txt);
+      text-decoration:none;
+      font-weight:800;
+      font-size:13px;
+      transition: transform .15s ease, background .15s ease, border-color .15s ease;
+      white-space:nowrap;
+    }
+    .mini-link:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.08);
+      border-color: rgba(255,255,255,.20);
+    }
+
+    h2{
+      margin:0 0 10px 0;
+      font-size:36px;
+      line-height:1.08;
+      letter-spacing:-.6px;
+    }
+
+    .sub{
+      margin:0 0 14px 0;
+      color:var(--muted);
+      font-size:15px;
+      line-height:1.55;
+      max-width: 680px;
+    }
+
+    .divider{
+      height:1px;
+      background: rgba(255,255,255,.10);
+      margin:16px 0 18px;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding:14px 16px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      text-decoration:none;
+      font-weight:900;
+      letter-spacing:.2px;
+      transition: transform .15s ease, filter .15s ease, border-color .15s ease, background .15s ease;
+      user-select:none;
+      white-space:nowrap;
+    }
+    .btn:hover{ transform: translateY(-1px); }
+    .btn:active{ transform: translateY(0px); }
+
+    /* не "жёсткая" конверсия, а аккуратный переход на страницу */
+    .btn-soft{
+      background: rgba(255,255,255,.06);
+      color: var(--txt);
+      border-color: rgba(255,255,255,.14);
+    }
+    .btn-soft:hover{
+      background: rgba(255,255,255,.08);
+      border-color: rgba(255,255,255,.20);
+    }
+
+    .hint{
+      margin:12px 0 0;
+      color:var(--muted2);
+      font-size:12.5px;
+      line-height:1.45;
+    }
+
+    /* компактный блок "где это работает" */
+    .platforms{
+      margin-top:16px;
+      padding:14px;
+      border-radius:18px;
+      border:1px dashed rgba(255,255,255,.18);
+      background: rgba(255,255,255,.03);
+    }
+    .platforms__title{
+      margin:0 0 10px 0;
+      font-weight:900;
+      font-size:13px;
+      letter-spacing:.2px;
+      color: rgba(234,242,255,.88);
+    }
+    .chips{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+    .pchip{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      color: rgba(234,242,255,.86);
+      font-weight:800;
+      font-size:12.5px;
+      white-space:nowrap;
+    }
+    .ico{
+      width:9px;height:9px;border-radius:999px;
+      background: linear-gradient(135deg, rgba(32,227,178,.9), rgba(0,180,255,.9));
+      opacity:.9;
+    }
+
+    .right-head{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:14px;
+      flex-wrap:wrap;
+    }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:9px 12px;
+      border-radius:14px;
+      border:1px solid var(--stroke2);
+      background: rgba(255,255,255,.06);
+      font-weight:900;
+      font-size:13px;
+    }
+
+    .list{
+      display:grid;
+      gap:10px;
+      margin:0;
+      padding:0;
+      list-style:none;
+    }
+
+    .li{
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+      padding:12px 12px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+    }
+
+    .li .n{
+      flex:0 0 auto;
+      width:28px;height:28px;
+      border-radius:10px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background: linear-gradient(135deg, rgba(32,227,178,.22), rgba(0,180,255,.18));
+      border:1px solid rgba(255,255,255,.10);
+      font-weight:900;
+      font-size:13px;
+      color: var(--txt);
+    }
+
+    .li .t{
+      margin:0;
+      color:var(--muted);
+      font-size:13.5px;
+      line-height:1.45;
+    }
+
+    .corner{
+      position:absolute;
+      right:14px;
+      bottom:14px;
+      width:140px;
+      height:140px;
+      border-radius:28px;
+      background:
+        radial-gradient(closest-side, rgba(32,227,178,.20), transparent 70%),
+        radial-gradient(closest-side, rgba(0,180,255,.18), transparent 70%),
+        radial-gradient(closest-side, rgba(255,90,78,.10), transparent 70%);
+      opacity:.62;
+      pointer-events:none;
+      transform: rotate(14deg);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <section class="offer" aria-label="Сквозной блок Репутация в справочниках">
+      <div class="offer__inner">
+
+        <!-- LEFT -->
+        <div class="col">
+          <div class="topline">
+            <span class="chip"><span class="dot"></span>Репутация в справочниках</span>
+
+            <!-- Всегда: цены - отзывы - портфолио -->
+            <div class="mini-actions">
+              <a class="mini-link" href="/lidogeneraciya/">Лидогенерация</a>
+              <a class="mini-link" href="/lidogeneraciya/myreviews/">MyReviews</a>
+            </div>
+          </div>
+
+          <h2>Репутация - это доверие, конверсия и дополнительный трафик</h2>
+
+          <p class="sub">
+            Справочники и карты давно стали отдельным каналом лидогенерации. Когда у компании сильная карточка,
+            хорошие отзывы и понятная подача - люди выбирают быстрее, кликают чаще и чаще оставляют заявку.
+          </p>
+
+          <p class="sub">
+            Мы выстраиваем репутацию системно: делаем карточки "продающими", усиливаем видимость в выдаче,
+            повышаем доверие и помогаем превращать просмотры в обращения.
+          </p>
+
+          <div class="divider"></div>
+
+          <!-- только переход на страницу направления -->
+          <a class="btn btn-soft" href="/reputaciya-v-spravochnikah/">
+            Подробнее про репутацию в справочниках
+          </a>
+        </div>
+
+        <!-- RIGHT -->
+        <div class="col">
+          <div class="right-head">
+            <span class="badge">Что делаем</span>
+          </div>
+
+          <ul class="list">
+            <li class="li">
+              <div class="n">1</div>
+              <p class="t">Упаковка карточек: описание, услуги, фото, витрина, правильные категории и атрибуты.</p>
+            </li>
+            <li class="li">
+              <div class="n">2</div>
+              <p class="t">Рейтинг и отзывы: стратегия сбора, ответы от имени компании, работа с негативом.</p>
+            </li>
+            <li class="li">
+              <div class="n">3</div>
+              <p class="t">Рост видимости: укрепляем позиции карточек и повышаем кликабельность в справочниках.</p>
+            </li>
+            <li class="li">
+              <div class="n">4</div>
+              <p class="t">Доверие и конверсия: повышаем вероятность обращения ещё до перехода на сайт.</p>
+            </li>
+            <li class="li">
+              <div class="n">5</div>
+              <p class="t">Синхронизация с сайтом: единая подача, ссылки, UTM и понятная аналитика результатов.</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="corner" aria-hidden="true"></div>
+    </section>
+  </div>
+</body>
+</html>

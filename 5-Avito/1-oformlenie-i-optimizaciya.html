@@ -1,0 +1,705 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Оформление и оптимизация Avito объявлений | Avito под ключ | Venner Digital</title>
+  <meta name="description" content="Оформление и оптимизация Avito: профиль, структура объявлений, SEO-тексты, визуал и инфографика. Комплекс 10 объявлений - около 40 000 ₽. Одно объявление - от 4 000 ₽. Официальный партнёр Avito." />
+
+  <style>
+    :root{
+      --bg:#0b1220;
+      --bg2:#0a0f1c;
+      --card:#0f1a2d;
+      --text:#eaf0ff;
+      --muted:#aab7d6;
+      --line:rgba(255,255,255,.10);
+      --accent:#43f1c7;
+      --accent2:#48a7ff;
+      --warn:#ffcc66;
+      --shadow: 0 18px 50px rgba(0,0,0,.35);
+      --radius: 18px;
+      --radius2: 26px;
+      --max: 1180px;
+      --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:var(--font);
+      color:var(--text);
+      background:
+        radial-gradient(900px 520px at 20% 10%, rgba(67,241,199,.18), transparent 55%),
+        radial-gradient(900px 520px at 85% 18%, rgba(72,167,255,.18), transparent 55%),
+        linear-gradient(180deg, var(--bg), var(--bg2));
+      overflow-x:hidden;
+    }
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:var(--max);margin:0 auto;padding:0 18px}
+    .section{padding:78px 0}
+    @media (max-width: 980px){ .section{padding:58px 0} }
+
+    h1,h2,h3{margin:0 0 14px}
+    h1{font-size:44px;line-height:1.08;letter-spacing:-.02em}
+    h2{font-size:32px;line-height:1.12;letter-spacing:-.01em}
+    h3{font-size:20px;line-height:1.2}
+    p{margin:0 0 12px;color:var(--muted);line-height:1.6}
+    .lead{font-size:18px;color:#cfe0ff}
+    .small{font-size:13px}
+    .muted{color:var(--muted)}
+
+    .grid{display:grid;gap:16px}
+    .grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .grid.four{grid-template-columns:repeat(4,minmax(0,1fr))}
+    @media (max-width: 980px){
+      h1{font-size:36px}
+      h2{font-size:28px}
+      .grid.two,.grid.three,.grid.four{grid-template-columns:1fr}
+    }
+
+    .card{
+      border:1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding:22px;
+    }
+    .card.soft{
+      background: linear-gradient(180deg, rgba(15,31,58,.70), rgba(15,26,45,.50));
+    }
+    .card:hover{border-color: rgba(255,255,255,.16)}
+    .line{height:1px;background:var(--line);margin:14px 0}
+
+    .chip{
+      display:inline-flex;gap:10px;align-items:center;
+      padding:10px 14px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      color:var(--muted);
+      background: rgba(255,255,255,.04);
+      backdrop-filter: blur(8px);
+      font-size:14px;
+    }
+    .chip .dot{width:10px;height:10px;border-radius:999px;background:linear-gradient(90deg,var(--accent),var(--accent2))}
+
+    .btnrow{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;
+      padding:12px 16px;
+      border-radius: 14px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.05);
+      color:var(--text);
+      font-weight:700;
+      transition:transform .15s ease, border-color .15s ease, background .15s ease;
+    }
+    .btn:hover{transform: translateY(-1px);border-color: rgba(255,255,255,.18);background: rgba(255,255,255,.07)}
+    .btn.primary{
+      border-color: rgba(67,241,199,.35);
+      background: linear-gradient(90deg, rgba(67,241,199,.16), rgba(72,167,255,.14));
+    }
+
+    .hero{padding:72px 0 44px}
+    .heroBox{
+      border:1px solid var(--line);
+      border-radius: var(--radius2);
+      background:
+        radial-gradient(900px 420px at 15% 25%, rgba(67,241,199,.16), transparent 55%),
+        radial-gradient(900px 420px at 85% 35%, rgba(72,167,255,.16), transparent 55%),
+        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      box-shadow: var(--shadow);
+      padding:34px;
+      overflow:hidden;
+      position:relative;
+    }
+    .heroGrid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:18px;
+      align-items:stretch;
+    }
+    @media (max-width: 980px){ .heroGrid{grid-template-columns:1fr} }
+
+    .kpi{
+      border:1px solid var(--line);
+      border-radius: 16px;
+      padding:14px;
+      background: rgba(10,15,28,.40);
+    }
+    .kpi b{display:block;font-size:16px}
+    .kpi span{display:block;font-size:13px;color:var(--muted);margin-top:6px}
+
+    .badge{
+      display:inline-flex;align-items:center;gap:10px;
+      padding:10px 12px;
+      border-radius: 999px;
+      border:1px solid rgba(67,241,199,.25);
+      background: rgba(67,241,199,.08);
+      color:#dffdf6;
+      font-size:13px;
+      width:fit-content;
+      margin-top:10px;
+    }
+
+    .ico{
+      width:40px;height:40px;border-radius:14px;
+      display:grid;place-items:center;
+      background: linear-gradient(135deg, rgba(67,241,199,.18), rgba(72,167,255,.16));
+      border:1px solid rgba(255,255,255,.12);
+    }
+    .ico svg{width:22px;height:22px;opacity:.95}
+
+    .steps .item{
+      display:grid;grid-template-columns:46px 1fr;
+      gap:12px;align-items:flex-start;
+      padding:16px;
+      border-radius:16px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+    }
+    .steps .n{
+      width:40px;height:40px;border-radius:14px;
+      display:grid;place-items:center;
+      background: rgba(255,255,255,.06);
+      border:1px solid var(--line);
+      font-weight:900;color:#dfe8ff;
+    }
+
+    .compare{
+      overflow:hidden;
+      border-radius: var(--radius2);
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+    }
+    .compareHead{
+      padding:18px 20px;
+      background: linear-gradient(90deg, rgba(255,204,102,.10), rgba(67,241,199,.10));
+      border-bottom:1px solid var(--line);
+    }
+    .compareGrid{display:grid;grid-template-columns:1fr 1fr}
+    @media (max-width: 980px){ .compareGrid{grid-template-columns:1fr} }
+    .col{padding:18px 20px}
+    .col + .col{border-left:1px solid var(--line)}
+    @media (max-width: 980px){ .col + .col{border-left:none;border-top:1px solid var(--line)} }
+
+    .tag{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:8px 12px;border-radius:999px;
+      border:1px solid var(--line);
+      font-weight:800;font-size:13px;
+    }
+    .tag.bad{border-color: rgba(255,204,102,.35); background: rgba(255,204,102,.10)}
+    .tag.good{border-color: rgba(67,241,199,.35); background: rgba(67,241,199,.10)}
+
+    ul.clean{margin:12px 0 0;padding:0 0 0 18px;color:var(--muted);line-height:1.6}
+    ul.clean li{margin:8px 0}
+
+    .note{
+      border-left:3px solid rgba(72,167,255,.5);
+      padding:12px 14px;
+      background: rgba(72,167,255,.07);
+      border-radius: 14px;
+      color:#d7e8ff;
+    }
+
+    .priceBox{
+      border:1px solid rgba(67,241,199,.22);
+      background: linear-gradient(180deg, rgba(67,241,199,.10), rgba(255,255,255,.02));
+      border-radius: var(--radius2);
+      padding:22px;
+    }
+    .priceRow{display:flex;flex-wrap:wrap;gap:14px;align-items:baseline}
+    .price{
+      font-size:34px;font-weight:900;letter-spacing:-.02em;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      -webkit-background-clip:text;background-clip:text;color:transparent;
+    }
+
+    /* FAQ */
+    .faq details{
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      border-radius: 16px;
+      padding:16px 16px;
+    }
+    .faq details + details{margin-top:12px}
+    .faq summary{
+      cursor:pointer;list-style:none;
+      font-weight:900;color:#dfe8ff;
+      display:flex;align-items:center;justify-content:space-between;gap:12px;
+    }
+    .faq summary::-webkit-details-marker{display:none}
+    .faq summary .plus{
+      width:30px;height:30px;border-radius:12px;
+      border:1px solid var(--line);
+      display:grid;place-items:center;
+      background: rgba(255,255,255,.04);
+      font-weight:900;color:#cfe0ff;flex:0 0 auto;
+    }
+    .faq details[open] summary .plus{background: rgba(67,241,199,.10); border-color: rgba(67,241,199,.25)}
+
+    .foot{padding:34px 0 60px;color:rgba(255,255,255,.60);font-size:13px}
+    .foot .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+  </style>
+</head>
+
+<body>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="heroBox">
+        <div class="heroGrid">
+          <div>
+            <span class="chip"><span class="dot"></span>Avito - оформление и оптимизация объявлений</span>
+            <h1 style="margin-top:14px;">Оформим Avito так, чтобы объявления начали продавать.</h1>
+            <p class="lead">
+              Собираем профиль, структуру объявлений, SEO-тексты и визуал, чтобы получать показы в поиске и рекомендациях,
+              а не только "докупать трафик" поднятиями.
+            </p>
+
+            <div class="badge">Официальный партнёр Avito. Работаем с Avito с 2021 года.</div>
+
+            <div class="btnrow">
+              <a class="btn primary" href="#sostav">Из чего состоит работа</a>
+              <a class="btn" href="#prices">Стоимость</a>
+              <a class="btn" href="#faq">FAQ</a>
+            </div>
+          </div>
+
+          <div class="grid" style="gap:12px;">
+            <div class="kpi">
+              <b>Визуал повышает кликабельность</b>
+              <span>Делаем сильную первую картинку (инфографика/обложка) - CTR растёт, а продвижение становится дешевле.</span>
+            </div>
+            <div class="kpi">
+              <b>SEO-тексты под спрос</b>
+              <span>Ключевые слова в заголовках и описаниях помогают залетать в рекомендации и получать органику.</span>
+            </div>
+            <div class="kpi">
+              <b>Структура вместо хаоса</b>
+              <span>Разбираем услуги на объявления так, чтобы не было пробелов и лишних расходов.</span>
+            </div>
+            <div class="kpi">
+              <b>Подготовка к рекламе</b>
+              <span>Делаем фундамент. Потом проще и выгоднее включать продвижение и масштабировать результат.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT YOU GET -->
+  <section class="section" style="padding-top:0;">
+    <div class="wrap">
+      <div class="grid three">
+        <div class="card">
+          <div style="display:flex; gap:12px; align-items:flex-start;">
+            <div class="ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M4 4h16v6H4V4Z" stroke="currentColor" stroke-width="2"/>
+                <path d="M4 14h10v6H4v-6Z" stroke="currentColor" stroke-width="2"/>
+                <path d="M18 14h2v6h-2v-6Z" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            </div>
+            <div>
+              <h3>Профиль выглядит как компания</h3>
+              <p>Заполняем разделы, фото, описание, доверительные блоки. Люди выбирают глазами - и по ощущению надёжности.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div style="display:flex; gap:12px; align-items:flex-start;">
+            <div class="ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M4 19V5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M4 19h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M7 15l3-6 3 3 4-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div>
+              <h3>Объявления готовы к росту</h3>
+              <p>Делаем структуру и контент так, чтобы можно было масштабироваться: добавлять услуги, гео, офферы.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div style="display:flex; gap:12px; align-items:flex-start;">
+            <div class="ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M12 20s7-4 7-10a4 4 0 0 0-7-2 4 4 0 0 0-7 2c0 6 7 10 7 10Z" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            </div>
+            <div>
+              <h3>Дешевле продвижение</h3>
+              <p>Качественный контент и CTR снижают стоимость привлечения. Хорошие объявления выгоднее продвигать.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="note" style="margin-top:16px;">
+        Оформление и оптимизация - это фундамент. Если его нет, продвижение часто становится дорогим и нестабильным.
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICE -->
+  <section class="section" id="prices">
+    <div class="wrap">
+      <h2>Стоимость</h2>
+      <p class="lead">Дадим понятную рамку и честно скажем, от чего зависит итоговая цена.</p>
+
+      <div class="grid two" style="margin-top:16px; align-items:stretch;">
+        <div class="priceBox">
+          <h3>Комплекс: оформление + 10 объявлений</h3>
+          <div class="priceRow" style="margin-top:8px;">
+            <div class="price">~ 40 000 ₽</div>
+            <div class="muted">за запуск "под ключ"</div>
+          </div>
+          <div class="line"></div>
+          <p class="small muted">
+            Если объявлений нужно больше - предложим индивидуальную стоимость: зависит от количества услуг, географии, конкуренции
+            и сложности контента (визуал/инфографика/объём информации).
+          </p>
+        </div>
+
+        <div class="priceBox" style="border-color: rgba(72,167,255,.22); background: linear-gradient(180deg, rgba(72,167,255,.10), rgba(255,255,255,.02));">
+          <h3>Одно объявление</h3>
+          <div class="priceRow" style="margin-top:8px;">
+            <div class="price">от 4 000 ₽</div>
+            <div class="muted">за разработку</div>
+          </div>
+          <div class="line"></div>
+          <p class="small muted">
+            Подходит, если нужно "доточить" одну услугу, протестировать новый оффер, сделать правильную обложку и SEO-текст,
+            или дополнить существующую структуру.
+          </p>
+        </div>
+      </div>
+
+      <div class="card soft" style="margin-top:16px;">
+        <h3>Что влияет на цену</h3>
+        <div class="grid three" style="margin-top:12px;">
+          <div class="card" style="padding:16px; box-shadow:none;">
+            <b>Ниша и конкуренция</b>
+            <p class="small muted" style="margin-top:8px;">Чем сложнее рынок, тем больше внимания к офферам, визуалу и структуре.</p>
+          </div>
+          <div class="card" style="padding:16px; box-shadow:none;">
+            <b>Количество услуг и гео</b>
+            <p class="small muted" style="margin-top:8px;">Иногда надо закрыть весь спрос без пробелов, но и без лишних объявлений.</p>
+          </div>
+          <div class="card" style="padding:16px; box-shadow:none;">
+            <b>Контент и инфографика</b>
+            <p class="small muted" style="margin-top:8px;">Обложка решает. Часто делаем первую картинку в "презентационном" формате.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORK CONTENT -->
+  <section class="section" id="sostav" style="padding-top:0;">
+    <div class="wrap">
+      <h2>Из чего состоит наша работа</h2>
+      <p class="lead">Пошагово. Без пропусков. Всё, что влияет на показы, клики и конверсию.</p>
+
+      <div class="grid two steps" style="margin-top:16px;">
+        <div class="item">
+          <div class="n">1</div>
+          <div>
+            <b>Быстрый разбор ниши и конкурентов</b>
+            <p class="small muted" style="margin-top:6px;">
+              Смотрим топ по вашей категории: какие офферы, цены, визуал, форматы подачи и какие связки реально работают.
+            </p>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="n">2</div>
+          <div>
+            <b>Оформление профиля</b>
+            <p class="small muted" style="margin-top:6px;">
+              Заполняем "О компании", контакты, фото, обложки, аватар, блоки доверия. Профиль должен выглядеть как бизнес.
+            </p>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="n">3</div>
+          <div>
+            <b>Проектирование структуры объявлений</b>
+            <p class="small muted" style="margin-top:6px;">
+              Выявляем оптимальное количество объявлений под услуги/подуслуги/гео: без лишнего, но и без пробелов в спросе.
+            </p>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="n">4</div>
+          <div>
+            <b>SEO-тексты и заголовки</b>
+            <p class="small muted" style="margin-top:6px;">
+              Пишем под реальные запросы. Внедряем ключевые слова аккуратно, чтобы работать и на поиск, и на рекомендации.
+            </p>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="n">5</div>
+          <div>
+            <b>Подбор и подготовка изображений</b>
+            <p class="small muted" style="margin-top:6px;">
+              Подбираем визуал высокого качества, приводим к единому стилю. Упаковка влияет на доверие и клики.
+            </p>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="n">6</div>
+          <div>
+            <b>Первая картинка - "обложка" объявления</b>
+            <p class="small muted" style="margin-top:6px;">
+              Часто делаем инфографику/презентационную обложку: она повышает CTR, а CTR снижает стоимость продвижения.
+            </p>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="n">7</div>
+          <div>
+            <b>Сборка объявлений и публикация</b>
+            <p class="small muted" style="margin-top:6px;">
+              Готовим объявления полностью: заголовки, описание, фото, параметры. Проверяем корректность перед запуском.
+            </p>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="n">8</div>
+          <div>
+            <b>Подготовка к продвижению</b>
+            <p class="small muted" style="margin-top:6px;">
+              После упаковки объявлений включать продвижение выгоднее. Можно перейти к "Продвижение и аналитика".
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="note" style="margin-top:16px;">
+        Если у вас уже есть Avito - пришлите профиль. Мы быстро посмотрим и подскажем, где самые грубые ошибки и точки роста.
+        На базе этого подготовим коммерческое предложение под вашу задачу.
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPARE -->
+  <section class="section" style="padding-top:0;">
+    <div class="wrap">
+      <div class="compare">
+        <div class="compareHead">
+          <h2 style="margin:0;">Наглядно. Почему объявления не заходят</h2>
+          <p style="margin-top:8px;">Одинаковая ниша, разные подходы - и разная стоимость лида.</p>
+        </div>
+
+        <div class="compareGrid">
+          <div class="col">
+            <span class="tag bad">Как обычно делают "наскоряк"</span>
+            <ul class="clean">
+              <li>профиль пустой: нет доверия, нет "лица компании"</li>
+              <li>случайные фото, первая картинка не цепляет</li>
+              <li>заголовок общий, без ключевых слов и конкретики</li>
+              <li>описание "про нас", без ответов на вопросы клиента</li>
+              <li>одно объявление на всё - пробелы по спросу</li>
+              <li>продвижение включают сразу - и жалуются на дорогие лиды</li>
+            </ul>
+          </div>
+
+          <div class="col">
+            <span class="tag good">Как делаем мы</span>
+            <ul class="clean">
+              <li>профиль оформлен: фото, описание, доверие, структура</li>
+              <li>обложка/инфографика на 1-й картинке повышает CTR</li>
+              <li>заголовки и тексты под спрос: поиск + рекомендации</li>
+              <li>структура объявлений закрывает максимум рынка без лишнего</li>
+              <li>контент выглядит как бизнес, а не как "частник"</li>
+              <li>после упаковки продвижение дешевле и стабильнее</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEXT STEP -->
+  <section class="section" style="padding-top:0;">
+    <div class="wrap">
+      <h2>Что дальше</h2>
+      <p class="lead">Оформление - это база. Дальше есть два сценария.</p>
+
+      <div class="grid three" style="margin-top:16px;">
+        <div class="card soft">
+          <h3>Вы ведёте Avito сами</h3>
+          <p>Мы делаем упаковку и структуру, вы запускаете минимальные поднятия и поддерживаете активность.</p>
+          <ul class="clean">
+            <li>подходит, если бюджет ограничен</li>
+            <li>нужно "привести в порядок" и стартовать</li>
+            <li>дальше можно вернуться за улучшениями</li>
+          </ul>
+        </div>
+
+        <div class="card soft">
+          <h3>Подключаем продвижение и аналитику</h3>
+          <p>Если цель - рост и стабильность, подключаем рекламу Avito, тестируем гипотезы и ведём отчётность.</p>
+          <div class="btnrow">
+            <a class="btn" href="/avito/prodvizhenie-i-analitika/">Подробнее про продвижение</a>
+          </div>
+        </div>
+
+        <div class="card soft" style="border-color: rgba(67,241,199,.22);">
+          <h3>Avito под ключ</h3>
+          <p>Полный цикл: упаковка + реклама + аналитика + CRM. Максимум результата без хаоса.</p>
+          <div class="btnrow">
+            <a class="btn primary" href="/avito/">Avito под ключ - общий лендинг</a>
+          </div>
+          <p class="small muted" style="margin-top:12px;">Если у вас уже есть Avito - начнём с разбора и плана действий.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST -->
+  <section class="section" style="padding-top:0;">
+    <div class="wrap">
+      <h2>Пруфы и доверие</h2>
+      <p class="lead">Мы не "просто ведём". Мы официально работаем с экосистемой и понимаем процессы.</p>
+
+      <div class="grid two" style="margin-top:16px;">
+        <div class="card soft">
+          <h3>Официальный партнёр Avito</h3>
+          <p>
+            Работаем через партнёрский подход, следим за обновлениями и изменениями модели продвижения.
+            Это помогает быстрее адаптироваться и не сливать бюджеты на устаревшие схемы.
+          </p>
+          <ul class="clean">
+            <li>понимаем, как меняется рекламная модель</li>
+            <li>работаем системно, а не "на удачу"</li>
+            <li>строим структуру, которую можно масштабировать</li>
+          </ul>
+        </div>
+
+        <div class="card soft">
+          <h3>Интеграции и amoCRM</h3>
+          <p>
+            Если нужно - подключаем заявки из Avito в amoCRM, настраиваем автоматизацию, контроль ответов и историю общения.
+            Это повышает конверсию в сделки и дисциплину отдела продаж.
+          </p>
+          <p class="small muted" style="margin:0;">Интеграции - отдельный блок, но часто он критичен для результата.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section" id="faq" style="padding-top:0;">
+    <div class="wrap">
+      <h2>FAQ</h2>
+      <p class="lead">Самое частое про оформление и оптимизацию.</p>
+
+      <div class="grid two" style="margin-top:16px; align-items:start;">
+        <div class="faq">
+          <details>
+            <summary>Если у нас уже есть аккаунт Avito - вы сможете доработать? <span class="plus">+</span></summary>
+            <p style="margin-top:10px;">
+              Да. Чаще всего так и бывает: делаем разбор, находим грубые ошибки, усиливаем профиль, структуру и контент,
+              а дальше - либо вы ведёте сами, либо подключаем продвижение и аналитику.
+            </p>
+          </details>
+
+          <details>
+            <summary>Зачем SEO в объявлениях, если есть реклама? <span class="plus">+</span></summary>
+            <p style="margin-top:10px;">
+              SEO-тексты помогают получать показы не только через платные продвижения. Плюс, релевантность текста и заголовка
+              повышает кликабельность, а это влияет на стоимость продвижения.
+            </p>
+          </details>
+
+          <details>
+            <summary>Сколько объявлений нужно, чтобы закрыть спрос? <span class="plus">+</span></summary>
+            <p style="margin-top:10px;">
+              Зависит от количества услуг, географии и сегментов. Мы проектируем структуру так, чтобы закрыть максимум спроса
+              за разумные деньги - без лишних объявлений и без пробелов.
+            </p>
+          </details>
+        </div>
+
+        <div class="faq">
+          <details>
+            <summary>Почему важна первая картинка? <span class="plus">+</span></summary>
+            <p style="margin-top:10px;">
+              Это главный триггер клика. Обложка с понятным оффером и аккуратной инфографикой даёт выше CTR.
+              Чем выше CTR, тем выгоднее продвижение и тем чаще объявление попадает в рекомендации.
+            </p>
+          </details>
+
+          <details>
+            <summary>Можно ли начать с одного объявления? <span class="plus">+</span></summary>
+            <p style="margin-top:10px;">
+              Да. Иногда это лучший способ протестировать оффер. Но для устойчивого результата обычно нужна структура,
+              иначе вы упускаете часть спроса.
+            </p>
+          </details>
+
+          <details>
+            <summary>Вы делаете всё под ключ или нужны материалы от нас? <span class="plus">+</span></summary>
+            <p style="margin-top:10px;">
+              Работаем под ключ, но материалы ускоряют запуск: фото команды/объекта, примеры работ, прайс, ответы на частые вопросы.
+              Если материалов нет - подберём базовый визуал и выстроим подачу.
+            </p>
+          </details>
+        </div>
+      </div>
+
+      <div class="note" style="margin-top:16px;">
+        Хотите быстро понять, что можно улучшить - пришлите ссылку на профиль Avito. Сделаем короткий разбор и предложим план действий.
+      </div>
+    </div>
+  </section>
+
+  <!-- RELATED -->
+  <section class="section" style="padding-top:0;">
+    <div class="wrap">
+      <h2>Связанные страницы</h2>
+      <p class="lead">Чтобы не дублировать - вынесли детали в отдельные услуги.</p>
+
+      <div class="grid three" style="margin-top:16px;">
+        <a class="card" href="/avito/">
+          <h3>Avito под ключ</h3>
+          <p class="small muted">Полный цикл: оформление + продвижение + аналитика + CRM.</p>
+        </a>
+        <a class="card" href="/avito/prodvizhenie-i-analitika/">
+          <h3>Продвижение и аналитика</h3>
+          <p class="small muted">Реклама Avito, тесты гипотез, снижение стоимости лида, отчётность.</p>
+        </a>
+        <a class="card" href="/crm-integracii/">
+          <h3>CRM и интеграции</h3>
+          <p class="small muted">amoCRM, мессенджеры, телефония, автоматизация и контроль отдела продаж.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <div class="wrap">
+      <div>© Venner Digital. Avito и названия сервисов - товарные знаки их правообладателей.</div>
+      <div>Контент обновляется по мере изменений платформы и рынка.</div>
+    </div>
+  </footer>
+
+</body>
+</html>
+

@@ -1,0 +1,743 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ChatApp - интеграция мессенджеров с amoCRM и Bitrix24</title>
+  <meta name="description" content="ChatApp - сервис для подключения WhatsApp, Telegram и Max к amoCRM/Bitrix24. Единое окно диалогов, автоматизация, боты, контроль качества и рост конверсии." />
+
+  <style>
+    :root{
+      --bg:#0b0d10;
+      --card:#11151b;
+      --card2:#0f1318;
+      --text:#e9eef6;
+      --muted:#a7b2c3;
+      --line:rgba(255,255,255,.10);
+      --accent:#6ae4ff;
+      --accent2:#9bffb8;
+      --danger:#ff6a6a;
+      --shadow: 0 18px 45px rgba(0,0,0,.45);
+      --radius:18px;
+      --radius2:26px;
+      --maxw:1140px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
+      background: radial-gradient(1100px 700px at 20% -10%, rgba(106,228,255,.20), transparent 60%),
+                  radial-gradient(900px 600px at 80% 0%, rgba(155,255,184,.12), transparent 55%),
+                  var(--bg);
+      color:var(--text);
+      line-height:1.45;
+    }
+    a{color:inherit}
+    .wrap{max-width:var(--maxw); margin:0 auto; padding:0 20px}
+    .section{padding:70px 0}
+    .grid{display:grid; gap:16px}
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,.04), transparent 75%), var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .card.pad{padding:22px}
+    .badge{
+      display:inline-flex; gap:8px; align-items:center;
+      padding:8px 12px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      color:var(--muted);
+      background:rgba(255,255,255,.02);
+      font-size:13px;
+      letter-spacing:.2px;
+    }
+    .h1{
+      font-size:40px;
+      line-height:1.06;
+      margin:14px 0 12px 0;
+      letter-spacing:-.6px;
+    }
+    .h2{
+      font-size:28px;
+      margin:0 0 12px 0;
+      letter-spacing:-.3px;
+    }
+    .lead{color:var(--muted); font-size:16px; margin:0}
+    .kpi{
+      display:flex; flex-wrap:wrap; gap:10px; margin-top:18px;
+    }
+    .pill{
+      display:inline-flex; gap:10px; align-items:center;
+      padding:10px 12px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background:rgba(255,255,255,.02);
+      color:var(--text);
+      font-size:14px;
+    }
+    .pill b{color:var(--accent)}
+    .hero{
+      padding:64px 0 26px 0;
+    }
+    .heroGrid{
+      display:grid;
+      gap:16px;
+      grid-template-columns: 1.25fr .75fr;
+      align-items:stretch;
+    }
+    .heroCard{
+      border-radius: var(--radius2);
+      padding:26px;
+      background:
+        radial-gradient(900px 500px at 20% 10%, rgba(106,228,255,.18), transparent 55%),
+        radial-gradient(900px 500px at 80% 20%, rgba(155,255,184,.12), transparent 55%),
+        linear-gradient(180deg, rgba(255,255,255,.04), transparent 65%),
+        var(--card2);
+      border:1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+    .heroRight{display:grid; gap:16px}
+    .miniTitle{font-size:14px; color:var(--muted); margin:0 0 8px 0}
+    .list{
+      margin:0;
+      padding-left:18px;
+      color:var(--muted);
+    }
+    .list li{margin:8px 0}
+    .cols2{grid-template-columns: repeat(2, minmax(0, 1fr))}
+    .cols3{grid-template-columns: repeat(3, minmax(0, 1fr))}
+    .cols4{grid-template-columns: repeat(4, minmax(0, 1fr))}
+    .muted{color:var(--muted)}
+    .hr{
+      height:1px; background:var(--line);
+      margin:18px 0;
+    }
+    .tag{
+      display:inline-flex;
+      padding:8px 10px;
+      border-radius:999px;
+      background:rgba(106,228,255,.10);
+      border:1px solid rgba(106,228,255,.22);
+      color:var(--text);
+      font-size:13px;
+      white-space:nowrap;
+    }
+    .tag.green{
+      background:rgba(155,255,184,.10);
+      border:1px solid rgba(155,255,184,.22);
+    }
+    .tag.red{
+      background:rgba(255,106,106,.10);
+      border:1px solid rgba(255,106,106,.22);
+    }
+    .steps{counter-reset: step}
+    .step{
+      padding:18px;
+      border-radius:var(--radius);
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.02);
+    }
+    .step:before{
+      counter-increment: step;
+      content: counter(step);
+      display:inline-grid; place-items:center;
+      width:28px; height:28px;
+      border-radius:10px;
+      border:1px solid var(--line);
+      color:var(--accent);
+      margin-right:10px;
+      font-weight:700;
+    }
+    .step h3{
+      display:flex; align-items:center;
+      font-size:16px; margin:0 0 6px 0;
+    }
+    .step p{margin:0; color:var(--muted); font-size:14px}
+    .compare{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:16px;
+    }
+    .compare .box{
+      border-radius: var(--radius);
+      border:1px solid var(--line);
+      padding:18px;
+      background:rgba(255,255,255,.02);
+    }
+    .compare h3{margin:0 0 8px 0; font-size:16px}
+    .compare ul{margin:0; padding-left:18px; color:var(--muted)}
+    .compare li{margin:8px 0}
+    .note{
+      border-left:3px solid rgba(106,228,255,.6);
+      padding:12px 14px;
+      background:rgba(106,228,255,.06);
+      border-radius: 12px;
+      color:var(--muted);
+      font-size:14px;
+    }
+    .faq details{
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      background:rgba(255,255,255,.02);
+      padding:14px 16px;
+    }
+    .faq summary{
+      cursor:pointer;
+      list-style:none;
+      font-weight:650;
+      letter-spacing:-.1px;
+    }
+    .faq summary::-webkit-details-marker{display:none}
+    .faq .ans{margin-top:10px; color:var(--muted); font-size:14px}
+    .links{
+      display:flex; flex-wrap:wrap; gap:10px;
+    }
+    .alink{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:10px 12px;
+      border:1px solid var(--line);
+      border-radius:14px;
+      background:rgba(255,255,255,.02);
+      text-decoration:none;
+      color:var(--text);
+      font-size:14px;
+    }
+    .alink span{color:var(--muted)}
+    .footer{
+      padding:26px 0 60px 0;
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    @media (max-width: 980px){
+      .heroGrid{grid-template-columns: 1fr}
+      .cols4{grid-template-columns: repeat(2, minmax(0, 1fr))}
+      .cols3{grid-template-columns: 1fr}
+      .cols2{grid-template-columns: 1fr}
+      .compare{grid-template-columns:1fr}
+      .h1{font-size:34px}
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- PAGE: CRM / INTEGRATIONS / CHATAPP -->
+  <main>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="wrap">
+        <div class="heroGrid">
+          <div class="heroCard">
+            <div class="badge">CRM - интеграции - мессенджеры</div>
+            <h1 class="h1">ChatApp - мессенджеры в amoCRM и Bitrix24 в одном окне</h1>
+            <p class="lead">
+              Подключаем WhatsApp, Telegram и Max к CRM, наводим порядок в диалогах, ускоряем ответы, уменьшаем потери лидов.
+              Если у вас заявки в разных чатах - это самый быстрый способ собрать всё в одну систему и начать контролировать продажи.
+            </p>
+
+            <div class="kpi">
+              <div class="pill"><b>1</b> единое окно сообщений</div>
+              <div class="pill"><b>2</b> контроль качества и скорости</div>
+              <div class="pill"><b>3</b> меньше потерь лидов</div>
+              <div class="pill"><b>4</b> готовность к росту</div>
+            </div>
+
+            <div class="hr"></div>
+
+            <div class="links">
+              <!-- TODO: заменить на внутренние URL Venner Digital -->
+              <a class="alink" href="#integration">Что делает ChatApp<span>- по делу</span></a>
+              <a class="alink" href="#scenarios">Сценарии<span>- где окупается</span></a>
+              <a class="alink" href="#how">Как внедряем<span>- шаги</span></a>
+              <a class="alink" href="#faq">FAQ<span>- частые вопросы</span></a>
+            </div>
+          </div>
+
+          <div class="heroRight">
+            <div class="card pad">
+              <p class="miniTitle">Кому обычно нужно</p>
+              <ul class="list">
+                <li>Отдел продаж, где менеджеры ведут клиентов в 2-5 чатах.</li>
+                <li>Бизнес, где важна скорость ответа и фиксация переписки.</li>
+                <li>Проекты с входящими заявками из рекламы и справочников.</li>
+                <li>Команды, которым нужен контроль и аналитика по диалогам.</li>
+              </ul>
+            </div>
+
+            <div class="card pad">
+              <p class="miniTitle">Главная мысль</p>
+              <div class="note">
+                CRM без мессенджеров - это "таблица", где лиды есть, а диалоги живут отдельно.
+                Интеграция возвращает переписку в CRM - и продажам становится чем управлять.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHAT IS -->
+    <section class="section" id="integration">
+      <div class="wrap">
+        <div class="grid cols2">
+          <div class="card pad">
+            <h2 class="h2">Что такое ChatApp и что он решает.</h2>
+            <p class="muted">
+              ChatApp - это сервис интеграции каналов общения с CRM. Его задача простая - чтобы переписка с клиентом
+              фиксировалась в карточке сделки/контакта и была доступна всей команде, а не оставалась в личных чатах менеджеров.
+            </p>
+            <div class="hr"></div>
+            <div class="grid cols2">
+              <div class="step">
+                <h3>Собираем каналы</h3>
+                <p>WhatsApp, Telegram, Max - и другие источники, если нужно (например, торговые площадки).</p>
+              </div>
+              <div class="step">
+                <h3>Привязываем к CRM</h3>
+                <p>amoCRM или Bitrix24 - чтобы заявки не терялись, а история была у сделки.</p>
+              </div>
+              <div class="step">
+                <h3>Настраиваем логику</h3>
+                <p>Распределение диалогов, правила ответов, ответственность, напоминания, теги, этапы.</p>
+              </div>
+              <div class="step">
+                <h3>Включаем контроль</h3>
+                <p>Видно, кто ответил, когда, что обещали, где сорвали сроки и где "забыли" клиента.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="card pad">
+            <h2 class="h2">Какие каналы обычно подключаем.</h2>
+            <p class="muted">Держим фокус на тех каналах, которые реально дают продажи и заявки.</p>
+
+            <div class="hr"></div>
+
+            <div class="grid cols3">
+              <div class="card pad" style="box-shadow:none">
+                <div class="tag">WhatsApp</div>
+                <p class="muted" style="margin:10px 0 0 0">
+                  Чаще всего - основной канал входящих. Удобно для быстрых диалогов и доведения до сделки.
+                </p>
+              </div>
+              <div class="card pad" style="box-shadow:none">
+                <div class="tag">Telegram</div>
+                <p class="muted" style="margin:10px 0 0 0">
+                  Идеален для консультаций, повторных касаний, бота, воронок, подписок и прогрева.
+                </p>
+              </div>
+              <div class="card pad" style="box-shadow:none">
+                <div class="tag">Max</div>
+                <p class="muted" style="margin:10px 0 0 0">
+                  Новый канал, который всё чаще спрашивают. Подключаем, чтобы не терять аудиторию.
+                </p>
+              </div>
+            </div>
+
+            <div class="hr"></div>
+
+            <p class="muted" style="margin:0">
+              <!-- TODO: вставить внутренние ссылки Venner Digital -->
+              По желанию клиента связываем интеграцию с другими задачами: <a href="#" style="color:var(--accent)">CRM-внедрение</a>,
+              <a href="#" style="color:var(--accent)">аналитика</a>, <a href="#" style="color:var(--accent)">сайт под ключ</a>,
+              <a href="#" style="color:var(--accent)">контекстная реклама</a> и <a href="#" style="color:var(--accent)">SEO</a>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHY + COMPARE -->
+    <section class="section" id="benefits">
+      <div class="wrap">
+        <div class="card pad">
+          <h2 class="h2">Почему без интеграции продажи обычно "текут".</h2>
+          <p class="muted">
+            Когда переписка живёт в личных чатах - компания не управляет продажами. Она надеется, что менеджер всё помнит,
+            всё фиксирует и всегда на связи. На практике так не бывает.
+          </p>
+
+          <div class="hr"></div>
+
+          <div class="compare">
+            <div class="box">
+              <div class="tag red">Как часто бывает</div>
+              <h3 style="margin-top:10px">Чаты отдельно - CRM отдельно</h3>
+              <ul>
+                <li>Менеджер ушёл - история диалогов ушла с ним.</li>
+                <li>Клиент "потерялся" - никто не понял где и почему.</li>
+                <li>Сделку закрыли - но причина успеха не масштабируется.</li>
+                <li>Невозможно контролировать скорость ответа и качество.</li>
+              </ul>
+            </div>
+            <div class="box">
+              <div class="tag green">Как должно быть</div>
+              <h3 style="margin-top:10px">Диалоги в CRM - управление в руках</h3>
+              <ul>
+                <li>Вся переписка в карточке - видно кто и что делал.</li>
+                <li>Единые правила - распределение, этапы, ответственные.</li>
+                <li>Контроль качества - проще обучать и масштабировать отдел.</li>
+                <li>Рост конверсии за счёт скорости и системности.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCENARIOS -->
+    <section class="section" id="scenarios">
+      <div class="wrap">
+        <div class="grid cols3">
+          <div class="card pad">
+            <h2 class="h2" style="font-size:22px">Сценарий 1. Лиды из рекламы</h2>
+            <p class="muted">
+              Заявки приходят быстро, клиент горячий. Если ответить поздно - лид ушёл к конкурентам.
+              Интеграция ускоряет обработку и фиксирует диалоги в CRM.
+            </p>
+            <div class="hr"></div>
+            <p class="muted" style="margin:0">
+              <!-- TODO: внутренние ссылки -->
+              Усиливаем связку через <a href="#" style="color:var(--accent)">Яндекс.Директ</a> и
+              <a href="#" style="color:var(--accent)">аналитику</a>.
+            </p>
+          </div>
+
+          <div class="card pad">
+            <h2 class="h2" style="font-size:22px">Сценарий 2. Отдел продаж 3+ менеджера</h2>
+            <p class="muted">
+              Без "единого окна" начинается хаос: кто кому ответил, где клиент, кто на смене.
+              Настраиваем распределение, ответственность и контроль.
+            </p>
+            <div class="hr"></div>
+            <p class="muted" style="margin:0">
+              <!-- TODO: внутренние ссылки -->
+              Часто дополняем <a href="#" style="color:var(--accent)">amoCRM</a> воронками и регламентами.
+            </p>
+          </div>
+
+          <div class="card pad">
+            <h2 class="h2" style="font-size:22px">Сценарий 3. Повторные продажи</h2>
+            <p class="muted">
+              Клиент может вернуться через 2-6 месяцев. Если история общения потеряна - продажа начинается "с нуля".
+              В CRM это решается автоматически.
+            </p>
+            <div class="hr"></div>
+            <p class="muted" style="margin:0">
+              <!-- TODO: внутренние ссылки -->
+              Подключаем напоминания, сегментацию, рассылки и сценарии касаний.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="section" id="features">
+      <div class="wrap">
+        <div class="card pad">
+          <h2 class="h2">Ключевые возможности, которые обычно внедряем.</h2>
+          <p class="muted">
+            У сервисов класса ChatApp много функций. Мы собираем "рабочий набор" под задачу клиента - без лишней сложности.
+          </p>
+
+          <div class="hr"></div>
+
+          <div class="grid cols4">
+            <div class="step">
+              <h3>Привязка к сделке</h3>
+              <p>Переписка фиксируется в карточке - видна всем и не теряется.</p>
+            </div>
+            <div class="step">
+              <h3>Единое окно команды</h3>
+              <p>Командная работа без "перекидывания" клиентов между личными чатами.</p>
+            </div>
+            <div class="step">
+              <h3>Маршрутизация</h3>
+              <p>Кто отвечает, куда попадает диалог, как передаём на другого специалиста.</p>
+            </div>
+            <div class="step">
+              <h3>Автоматизация</h3>
+              <p>Шаблоны, автоответы, теги, статусы, напоминания, сценарии.</p>
+            </div>
+            <div class="step">
+              <h3>Контроль скорости</h3>
+              <p>Понимаем где клиент ждёт, кто "завис", где провал по SLA.</p>
+            </div>
+            <div class="step">
+              <h3>Сбор базы</h3>
+              <p>Контакты, согласия, история - база остаётся в компании.</p>
+            </div>
+            <div class="step">
+              <h3>Качество диалогов</h3>
+              <p>Проще обучать менеджеров и держать единый стандарт общения.</p>
+            </div>
+            <div class="step">
+              <h3>Масштабирование</h3>
+              <p>Добавлять каналы и менеджеров проще, чем "чинить хаос".</p>
+            </div>
+          </div>
+
+          <div class="hr"></div>
+
+          <div class="note">
+            Важно - мы не обещаем "волшебную кнопку". Интеграция даёт базу для управления продажами.
+            Дальше результат зависит от воронки, оффера, скорости и качества обработки лидов.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW WE IMPLEMENT -->
+    <section class="section" id="how">
+      <div class="wrap">
+        <div class="grid cols2">
+          <div class="card pad">
+            <h2 class="h2">Как мы внедряем ChatApp.</h2>
+            <p class="muted">Без растягивания на недели - делаем быстро, но аккуратно и по регламенту.</p>
+
+            <div class="hr"></div>
+
+            <div class="grid steps">
+              <div class="step">
+                <h3>Диагностика</h3>
+                <p>Какие каналы нужны, какие CRM, кто отвечает, как устроены продажи.</p>
+              </div>
+              <div class="step">
+                <h3>Подключение каналов</h3>
+                <p>Подключаем WhatsApp/Telegram/Max и нужные точки входа.</p>
+              </div>
+              <div class="step">
+                <h3>Связка с CRM</h3>
+                <p>Правила создания сделок, привязка к контактам, маршрутизация.</p>
+              </div>
+              <div class="step">
+                <h3>Тест и обучение</h3>
+                <p>Проверяем сценарии, учим команду, фиксируем правила в регламенте.</p>
+              </div>
+              <div class="step">
+                <h3>Запуск и контроль</h3>
+                <p>Первые недели смотрим узкие места и быстро донастраиваем.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="card pad">
+            <h2 class="h2">Какой результат вы получаете.</h2>
+            <p class="muted">Обычно это выражается не словами, а цифрами - но на прототипе фиксируем смысл.</p>
+
+            <div class="hr"></div>
+
+            <div class="grid cols2">
+              <div class="card pad" style="box-shadow:none">
+                <div class="tag green">Управляемость</div>
+                <p class="muted" style="margin:10px 0 0 0">
+                  Сделки ведутся внутри CRM, а не "в голове" и не в личных чатах.
+                </p>
+              </div>
+              <div class="card pad" style="box-shadow:none">
+                <div class="tag green">Прозрачность</div>
+                <p class="muted" style="margin:10px 0 0 0">
+                  Видно историю касаний, причины отказов, качество и скорость ответов.
+                </p>
+              </div>
+              <div class="card pad" style="box-shadow:none">
+                <div class="tag green">Стабильность</div>
+                <p class="muted" style="margin:10px 0 0 0">
+                  Смена менеджера не ломает продажи - база и диалоги остаются в компании.
+                </p>
+              </div>
+              <div class="card pad" style="box-shadow:none">
+                <div class="tag green">Рост конверсии</div>
+                <p class="muted" style="margin:10px 0 0 0">
+                  Быстрее ответы - выше конверсия. Меньше потерь - больше сделок.
+                </p>
+              </div>
+            </div>
+
+            <div class="hr"></div>
+
+            <p class="muted" style="margin:0">
+              <!-- TODO: внутренние ссылки -->
+              Если нужно - связываем это с комплексом: <a href="#" style="color:var(--accent)">разработка сайта</a>,
+              <a href="#" style="color:var(--accent)">SEO</a>, <a href="#" style="color:var(--accent)">контекстная реклама</a>,
+              <a href="#" style="color:var(--accent)">внедрение amoCRM</a>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRICING (SAFE) -->
+    <section class="section" id="price">
+      <div class="wrap">
+        <div class="card pad">
+          <h2 class="h2">Тарифы ChatApp - как это обычно устроено.</h2>
+          <p class="muted">
+            Стоимость зависит от каналов и формата подключения. Обычно отдельная оплата идёт за каналы (номерные или бот-каналы),
+            а также возможны скидки при оплате на более длительный период.
+          </p>
+
+          <div class="hr"></div>
+
+          <div class="grid cols3">
+            <div class="card pad" style="box-shadow:none">
+              <div class="tag">Быстрый старт</div>
+              <p class="muted" style="margin:10px 0 0 0">
+                Один ключевой канал + базовая связка с CRM. Для пилотного запуска и проверки гипотез.
+              </p>
+            </div>
+            <div class="card pad" style="box-shadow:none">
+              <div class="tag">Рабочий набор</div>
+              <p class="muted" style="margin:10px 0 0 0">
+                Несколько каналов, распределение диалогов, шаблоны ответов, контроль качества.
+              </p>
+            </div>
+            <div class="card pad" style="box-shadow:none">
+              <div class="tag">Максимум пользы</div>
+              <p class="muted" style="margin:10px 0 0 0">
+                Каналы + сценарии автоматизации, регламенты, обучение команды, контроль и развитие связки.
+              </p>
+            </div>
+          </div>
+
+          <div class="hr"></div>
+
+          <p class="muted" style="margin:0">
+            Актуальные тарифы сервиса всегда лучше смотреть на официальной странице:
+            <a href="https://chatapp.online/price/" style="color:var(--accent)" target="_blank" rel="noopener">chatapp.online/price/</a>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT US -->
+    <section class="section" id="we">
+      <div class="wrap">
+        <div class="grid cols2">
+          <div class="card pad">
+            <h2 class="h2">Как мы подходим к внедрению.</h2>
+            <p class="muted">
+              Мы не "просто подключаем". Мы собираем связку продаж: каналы - CRM - этапы - ответственность - контроль.
+              И делаем так, чтобы это работало у менеджеров, а не только в презентации.
+            </p>
+            <div class="hr"></div>
+            <ul class="list">
+              <li>Настраиваем правила: создание сделок, распределение, передачи.</li>
+              <li>Делаем стандарты общения и шаблоны ответов, если нужно.</li>
+              <li>Подключаем аналитику и контроль - чтобы видеть результат.</li>
+              <li>Помогаем команде освоиться - без "бросили и забыли".</li>
+            </ul>
+          </div>
+
+          <div class="card pad">
+            <h2 class="h2">Что важно понимать заранее.</h2>
+            <p class="muted">Чтобы ожидания совпали с реальностью - вот честные моменты.</p>
+            <div class="hr"></div>
+
+            <div class="grid">
+              <div class="note">
+                Интеграция не заменяет отдел продаж. Она убирает потери и даёт управляемость, а дальше нужна дисциплина обработки.
+              </div>
+              <div class="note">
+                Лучше подключить 1-2 ключевых канала и настроить процессы, чем "всё и сразу" без правил и ответственности.
+              </div>
+              <div class="note">
+                Если у вас уже есть CRM - мы встраиваемся в текущую структуру. Если CRM нет - сначала делаем базовое внедрение.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section" id="faq">
+      <div class="wrap">
+        <div class="card pad">
+          <h2 class="h2">FAQ - коротко отвечаем на частые вопросы.</h2>
+
+          <div class="grid faq" style="margin-top:14px">
+            <details>
+              <summary>Можно ли подключить только WhatsApp, без остальных каналов?</summary>
+              <div class="ans">
+                Да. Часто начинаем с одного ключевого канала, чтобы быстро собрать результат.
+                Потом добавляем Telegram и Max, когда команда привыкла к процессу.
+              </div>
+            </details>
+
+            <details>
+              <summary>Это подходит и для amoCRM, и для Bitrix24?</summary>
+              <div class="ans">
+                Да. Подбираем связку под вашу CRM. Если CRM ещё нет - сначала определяем задачи отдела продаж и выбираем платформу.
+              </div>
+            </details>
+
+            <details>
+              <summary>Диалоги будут закрепляться за сделками автоматически?</summary>
+              <div class="ans">
+                Настраиваем правила привязки: по номеру, по контакту, по сценарию создания сделок.
+                Важно правильно договориться о логике и дисциплине менеджеров.
+              </div>
+            </details>
+
+            <details>
+              <summary>Нужно ли "вести" интеграцию после подключения?</summary>
+              <div class="ans">
+                Обычно нужна только поддержка по изменениям: добавить канал, поменять логику распределения, расширить сценарии.
+                Базовая связка работает стабильно, но бизнес почти всегда растёт - и процессы тоже.
+              </div>
+            </details>
+
+            <details>
+              <summary>Сколько времени занимает внедрение?</summary>
+              <div class="ans">
+                Зависит от количества каналов и сложности CRM. Быстрый старт можно сделать оперативно, а комплекс - по этапам.
+              </div>
+            </details>
+
+            <details>
+              <summary>Как сделать так, чтобы менеджеры не "сливали" лиды?</summary>
+              <div class="ans">
+                Мы настраиваем контроль: ответственность, скорость ответа, регламенты, шаблоны, этапы сделок.
+                Главное - чтобы процессы были понятны и выполнялись ежедневно.
+              </div>
+            </details>
+          </div>
+
+          <div class="hr"></div>
+
+          <p class="muted" style="margin:0">
+            Официальный сайт сервиса: <a href="https://chatapp.online/" style="color:var(--accent)" target="_blank" rel="noopener">chatapp.online</a>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer">
+      <div class="wrap">
+        <div style="display:flex; gap:10px; flex-wrap:wrap">
+          <span>Примечание: на этапе прототипа не вставляем формы захвата и "кнопки партнёрки".</span>
+          <span>Сквозные офферы, формы и CTA добавим отдельными блоками позже.</span>
+        </div>
+        <div style="margin-top:10px">
+          <!-- TODO: внутренние ссылки Venner Digital -->
+          <span class="muted">Перелинковка: </span>
+          <a href="#" style="color:var(--accent)">amoCRM</a> ·
+          <a href="#" style="color:var(--accent)">Bitrix24</a> ·
+          <a href="#" style="color:var(--accent)">Разработка сайтов</a> ·
+          <a href="#" style="color:var(--accent)">Контекстная реклама</a> ·
+          <a href="#" style="color:var(--accent)">SEO</a>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</body>
+</html>
+

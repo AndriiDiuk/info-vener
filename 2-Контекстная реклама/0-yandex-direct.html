@@ -1,0 +1,973 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Настройка Яндекс Директ - создание контекстной рекламы | Venner Digital</title>
+  <meta name="description" content="Настройка контекстной рекламы Яндекс Директ, услуги и тарифы на создание рекламной кампании в Яндекс Директ под ключ с оплатой результата." />
+  <meta name="keywords" content="яндекс директ, контекстная реклама, настройка яндекс директ, рекламная кампания, создание яндекс рекламы, разработка яндекс директ" />
+
+  <meta property="og:title" content="Настройка Яндекс.Директ под ключ - Venner Digital" />
+  <meta property="og:description" content="Разработка, аудит и ведение рекламных кампаний. Упор на аналитику, цели, качество трафика и рост конверсии." />
+  <meta property="og:type" content="website" />
+
+  <style>
+    :root{
+      --bg:#0b0f17;
+      --card:#111827;
+      --card2:#0f172a;
+      --text:#e5e7eb;
+      --muted:#9ca3af;
+      --line:rgba(255,255,255,.10);
+      --accent:#34d399;
+      --accent2:#60a5fa;
+      --warn:#fbbf24;
+      --danger:#fb7185;
+      --shadow: 0 20px 50px rgba(0,0,0,.45);
+      --r: 18px;
+      --r2: 26px;
+      --max: 1180px;
+      --pad: 22px;
+      --pad2: 34px;
+      --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:var(--font);
+      color:var(--text);
+      background:
+        radial-gradient(1200px 600px at 20% 0%, rgba(52,211,153,.18), transparent 55%),
+        radial-gradient(900px 600px at 90% 10%, rgba(96,165,250,.16), transparent 60%),
+        linear-gradient(180deg, #070a10 0%, var(--bg) 55%, #070a10 100%);
+      overflow-x:hidden;
+    }
+    a{color:inherit; text-decoration:none}
+    .wrap{max-width:var(--max); margin:0 auto; padding:0 18px}
+    .topbar{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(10px);
+      background: rgba(11,15,23,.70);
+      border-bottom: 1px solid var(--line);
+    }
+    .topbar__in{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:14px; padding:14px 0;
+    }
+    .brand{display:flex; align-items:center; gap:10px}
+    .logo{
+      width:38px; height:38px; border-radius:12px;
+      background: linear-gradient(135deg, rgba(52,211,153,.95), rgba(96,165,250,.95));
+      box-shadow: 0 12px 30px rgba(52,211,153,.16);
+    }
+    .brand__name{font-weight:800; letter-spacing:.2px}
+    .brand__tag{display:block; color:var(--muted); font-size:12px; margin-top:2px}
+    .nav{
+      display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end
+    }
+    .chip{
+      font-size:13px; padding:9px 12px; border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      border-radius: 999px;
+      transition:.2s ease;
+    }
+    .chip:hover{transform: translateY(-1px); border-color: rgba(52,211,153,.35)}
+    .chip--accent{border-color: rgba(52,211,153,.35)}
+    .chip--link{color:var(--muted)}
+    .hero{padding:44px 0 14px}
+    .hero__grid{
+      display:grid; grid-template-columns: 1.2fr .8fr; gap:18px;
+      align-items:stretch;
+    }
+    @media (max-width: 980px){ .hero__grid{grid-template-columns:1fr} }
+    .panel{
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border:1px solid var(--line);
+      border-radius: var(--r2);
+      box-shadow: var(--shadow);
+    }
+    .panel__in{padding: var(--pad2)}
+    h1{
+      margin:0 0 12px;
+      font-size: 42px;
+      line-height: 1.05;
+      letter-spacing:-.6px;
+    }
+    @media (max-width: 520px){ h1{font-size:34px} }
+    .sub{
+      color: var(--muted);
+      font-size: 16px;
+      line-height:1.55;
+      margin:0 0 18px;
+      max-width: 62ch;
+    }
+    .kpi{
+      display:flex; flex-wrap:wrap; gap:10px;
+      margin: 10px 0 22px;
+    }
+    .pill{
+      border:1px solid var(--line);
+      background: rgba(15,23,42,.55);
+      padding:10px 12px;
+      border-radius: 999px;
+      font-size:13px;
+      color: var(--text);
+    }
+    .pill b{color:#fff}
+    .cta{
+      display:flex; flex-wrap:wrap; gap:10px; align-items:center;
+      margin-top: 18px;
+    }
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      gap:10px;
+      padding: 12px 16px;
+      border-radius: 14px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.05);
+      color: var(--text);
+      font-weight:700;
+      transition:.2s ease;
+      cursor:pointer;
+    }
+    .btn:hover{transform: translateY(-1px); border-color: rgba(96,165,250,.35)}
+    .btn--primary{
+      border-color: rgba(52,211,153,.40);
+      background: linear-gradient(135deg, rgba(52,211,153,.22), rgba(96,165,250,.18));
+    }
+    .btn--ghost{color: var(--muted)}
+    .note{
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height:1.5;
+    }
+    .side{
+      display:flex; flex-direction:column; gap:14px;
+      height:100%;
+    }
+    .mini{
+      background: rgba(17,24,39,.70);
+      border:1px solid var(--line);
+      border-radius: var(--r2);
+      padding: 18px;
+    }
+    .mini h3{margin:0 0 10px; font-size:16px}
+    .mini p{margin:0; color:var(--muted); line-height:1.55; font-size:13px}
+    .mini .list{margin:12px 0 0; padding:0; list-style:none}
+    .mini .list li{padding:8px 0; border-top:1px dashed rgba(255,255,255,.10); color:var(--text); font-size:13px}
+    .mini .list li span{color:var(--muted)}
+    .section{padding: 22px 0}
+    .h2{
+      font-size: 28px; margin:0 0 12px; letter-spacing:-.4px
+    }
+    .lead{margin:0 0 18px; color:var(--muted); line-height:1.6; max-width: 85ch}
+    .grid{
+      display:grid; grid-template-columns: repeat(12, 1fr);
+      gap: 14px;
+    }
+    .card{
+      grid-column: span 4;
+      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.03));
+      border:1px solid var(--line);
+      border-radius: var(--r2);
+      box-shadow: 0 18px 40px rgba(0,0,0,.35);
+      overflow:hidden;
+    }
+    @media (max-width: 980px){ .card{grid-column: span 6} }
+    @media (max-width: 640px){ .card{grid-column: span 12} }
+    .card__in{padding: 18px}
+    .tag{
+      display:inline-flex; align-items:center; gap:8px;
+      font-size:12px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border:1px solid var(--line);
+      background: rgba(15,23,42,.55);
+      color: var(--muted);
+    }
+    .price{
+      margin: 10px 0 10px;
+      font-size: 26px;
+      font-weight: 900;
+      letter-spacing:-.4px;
+    }
+    .price small{font-size: 13px; color:var(--muted); font-weight:700}
+    .card h3{margin:10px 0 8px; font-size: 18px}
+    .card p{margin:0 0 12px; color:var(--muted); line-height:1.55; font-size: 13px}
+    .bul{
+      margin:0; padding:0; list-style:none;
+      border-top: 1px dashed rgba(255,255,255,.10);
+    }
+    .bul li{
+      padding: 10px 0;
+      border-bottom: 1px dashed rgba(255,255,255,.10);
+      font-size:13px;
+      color: var(--text);
+    }
+    .bul li span{color:var(--muted)}
+    .card__actions{display:flex; gap:10px; flex-wrap:wrap; margin-top: 12px}
+    .divider{height:1px; background: var(--line); margin: 16px 0}
+    .two{
+      display:grid; grid-template-columns: 1fr 1fr; gap:14px;
+    }
+    @media (max-width: 980px){ .two{grid-template-columns:1fr} }
+    .box{
+      background: rgba(17,24,39,.65);
+      border: 1px solid var(--line);
+      border-radius: var(--r2);
+      padding: 18px;
+    }
+    .box h3{margin:0 0 10px}
+    .box p{margin:0 0 10px; color:var(--muted); line-height:1.6}
+    .box ul{margin:0; padding-left: 18px; color:var(--text)}
+    .box li{margin: 8px 0; color:var(--text)}
+    .box li em{color:var(--muted); font-style:normal}
+    .steps{display:grid; grid-template-columns: repeat(12, 1fr); gap:14px}
+    .step{
+      grid-column: span 4;
+      border:1px solid var(--line);
+      background: rgba(15,23,42,.55);
+      border-radius: var(--r2);
+      padding: 16px;
+    }
+    @media (max-width: 980px){ .step{grid-column: span 6} }
+    @media (max-width: 640px){ .step{grid-column: span 12} }
+    .n{
+      width:34px; height:34px;
+      border-radius: 12px;
+      display:inline-flex; align-items:center; justify-content:center;
+      font-weight:900;
+      background: rgba(52,211,153,.16);
+      border:1px solid rgba(52,211,153,.35);
+      margin-bottom: 10px;
+    }
+    .step h4{margin:0 0 8px}
+    .step p{margin:0; color:var(--muted); line-height:1.55; font-size:13px}
+    .faq{
+      display:grid; grid-template-columns: 1fr 1fr; gap:14px;
+    }
+    @media (max-width: 980px){ .faq{grid-template-columns:1fr} }
+    details{
+      border:1px solid var(--line);
+      background: rgba(17,24,39,.65);
+      border-radius: var(--r2);
+      padding: 14px 16px;
+    }
+    summary{
+      cursor:pointer;
+      font-weight:800;
+      list-style:none;
+    }
+    summary::-webkit-details-marker{display:none}
+    details p{margin:10px 0 0; color:var(--muted); line-height:1.6}
+    .foot{
+      padding: 32px 0 42px;
+      border-top: 1px solid var(--line);
+      margin-top: 26px;
+    }
+    .foot__grid{
+      display:grid; grid-template-columns: 1.2fr .8fr; gap:14px;
+      align-items:start;
+    }
+    @media (max-width: 980px){ .foot__grid{grid-template-columns:1fr} }
+    .muted{color:var(--muted)}
+    .links{display:flex; flex-wrap:wrap; gap:10px}
+    .links a{border:1px solid var(--line); padding:9px 12px; border-radius: 999px; color:var(--muted)}
+    .links a:hover{border-color: rgba(96,165,250,.35); color: var(--text)}
+    .badge{
+      display:inline-flex; align-items:center; gap:10px;
+      padding: 10px 12px;
+      border-radius: 16px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      color: var(--muted);
+      font-size: 13px;
+      line-height:1.4;
+    }
+    .badge b{color: var(--text)}
+  </style>
+</head>
+
+<body>
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="wrap">
+      <div class="topbar__in">
+        <a class="brand" href="/">
+          <div class="logo" aria-hidden="true"></div>
+          <div>
+            <div class="brand__name">Venner Digital</div>
+            <span class="brand__tag">Сайты, реклама, SEO, CRM и автоматизация</span>
+          </div>
+        </a>
+
+        <nav class="nav" aria-label="Навигация по странице">
+          <a class="chip chip--link" href="/sozdanie-saytov/">Разработка сайтов</a>
+          <a class="chip chip--accent" href="/yandex-direct/">Яндекс.Директ</a>
+          <a class="chip chip--link" href="/seo/">SEO</a>
+          <a class="chip chip--link" href="/crm-integracii/">CRM и интеграции</a>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="wrap">
+      <div class="hero__grid">
+
+        <section class="panel" aria-label="Основной оффер">
+          <div class="panel__in">
+            <h1>Настройка Яндекс.Директ под ключ - чтобы реклама приносила заявки, а не вопросы</h1>
+            <p class="sub">
+              Мы делаем контекстную рекламу как систему: цель - трафик - посадочная страница - аналитика - оптимизация.
+              Если хотите "просто запустить" - так тоже можно. Но обычно бизнесу нужен результат.
+            </p>
+
+            <div class="kpi">
+              <span class="pill"><b>Запуск от 35 000 ₽</b> <span style="color:var(--muted)">за настройку</span></span>
+              <span class="pill"><b>Ведение от 15 000 ₽/мес</b> <span style="color:var(--muted)">по KPI</span></span>
+              <span class="pill"><b>Аудит</b> <span style="color:var(--muted)">точки роста и план действий</span></span>
+              <span class="pill"><b>Интеграции</b> <span style="color:var(--muted)">CRM, коллтрекинг, сквозная аналитика</span></span>
+            </div>
+
+            <div class="cta">
+              <a class="btn btn--primary" href="#pricing">Посмотреть форматы и цены</a>
+              <a class="btn" href="/yandex-direct/audit/">Сначала аудит кампании</a>
+              <a class="btn btn--ghost" href="#process">Как мы настраиваем</a>
+            </div>
+
+            <div class="note">
+              Важно: автостратегии работают лучше, когда у кампании есть корректные цели и данные для обучения (через Метрику и ценность целей). :contentReference[oaicite:2]{index=2}
+            </div>
+          </div>
+        </section>
+
+        <aside class="side" aria-label="Быстрые ссылки и смысловые блоки">
+          <div class="mini">
+            <h3>Куда вы попали</h3>
+            <p>Это главная страница раздела. Детали - на внутренних страницах:</p>
+            <ul class="list">
+              <li><a href="/yandex-direct/audit/"><b>Аудит кампаний</b></a><br><span>Когда реклама уже есть, но результата мало</span></li>
+              <li><a href="/yandex-direct/vedenie/"><b>Ведение кампаний</b></a><br><span>Чтобы не сливать бюджет и стабильно расти</span></li>
+              <li><a href="/yandex-direct/arenda/"><b>Аренда кампаний</b></a><br><span>Готовые “обкатанные” решения помесячно</span></li>
+            </ul>
+          </div>
+
+          <div class="mini">
+            <h3>Мини-чек до старта</h3>
+            <p>
+              Если уже запускались, подготовьте:
+              доступ к Директу, Метрике, цели/формы, список услуг и географию.
+              Остальное доберем на брифе.
+            </p>
+            <div class="divider"></div>
+            <div class="badge"><b>Команда, не одиночка.</b> Директолог + аналитика + посадочные страницы + CRM - в одном контуре.</div>
+          </div>
+        </aside>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- PRICING / VITRINA -->
+  <section class="section" id="pricing">
+    <div class="wrap">
+      <h2 class="h2">Витрина услуг и форматов</h2>
+      <p class="lead">
+        Можно зайти с нуля (разработка кампании), можно зайти через аудит (если реклама уже есть),
+        а можно взять готовое решение помесячно (аренда). Дальше - ведение и рост.
+      </p>
+
+      <div class="grid">
+
+        <article class="card">
+          <div class="card__in">
+            <span class="tag">Старт с нуля</span>
+            <div class="price">от 35 000 ₽ <small>настройка</small></div>
+            <h3>Разработка рекламной кампании</h3>
+            <p>Структура, семантика, объявления, расширения, аналитика и запуск. Без “магии”, с логикой.</p>
+            <ul class="bul">
+              <li>Поиск + РСЯ/медиа по задаче <span>(настроим как систему)</span></li>
+              <li>Цели/события/ценность конверсии <span>(чтобы автостратегии обучались)</span></li>
+              <li>Связка с посадочными страницами <span>(при необходимости)</span></li>
+            </ul>
+            <div class="card__actions">
+              <a class="btn btn--primary" href="#process">Посмотреть этапы</a>
+              <a class="btn" href="/sozdanie-saytov/">Нужна посадочная</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card__in">
+            <span class="tag">Главный рычаг роста</span>
+            <div class="price">от 9 999 ₽ <small>аудит</small></div>
+            <h3>Аудит кампаний Яндекс.Директ</h3>
+            <p>Если реклама есть, но лиды дорогие/мало - находим причины и точки роста с приоритетами.</p>
+            <ul class="bul">
+              <li>Структура, стратегии, минус-слова, объявления</li>
+              <li>Проверка аналитики и целей <span>(часто там “дыра”)</span></li>
+              <li>План работ: “срочно” и “улучшить”</li>
+            </ul>
+            <div class="card__actions">
+              <a class="btn btn--primary" href="/yandex-direct/audit/">Подробнее про аудит</a>
+              <a class="btn" href="#mistakes">Типовые ошибки</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card__in">
+            <span class="tag">Стабильность и рост</span>
+            <div class="price">от 15 000 ₽ <small>/мес</small></div>
+            <h3>Ведение рекламных кампаний</h3>
+            <p>Директ - это аукцион. Сегодня работает, завтра конкурент подкрутил ставки и все поехало.</p>
+            <ul class="bul">
+              <li>Еженедельная оптимизация <span>(ставки, запросы, площадки)</span></li>
+              <li>A/B тесты объявлений и связок</li>
+              <li>Контроль качества трафика и “мусора”</li>
+            </ul>
+            <div class="card__actions">
+              <a class="btn btn--primary" href="/yandex-direct/vedenie/">Подробнее про ведение</a>
+              <a class="btn" href="#kpi">KPI и контроль</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card__in">
+            <span class="tag">Редкий формат</span>
+            <div class="price">от 5 000 ₽ <small>/мес</small></div>
+            <h3>Аренда готовых кампаний</h3>
+            <p>Готовые решения по нишам, которые уже обкатаны на практике. Можно протестировать и отказаться.</p>
+            <ul class="bul">
+              <li>Подходит для быстрого старта</li>
+              <li>Экономит на разработке “с нуля”</li>
+              <li>Ведение - отдельно, по желанию</li>
+            </ul>
+            <div class="card__actions">
+              <a class="btn btn--primary" href="/yandex-direct/arenda/">Подробнее про аренду</a>
+              <a class="btn" href="#rental-list">Доступные ниши</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card__in">
+            <span class="tag">Связка “реклама + продажи”</span>
+            <div class="price">от 0 ₽ <small>в рамках проекта</small></div>
+            <h3>CRM, интеграции, фиксация заявок</h3>
+            <p>Реклама без учета заявок - это “мы вроде запускаем, но не знаем что работает”.</p>
+            <ul class="bul">
+              <li>Интеграции с <a href="/crm-integracii/amocrm/" style="color:var(--accent2);">amoCRM</a> и <a href="/crm-integracii/bitrix24/" style="color:var(--accent2);">Битрикс24</a></li>
+              <li>Передача заявок из форм/мессенджеров</li>
+              <li>Сквозная аналитика по источникам</li>
+            </ul>
+            <div class="card__actions">
+              <a class="btn" href="/crm-integracii/">Раздел CRM и интеграций</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card__in">
+            <span class="tag">Фундамент</span>
+            <div class="price">от 0 ₽ <small>по задаче</small></div>
+            <h3>Семантика и структура</h3>
+            <p>Семантическое ядро - это не только SEO. Это база для структуры кампаний и качества трафика.</p>
+            <ul class="bul">
+              <li>Кластеризация и логика групп</li>
+              <li>Минус-слова и “чистка” запросов</li>
+              <li>Подбор посадочных под сегменты</li>
+            </ul>
+            <div class="card__actions">
+              <a class="btn" href="/seo/semanticheskoe-yadro/">Семантическое ядро</a>
+              <a class="btn" href="/sozdanie-saytov/">Посадочные страницы</a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT YOU GET -->
+  <section class="section" id="kpi">
+    <div class="wrap">
+      <h2 class="h2">Что вы получите на выходе</h2>
+      <p class="lead">
+        Мы не “накидаем объявлений”. Мы собираем рабочую конструкцию, где понятно:
+        что запускаем, зачем, как измеряем и как улучшаем.
+      </p>
+
+      <div class="two">
+        <div class="box">
+          <h3>Если вы заказываете разработку</h3>
+          <ul>
+            <li>Структурированная кампания (поиск/сети - по задаче) <em>без каши</em></li>
+            <li>Готовые объявления с УТП, расширениями и быстрыми ссылками</li>
+            <li>Настроенные цели в Метрике и связка с Директом <em>(основа обучения стратегий)</em></li>
+            <li>Рекомендации по посадочным страницам и контенту <em>(чтобы конверсия не проваливалась)</em></li>
+            <li>План ведения: что делаем в 1-2-4 недели после запуска</li>
+          </ul>
+        </div>
+
+        <div class="box">
+          <h3>Если вы начинаете с аудита</h3>
+          <ul>
+            <li>Список критических ошибок “исправить сейчас”</li>
+            <li>Список точек роста “даст максимум эффекта”</li>
+            <li>Проверка целей/аналитики и корректности данных</li>
+            <li>Рекомендации по ставкам/стратегиям/структуре</li>
+            <li>Варианты: исправим сами или передадим ТЗ вашему специалисту</li>
+          </ul>
+        </div>
+      </div>
+
+      <p class="note">
+        Автостратегии типа “Максимум конверсий” ориентируются на целевые действия и требуют корректной Метрики, целей и времени на обучение. :contentReference[oaicite:3]{index=3}
+      </p>
+    </div>
+  </section>
+
+  <!-- MISTAKES -->
+  <section class="section" id="mistakes">
+    <div class="wrap">
+      <h2 class="h2">Типовые ошибки, из-за которых бюджет утекает</h2>
+      <p class="lead">
+        Мы видим это постоянно: вроде все запущено, клики идут, а заявок нет или они “не те”.
+        Обычно причина не одна - это цепочка.
+      </p>
+
+      <div class="grid">
+        <div class="card" style="grid-column: span 6;">
+          <div class="card__in">
+            <h3>Ошибки в настройках</h3>
+            <ul class="bul">
+              <li>Смешали направления и географию в одну кучу</li>
+              <li>Нет нормальных минус-слов или они “для галочки”</li>
+              <li>Запросы слишком широкие - приходит нецелевое</li>
+              <li>Расширения не заполнены - CTR и качество ниже</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card" style="grid-column: span 6;">
+          <div class="card__in">
+            <h3>Ошибки в аналитике и данных</h3>
+            <ul class="bul">
+              <li>Цели не настроены или настроены “не те”</li>
+              <li>Нет ценности целей - стратегии оптимизируются вслепую</li>
+              <li>Не учитываются звонки/заявки - бизнес видит одно, Директ другое</li>
+              <li>Нет понятного KPI: что считаем успехом</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card" style="grid-column: span 12;">
+          <div class="card__in">
+            <h3>Ошибки в связке “объявление - посадочная - оффер”</h3>
+            <p>
+              Бывает честно: кампания нормальная, а посадочная страница не выдерживает трафик.
+              Реклама обещает одно, страница показывает другое, форма неудобная, доверия мало.
+            </p>
+            <div class="card__actions">
+              <a class="btn" href="/sozdanie-saytov/">Разработка посадочных страниц</a>
+              <a class="btn" href="/seo/">SEO и контент</a>
+              <a class="btn" href="/crm-integracii/">CRM и интеграции</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- COST -->
+  <section class="section" id="cost">
+    <div class="wrap">
+      <h2 class="h2">Что влияет на стоимость разработки и ведения</h2>
+      <p class="lead">
+        Цена зависит не от “жадности”, а от объема: сколько логики, сколько сегментов,
+        какие интеграции и насколько “умно” нужно обучать стратегии.
+      </p>
+
+      <div class="steps">
+        <div class="step">
+          <div class="n">1</div>
+          <h4>Ниша и конкуренция</h4>
+          <p>Чем жестче аукцион, тем важнее структура, оффер, аналитика и скорость реакции.</p>
+        </div>
+        <div class="step">
+          <div class="n">2</div>
+          <h4>Количество направлений</h4>
+          <p>Одна услуга и 20 услуг - это разные кампании, разная семантика и разные посадочные.</p>
+        </div>
+        <div class="step">
+          <div class="n">3</div>
+          <h4>Объем семантики</h4>
+          <p>Сколько запросов, сколько кластеров, насколько глубоко чистим и минусуем.</p>
+        </div>
+        <div class="step">
+          <div class="n">4</div>
+          <h4>Тип проекта</h4>
+          <p>Интернет-магазины, фиды, каталоги, ecom-данные - обычно сложнее и дороже.</p>
+        </div>
+        <div class="step">
+          <div class="n">5</div>
+          <h4>Аналитика и интеграции</h4>
+          <p>CRM, коллтрекинг, офлайн-конверсии, сквозная аналитика - это дает контроль и рост.</p>
+        </div>
+        <div class="step">
+          <div class="n">6</div>
+          <h4>Требования к KPI</h4>
+          <p>Если нужен стабильный CPA/ROI - закладываем тесты, гипотезы и постоянную оптимизацию.</p>
+        </div>
+      </div>
+
+      <p class="note">
+        По сути: чем “умнее” вы хотите кампанию, тем больше нужно корректных данных и целей для обучения стратегий. :contentReference[oaicite:4]{index=4}
+      </p>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="section" id="process">
+    <div class="wrap">
+      <h2 class="h2">Как мы настраиваем рекламную кампанию</h2>
+      <p class="lead">
+        Порядок работ простой. Но важна дисциплина: шаги нельзя “перепрыгнуть”, иначе вы платите за исправления.
+      </p>
+
+      <div class="steps">
+        <div class="step">
+          <div class="n">1</div>
+          <h4>Бриф и цели</h4>
+          <p>Что продаем, кому, где, какие услуги в приоритете, какой KPI для вас адекватен.</p>
+        </div>
+        <div class="step">
+          <div class="n">2</div>
+          <h4>Семантика и структура</h4>
+          <p>Собираем ядро, группируем, закладываем минус-слова, разделяем по логике услуг.</p>
+        </div>
+        <div class="step">
+          <div class="n">3</div>
+          <h4>Объявления и расширения</h4>
+          <p>УТП, быстрые ссылки, уточнения, визитка. Без “воды”, под вашу реальность.</p>
+        </div>
+        <div class="step">
+          <div class="n">4</div>
+          <h4>Аналитика</h4>
+          <p>Метрика, цели, события, ценности. Это нужно, чтобы стратегии оптимизировались корректно. :contentReference[oaicite:5]{index=5}</p>
+        </div>
+        <div class="step">
+          <div class="n">5</div>
+          <h4>Запуск и обучение</h4>
+          <p>Старт, проверка трафика, первые корректировки. Стратегиям нужно время на обучение. :contentReference[oaicite:6]{index=6}</p>
+        </div>
+        <div class="step">
+          <div class="n">6</div>
+          <h4>Оптимизация</h4>
+          <p>Чистим запросы, усиливаем связки, отключаем мусор, тестируем гипотезы, ищем рост.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTENT / OFFER -->
+  <section class="section" id="content">
+    <div class="wrap">
+      <h2 class="h2">Контент и оффер - почему без них Директ “не спасает”</h2>
+      <p class="lead">
+        Честно: можно настроить рекламу идеально, но если посадочная страница слабая,
+        цена заявки все равно будет больной. Поэтому мы смотрим связку целиком.
+      </p>
+
+      <div class="two">
+        <div class="box">
+          <h3>Что мы обычно правим в посадочной</h3>
+          <ul>
+            <li>Первый экран: понятно “что вы делаете” за 5 секунд</li>
+            <li>Офферы и доверие: кейсы, гарантии, примеры работ, условия</li>
+            <li>Форма заявки: минимум трения, максимум ясности</li>
+            <li>Скорость и мобильная версия</li>
+          </ul>
+          <div class="card__actions" style="margin-top:12px">
+            <a class="btn" href="/sozdanie-saytov/">Разработка сайтов</a>
+            <a class="btn" href="/sozdanie-saytov/kviz-sayt/">Сайты с быстрым расчетом</a>
+          </div>
+        </div>
+
+        <div class="box">
+          <h3>Почему “само” не работает</h3>
+          <p>
+            Директ - это аукцион, конкуренты меняются, стратегии меняются, площадки меняются.
+            А еще меняется поведение людей. Поэтому ведение - это не “плата за воздух”, а страховка от слива.
+          </p>
+          <ul>
+            <li>Сдвиги в спросе и сезонность</li>
+            <li>Действия конкурентов (ставки, офферы, креативы)</li>
+            <li>Скопился “мусор” в запросах/площадках</li>
+            <li>Данные для оптимизации “сломались” (цели/события/CRM)</li>
+          </ul>
+          <div class="card__actions" style="margin-top:12px">
+            <a class="btn btn--primary" href="/yandex-direct/vedenie/">Ведение кампаний</a>
+            <a class="btn" href="/yandex-direct/audit/">Аудит кампаний</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FREELANCER VS STUDIO -->
+  <section class="section" id="compare">
+    <div class="wrap">
+      <h2 class="h2">Фрилансер или веб-студия - в чем разница</h2>
+      <p class="lead">
+        Мы не против фриланса. Мы против ситуации “один человек делает все” и в итоге не тянет аналитику, посадочную и CRM одновременно.
+      </p>
+
+      <div class="two">
+        <div class="box">
+          <h3>Часто у фрилансера</h3>
+          <ul>
+            <li>Ограниченный ресурс: не хватает рук на тесты и гипотезы</li>
+            <li>Фокус только на Директе: посадочная и CRM “не его зона”</li>
+            <li>Сложнее поддерживать дисциплину отчетности</li>
+            <li>Зависимость от одного человека (болеет - все стоит)</li>
+          </ul>
+        </div>
+
+        <div class="box">
+          <h3>У нас в студии</h3>
+          <ul>
+            <li>Команда: реклама + аналитика + посадочные + CRM</li>
+            <li>Можем усилить связку: сайт/контент/скорость/формы</li>
+            <li>Системная отчетность и понятные KPI</li>
+            <li>Опыт в высококонкурентных нишах и регулярная практика</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RENTAL LIST -->
+  <section class="section" id="rental-list">
+    <div class="wrap">
+      <h2 class="h2">Какие кампании можно взять в аренду</h2>
+      <p class="lead">
+        Это формат для быстрого теста и старта. Мы сдаем только те решения, которые уже обкатывали.
+        Аренда - это про экономию на разработке, а не про “чудо без ведения”.
+      </p>
+
+      <div class="grid">
+        <div class="card" style="grid-column: span 12;">
+          <div class="card__in">
+            <h3>Доступные ниши (на старте)</h3>
+            <p>Список можно расширять. Уточняйте актуальность.</p>
+            <ul class="bul">
+              <li>Заборы</li>
+              <li>Бани</li>
+              <li>Дома</li>
+              <li>Гаражи</li>
+              <li>Пластиковые окна</li>
+              <li>Ремонт и отделка квартир</li>
+              <li>Натяжные потолки</li>
+            </ul>
+            <div class="card__actions">
+              <a class="btn btn--primary" href="/yandex-direct/arenda/">Условия аренды</a>
+              <a class="btn" href="/yandex-direct/vedenie/">Ведение (если нужно)</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEGAL / MARKING -->
+  <section class="section" id="legal">
+    <div class="wrap">
+      <h2 class="h2">Маркировка рекламы и ответственность - тоже часть работы</h2>
+      <p class="lead">
+        В 2026 году важно не только “чтобы работало”, но и чтобы было корректно с точки зрения требований к интернет-рекламе:
+        передача данных через ОРД/ЕРИР, корректные метки и прозрачность отчетности. 
+      </p>
+      <div class="two">
+        <div class="box">
+          <h3>Что мы учитываем</h3>
+          <ul>
+            <li>Требования к маркировке интернет-рекламы и отчетности через ОРД/ЕРИР </li>
+            <li>Риски “серых схем” и обходных путей - не практикуем</li>
+            <li>Прозрачные договоренности и фиксация настроек/правок</li>
+          </ul>
+        </div>
+        <div class="box">
+          <h3>Почему это важно бизнесу</h3>
+          <ul>
+            <li>Снижение юридических рисков</li>
+            <li>Понятная отчетность и контроль</li>
+            <li>Предсказуемость процесса, а не “как повезет”</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section" id="faq">
+    <div class="wrap">
+      <h2 class="h2">Вопросы и ответы</h2>
+      <p class="lead">
+        Закрываем то, что обычно остается “между строк”.
+      </p>
+
+      <div class="faq">
+        <details>
+          <summary>Можно ли запустить рекламу без сайта?</summary>
+          <p>
+            Да, но мы почти всегда рекомендуем нормальную посадочную страницу. Иначе вы платите за клики, а конверсия не держит.
+            Если нужно - сделаем посадочную в рамках <a href="/sozdanie-saytov/">разработки сайтов</a>.
+          </p>
+        </details>
+
+        <details>
+          <summary>Сколько времени занимает настройка?</summary>
+          <p>
+            Зависит от объема и входных данных. Простые проекты - быстрее, сложные (много направлений/гео/аналитики) - дольше.
+            В любом случае сначала фиксируем этапы и сроки.
+          </p>
+        </details>
+
+        <details>
+          <summary>Почему реклама может “работать”, но заявок мало?</summary>
+          <p>
+            Часто причина в связке: оффер слабый, форма неудобная, нет доверия, не совпадает обещание объявления и содержание страницы.
+            Поэтому мы смотрим не только Директ, но и посадочную, аналитику и фиксацию заявок.
+          </p>
+        </details>
+
+        <details>
+          <summary>Нужно ли ведение, если все уже настроено?</summary>
+          <p>
+            В большинстве случаев - да. Директ - аукцион: конкуренты меняются, стратегии меняются, запросы “засоряются”.
+            Ведение - это защита от слива и способ планово улучшать результат.
+          </p>
+        </details>
+
+        <details>
+          <summary>Как вы работаете с автостратегиями?</summary>
+          <p>
+            Мы опираемся на цели и данные: корректная Метрика, цели, ценность конверсий, время на обучение стратегии.
+            Это прямо отражено в справке Яндекса. :contentReference[oaicite:9]{index=9}
+          </p>
+        </details>
+
+        <details>
+          <summary>Сколько стоит ведение и от чего зависит?</summary>
+          <p>
+            От 15 000 ₽/мес. Влияют ниша, конкуренция, количество направлений, объем семантики, наличие интеграций и KPI.
+          </p>
+        </details>
+
+        <details>
+          <summary>Можно ли заказать только аудит?</summary>
+          <p>
+            Да. Это частый сценарий: вы получаете список ошибок и план улучшений с приоритетами.
+            Дальше либо мы внедряем, либо делаете своими силами.
+          </p>
+        </details>
+
+        <details>
+          <summary>Что такое аренда кампании и в чем смысл?</summary>
+          <p>
+            Это готовая кампания, которую можно взять помесячно, протестировать 1-3 месяца и остановить в любой момент.
+            Вы экономите на разработке. Ведение - отдельно, по желанию.
+          </p>
+        </details>
+
+        <details>
+          <summary>Вы можете улучшить не только рекламу, но и продажи?</summary>
+          <p>
+            Да. Мы подключаем <a href="/crm-integracii/">CRM и интеграции</a>, чтобы заявки фиксировались, распределялись и не терялись.
+            Плюс можем доработать посадочные страницы и контент.
+          </p>
+        </details>
+
+        <details>
+          <summary>Вы работаете с интернет-магазинами?</summary>
+          <p>
+            Да, но там обычно больше работы: фиды, каталоги, ecom-данные, сегментация, аналитика.
+            Поэтому стоимость выше и фиксируется после брифа.
+          </p>
+        </details>
+
+        <details>
+          <summary>Что нужно от меня для старта?</summary>
+          <p>
+            Доступы (Директ/Метрика), список услуг, география, понимание цен и маржинальности, и любые данные по заявкам/продажам.
+            Если чего-то нет - скажем, что нужно настроить.
+          </p>
+        </details>
+
+        <details>
+          <summary>Как понять, что подрядчик делает работу нормально?</summary>
+          <p>
+            Должны быть: понятные KPI, регулярные отчеты, список работ, логика тестов, контроль качества трафика,
+            корректные цели/аналитика и прозрачность по правкам.
+          </p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER / CTA -->
+  <footer class="foot">
+    <div class="wrap">
+      <div class="foot__grid">
+        <div>
+          <h2 class="h2" style="margin-bottom:10px">Хотите, чтобы Директ приносил нормальные заявки?</h2>
+          <p class="lead" style="margin-bottom:14px">
+            Можно начать с аудита (быстро и понятно), а можно сразу делать кампанию под ключ.
+            Мы подскажем оптимальный вход по вашему проекту.
+          </p>
+
+          <div class="cta">
+            <!-- TODO: заменить # на реальные ссылки мессенджеров -->
+            <a class="btn btn--primary" href="#pricing">Выбрать формат</a>
+            <a class="btn" href="/yandex-direct/audit/">Заказать аудит</a>
+            <a class="btn" href="/yandex-direct/vedenie/">Ведение</a>
+          </div>
+
+          <p class="note">
+            P.S. Если у вас уже есть сайт, но он “тяжелый” или устаревший - перед запуском рекламы лучше привести его в порядок.
+            Для этого есть <a href="/sozdanie-saytov/tekhnicheskij-audit-sayta/" style="color:var(--accent2);">технический аудит сайта</a>.
+          </p>
+        </div>
+
+        <div class="box">
+          <h3 style="margin-top:0">Быстрые ссылки по теме</h3>
+          <div class="links" style="margin-top:10px">
+            <a href="/yandex-direct/audit/">Аудит Директ</a>
+            <a href="/yandex-direct/vedenie/">Ведение Директ</a>
+            <a href="/yandex-direct/arenda/">Аренда кампаний</a>
+            <a href="/seo/semanticheskoe-yadro/">Семантическое ядро</a>
+            <a href="/sozdanie-saytov/">Разработка сайтов</a>
+            <a href="/crm-integracii/">CRM и интеграции</a>
+          </div>
+
+          <div class="divider"></div>
+          <p class="muted" style="margin:0">
+            Контакты, мессенджеры, реквизиты, кейсы и отзывы - подключим как сквозные блоки.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

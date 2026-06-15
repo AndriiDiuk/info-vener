@@ -1,0 +1,738 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Внедрение Bitrix24 под ключ - CRM, телефония, задачи, интеграции</title>
+  <meta name="description" content="Внедрим Bitrix24 под ваш бизнес: CRM-воронка, права, автоматизация, телефония, мессенджеры, сайт и аналитика. Особенно удобно для сайтов на 1C-Битрикс - связка работает максимально нативно." />
+  <meta name="keywords" content="внедрение bitrix24, настройка bitrix24, bitrix24 под ключ, crm битрикс24, битрикс24 интеграции, телефония битрикс24, открытые линии, воронка продаж, автоматизация отдела продаж, битрикс сайты интеграция" />
+
+  <style>
+    :root{
+      --bg0:#070A10;
+      --bg1:#0B1220;
+      --text:#EAF0FF;
+      --muted:#AFC0E6;
+      --line:rgba(255,255,255,.08);
+      --accent:#48FFB7;
+      --accent2:#44C2FF;
+      --warn:#FFB74A;
+      --good:#46FF9A;
+      --bad:#FF5C7A;
+      --shadow: 0 18px 60px rgba(0,0,0,.45);
+      --radius: 22px;
+      --radius2: 16px;
+      --max: 1160px;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 600px at 15% 10%, rgba(68,194,255,.20), transparent 60%),
+        radial-gradient(900px 520px at 80% 15%, rgba(72,255,183,.18), transparent 58%),
+        radial-gradient(1100px 700px at 55% 90%, rgba(255,183,74,.10), transparent 60%),
+        linear-gradient(180deg, var(--bg0), var(--bg1) 70%, #07101D);
+      overflow-x:hidden;
+    }
+    a{color:inherit; text-decoration:none}
+    .wrap{max-width:var(--max); margin:0 auto; padding:0 18px}
+    .section{padding:64px 0}
+    .hr{height:1px; background:var(--line); margin:22px 0}
+
+    .badge{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:10px 14px; border:1px solid var(--line);
+      border-radius:999px; background:rgba(255,255,255,.03);
+      color:var(--muted); font-size:14px;
+    }
+    .dot{
+      width:10px; height:10px; border-radius:50%;
+      background:linear-gradient(135deg,var(--accent),var(--accent2));
+      box-shadow:0 0 0 6px rgba(72,255,183,.12);
+    }
+
+    .h1{
+      font-size:44px; line-height:1.05; margin:14px 0 10px;
+      letter-spacing:-.02em;
+    }
+    .sub{
+      color:var(--muted); font-size:18px; line-height:1.55; max-width:900px;
+    }
+
+    .grid{display:grid; gap:16px}
+    .g2{grid-template-columns:repeat(2, minmax(0,1fr))}
+    .g3{grid-template-columns:repeat(3, minmax(0,1fr))}
+    .g4{grid-template-columns:repeat(4, minmax(0,1fr))}
+    @media (max-width: 980px){ .g4{grid-template-columns:repeat(2, minmax(0,1fr))} }
+    @media (max-width: 840px){ .g3,.g2{grid-template-columns:1fr} .h1{font-size:36px} }
+    @media (max-width: 520px){ .h1{font-size:32px} .section{padding:52px 0} }
+
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:18px;
+      box-shadow:var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+    .card:before{
+      content:"";
+      position:absolute; inset:-120px -120px auto auto;
+      width:240px; height:240px;
+      background:radial-gradient(circle at 30% 30%, rgba(72,255,183,.22), transparent 60%);
+      transform:rotate(18deg);
+      pointer-events:none;
+    }
+    .card2{
+      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border:1px solid var(--line);
+      border-radius:var(--radius2);
+      padding:16px;
+    }
+    .kicker{
+      color:var(--muted);
+      font-size:13px; letter-spacing:.10em;
+      text-transform:uppercase;
+    }
+    .h2{font-size:28px; margin:0 0 10px; letter-spacing:-.01em}
+    .h3{font-size:18px; margin:0 0 8px}
+    .p{color:var(--muted); line-height:1.6; margin:0}
+
+    .ul{margin:10px 0 0; padding:0; list-style:none}
+    .ul li{
+      margin:10px 0; padding-left:18px; position:relative; color:var(--muted); line-height:1.55;
+    }
+    .ul li:before{
+      content:"";
+      position:absolute; left:0; top:.55em;
+      width:8px; height:8px; border-radius:50%;
+      background:linear-gradient(135deg,var(--accent),var(--accent2));
+      box-shadow:0 0 0 5px rgba(68,194,255,.10);
+    }
+
+    .ctaRow{display:flex; gap:12px; flex-wrap:wrap; margin-top:18px}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      padding:12px 16px; border-radius:14px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.04);
+      color:var(--text);
+      font-weight:800;
+      transition:.2s ease;
+      user-select:none;
+    }
+    .btn:hover{transform:translateY(-1px); background:rgba(255,255,255,.06)}
+    .btnPrimary{
+      border-color:rgba(72,255,183,.35);
+      background:linear-gradient(135deg, rgba(72,255,183,.18), rgba(68,194,255,.12));
+    }
+    .mini{font-size:13px; color:var(--muted)}
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:8px 10px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background:rgba(255,255,255,.03);
+      color:var(--muted);
+      font-size:13px;
+      margin:6px 6px 0 0;
+    }
+
+    .compare{
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      overflow:hidden;
+      background:rgba(255,255,255,.02);
+    }
+    .compareHead{
+      display:grid; grid-template-columns:1fr 1fr;
+      background:rgba(255,255,255,.03);
+      border-bottom:1px solid var(--line);
+    }
+    .compareHead div{padding:14px 16px; font-weight:900}
+    .compareBody{display:grid; grid-template-columns:1fr 1fr}
+    .col{padding:16px}
+    .tagBad{color:var(--bad); font-weight:900}
+    .tagGood{color:var(--good); font-weight:900}
+    .mut{color:var(--muted)}
+
+    details{
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:14px 16px;
+      background:rgba(255,255,255,.03);
+    }
+    details + details{margin-top:12px}
+    summary{
+      cursor:pointer;
+      font-weight:900;
+      list-style:none;
+    }
+    summary::-webkit-details-marker{display:none}
+    .ans{margin-top:10px; color:var(--muted); line-height:1.6}
+
+    .note{
+      padding:14px 16px;
+      border:1px dashed rgba(255,255,255,.14);
+      border-radius:16px;
+      background:rgba(255,255,255,.02);
+      color:var(--muted);
+      line-height:1.55;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HERO -->
+  <section class="section">
+    <div class="wrap">
+      <div class="badge"><span class="dot"></span> CRM и интеграции - Bitrix24</div>
+      <h1 class="h1">Внедрение Bitrix24 под ключ - CRM, коммуникации и контроль в одной системе</h1>
+      <p class="sub">
+        Настроим Bitrix24 под ваш отдел продаж и процессы: CRM-воронка, задачи, права, автоматизация, телефония и каналы общения.
+        И важный плюс - Bitrix24 идеально связывается с сайтами на 1C-Битрикс: заявки, формы, события и интеграции работают максимально нативно.
+      </p>
+
+      <div class="ctaRow">
+        <a class="btn btnPrimary" href="#what">Что настраиваем</a>
+        <a class="btn" href="#steps">Этапы внедрения</a>
+        <a class="btn" href="#faq">FAQ</a>
+      </div>
+
+      <div class="hr"></div>
+
+      <div class="grid g4">
+        <div class="card2">
+          <div class="kicker">Цель</div>
+          <div class="h3">Единая система продаж</div>
+          <p class="p">CRM + задачи + коммуникации + контроль - без разрозненных сервисов.</p>
+        </div>
+        <div class="card2">
+          <div class="kicker">Коммуникации</div>
+          <div class="h3">Открытые линии</div>
+          <p class="p">Сообщения, обращения, заявки - фиксируются и ведутся по правилам.</p>
+        </div>
+        <div class="card2">
+          <div class="kicker">Процессы</div>
+          <div class="h3">Регламенты и роли</div>
+          <p class="p">Права доступа, маршруты, контроль сроков и ответственности.</p>
+        </div>
+        <div class="card2">
+          <div class="kicker">Экосистема</div>
+          <div class="h3">Сильная связка с 1C-Битрикс</div>
+          <p class="p">Если сайт на Bitrix - интеграции часто проще и надежнее.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ENTRY SCENARIOS -->
+  <section class="section" id="entry">
+    <div class="wrap">
+      <div class="kicker">Когда выбирают Bitrix24</div>
+      <h2 class="h2">С чем к нам приходят - и где Bitrix24 реально сильнее</h2>
+
+      <div class="grid g2">
+        <div class="card">
+          <div class="h3">1) Нужна не только CRM, но и рабочая среда</div>
+          <ul class="ul">
+            <li>задачи, проекты, согласования, регламенты</li>
+            <li>контроль исполнения и сроки по задачам</li>
+            <li>единая "операционка" внутри компании</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="h3">2) Сайт на 1C-Битрикс</div>
+          <ul class="ul">
+            <li>хочется нативную интеграцию с формами и событиями</li>
+            <li>важна связка: сайт - CRM - аналитика</li>
+            <li>нужны надежные интеграции без костылей</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="h3">3) Нужны коммуникации в одном окне</div>
+          <ul class="ul">
+            <li>обращения идут из разных каналов, важно всё фиксировать</li>
+            <li>нужно распределение на менеджеров и контроль</li>
+            <li>нужна история общения и прозрачность</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="h3">4) Есть CRM, но "не под бизнес"</div>
+          <ul class="ul">
+            <li>воронка не отражает процесс</li>
+            <li>права и роли настроены криво</li>
+            <li>нет регламентов и контроля качества</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="note" style="margin-top:16px;">
+        Bitrix24 особенно раскрывается там, где важна не только продажа, но и управление процессами:
+        задачи, регламенты, согласования, ответственность и единая среда внутри компании.
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT IS BITRIX24 -->
+  <section class="section" id="what">
+    <div class="wrap">
+      <div class="kicker">Коротко о продукте</div>
+      <h2 class="h2">Что такое Bitrix24 - простыми словами</h2>
+
+      <div class="grid g2">
+        <div class="card">
+          <p class="p">
+            Bitrix24 - это платформа для бизнеса: CRM для продаж + инструменты для управления задачами и процессами.
+            Если нужно "всё в одном" (коммуникации, задачи, контроль, регламенты, проекты) - Bitrix24 часто становится удобным вариантом.
+          </p>
+          <div style="margin-top:12px;">
+            <span class="pill">CRM и воронки</span>
+            <span class="pill">задачи и проекты</span>
+            <span class="pill">коммуникации</span>
+            <span class="pill">права и роли</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="h3">Где Bitrix24 дает максимальную пользу</div>
+          <ul class="ul">
+            <li>когда нужны процессы и контроль исполнения, а не только сделки</li>
+            <li>когда у компании несколько отделов и нужно разделение ролей</li>
+            <li>когда важна связка с сайтом на 1C-Битрикс</li>
+            <li>когда нужно свести коммуникации и заявки в единую систему</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT WE CONFIGURE -->
+  <section class="section">
+    <div class="wrap">
+      <div class="kicker">Что настраиваем</div>
+      <h2 class="h2">Из чего состоит внедрение Bitrix24 у нас</h2>
+
+      <div class="grid g3">
+        <div class="card2">
+          <div class="h3">CRM-воронка и логика этапов</div>
+          <p class="p">Проектируем и настраиваем воронку под реальный процесс продаж.</p>
+          <ul class="ul">
+            <li>этапы, статусы, правила</li>
+            <li>причины отказов и возвраты</li>
+            <li>контроль сроков и SLA</li>
+          </ul>
+        </div>
+
+        <div class="card2">
+          <div class="h3">Карточки, поля, сущности</div>
+          <p class="p">Делаем так, чтобы менеджеру было удобно, а руководителю - прозрачно.</p>
+          <ul class="ul">
+            <li>поля, шаблоны, справочники</li>
+            <li>теги, источники, UTM</li>
+            <li>структура клиентов и сделок</li>
+          </ul>
+        </div>
+
+        <div class="card2">
+          <div class="h3">Права, роли, регламенты</div>
+          <p class="p">Настраиваем доступы, ответственность и единый стандарт работы.</p>
+          <ul class="ul">
+            <li>роли отделов и доступы</li>
+            <li>регламенты и чек-листы</li>
+            <li>обучение команды</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="grid g3" style="margin-top:16px;">
+        <div class="card2">
+          <div class="h3">Коммуникации и обращения</div>
+          <p class="p">Сводим обращения в систему и привязываем к клиентам/сделкам.</p>
+          <ul class="ul">
+            <li>обращения и переписки</li>
+            <li>распределение по менеджерам</li>
+            <li>история коммуникаций</li>
+          </ul>
+        </div>
+
+        <div class="card2">
+          <div class="h3">Задачи, проекты, контроль</div>
+          <p class="p">Bitrix24 хорош тем, что задачи и процессы живут рядом с продажами.</p>
+          <ul class="ul">
+            <li>задачи по этапам</li>
+            <li>контроль исполнения</li>
+            <li>проекты и согласования</li>
+          </ul>
+        </div>
+
+        <div class="card2">
+          <div class="h3">Телефония и записи</div>
+          <p class="p">Звонки - часть продаж. Подключаем и фиксируем в CRM.</p>
+          <ul class="ul">
+            <li>интеграция телефонии</li>
+            <li>запись и привязка звонков</li>
+            <li>бюджетные варианты через Android</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="note" style="margin-top:16px;">
+        Если сайт на 1C-Битрикс - интеграции часто проще: формы, заявки, события и передача данных в CRM настраиваются более нативно.
+        Это снижает риск "потерянных лидов" и упрощает поддержку.
+      </div>
+
+    </div>
+  </section>
+
+  <!-- AUTOMATION -->
+  <section class="section">
+    <div class="wrap">
+      <div class="kicker">Автоматизация</div>
+      <h2 class="h2">Как убираем рутину: правила, задачи, сценарии</h2>
+
+      <div class="grid g2">
+        <div class="card">
+          <div class="h3">Цифровая дисциплина в продажах</div>
+          <ul class="ul">
+            <li>автозадачи по этапам и срокам</li>
+            <li>контроль просрочек и качества обработки</li>
+            <li>шаблоны действий и стандарты</li>
+            <li>распределение лидов по правилам</li>
+          </ul>
+          <p class="mini" style="margin-top:10px;">
+            Цель - чтобы процесс продавал, а менеджер не держал всё в голове.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="h3">Автоматизация в связке с процессами</div>
+          <ul class="ul">
+            <li>задачи и проекты рядом с CRM</li>
+            <li>контроль исполнения и согласования</li>
+            <li>единая среда для нескольких отделов</li>
+            <li>структурирование работы компании</li>
+          </ul>
+          <p class="mini" style="margin-top:10px;">
+            Когда "операционка" и продажи в одном месте - меньше разрывов и больше контроля.
+          </p>
+        </div>
+      </div>
+
+      <div class="compare" style="margin-top:16px;">
+        <div class="compareHead">
+          <div><span class="tagBad">Как обычно бывает</span></div>
+          <div><span class="tagGood">Как должно быть</span></div>
+        </div>
+        <div class="compareBody">
+          <div class="col">
+            <div class="mut">Продажи отдельно, задачи отдельно</div>
+            <div class="mut">Обращения в чатах - без истории</div>
+            <div class="mut">Нет стандарта: каждый работает "по-своему"</div>
+            <div class="mut">Контроль и отчеты - вручную</div>
+          </div>
+          <div class="col">
+            <div class="mut">CRM + задачи + процессы в одной системе</div>
+            <div class="mut">Коммуникации привязаны к клиентам</div>
+            <div class="mut">Единые правила и регламенты</div>
+            <div class="mut">Понятные показатели и контроль качества</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ANALYTICS -->
+  <section class="section">
+    <div class="wrap">
+      <div class="kicker">Аналитика</div>
+      <h2 class="h2">Чтобы понимать цифры: источники, воронка, качество обработки</h2>
+
+      <div class="grid g3">
+        <div class="card2">
+          <div class="h3">Источники и UTM</div>
+          <p class="p">Фиксируем источники лидов, чтобы видеть реальную эффективность каналов.</p>
+        </div>
+        <div class="card2">
+          <div class="h3">KPI и контроль менеджеров</div>
+          <p class="p">Скорость реакции, конверсия по этапам, просрочки, причины отказов.</p>
+        </div>
+        <div class="card2">
+          <div class="h3">Связка с трафиком</div>
+          <p class="p">CRM должна отвечать на главный вопрос: какие заявки и продажи приносит каждый канал.</p>
+        </div>
+      </div>
+
+      <div class="note" style="margin-top:16px;">
+        Bitrix24 особенно полезен, когда нужно не только "принять лид", но и дальше вести проектные задачи, согласования и исполнение.
+        Тогда CRM перестает быть витриной и становится реальной системой управления.
+      </div>
+
+    </div>
+  </section>
+
+  <!-- STEPS -->
+  <section class="section" id="steps">
+    <div class="wrap">
+      <div class="kicker">Процесс</div>
+      <h2 class="h2">Как проходит внедрение Bitrix24 - по шагам</h2>
+
+      <div class="grid g2">
+        <div class="card2">
+          <div class="h3">1) Бриф и карта процессов</div>
+          <p class="p">Разбираем продажи и операционку: кто что делает, где контроль, какие роли.</p>
+        </div>
+        <div class="card2">
+          <div class="h3">2) Проектирование CRM и структуры</div>
+          <p class="p">Воронка, поля, права, регламенты, сценарии и точки контроля.</p>
+        </div>
+        <div class="card2">
+          <div class="h3">3) Настройка Bitrix24</div>
+          <p class="p">Карточки, поля, доступы, шаблоны, задачи, базовая автоматизация.</p>
+        </div>
+        <div class="card2">
+          <div class="h3">4) Интеграции</div>
+          <p class="p">Сайт (особенно на 1C-Битрикс), формы/квиз, мессенджеры, телефония, нужные сервисы.</p>
+        </div>
+        <div class="card2">
+          <div class="h3">5) Обучение и запуск</div>
+          <p class="p">Показываем команде работу по правилам, закрепляем чек-листы и стандарты.</p>
+        </div>
+        <div class="card2">
+          <div class="h3">6) Докрутка после запуска</div>
+          <p class="p">После первых недель всегда появляются улучшения - доводим до "удобно всем".</p>
+        </div>
+      </div>
+
+      <div class="note" style="margin-top:16px;">
+        По вашему желанию можем вести сопровождение: докрутка процессов, новые интеграции, автоматизация, контроль качества и рост эффективности.
+      </div>
+
+    </div>
+  </section>
+
+  <!-- RESULTS -->
+  <section class="section">
+    <div class="wrap">
+      <div class="kicker">Результат</div>
+      <h2 class="h2">Что вы получаете на выходе</h2>
+
+      <div class="grid g3">
+        <div class="card2">
+          <div class="h3">Рабочую CRM-воронку</div>
+          <p class="p">Понятные этапы, стандарты, контроль и стабильная обработка лидов.</p>
+        </div>
+        <div class="card2">
+          <div class="h3">Единую точку входа</div>
+          <p class="p">Заявки, звонки, обращения и переписки - фиксируются и привязаны к клиентам.</p>
+        </div>
+        <div class="card2">
+          <div class="h3">Систему задач и контроля</div>
+          <p class="p">Задачи и процессы рядом с продажами - чтобы не терять управление после сделки.</p>
+        </div>
+        <div class="card2">
+          <div class="h3">Автоматизацию рутины</div>
+          <p class="p">Автозадачи, сроки, правила и сценарии - меньше ручной работы, выше скорость.</p>
+        </div>
+        <div class="card2">
+          <div class="h3">Документацию и регламенты</div>
+          <p class="p">Чек-листы, инструкции и единый стандарт, чтобы команда работала одинаково.</p>
+        </div>
+        <div class="card2">
+          <div class="h3">Путь к масштабированию</div>
+          <p class="p">Рост заявок и команды без хаоса: роли, контроль, прозрачность и цифры.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY US -->
+  <section class="section">
+    <div class="wrap">
+      <div class="kicker">Почему мы</div>
+      <h2 class="h2">Внедрение Bitrix24 от веб-студии - это про систему, а не про "галочки"</h2>
+
+      <div class="grid g2">
+        <div class="card">
+          <div class="h3">Связка с сайтом и трафиком</div>
+          <p class="p">
+            Bitrix24 дает максимум пользы, когда лиды приходят стабильно и правильно фиксируются.
+            Мы часто делаем комплекс: сайт под ключ + реклама/SEO + CRM и интеграции.
+          </p>
+          <ul class="ul">
+            <li>умеем завязать маркетинг и продажи</li>
+            <li>знаем, как настроить учет источников и качество лидов</li>
+            <li>делаем процессы и контроль, а не только интерфейс</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="h3">Опыт и системный подход</div>
+          <p class="p">
+            Работаем с 2013 года и видели, как менялись инструменты продаж, трафика и CRM.
+            Поэтому фокус - на понятной логике, удобстве для команды и контроле для руководителя.
+          </p>
+          <ul class="ul">
+            <li>проектирование воронки и регламентов</li>
+            <li>интеграции, автоматизация, аналитика</li>
+            <li>возможность сопровождения и докрутки</li>
+          </ul>
+          <p class="mini" style="margin-top:10px;">
+            Статус партнера важен, но важнее то, что система начинает работать в реальности, а не в презентации.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="section">
+    <div class="wrap">
+      <div class="kicker">Стоимость</div>
+      <h2 class="h2">Сколько стоит внедрение Bitrix24</h2>
+
+      <div class="grid g3">
+        <div class="card2">
+          <div class="h3">Базовое внедрение</div>
+          <p class="p">Один процесс продаж, базовые настройки и запуск.</p>
+          <div class="hr"></div>
+          <p class="p"><b>от 99 999 ₽</b> (шаблон)</p>
+          <p class="mini">Точную цену поставите позже - зависит от объема и интеграций.</p>
+        </div>
+
+        <div class="card2">
+          <div class="h3">Оптимальный вариант</div>
+          <p class="p">CRM + задачи, автоматизация, коммуникации, докрутка после запуска.</p>
+          <div class="hr"></div>
+          <p class="p"><b>от 99 999 ₽</b> (шаблон)</p>
+          <p class="mini">Подходит для бизнеса, где важны процессы и контроль.</p>
+        </div>
+
+        <div class="card2">
+          <div class="h3">Максимум</div>
+          <p class="p">Несколько направлений, сложные роли, расширенная аналитика и сопровождение.</p>
+          <div class="hr"></div>
+          <p class="p"><b>от 99 999 ₽</b> (шаблон)</p>
+          <p class="mini">Когда Bitrix24 - ядро управления компанией.</p>
+        </div>
+      </div>
+
+      <div class="note" style="margin-top:16px;">
+        Стоимость зависит от задач: сколько направлений, сколько этапов и сущностей, сколько интеграций (сайт/формы/квиз/мессенджеры/Avito/телефония),
+        нужна ли автоматизация и сопровождение. Плюс - от текущего состояния: "с нуля" или "нужно пересобрать то, что уже есть".
+      </div>
+    </div>
+  </section>
+
+  <!-- LINKS -->
+  <section class="section">
+    <div class="wrap">
+      <div class="kicker">Интеграции</div>
+      <h2 class="h2">Полезные страницы по интеграциям - чтобы углубиться</h2>
+
+      <div class="grid g3">
+        <a class="card2" href="/crm-integracii/wazzup/">
+          <div class="h3">Wazzup - WhatsApp и мессенджеры</div>
+          <p class="p">Подключение переписок и контроль диалогов в CRM.</p>
+        </a>
+        <a class="card2" href="/crm-integracii/radist-online/">
+          <div class="h3">Radist.Online - интеграции каналов</div>
+          <p class="p">Сценарии подключения коммуникаций и обмена сообщениями.</p>
+        </a>
+        <a class="card2" href="/crm-integracii/chatapp/">
+          <div class="h3">ChatApp - WhatsApp/Telegram</div>
+          <p class="p">Сведение диалогов в CRM и контроль менеджеров.</p>
+        </a>
+        <a class="card2" href="/crm-integracii/amocrm/">
+          <div class="h3">amoCRM</div>
+          <p class="p">Если нужна CRM, заточенная под продажи - тоже внедряем.</p>
+        </a>
+        <a class="card2" href="/crm-integracii/moi-zvonki/">
+          <div class="h3">Мои Звонки - запись разговоров</div>
+          <p class="p">Бюджетный вариант записи и привязки звонков через Android.</p>
+        </a>
+        <a class="card2" href="/seo/">
+          <div class="h3">Связка с SEO и трафиком</div>
+          <p class="p">CRM сильнее всего раскрывается, когда трафик и аналитика настроены правильно.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section" id="faq">
+    <div class="wrap">
+      <div class="kicker">Коротко отвечаем</div>
+      <h2 class="h2">FAQ - частые вопросы про внедрение Bitrix24</h2>
+
+      <details open>
+        <summary>Bitrix24 подходит всем или есть случаи, когда лучше другая CRM?</summary>
+        <div class="ans">
+          Bitrix24 хорош, когда нужна не только CRM, но и процессы: задачи, контроль, проекты, согласования.
+          Если же фокус только на продажах и коммуникациях - иногда удобнее CRM, заточенная именно под отдел продаж.
+        </div>
+      </details>
+
+      <details>
+        <summary>В чем плюс связки Bitrix24 + сайт на 1C-Битрикс?</summary>
+        <div class="ans">
+          Обычно проще и надежнее интеграции: формы, заявки, события и передача данных в CRM.
+          Меньше "костылей", проще поддержка и ниже риск потерять лид из-за ошибок интеграции.
+        </div>
+      </details>
+
+      <details>
+        <summary>Можно ли свести в Bitrix24 все каналы: мессенджеры, Avito, звонки?</summary>
+        <div class="ans">
+          Да. Подключаем нужные каналы и выстраиваем правила: распределение, контроль, привязка к клиентам и сделкам.
+          Важно не просто "подключить", а настроить процесс обработки - иначе система не приживется.
+        </div>
+      </details>
+
+      <details>
+        <summary>Нужно ли сопровождение после внедрения?</summary>
+        <div class="ans">
+          Не обязательно, но первые недели почти всегда показывают реальные сценарии, которые не видны в теории.
+          Часто делаем запуск и докрутку, а дальше - по необходимости: ежемесячно или раз в квартал.
+        </div>
+      </details>
+
+      <details>
+        <summary>Что делать, если Bitrix24 уже стоит, но всё работает "криво"?</summary>
+        <div class="ans">
+          Проводим аудит: структура CRM, права, интеграции, качество данных, правила работы команды.
+          После - план правок и пересборка логики так, чтобы было удобно и контролируемо.
+        </div>
+      </details>
+
+      <details>
+        <summary>Как понять, что внедрение дало эффект?</summary>
+        <div class="ans">
+          По показателям: скорость реакции, конверсия по этапам, доля потерянных лидов, дисциплина по задачам, прозрачность причин отказов.
+          Плюс - рост повторных продаж и меньше "ручного хаоса" в коммуникациях.
+        </div>
+      </details>
+
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="note">
+        Страница собрана без шапки и без финальных форм - как на текущем этапе нужно. Сквозные офферы (формы, квиз, мессенджеры, кнопки) логично добавить позже единым блоком для всех страниц раздела.
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>

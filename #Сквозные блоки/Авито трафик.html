@@ -1,0 +1,479 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Сквозной блок - Avito (v2)</title>
+  <style>
+    :root{
+      --bg1:#061018;
+      --bg2:#071a2a;
+
+      --card:#0a1b2a80;
+      --stroke:#ffffff1a;
+      --stroke2:#ffffff12;
+
+      --text:#eaf3ff;
+      --muted:#b8c7da;
+      --muted2:#93a9c2;
+
+      --accent:#46f0c6;
+      --accent2:#2e8bff;
+
+      --shadow: 0 20px 60px rgba(0,0,0,.45);
+      --radius:22px;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(1100px 600px at 15% 30%, rgba(70,240,198,.18), transparent 60%),
+        radial-gradient(900px 520px at 85% 35%, rgba(46,139,255,.16), transparent 60%),
+        radial-gradient(700px 520px at 50% 105%, rgba(255,255,255,.06), transparent 55%),
+        linear-gradient(180deg, var(--bg1), var(--bg2));
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:48px 18px;
+    }
+
+    .wrap{ width:min(1120px, 100%); }
+
+    .offer{
+      border-radius: 28px;
+      background: linear-gradient(135deg, rgba(70,240,198,.10), rgba(46,139,255,.10));
+      padding: 18px;
+      box-shadow: var(--shadow);
+      border:1px solid rgba(255,255,255,.10);
+    }
+
+    .offer__inner{
+      border-radius: 22px;
+      background: linear-gradient(180deg, rgba(10,27,42,.82), rgba(8,22,35,.78));
+      border:1px solid rgba(255,255,255,.10);
+      padding: 18px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 16px;
+      align-items: stretch;
+    }
+    @media (max-width: 980px){ .grid{ grid-template-columns: 1fr; } }
+
+    .left, .right{
+      border:1px solid var(--stroke);
+      border-radius: var(--radius);
+      padding: 18px;
+      position: relative;
+      overflow:hidden;
+      background: linear-gradient(180deg, rgba(10,27,42,.72), rgba(10,27,42,.55));
+    }
+
+    .left:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(600px 240px at 20% 15%, rgba(70,240,198,.18), transparent 60%),
+        radial-gradient(520px 240px at 80% 30%, rgba(46,139,255,.18), transparent 60%);
+      pointer-events:none;
+      opacity:.95;
+    }
+    .left > *{ position:relative; z-index:1; }
+
+    .toprow{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border-radius: 999px;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing:.2px;
+      backdrop-filter: blur(10px);
+      white-space:nowrap;
+    }
+    .chip i{
+      width:10px;height:10px;border-radius:50%;
+      background: radial-gradient(circle at 30% 30%, var(--accent), rgba(70,240,198,.15));
+      box-shadow: 0 0 0 4px rgba(70,240,198,.10);
+      display:inline-block;
+    }
+
+    .navmini{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    .navmini a{
+      text-decoration:none;
+      color: var(--text);
+      font-weight: 800;
+      font-size: 12px;
+      padding:8px 12px;
+      border-radius: 999px;
+      border:1px solid var(--stroke2);
+      background: rgba(255,255,255,.05);
+      transition: .15s ease;
+    }
+    .navmini a:hover{ transform: translateY(-1px); border-color: rgba(255,255,255,.22); }
+
+    h2{
+      margin: 10px 0 10px;
+      font-size: 34px;
+      line-height: 1.08;
+      letter-spacing: -0.6px;
+    }
+
+    .lead{
+      margin:0;
+      color: var(--muted);
+      font-size: 14.5px;
+      line-height: 1.55;
+      max-width: 62ch;
+    }
+
+    .leftCtaRow{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      margin-top: 14px;
+      flex-wrap:wrap;
+    }
+    .cta{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 0;
+      cursor:pointer;
+      font-weight: 900;
+      font-size: 14px;
+      color: #08202b;
+      background: linear-gradient(135deg, rgba(255,120,88,1), rgba(255,98,140,1));
+      box-shadow: 0 16px 35px rgba(0,0,0,.25);
+      text-decoration:none;
+      transition:.15s ease;
+    }
+    .cta:hover{ transform: translateY(-1px); }
+
+    .miniNote{
+      margin-top: 12px;
+      padding: 12px 14px;
+      border-radius: 16px;
+      border: 1px dashed rgba(255,255,255,.18);
+      background: rgba(8,18,28,.35);
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .hint{
+      color: var(--muted2);
+      font-size: 12px;
+      line-height: 1.35;
+      margin: 8px 0 0;
+    }
+
+    /* RIGHT */
+    .right{
+      background: linear-gradient(180deg, rgba(9,25,41,.72), rgba(9,25,41,.56));
+    }
+
+    .rightTop{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+      margin-bottom: 10px;
+      flex-wrap:wrap;
+    }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border-radius: 999px;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.06);
+      font-weight: 900;
+      font-size: 13px;
+      white-space:nowrap;
+    }
+    .badge em{
+      width:9px;height:9px;border-radius:50%;
+      background: radial-gradient(circle at 30% 30%, #ff78d2, rgba(255,120,210,.15));
+      display:inline-block;
+      box-shadow: 0 0 0 4px rgba(255,120,210,.10);
+    }
+
+    .tabs{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+
+    .tab{
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.05);
+      color: var(--text);
+      padding: 9px 12px;
+      border-radius: 999px;
+      font-weight: 900;
+      font-size: 12.5px;
+      cursor:pointer;
+      transition:.15s ease;
+      letter-spacing:.1px;
+    }
+    .tab:hover{ transform: translateY(-1px); border-color: rgba(255,255,255,.22); }
+    .tab.active{
+      background: linear-gradient(135deg, rgba(70,240,198,.18), rgba(46,139,255,.14));
+      border-color: rgba(93,240,198,.45);
+      box-shadow: 0 12px 30px rgba(0,0,0,.18);
+    }
+
+    .panel{
+      border-radius: 18px;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.04);
+      padding: 14px;
+    }
+
+    .panel h3{
+      margin: 0 0 10px;
+      font-size: 15px;
+      letter-spacing: -.2px;
+    }
+
+    .cols{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    @media (max-width: 540px){ .cols{ grid-template-columns: 1fr; } }
+
+    ul{ margin: 0; padding: 0; list-style:none; }
+
+    li{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    li:last-child{ border-bottom: 0; padding-bottom: 0; }
+
+    .tick{
+      width:18px;height:18px;border-radius: 6px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(70,240,198,.10);
+      display:inline-grid;
+      place-items:center;
+      flex: 0 0 18px;
+      margin-top: 1px;
+    }
+    .tick svg{ width:12px;height:12px; }
+
+    /* мягкая компактность по высоте */
+    .offer__inner{ max-height: 560px; }
+    @media (max-width: 980px){ .offer__inner{ max-height: none; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="offer">
+      <div class="offer__inner">
+        <div class="grid">
+          <!-- LEFT -->
+          <div class="left">
+            <div class="toprow">
+              <div class="chip"><i></i> Avito трафик</div>
+              <div class="navmini">
+                <a href="#prices">Цены</a>
+                <a href="#reviews">Отзывы</a>
+                <a href="#portfolio">Портфолио</a>
+              </div>
+            </div>
+
+            <h2>Avito - ещё один канал заявок, если сделать всё правильно</h2>
+
+            <p class="lead">
+              Это не «просто объявления». При грамотной упаковке и системной докрутке Avito даёт
+              стабильные обращения, усиливает доверие и дополняет сайт, SEO и Яндекс Директ.
+            </p>
+
+            <div class="leftCtaRow">
+              <a class="cta" href="/avito-trafik/" id="ctaLink">Подробнее про Avito-услуги</a>
+            </div>
+            <p class="hint">
+              На странице подробно разложили форматы работы и примеры задач: от упаковки до стабильной докрутки.
+            </p>
+
+            <div class="miniNote" id="leftNote">
+              Ключ: Avito работает, когда есть система - стратегия + упаковка + регулярная докрутка.
+            </div>
+          </div>
+
+          <!-- RIGHT -->
+          <div class="right">
+            <div class="rightTop">
+              <div class="badge"><em></em> Комплексный подход</div>
+
+              <!-- Tabs moved to right -->
+              <div class="tabs" role="tablist" aria-label="Форматы Avito">
+                <button class="tab active" data-tab="key" role="tab" aria-selected="true">Avito под ключ</button>
+                <button class="tab" data-tab="pack" role="tab" aria-selected="false">Оформление</button>
+                <button class="tab" data-tab="promo" role="tab" aria-selected="false">Продвижение</button>
+              </div>
+            </div>
+
+            <div class="panel">
+              <h3 id="rightTitle">Avito под ключ - запускаем канал заявок под вашу нишу</h3>
+
+              <div class="cols">
+                <div>
+                  <h3 style="margin-top:0">Что делаем</h3>
+                  <ul id="doList"></ul>
+                </div>
+                <div>
+                  <h3 style="margin-top:0">Что получает клиент</h3>
+                  <ul id="getList"></ul>
+                </div>
+              </div>
+
+              <p class="hint" id="rightHint" style="margin-top:10px">
+                Начинаем с логики и структуры, затем аккуратно масштабируем то, что даёт обращения.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const DATA = {
+      key: {
+        rightTitle: "Avito под ключ - запускаем канал заявок под вашу нишу",
+        leftNote: "Ключ: Avito работает, когда есть система - стратегия + упаковка + регулярная докрутка.",
+        rightHint: "Начинаем с логики и структуры, затем аккуратно масштабируем то, что даёт обращения.",
+        do: [
+          "Разбираем нишу и спрос - чтобы понять, какие связки дают обращения.",
+          "Выстраиваем структуру объявлений и оффер - без пустых кликов.",
+          "Запускаем и докручиваем: чтобы рост обращений был стабильным."
+        ],
+        get: [
+          "Профиль и объявления, которые читают и по ним кликают.",
+          "Понятную логику масштабирования - что включать и когда.",
+          "Дополнительный трафик и заявки, усиливающие другие каналы."
+        ],
+        link: "/avito-trafik/"
+      },
+      pack: {
+        rightTitle: "Оформление Avito - упаковываем профиль и объявления под конверсию",
+        leftNote: "Фокус: доверие + читабельность + правильные акценты в карточках и профиле.",
+        rightHint: "Если Avito уже запущен - упаковка часто даёт быстрый прирост отклика без роста расходов.",
+        do: [
+          "Упаковываем профиль: структура, смыслы, доверие, визуал.",
+          "Дособираем объявления: выгоды, возражения, форматирование.",
+          "Приводим всё к единому стилю - чтобы выглядело как бренд."
+        ],
+        get: [
+          "Читабельные карточки и аккуратный профиль без «серости».",
+          "Больше входящих сообщений при тех же размещениях.",
+          "Готовую основу для дальнейшего продвижения."
+        ],
+        link: "/avito-trafik/#oformlenie"
+      },
+      promo: {
+        rightTitle: "Продвижение Avito - увеличиваем охваты и заявки без хаоса",
+        leftNote: "Продвижение = дисциплина: тесты, регулярность и контроль показателей.",
+        rightHint: "Делаем аккуратно: тесты и докрутка - без лишней «воды» и метаний между подходами.",
+        do: [
+          "Подбираем тактику под цель: обращения/продажи/охват.",
+          "Тестируем связки и формулировки - оставляем рабочие.",
+          "Контролируем динамику и корректируем при просадках."
+        ],
+        get: [
+          "Рост видимости в выдаче и стабильнее поток обращений.",
+          "Понимание, что работает - а что сжирает ресурс.",
+          "Системный канал, который можно держать в тонусе."
+        ],
+        link: "/avito-trafik/#prodvizhenie"
+      }
+    };
+
+    const doList = document.getElementById("doList");
+    const getList = document.getElementById("getList");
+    const rightTitle = document.getElementById("rightTitle");
+    const leftNote = document.getElementById("leftNote");
+    const rightHint = document.getElementById("rightHint");
+    const ctaLink = document.getElementById("ctaLink");
+
+    function tickItem(text){
+      const li = document.createElement("li");
+      li.innerHTML = `
+        <span class="tick" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M20 7L10 17l-4-4" stroke="rgba(93,240,198,.95)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span>${text}</span>
+      `;
+      return li;
+    }
+
+    function render(tab){
+      const d = DATA[tab];
+      rightTitle.textContent = d.rightTitle;
+      leftNote.textContent = d.leftNote;
+      rightHint.textContent = d.rightHint;
+      ctaLink.href = d.link;
+
+      doList.innerHTML = "";
+      getList.innerHTML = "";
+      d.do.forEach(x => doList.appendChild(tickItem(x)));
+      d.get.forEach(x => getList.appendChild(tickItem(x)));
+    }
+
+    const tabs = Array.from(document.querySelectorAll(".tab"));
+    tabs.forEach(btn=>{
+      btn.addEventListener("click", ()=>{
+        tabs.forEach(b=>{
+          b.classList.remove("active");
+          b.setAttribute("aria-selected","false");
+        });
+        btn.classList.add("active");
+        btn.setAttribute("aria-selected","true");
+        render(btn.dataset.tab);
+      });
+    });
+
+    render("key");
+  </script>
+</body>
+</html>

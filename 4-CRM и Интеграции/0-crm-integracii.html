@@ -1,0 +1,757 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CRM и интеграции - внедрение amoCRM, Bitrix24, мессенджеры, телефония</title>
+
+  <style>
+    :root{
+      --bg:#0f1115;
+      --card:#141824;
+      --card2:#101423;
+      --text:#e9ecf1;
+      --muted:#aeb6c6;
+      --line:rgba(255,255,255,.10);
+      --accent:#7aa7ff;
+      --accent2:#86f0c5;
+      --warn:#ffcc66;
+      --danger:#ff7a7a;
+      --shadow: 0 18px 60px rgba(0,0,0,.35);
+      --r:16px;
+      --r2:22px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
+      background: radial-gradient(1200px 700px at 15% -10%, rgba(122,167,255,.18), transparent 60%),
+                  radial-gradient(900px 650px at 90% 5%, rgba(134,240,197,.12), transparent 55%),
+                  var(--bg);
+      color:var(--text);
+      line-height:1.55;
+    }
+    a{color:inherit}
+    .wrap{max-width:1160px;margin:0 auto;padding:34px 18px 70px}
+    .grid{display:grid;gap:16px}
+    .btn{
+      display:inline-flex;align-items:center;gap:10px;
+      padding:12px 16px;border-radius:14px;
+      border:1px solid var(--line);
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      text-decoration:none;color:var(--text);
+      box-shadow: 0 10px 30px rgba(0,0,0,.25);
+      transition:transform .15s ease, border-color .15s ease, background .15s ease;
+      white-space:nowrap;
+    }
+    .btn:hover{transform:translateY(-1px);border-color:rgba(122,167,255,.35)}
+    .btn.primary{
+      border-color:rgba(122,167,255,.35);
+      background:linear-gradient(180deg, rgba(122,167,255,.22), rgba(122,167,255,.06));
+    }
+    .btn.ghost{background:transparent;box-shadow:none}
+    .chip{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:8px 12px;border-radius:999px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.04);
+      color:var(--muted);
+      font-size:13px;
+    }
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      border:1px solid var(--line);
+      border-radius:var(--r2);
+      padding:18px;
+      box-shadow:var(--shadow);
+    }
+    .card.flat{box-shadow:none;background:rgba(255,255,255,.03)}
+    .h1{font-size:36px;line-height:1.1;margin:10px 0 10px}
+    .h2{font-size:22px;margin:0 0 8px}
+    .h3{font-size:16px;margin:0 0 8px;color:var(--text)}
+    .p{margin:0;color:var(--muted)}
+    .k{color:var(--text)}
+    .mini{font-size:13px;color:var(--muted);margin-top:6px}
+    .hr{height:1px;background:var(--line);margin:14px 0}
+    .section-title{
+      display:flex;align-items:flex-end;justify-content:space-between;gap:10px;
+      margin:18px 0 8px;
+    }
+    .section-title .h2{margin:0}
+    .split{display:grid;grid-template-columns: 1.1fr .9fr;gap:16px;align-items:stretch}
+    @media (max-width: 920px){.split{grid-template-columns:1fr}}
+    .cols3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    .cols2{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    @media (max-width: 980px){.cols3,.cols2{grid-template-columns:1fr}}
+    .list{margin:10px 0 0;padding:0;list-style:none;display:grid;gap:10px}
+    .li{
+      display:flex;gap:10px;align-items:flex-start;
+      padding:12px;border-radius:16px;
+      border:1px solid var(--line);
+      background:rgba(0,0,0,.12);
+    }
+    .dot{
+      width:10px;height:10px;border-radius:50%;
+      background:var(--accent);
+      margin-top:6px;flex:0 0 auto;
+      box-shadow:0 0 0 4px rgba(122,167,255,.14);
+    }
+    .dot.ok{background:var(--accent2);box-shadow:0 0 0 4px rgba(134,240,197,.12)}
+    .dot.warn{background:var(--warn);box-shadow:0 0 0 4px rgba(255,204,102,.12)}
+    .dot.bad{background:var(--danger);box-shadow:0 0 0 4px rgba(255,122,122,.12)}
+    .badge{
+      display:inline-flex;align-items:center;gap:8px;
+      font-size:12px;color:var(--muted);
+      padding:7px 10px;border-radius:999px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+    }
+    .note{
+      border:1px dashed rgba(255,255,255,.18);
+      background:rgba(255,255,255,.03);
+      border-radius:16px;
+      padding:12px;
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    /* Vitrine */
+    .vitrina{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    @media (max-width: 980px){.vitrina{grid-template-columns:1fr}}
+    .tile{
+      border:1px solid var(--line);
+      background:rgba(0,0,0,.12);
+      border-radius:18px;
+      padding:14px;
+      display:grid;
+      gap:10px;
+      min-height:190px;
+    }
+    .tile .top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+    .tile .name{font-weight:800}
+    .tile .desc{color:var(--muted);font-size:14px}
+    .tile .meta{display:flex;flex-wrap:wrap;gap:8px}
+    .tile .meta .badge{font-size:12px}
+    .tile .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:auto}
+
+    /* Comparison table */
+    .table{
+      width:100%;
+      border-collapse:separate;border-spacing:0;
+      overflow:hidden;border-radius:18px;
+      border:1px solid var(--line);
+      background:rgba(0,0,0,.14);
+    }
+    .table th,.table td{
+      padding:12px 12px;
+      border-bottom:1px solid var(--line);
+      vertical-align:top;
+      text-align:left;
+      font-size:14px;
+    }
+    .table th{color:var(--text);font-weight:800;background:rgba(255,255,255,.04)}
+    .table tr:last-child td{border-bottom:none}
+
+    /* FAQ */
+    .faq{display:grid;gap:10px;margin-top:10px}
+    .faq details{
+      border:1px solid var(--line);
+      background:rgba(0,0,0,.14);
+      border-radius:16px;
+      padding:12px 12px;
+    }
+    .faq summary{
+      cursor:pointer;
+      list-style:none;
+      display:flex;align-items:center;justify-content:space-between;gap:14px;
+      color:var(--text);
+      font-weight:800;
+    }
+    .faq summary::-webkit-details-marker{display:none}
+    .faq .ans{color:var(--muted);margin:10px 0 0}
+    .caret{
+      width:10px;height:10px;transform:rotate(45deg);
+      border-right:2px solid rgba(255,255,255,.55);
+      border-bottom:2px solid rgba(255,255,255,.55);
+      transition:transform .15s ease;
+      flex:0 0 auto;
+    }
+    details[open] .caret{transform:rotate(225deg)}
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+
+    <!-- HERO -->
+    <div class="split">
+      <div class="card">
+        <div class="chip">CRM и интеграции - все заявки в одном месте</div>
+        <h1 class="h1">Внедрим amoCRM и свяжем с сайтом, мессенджерами и звонками</h1>
+        <p class="p">
+          CRM нужна, когда вы устали жить в "150 окнах": WhatsApp, Telegram, Avito, почта, заявки с сайта, звонки,
+          менеджеры забывают перезвонить, а руководитель видит только итоговую цифру в конце месяца.
+          <span class="k">amoCRM</span> собирает коммуникации в одну систему, а интеграции доводят это до автоматизма.
+        </p>
+
+        <div class="hr"></div>
+
+        <div class="grid" style="grid-template-columns:1fr 1fr;gap:10px">
+          <a class="btn primary" href="#stack">Что подключаем</a>
+          <a class="btn" href="#how">Как внедряем</a>
+        </div>
+
+        <div class="hr"></div>
+
+        <div class="grid" style="gap:10px">
+          <div class="badge">Акцент - amoCRM</div>
+          <div class="badge">Мессенджеры - через Wazzup (и альтернативы)</div>
+          <div class="badge">Звонки - через "Мои Звонки" (Android)</div>
+        </div>
+
+        <p class="mini">
+          Здесь мы собираем контент. Сквозные формы/квизы/оферы добавите позже отдельными блоками.
+        </p>
+      </div>
+
+      <div class="card flat">
+        <div class="section-title">
+          <h2 class="h2">Когда CRM нужна прямо сейчас</h2>
+          <span class="chip">признаки</span>
+        </div>
+        <ul class="list">
+          <li class="li">
+            <span class="dot bad"></span>
+            <div>
+              <div class="h3">Лиды теряются</div>
+              <div class="p">Заявки есть, но часть не обрабатывается или обрабатывается поздно.</div>
+            </div>
+          </li>
+          <li class="li">
+            <span class="dot warn"></span>
+            <div>
+              <div class="h3">Нет контроля</div>
+              <div class="p">Не понятно, кто что делал с клиентом и почему сделка "умерла".</div>
+            </div>
+          </li>
+          <li class="li">
+            <span class="dot warn"></span>
+            <div>
+              <div class="h3">Менеджеры работают в личных аккаунтах</div>
+              <div class="p">Переписки остаются у сотрудника, при увольнении вы теряете историю и клиентов.</div>
+            </div>
+          </li>
+          <li class="li">
+            <span class="dot ok"></span>
+            <div>
+              <div class="h3">Нужно масштабирование</div>
+              <div class="p">Хочется больше продаж без хаоса - с воронками, регламентами и автоматизацией.</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- WHAT YOU GET -->
+    <div class="card" style="margin-top:16px" id="result">
+      <div class="section-title">
+        <h2 class="h2">Что вы получите на выходе</h2>
+        <span class="chip">по делу</span>
+      </div>
+
+      <div class="cols3">
+        <div class="card flat">
+          <div class="h3">Все заявки в одной системе</div>
+          <p class="p">Сайт, формы, квизы, мессенджеры, Avito, почта, звонки - все попадает в CRM и не теряется.</p>
+        </div>
+        <div class="card flat">
+          <div class="h3">Воронки и регламенты</div>
+          <p class="p">Единые этапы сделки, задачи, напоминания, контроль сроков и ответственности.</p>
+        </div>
+        <div class="card flat">
+          <div class="h3">Контроль руководителя</div>
+          <p class="p">Понятная картина: обработка лидов, эффективность менеджеров, конверсия по этапам.</p>
+        </div>
+      </div>
+
+      <div class="hr"></div>
+
+      <div class="cols3">
+        <div class="card flat">
+          <div class="h3">Защита базы и коммуникаций</div>
+          <p class="p">Менеджерам не нужны прямые доступы к аккаунтам мессенджеров - доступ только через CRM.</p>
+        </div>
+        <div class="card flat">
+          <div class="h3">Передача клиента без боли</div>
+          <p class="p">Если сотрудник ушел, другой продолжает работу с полной историей диалога и звонков.</p>
+        </div>
+        <div class="card flat">
+          <div class="h3">Рост конверсии</div>
+          <p class="p">Больше лидов доходит до сделок - выжимаете максимум из SEO и контекстной рекламы.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- STACK / VITRINE -->
+    <div class="card" style="margin-top:16px" id="stack">
+      <div class="section-title">
+        <h2 class="h2">Стек CRM и интеграций, который мы внедряем</h2>
+        <span class="chip">витрина</span>
+      </div>
+
+      <div class="vitrina">
+        <div class="tile">
+          <div class="top">
+            <div>
+              <div class="name">amoCRM - основная CRM</div>
+              <div class="desc">Воронки, сделки, задачи, автоматизации, контроль менеджеров и конверсии.</div>
+            </div>
+            <span class="chip">база</span>
+          </div>
+          <div class="meta">
+            <span class="badge">воронки</span>
+            <span class="badge">задачи</span>
+            <span class="badge">автоматизации</span>
+            <span class="badge">аналитика</span>
+          </div>
+          <div class="actions">
+            <a class="btn ghost" href="URL_AMOCRM_PAGE">Подробнее про amoCRM</a>
+            <a class="btn" href="#how">Как внедряем</a>
+          </div>
+        </div>
+
+        <div class="tile">
+          <div class="top">
+            <div>
+              <div class="name">Wazzup - мессенджеры в CRM</div>
+              <div class="desc">WhatsApp, Telegram и другие каналы в одном окне. Удобно для отдела продаж.</div>
+            </div>
+            <span class="chip">приоритет</span>
+          </div>
+          <div class="meta">
+            <span class="badge">единые чаты</span>
+            <span class="badge">история</span>
+            <span class="badge">права доступа</span>
+          </div>
+          <div class="actions">
+            <a class="btn ghost" href="URL_WAZZUP_PAGE">Подробнее про Wazzup</a>
+            <a class="btn ghost" href="URL_RADIST_PAGE">Radist</a>
+            <a class="btn ghost" href="URL_CHATAPP_PAGE">ChatApp</a>
+          </div>
+        </div>
+
+        <div class="tile">
+          <div class="top">
+            <div>
+              <div class="name">Мои Звонки - запись звонков (Android)</div>
+              <div class="desc">Дешево и практично. Записи разговоров и фиксация звонков в CRM.</div>
+            </div>
+            <span class="chip">звонки</span>
+          </div>
+          <div class="meta">
+            <span class="badge">запись</span>
+            <span class="badge">пропущенные</span>
+            <span class="badge">история в CRM</span>
+          </div>
+          <div class="actions">
+            <a class="btn ghost" href="URL_MOIZVONKI_PAGE">Подробнее про "Мои Звонки"</a>
+            <a class="btn" href="#cases">Сценарии</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="hr"></div>
+
+      <div class="cols2">
+        <div class="note">
+          <b>Bitrix24 тоже внедряем.</b> Если проекту нужен Bitrix24 - настроим, интегрируем каналы и выстроим процессы.
+          Но в этой линейке услуг основной акцент делаем на <b>amoCRM</b>.
+          <div class="mini" style="margin-top:8px">
+            <a class="btn ghost" href="URL_BITRIX24_PAGE">Подробнее про Bitrix24</a>
+          </div>
+        </div>
+        <div class="note">
+          <b>Интеграции - это не "подключить галочку".</b> Важно правильно настроить этапы, поля, ответственных,
+          логику распределения лидов, автозадачи и контроль сроков. Тогда CRM реально повышает конверсию, а не становится "еще одной программой".
+        </div>
+      </div>
+    </div>
+
+    <!-- SOURCES -->
+    <div class="card" style="margin-top:16px" id="sources">
+      <div class="section-title">
+        <h2 class="h2">Откуда приводим лидов в CRM</h2>
+        <span class="chip">интеграции</span>
+      </div>
+
+      <div class="cols3">
+        <div class="card flat">
+          <div class="h3">Сайт и формы</div>
+          <p class="p">Заявки с сайта, квизы, обратный звонок, формы на лендингах и многостраничниках.</p>
+          <div class="mini">Связанные страницы: <a href="URL_SITE_DEV_LANDING">Разработка сайтов</a>, <a href="URL_SITE_QUIZ_PAGE">Сайт-квиз</a></div>
+        </div>
+        <div class="card flat">
+          <div class="h3">Мессенджеры и чаты</div>
+          <p class="p">WhatsApp, Telegram, VK, плюс российские каналы, включая Max - все в едином окне CRM.</p>
+          <div class="mini">Интеграции через: <a href="URL_WAZZUP_PAGE">Wazzup</a>, <a href="URL_RADIST_PAGE">Radist</a>, <a href="URL_CHATAPP_PAGE">ChatApp</a></div>
+        </div>
+        <div class="card flat">
+          <div class="h3">Звонки и записи</div>
+          <p class="p">Фиксация звонков, пропущенные, прослушивание записей, контроль качества общения.</p>
+          <div class="mini">Сервис: <a href="URL_MOIZVONKI_PAGE">Мои Звонки</a></div>
+        </div>
+      </div>
+
+      <div class="hr"></div>
+
+      <div class="cols2">
+        <div class="card flat">
+          <div class="h3">Реклама и SEO</div>
+          <p class="p">
+            CRM усиливает лидогенерацию: вы не теряете заявки, быстрее обрабатываете лиды и повышаете конверсию в сделку.
+            Это особенно важно, когда идут лиды из <a href="URL_YANDEX_DIRECT_LANDING">Яндекс.Директ</a> и из органики по <a href="URL_SEO_LANDING">SEO</a>.
+          </p>
+          <div class="mini">Связанные страницы: <a href="URL_YANDEX_DIRECT_LANDING">Контекстная реклама</a>, <a href="URL_SEO_LANDING">SEO</a></div>
+        </div>
+
+        <div class="card flat">
+          <div class="h3">Маркетплейсы и площадки</div>
+          <p class="p">
+            Если бизнес получает обращения с площадок (например, Avito) - важно, чтобы они фиксировались в CRM,
+            а диалоги не жили в личных аккаунтах менеджеров.
+          </p>
+          <div class="mini">Можно увязать с вашей логикой воронок и интеграций.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HOW WE IMPLEMENT -->
+    <div class="card" style="margin-top:16px" id="how">
+      <div class="section-title">
+        <h2 class="h2">Как мы внедряем amoCRM и интеграции</h2>
+        <span class="chip">пошагово</span>
+      </div>
+
+      <div class="cols3">
+        <div class="card flat">
+          <div class="h3">1) Диагностика</div>
+          <p class="p">Разбираем процесс продаж, источники заявок, роли сотрудников, цели и KPI.</p>
+        </div>
+        <div class="card flat">
+          <div class="h3">2) Воронка и поля</div>
+          <p class="p">Этапы, статусы, обязательные поля, ответственные, SLA по обработке лидов.</p>
+        </div>
+        <div class="card flat">
+          <div class="h3">3) Автоматизации</div>
+          <p class="p">Задачи, напоминания, автодействия, распределение лидов, контроль "просрочек".</p>
+        </div>
+      </div>
+
+      <div class="hr"></div>
+
+      <div class="cols3">
+        <div class="card flat">
+          <div class="h3">4) Каналы</div>
+          <p class="p">Подключаем сайт, квизы, почту, мессенджеры (через Wazzup и аналоги), телефонию.</p>
+        </div>
+        <div class="card flat">
+          <div class="h3">5) Аналитика</div>
+          <p class="p">Источник лида, метки, отчеты, контроль воронки, качество обработки и конверсия.</p>
+        </div>
+        <div class="card flat">
+          <div class="h3">6) Обучение</div>
+          <p class="p">Показываем менеджерам рабочий сценарий, руководителю - контроль и отчеты.</p>
+        </div>
+      </div>
+
+      <div class="hr"></div>
+
+      <div class="cols2">
+        <div class="note">
+          <b>Важный принцип.</b> CRM не должна заставлять "тыкать мышкой". Она должна помогать продавать:
+          меньше ручных действий, больше контроля, понятные подсказки менеджеру, прозрачность руководителю.
+        </div>
+        <div class="note">
+          <b>Интеграции делаем аккуратно.</b> Сначала фиксируем стабильный поток лидов, затем докручиваем автоматизации,
+          распределение и аналитику. Так внедрение идет без хаоса и "переезда отдела продаж" на месяц.
+        </div>
+      </div>
+    </div>
+
+    <!-- AUTOMATIONS / EXAMPLES -->
+    <div class="card" style="margin-top:16px" id="auto">
+      <div class="section-title">
+        <h2 class="h2">Автоматизации, которые реально повышают конверсию</h2>
+        <span class="chip">на примере amoCRM</span>
+      </div>
+
+      <div class="cols3">
+        <div class="card flat">
+          <div class="h3">Автозадачи и напоминания</div>
+          <p class="p">CRM не дает забыть про клиента: перезвон, уточнение, КП, договор, контроль оплаты.</p>
+        </div>
+        <div class="card flat">
+          <div class="h3">Контроль сроков</div>
+          <p class="p">Если сделка "зависла" - CRM подсвечивает просрочку и поднимает ее в приоритет.</p>
+        </div>
+        <div class="card flat">
+          <div class="h3">Распределение лидов</div>
+          <p class="p">По очереди, по загрузке, по направлению услуги - без ручного "раздавалова" в чатах.</p>
+        </div>
+      </div>
+
+      <div class="hr"></div>
+
+      <div class="cols3">
+        <div class="card flat">
+          <div class="h3">Шаблоны и быстрые ответы</div>
+          <p class="p">Единый стиль общения, меньше ошибок, скорость ответа выше - конверсия растет.</p>
+        </div>
+        <div class="card flat">
+          <div class="h3">Фиксация источника</div>
+          <p class="p">Понимаете, что приносит деньги: SEO, контекст, Avito, мессенджеры, рекомендации.</p>
+        </div>
+        <div class="card flat">
+          <div class="h3">История коммуникаций</div>
+          <p class="p">Все чаты и звонки в карточке клиента - ничего не теряется и не "живёт у менеджера".</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- CASES -->
+    <div class="card" style="margin-top:16px" id="cases">
+      <div class="section-title">
+        <h2 class="h2">Типовые сценарии: до и после</h2>
+        <span class="chip">наглядно</span>
+      </div>
+
+      <table class="table" aria-label="До и после CRM">
+        <thead>
+          <tr>
+            <th>Ситуация</th>
+            <th>Без CRM</th>
+            <th>С amoCRM и интеграциями</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>Заявки из разных каналов</b></td>
+            <td>Менеджер ищет, где написали, и путается</td>
+            <td>Все приходит в одну ленту, фиксируется в сделке</td>
+          </tr>
+          <tr>
+            <td><b>Увольнение менеджера</b></td>
+            <td>Часть переписок и контактов пропадает</td>
+            <td>Новый менеджер продолжает с полной историей</td>
+          </tr>
+          <tr>
+            <td><b>Контроль просрочек</b></td>
+            <td>Зависшие лиды никто не замечает</td>
+            <td>CRM подсвечивает просрочки и ставит задачи</td>
+          </tr>
+          <tr>
+            <td><b>Понимание эффективности</b></td>
+            <td>"Кажется, всё нормально"</td>
+            <td>Цифры по этапам: конверсия, скорость ответа, обработка</td>
+          </tr>
+          <tr>
+            <td><b>Реклама и SEO</b></td>
+            <td>Трафик есть, денег меньше ожидаемого</td>
+            <td>Конверсия растет за счет дисциплины и автоматизации</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="mini">
+        CRM не заменяет маркетинг. Она делает так, чтобы лиды не терялись и доходили до сделки чаще.
+        Это усиливает эффект от <a href="URL_YANDEX_DIRECT_LANDING">контекстной рекламы</a> и <a href="URL_SEO_LANDING">SEO</a>.
+      </div>
+    </div>
+
+    <!-- SECURITY / ACCESS -->
+    <div class="card" style="margin-top:16px" id="security">
+      <div class="section-title">
+        <h2 class="h2">Права доступа и безопасность коммуникаций</h2>
+        <span class="chip">важно</span>
+      </div>
+
+      <div class="cols2">
+        <div class="card flat">
+          <div class="h3">Как делаем правильно</div>
+          <ul class="list">
+            <li class="li"><span class="dot ok"></span><div><div class="h3">Доступ в CRM - да</div><div class="p">Менеджер работает из одного окна, всё фиксируется.</div></div></li>
+            <li class="li"><span class="dot ok"></span><div><div class="h3">Прямые доступы к аккаунтам - нет</div><div class="p">Нет "личных" переписок и потерь базы при смене персонала.</div></div></li>
+            <li class="li"><span class="dot ok"></span><div><div class="h3">История сохраняется</div><div class="p">Чаты и звонки в карточке клиента - можно контролировать качество.</div></div></li>
+          </ul>
+        </div>
+
+        <div class="card flat">
+          <div class="h3">Что это дает бизнесу</div>
+          <p class="p">
+            Прозрачность и управляемость. Руководитель видит реальную картину, продажи становятся системными,
+            а команда работает по правилам, а не "как привыкли".
+          </p>
+          <div class="hr"></div>
+          <div class="note">
+            Если у вас уже есть отдел продаж и вы не хотите "перестраивать всё сразу" - можно внедрять поэтапно:
+            начать с фиксации лидов и задач, затем подключать мессенджеры, записи звонков и расширенную аналитику.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LINKS TO INTERNAL PAGES -->
+    <div class="card" style="margin-top:16px" id="links">
+      <div class="section-title">
+        <h2 class="h2">Подробно про каждый инструмент</h2>
+        <span class="chip">внутренние страницы</span>
+      </div>
+
+      <div class="cols3">
+        <div class="card flat">
+          <div class="h3">amoCRM</div>
+          <p class="p">Воронки, автоматизации, отчеты, внедрение, настройка под вашу модель продаж.</p>
+          <div class="mini"><a class="btn ghost" href="URL_AMOCRM_PAGE">Открыть страницу</a></div>
+        </div>
+        <div class="card flat">
+          <div class="h3">Bitrix24</div>
+          <p class="p">Альтернативный сценарий. Подходит, когда нужен Bitrix24 и интеграция под него.</p>
+          <div class="mini"><a class="btn ghost" href="URL_BITRIX24_PAGE">Открыть страницу</a></div>
+        </div>
+        <div class="card flat">
+          <div class="h3">Интеграции мессенджеров</div>
+          <p class="p">Wazzup как приоритет, плюс альтернативы Radist и ChatApp - под разные задачи.</p>
+          <div class="mini">
+            <a class="btn ghost" href="URL_WAZZUP_PAGE">Wazzup</a>
+            <a class="btn ghost" href="URL_RADIST_PAGE">Radist</a>
+            <a class="btn ghost" href="URL_CHATAPP_PAGE">ChatApp</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="hr"></div>
+
+      <div class="cols2">
+        <div class="card flat">
+          <div class="h3">Мои Звонки</div>
+          <p class="p">Запись звонков и фиксация в CRM через Android - бюджетно и практично.</p>
+          <div class="mini"><a class="btn ghost" href="URL_MOIZVONKI_PAGE">Открыть страницу</a></div>
+        </div>
+
+        <div class="card flat">
+          <div class="h3">Связанные услуги</div>
+          <p class="p">
+            CRM дает максимум результата в связке с лидогенерацией: <a href="URL_YANDEX_DIRECT_LANDING">контекстная реклама</a>,
+            <a href="URL_SEO_LANDING">SEO</a>, <a href="URL_SITE_DEV_LANDING">разработка сайтов</a>, <a href="URL_SITE_QUIZ_PAGE">сайт-квизы</a>.
+            Мы можем выстроить всё как единую систему.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ -->
+    <div class="card" style="margin-top:16px" id="faq">
+      <div class="section-title">
+        <h2 class="h2">FAQ - частые вопросы про CRM и интеграции</h2>
+        <span class="chip">12 ответов</span>
+      </div>
+
+      <div class="faq">
+        <details>
+          <summary>Можно ли внедрить CRM, если у нас "хаос" в продажах?<span class="caret"></span></summary>
+          <div class="ans">
+            Да. CRM как раз помогает навести порядок. Начинаем с базового: этапы, ответственные, задачи и фиксация лидов.
+            Потом подключаем каналы и автоматизации.
+          </div>
+        </details>
+
+        <details>
+          <summary>Зачем CRM, если менеджеры и так общаются в WhatsApp/Telegram?<span class="caret"></span></summary>
+          <div class="ans">
+            Потому что без CRM нет контроля и истории. CRM фиксирует коммуникации, ставит задачи, сохраняет переписки,
+            дает руководителю отчетность и защищает базу клиентов.
+          </div>
+        </details>
+
+        <details>
+          <summary>Менеджерам нужно будет заходить в личные аккаунты мессенджеров?<span class="caret"></span></summary>
+          <div class="ans">
+            В нормальной схеме - нет. Менеджеры работают в CRM через интеграцию, а прямые доступы к аккаунтам можно не выдавать.
+            Это безопаснее для бизнеса.
+          </div>
+        </details>
+
+        <details>
+          <summary>Сколько времени занимает внедрение?<span class="caret"></span></summary>
+          <div class="ans">
+            Зависит от количества этапов, каналов, автоматизаций и текущего состояния отдела продаж.
+            Мы обычно делаем поэтапно: сначала стабильный поток лидов, затем автоматизация и аналитика.
+          </div>
+        </details>
+
+        <details>
+          <summary>Можно ли внедрить только мессенджеры без полной настройки CRM?<span class="caret"></span></summary>
+          <div class="ans">
+            Можно, но эффект будет ниже. Мессенджеры дают единое окно общения, а CRM дает контроль: воронки, задачи, ответственность, аналитику.
+          </div>
+        </details>
+
+        <details>
+          <summary>Что лучше - amoCRM или Bitrix24?<span class="caret"></span></summary>
+          <div class="ans">
+            Мы чаще внедряем amoCRM как основную CRM для продаж. Bitrix24 тоже используем, когда он лучше подходит задачам.
+            Выбор зависит от процессов и требований проекта.
+          </div>
+        </details>
+
+        <details>
+          <summary>Можно ли интегрировать заявки с сайта и квиза?<span class="caret"></span></summary>
+          <div class="ans">
+            Да. Подключаем формы сайта, квизы и источники лидов так, чтобы в CRM сразу создавались сделки и ставились задачи.
+            Связанные страницы: <a href="URL_SITE_DEV_LANDING">разработка сайтов</a> и <a href="URL_SITE_QUIZ_PAGE">сайт-квиз</a>.
+          </div>
+        </details>
+
+        <details>
+          <summary>Avito, VK и другие площадки тоже можно завести в CRM?<span class="caret"></span></summary>
+          <div class="ans">
+            Да, в большинстве случаев есть решения по интеграциям. Мы выстраиваем схему так, чтобы обращения фиксировались и не терялись.
+          </div>
+        </details>
+
+        <details>
+          <summary>Как быть с российским мессенджером Max?<span class="caret"></span></summary>
+          <div class="ans">
+            Если канал важен для вашей аудитории - учитываем его в общей архитектуре коммуникаций и интеграций, где это возможно.
+            Смысл тот же: коммуникации должны фиксироваться в CRM, а не жить в личных аккаунтах.
+          </div>
+        </details>
+
+        <details>
+          <summary>Нужна ли телефония, если есть мобильные номера менеджеров?<span class="caret"></span></summary>
+          <div class="ans">
+            Для базового контроля и записей часто достаточно "Мои Звонки" (Android). Если нужен колл-центр, очереди и SIP - тогда смотрим виртуальную АТС.
+          </div>
+        </details>
+
+        <details>
+          <summary>CRM поможет "экономить" рекламный бюджет?<span class="caret"></span></summary>
+          <div class="ans">
+            CRM повышает конверсию лидов в сделку за счет дисциплины и скорости обработки. Это усиливает эффект рекламы и SEO,
+            потому что меньше заявок теряется и больше доходит до оплаты.
+          </div>
+        </details>
+
+        <details>
+          <summary>Можно ли внедрить CRM как часть проекта "под ключ"?<span class="caret"></span></summary>
+          <div class="ans">
+            Да. Мы можем собрать связку: <a href="URL_SITE_DEV_LANDING">сайт</a> + <a href="URL_YANDEX_DIRECT_LANDING">реклама</a> + <a href="URL_SEO_LANDING">SEO</a> + CRM и интеграции.
+            Тогда лидогенерация и продажи работают как единая система.
+          </div>
+        </details>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

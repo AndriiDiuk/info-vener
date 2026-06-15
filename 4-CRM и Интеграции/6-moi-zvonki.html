@@ -1,0 +1,500 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Мои Звонки - запись разговоров и интеграция с amoCRM и Bitrix24</title>
+
+  <style>
+    :root{
+      --bg:#0f1115;
+      --card:#141824;
+      --card2:#101423;
+      --text:#e9ecf1;
+      --muted:#aeb6c6;
+      --line:rgba(255,255,255,.10);
+      --accent:#7aa7ff;
+      --accent2:#86f0c5;
+      --warn:#ffcc66;
+      --danger:#ff7a7a;
+      --shadow: 0 18px 60px rgba(0,0,0,.35);
+      --r:16px;
+      --r2:22px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
+      background: radial-gradient(1200px 700px at 15% -10%, rgba(122,167,255,.18), transparent 60%),
+                  radial-gradient(900px 650px at 90% 5%, rgba(134,240,197,.12), transparent 55%),
+                  var(--bg);
+      color:var(--text);
+      line-height:1.55;
+    }
+    a{color:inherit}
+    .wrap{max-width:1120px;margin:0 auto;padding:34px 18px 70px}
+    .grid{display:grid;gap:16px}
+    .btn{
+      display:inline-flex;align-items:center;gap:10px;
+      padding:12px 16px;border-radius:14px;
+      border:1px solid var(--line);
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      text-decoration:none;color:var(--text);
+      box-shadow: 0 10px 30px rgba(0,0,0,.25);
+      transition:transform .15s ease, border-color .15s ease, background .15s ease;
+      white-space:nowrap;
+    }
+    .btn:hover{transform:translateY(-1px);border-color:rgba(122,167,255,.35)}
+    .btn.primary{
+      border-color:rgba(122,167,255,.35);
+      background:linear-gradient(180deg, rgba(122,167,255,.22), rgba(122,167,255,.06));
+    }
+    .btn.ghost{
+      background:transparent;
+      box-shadow:none;
+    }
+    .chip{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:8px 12px;border-radius:999px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.04);
+      color:var(--muted);
+      font-size:13px;
+    }
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      border:1px solid var(--line);
+      border-radius:var(--r2);
+      padding:18px;
+      box-shadow:var(--shadow);
+    }
+    .card.flat{box-shadow:none;background:rgba(255,255,255,.03)}
+    .h1{font-size:36px;line-height:1.1;margin:10px 0 10px}
+    .h2{font-size:22px;margin:0 0 8px}
+    .h3{font-size:16px;margin:0 0 8px;color:var(--text)}
+    .p{margin:0;color:var(--muted)}
+    .k{color:var(--text)}
+    .split{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap:16px;
+      align-items:stretch;
+    }
+    @media (max-width: 920px){.split{grid-template-columns:1fr}}
+    .list{margin:10px 0 0;padding:0;list-style:none;display:grid;gap:10px}
+    .li{
+      display:flex;gap:10px;align-items:flex-start;
+      padding:12px;border-radius:16px;
+      border:1px solid var(--line);
+      background:rgba(0,0,0,.12);
+    }
+    .dot{
+      width:10px;height:10px;border-radius:50%;
+      background:var(--accent);
+      margin-top:6px;flex:0 0 auto;
+      box-shadow:0 0 0 4px rgba(122,167,255,.14);
+    }
+    .dot.ok{background:var(--accent2);box-shadow:0 0 0 4px rgba(134,240,197,.12)}
+    .dot.warn{background:var(--warn);box-shadow:0 0 0 4px rgba(255,204,102,.12)}
+    .dot.bad{background:var(--danger);box-shadow:0 0 0 4px rgba(255,122,122,.12)}
+    .mini{font-size:13px;color:var(--muted);margin-top:6px}
+    .hr{height:1px;background:var(--line);margin:14px 0}
+    .section-title{
+      display:flex;align-items:flex-end;justify-content:space-between;gap:10px;
+      margin:18px 0 8px;
+    }
+    .section-title .h2{margin:0}
+    .cols3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    @media (max-width: 980px){.cols3{grid-template-columns:1fr}}
+    .cols2{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    @media (max-width: 980px){.cols2{grid-template-columns:1fr}}
+    .table{
+      width:100%;
+      border-collapse:separate;border-spacing:0;
+      overflow:hidden;border-radius:18px;
+      border:1px solid var(--line);
+      background:rgba(0,0,0,.14);
+    }
+    .table th,.table td{
+      padding:12px 12px;
+      border-bottom:1px solid var(--line);
+      vertical-align:top;
+      text-align:left;
+      font-size:14px;
+    }
+    .table th{color:var(--text);font-weight:700;background:rgba(255,255,255,.04)}
+    .table tr:last-child td{border-bottom:none}
+    .badge{
+      display:inline-flex;align-items:center;gap:8px;
+      font-size:12px;color:var(--muted);
+      padding:7px 10px;border-radius:999px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+    }
+
+    /* FAQ */
+    .faq{display:grid;gap:10px;margin-top:10px}
+    .faq details{
+      border:1px solid var(--line);
+      background:rgba(0,0,0,.14);
+      border-radius:16px;
+      padding:12px 12px;
+    }
+    .faq summary{
+      cursor:pointer;
+      list-style:none;
+      display:flex;align-items:center;justify-content:space-between;gap:14px;
+      color:var(--text);
+      font-weight:700;
+    }
+    .faq summary::-webkit-details-marker{display:none}
+    .faq .ans{color:var(--muted);margin:10px 0 0}
+    .caret{
+      width:10px;height:10px;transform:rotate(45deg);
+      border-right:2px solid rgba(255,255,255,.55);
+      border-bottom:2px solid rgba(255,255,255,.55);
+      transition:transform .15s ease;
+      flex:0 0 auto;
+    }
+    details[open] .caret{transform:rotate(225deg)}
+    .note{
+      border:1px dashed rgba(255,255,255,.18);
+      background:rgba(255,255,255,.03);
+      border-radius:16px;
+      padding:12px;
+      color:var(--muted);
+      font-size:13px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+
+    <!-- HERO -->
+    <div class="split">
+      <div class="card">
+        <div class="chip">CRM + Android телефония</div>
+        <h1 class="h1">Мои Звонки - запись звонков и история общения прямо в CRM</h1>
+        <p class="p">
+          Если звонки идут с мобильных номеров сотрудников - это один из самых простых способов
+          получать записи разговоров, видеть пропущенные, контролировать качество и фиксировать коммуникации в
+          <span class="k">amoCRM</span> или <span class="k">Bitrix24</span>.
+        </p>
+
+        <div class="hr"></div>
+
+        <div class="grid" style="gap:10px">
+          <div class="badge">Запись звонков с Android смартфонов</div>
+          <div class="badge">Личный кабинет и отчеты в браузере</div>
+          <div class="badge">Хранение записей - сервер или ваш Google/Яндекс.Диск</div>
+        </div>
+
+        <div class="hr"></div>
+
+        <div class="grid" style="grid-template-columns:1fr 1fr;gap:10px">
+          <a class="btn primary" href="https://www.moizvonki.ru/" target="_blank" rel="noopener">Официальный сайт</a>
+          <a class="btn" href="#how">Как это работает</a>
+        </div>
+
+        <p class="mini">Примечание: в этой версии страницы мы делаем упор на контент. Сквозные офферы/формы добавите позже.</p>
+      </div>
+
+      <div class="card flat">
+        <div class="section-title">
+          <h2 class="h2">Кому подходит</h2>
+          <span class="chip">быстрый эффект</span>
+        </div>
+
+        <ul class="list">
+          <li class="li">
+            <span class="dot ok"></span>
+            <div>
+              <div class="h3">Отдел продаж на мобильных номерах</div>
+              <div class="p">Нужно, чтобы звонки не терялись и автоматически попадали в CRM.</div>
+            </div>
+          </li>
+          <li class="li">
+            <span class="dot ok"></span>
+            <div>
+              <div class="h3">Контроль качества и разбор спорных ситуаций</div>
+              <div class="p">Записи разговоров + история коммуникаций по клиенту.</div>
+            </div>
+          </li>
+          <li class="li">
+            <span class="dot ok"></span>
+            <div>
+              <div class="h3">Нужна доступная альтернатива классической телефонии</div>
+              <div class="p">Когда важна цена и простота, а не сложная АТС.</div>
+            </div>
+          </li>
+          <li class="li">
+            <span class="dot warn"></span>
+            <div>
+              <div class="h3">Важно понимать ограничения</div>
+              <div class="p">Записываются обычные мобильные звонки, не звонки через мессенджеры.</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- WHAT IT IS -->
+    <div class="card" style="margin-top:16px">
+      <div class="section-title">
+        <h2 class="h2">Что это за сервис</h2>
+        <span class="chip">простыми словами</span>
+      </div>
+      <div class="cols2">
+        <div class="card flat">
+          <div class="h3">Суть</div>
+          <p class="p">
+            "Мои Звонки" - облачный сервис, который собирает звонки с Android смартфонов сотрудников,
+            сохраняет их в личном кабинете и может прикреплять звонки/записи в CRM.
+          </p>
+          <div class="hr"></div>
+          <div class="h3">В результате</div>
+          <p class="p">
+            Руководитель видит пропущенные и отвеченные, менеджер может быстро перезвонить, а в CRM сохраняется
+            история общения - это влияет и на дисциплину, и на конверсию.
+          </p>
+        </div>
+
+        <div class="card flat">
+          <div class="h3">Интеграции, которые нас интересуют</div>
+          <ul class="list">
+            <li class="li"><span class="dot"></span><div><div class="h3">amoCRM</div><div class="p">Автосопоставление клиента, прикрепление звонков, звонок по клику.</div></div></li>
+            <li class="li"><span class="dot"></span><div><div class="h3">Bitrix24</div><div class="p">Фиксация звонков в CRM, история коммуникаций, быстрые действия.</div></div></li>
+          </ul>
+          <div class="mini">Другие CRM сервис умеет подключать тоже, но в рамках Venner Digital фокусируемся на amoCRM и Bitrix24.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HOW -->
+    <div id="how" class="card" style="margin-top:16px">
+      <div class="section-title">
+        <h2 class="h2">Как это работает</h2>
+        <span class="chip">пошагово</span>
+      </div>
+
+      <div class="cols3">
+        <div class="card flat">
+          <div class="h3">1) Личный кабинет</div>
+          <p class="p">Создаете аккаунт, добавляете сотрудников, назначаете роли и права доступа.</p>
+        </div>
+        <div class="card flat">
+          <div class="h3">2) Android приложение</div>
+          <p class="p">Устанавливаете приложение на смартфоны менеджеров. Звонки пишутся в фоне.</p>
+        </div>
+        <div class="card flat">
+          <div class="h3">3) Интеграция с CRM</div>
+          <p class="p">Подключаем amoCRM или Bitrix24 - звонки появляются в карточке клиента.</p>
+        </div>
+      </div>
+
+      <div class="hr"></div>
+
+      <div class="cols2">
+        <div class="note">
+          <b>Хранение записей.</b> По умолчанию записи могут храниться на сервере ограниченное время. Если подключить
+          ваш Google Drive или Яндекс.Диск - можно хранить записи без ограничений со стороны сервиса (по сроку и объему).
+          Это удобно для долгих сделок и контроля качества.
+        </div>
+        <div class="note">
+          <b>Ограничение по типу звонков.</b> Записываются обычные звонки через мобильную сеть. Звонки через мессенджеры
+          (WhatsApp/Telegram и т.д.) - это отдельная история, решается другими инструментами интеграции.
+        </div>
+      </div>
+    </div>
+
+    <!-- WHAT YOU GET -->
+    <div class="card" style="margin-top:16px">
+      <div class="section-title">
+        <h2 class="h2">Что вы получаете на выходе</h2>
+        <span class="chip">без магии</span>
+      </div>
+
+      <div class="cols3">
+        <div class="card flat">
+          <div class="h3">Единая история звонков</div>
+          <p class="p">Кто звонил, когда, отвечен/пропущен, прослушивание записи, быстрый перезвон.</p>
+        </div>
+        <div class="card flat">
+          <div class="h3">Прозрачность работы отдела продаж</div>
+          <p class="p">Понимание нагрузки, пропусков, качества обработки лидов.</p>
+        </div>
+        <div class="card flat">
+          <div class="h3">Оперативные отчеты</div>
+          <p class="p">Статистика по сотрудникам и периодам, фильтры, быстрый доступ в браузере.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- COMPARISON -->
+    <div class="card" style="margin-top:16px">
+      <div class="section-title">
+        <h2 class="h2">Мои Звонки vs классическая телефония</h2>
+        <span class="chip">короткое сравнение</span>
+      </div>
+
+      <table class="table" aria-label="Сравнение">
+        <thead>
+          <tr>
+            <th>Критерий</th>
+            <th>Мои Звонки</th>
+            <th>Виртуальная АТС/телефония</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>Точка входа</b></td>
+            <td>Android смартфоны сотрудников</td>
+            <td>Номера/линии у провайдера, настройка АТС</td>
+          </tr>
+          <tr>
+            <td><b>Быстрота запуска</b></td>
+            <td>Чаще всего быстрее - приложение + кабинет</td>
+            <td>Зависит от провайдера, сценариев, маршрутизаций</td>
+          </tr>
+          <tr>
+            <td><b>Запись звонков</b></td>
+            <td>Да, для обычных мобильных звонков</td>
+            <td>Да, но обычно дороже и сложнее</td>
+          </tr>
+          <tr>
+            <td><b>Стоимость владения</b></td>
+            <td>Обычно выгодно для небольших команд</td>
+            <td>Может быть оправдано на больших объемах и сложных схемах</td>
+          </tr>
+          <tr>
+            <td><b>Сценарии</b></td>
+            <td>Контроль, записи, фиксация в CRM, быстрые отчеты</td>
+            <td>Сложные очереди, колл-центры, SIP, распределения</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="mini">Выбор зависит от задач. Если нужна "простая и честная" фиксация мобильных звонков в CRM - это сильный вариант.</div>
+    </div>
+
+    <!-- IMPLEMENTATION -->
+    <div class="card" style="margin-top:16px">
+      <div class="section-title">
+        <h2 class="h2">Как мы внедряем</h2>
+        <span class="chip">Venner Digital</span>
+      </div>
+
+      <div class="cols2">
+        <div class="card flat">
+          <div class="h3">Базовый сценарий</div>
+          <ul class="list">
+            <li class="li"><span class="dot ok"></span><div><div class="h3">Подготовка</div><div class="p">Собираем вводные - сколько сотрудников, какие номера, какая CRM, какие цели.</div></div></li>
+            <li class="li"><span class="dot ok"></span><div><div class="h3">Установка и права</div><div class="p">Ставим приложение, проверяем разрешения, задаем роли и доступы.</div></div></li>
+            <li class="li"><span class="dot ok"></span><div><div class="h3">Интеграция</div><div class="p">Подключаем amoCRM или Bitrix24, проверяем прикрепление звонков.</div></div></li>
+            <li class="li"><span class="dot ok"></span><div><div class="h3">Хранилище записей</div><div class="p">По необходимости подключаем Google Drive/Яндекс.Диск.</div></div></li>
+          </ul>
+        </div>
+
+        <div class="card flat">
+          <div class="h3">На что обращаем внимание</div>
+          <ul class="list">
+            <li class="li"><span class="dot warn"></span><div><div class="h3">Настройки Android</div><div class="p">Оптимизация батареи, разрешения, запрет "убийц" фоновых приложений.</div></div></li>
+            <li class="li"><span class="dot warn"></span><div><div class="h3">Качество записи</div><div class="p">На некоторых моделях/версиях Android запись может требовать дополнительной настройки.</div></div></li>
+            <li class="li"><span class="dot"></span><div><div class="h3">Регламенты продаж</div><div class="p">Сервис работает лучше, когда у команды есть правила обработки пропущенных и контроль качества.</div></div></li>
+          </ul>
+
+          <div class="hr"></div>
+
+          <div class="mini">
+            Важно: любые CRM-интеграции дают максимум эффекта, когда настроены статусы, поля, источники и логика обработки лидов.
+            Если нужно - увязываем внедрение с настройкой <span class="k">amoCRM</span> / <span class="k">Bitrix24</span>.
+          </div>
+
+          <div class="hr"></div>
+
+          <div class="grid" style="grid-template-columns:1fr 1fr;gap:10px">
+            <a class="btn ghost" href="URL_AMOCRM_PAGE" title="Вставьте URL страницы про amoCRM">Про amoCRM</a>
+            <a class="btn ghost" href="URL_BITRIX24_PAGE" title="Вставьте URL страницы про Bitrix24">Про Bitrix24</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- USE CASES -->
+    <div class="card" style="margin-top:16px">
+      <div class="section-title">
+        <h2 class="h2">Типовые сценарии</h2>
+        <span class="chip">из практики</span>
+      </div>
+
+      <div class="cols3">
+        <div class="card flat">
+          <div class="h3">Новые лиды</div>
+          <p class="p">Входящие звонки фиксируются, клиент быстро находится в CRM, запись сохраняется.</p>
+        </div>
+        <div class="card flat">
+          <div class="h3">Пропущенные</div>
+          <p class="p">Понятно, кто и когда пропустил - можно выстроить контроль и регламент перезвона.</p>
+        </div>
+        <div class="card flat">
+          <div class="h3">Качество</div>
+          <p class="p">Разбор диалогов, обучение менеджеров, контроль соблюдения скриптов и стандартов.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ -->
+    <div class="card" style="margin-top:16px">
+      <div class="section-title">
+        <h2 class="h2">FAQ - частые вопросы</h2>
+        <span class="chip">коротко и по делу</span>
+      </div>
+
+      <div class="faq">
+        <details>
+          <summary>Записываются ли звонки через WhatsApp/Telegram?<span class="caret"></span></summary>
+          <div class="ans">Нет. Сервис пишет обычные звонки через мобильную сеть. Мессенджеры решаются отдельными инструментами интеграции.</div>
+        </details>
+
+        <details>
+          <summary>Можно ли хранить записи "навсегда"?<span class="caret"></span></summary>
+          <div class="ans">Если подключить ваш Google Drive или Яндекс.Диск - ограничений по сроку/объему со стороны сервиса обычно нет. Без подключения срок хранения на сервере ограничен.</div>
+        </details>
+
+        <details>
+          <summary>Будут ли звонки автоматически прикрепляться к клиентам в CRM?<span class="caret"></span></summary>
+          <div class="ans">Да, при корректной интеграции и настройках сопоставления. Мы проверяем сценарии: входящий, исходящий, неизвестный номер, создание контакта/сделки.</div>
+        </details>
+
+        <details>
+          <summary>Насколько это надежно - "100% запись"?<span class="caret"></span></summary>
+          <div class="ans">На Android возможны ограничения (настройки энергосбережения, вмешательство других приложений, нехватка памяти и т.д.). Мы настраиваем так, чтобы снизить риск, но абсолютную гарантию не дает ни один мобильный сценарий.</div>
+        </details>
+
+        <details>
+          <summary>Подойдет ли это для большого колл-центра?<span class="caret"></span></summary>
+          <div class="ans">Если нужны очереди, SIP, сложная маршрутизация и колл-центр логика - чаще выбирают виртуальную АТС. "Мои Звонки" сильнее в задаче фиксации мобильных звонков и контроле.</div>
+        </details>
+
+        <details>
+          <summary>Что нужно от нас для запуска?<span class="caret"></span></summary>
+          <div class="ans">Список сотрудников, Android телефоны, доступ в amoCRM/Bitrix24, понимание какие номера используете. Дальше делаем подключение, тест и короткий инструктаж команде.</div>
+        </details>
+      </div>
+
+      <div class="hr"></div>
+
+      <div class="grid" style="grid-template-columns:1fr 1fr;gap:10px">
+        <a class="btn primary" href="https://www.moizvonki.ru/" target="_blank" rel="noopener">Посмотреть сервис</a>
+        <a class="btn" href="URL_CRM_LANDING" title="Вставьте URL главного лендинга CRM и интеграции">CRM и интеграции</a>
+      </div>
+
+      <div class="mini">URL_* - замените на реальные адреса из вашей структуры. Текст и блоки можно копировать как есть.</div>
+    </div>
+
+  </div>
+</body>
+</html>
+

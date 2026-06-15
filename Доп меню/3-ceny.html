@@ -1,0 +1,1221 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Цены на услуги | Venner Digital</title>
+  <meta name="description" content="Цены на услуги Venner Digital: разработка сайтов, Яндекс.Директ, SEO, CRM и интеграции, Avito, лидогенерация. Ориентиры, пакеты, разовые работы и почасовые задачи." />
+  <style>
+    :root{
+      --bg: #f6fffd;
+      --card: #ffffff;
+      --text: #0f172a;
+      --muted: rgba(15,23,42,.72);
+      --line: rgba(15,23,42,.10);
+      --shadow: 0 18px 40px rgba(2, 12, 27, .10);
+      --radius: 18px;
+
+      --mint: #2ef2c8;
+      --aqua: #16c7ff;
+      --lime: #b7ff3c;
+      --accent: #19d6b6;
+      --dark: #0b1220;
+      --chip: rgba(255,255,255,.55);
+      --chipLine: rgba(255,255,255,.35);
+      --soft: rgba(15,23,42,.06);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(900px 500px at 12% 10%, rgba(46,242,200,.35), transparent 60%),
+        radial-gradient(900px 500px at 85% 18%, rgba(22,199,255,.28), transparent 55%),
+        radial-gradient(900px 500px at 70% 80%, rgba(183,255,60,.18), transparent 55%),
+        linear-gradient(180deg, #f2fffd 0%, #ffffff 55%, #f7fffe 100%);
+      overflow-x:hidden;
+    }
+    a{color:inherit; text-decoration:none}
+    .wrap{max-width:1160px; margin:0 auto; padding:0 18px}
+    .section{padding:44px 0}
+    .grid{display:grid; gap:16px}
+    .two{grid-template-columns: 1.25fr .75fr}
+    .three{grid-template-columns: repeat(3, 1fr)}
+    .four{grid-template-columns: repeat(4, 1fr)}
+    @media (max-width: 980px){
+      .two{grid-template-columns:1fr}
+      .three{grid-template-columns:1fr}
+      .four{grid-template-columns:1fr}
+    }
+
+    .hero{
+      padding:44px 0 18px;
+    }
+    .heroBox{
+      border-radius: 26px;
+      padding: 26px;
+      position:relative;
+      overflow:hidden;
+      background:
+        radial-gradient(1200px 600px at 10% 0%, rgba(46,242,200,.55), transparent 60%),
+        radial-gradient(900px 500px at 95% 15%, rgba(22,199,255,.40), transparent 55%),
+        radial-gradient(900px 500px at 80% 90%, rgba(183,255,60,.22), transparent 55%),
+        linear-gradient(135deg, rgba(255,255,255,.85), rgba(255,255,255,.55));
+      border:1px solid rgba(15,23,42,.10);
+      box-shadow: var(--shadow);
+    }
+    .kicker{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      background: rgba(255,255,255,.65);
+      border:1px solid rgba(15,23,42,.10);
+      font-weight:700;
+      font-size:13px;
+      color:rgba(15,23,42,.86);
+      backdrop-filter: blur(10px);
+    }
+    .h1{
+      margin:12px 0 10px;
+      font-size: 44px;
+      line-height: 1.06;
+      letter-spacing: -.02em;
+    }
+    @media (max-width: 560px){
+      .h1{font-size: 34px}
+    }
+    .lead{
+      margin:0 0 14px;
+      color:var(--muted);
+      font-size:16px;
+      line-height:1.6;
+      max-width: 70ch;
+    }
+    .chips{display:flex; flex-wrap:wrap; gap:10px; margin-top:12px}
+    .chip{
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+      padding:9px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.55);
+      border:1px solid rgba(15,23,42,.10);
+      font-weight: 650;
+      color: rgba(15,23,42,.85);
+      font-size:13px;
+      backdrop-filter: blur(10px);
+    }
+    .dot{
+      width:10px; height:10px; border-radius:99px;
+      background: linear-gradient(135deg, var(--mint), var(--aqua));
+      box-shadow: 0 0 0 3px rgba(46,242,200,.18);
+    }
+
+    .navRow{
+      margin-top:16px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+    .pillLink{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid rgba(15,23,42,.12);
+      background: rgba(255,255,255,.70);
+      box-shadow: 0 10px 22px rgba(2, 12, 27, .06);
+      transition: transform .18s ease, background .18s ease, border-color .18s ease;
+      font-weight:700;
+      color: rgba(15,23,42,.86);
+      font-size:13px;
+    }
+    .pillLink:hover{transform: translateY(-1px); background: rgba(255,255,255,.88); border-color: rgba(15,23,42,.18)}
+    .arrow{opacity:.7}
+
+    .card{
+      background: var(--card);
+      border:1px solid rgba(15,23,42,.10);
+      border-radius: var(--radius);
+      box-shadow: 0 14px 30px rgba(2, 12, 27, .08);
+      overflow:hidden;
+    }
+    .cardPad{padding:18px}
+    .title{
+      margin:0;
+      font-size: 22px;
+      letter-spacing: -.01em;
+    }
+    .sub{
+      margin:8px 0 0;
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 15px;
+    }
+
+    .priceGrid{display:grid; grid-template-columns: repeat(3, 1fr); gap:14px}
+    @media (max-width: 980px){ .priceGrid{grid-template-columns:1fr} }
+    .priceCard{
+      border-radius: 18px;
+      border:1px solid rgba(15,23,42,.10);
+      background:
+        radial-gradient(700px 300px at 20% 0%, rgba(46,242,200,.28), transparent 60%),
+        radial-gradient(600px 260px at 100% 20%, rgba(22,199,255,.20), transparent 55%),
+        linear-gradient(135deg, rgba(255,255,255,.90), rgba(255,255,255,.62));
+      box-shadow: 0 16px 34px rgba(2, 12, 27, .08);
+      padding:16px;
+      overflow:hidden;
+      position:relative;
+    }
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:7px 10px;
+      border-radius:999px;
+      border:1px solid rgba(15,23,42,.10);
+      background: rgba(255,255,255,.70);
+      font-weight:800;
+      font-size:12px;
+      color: rgba(15,23,42,.86);
+    }
+    .pcTitle{margin:10px 0 8px; font-size:18px; letter-spacing:-.01em}
+    .pcPrice{margin:0; font-size:28px; font-weight:900; letter-spacing:-.02em}
+    .pcMeta{margin:8px 0 0; color: var(--muted); font-size:14px; line-height:1.55}
+    .pcList{margin:12px 0 0; padding:0; list-style:none; display:grid; gap:8px}
+    .pcList li{display:flex; gap:10px; align-items:flex-start; color: rgba(15,23,42,.84); font-weight:650; font-size:13px; line-height:1.35}
+    .check{
+      width:18px; height:18px; border-radius:6px;
+      background: linear-gradient(135deg, var(--mint), var(--aqua));
+      box-shadow: 0 10px 18px rgba(22,199,255,.15);
+      flex:0 0 auto;
+      position:relative;
+      margin-top:1px;
+    }
+    .check:after{
+      content:"";
+      position:absolute;
+      left:5px; top:4px;
+      width:7px; height:4px;
+      border-left:2px solid rgba(15,23,42,.9);
+      border-bottom:2px solid rgba(15,23,42,.9);
+      transform: rotate(-45deg);
+    }
+    .btnRow{display:flex; gap:10px; flex-wrap:wrap; margin-top:14px}
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      padding:11px 14px;
+      border-radius: 12px;
+      border:1px solid rgba(15,23,42,.12);
+      background: rgba(255,255,255,.80);
+      font-weight:900;
+      font-size:13px;
+      transition: transform .18s ease, background .18s ease, border-color .18s ease;
+      box-shadow: 0 12px 26px rgba(2,12,27,.08);
+    }
+    .btn:hover{transform: translateY(-1px); background: rgba(255,255,255,.96); border-color: rgba(15,23,42,.18)}
+    .btnPrimary{
+      border-color: rgba(15,23,42,.12);
+      background: linear-gradient(135deg, rgba(46,242,200,.92), rgba(22,199,255,.75));
+    }
+
+    .note{
+      margin-top:12px;
+      padding:14px 16px;
+      border-radius: 16px;
+      border:1px solid rgba(15,23,42,.10);
+      background: rgba(255,255,255,.75);
+      color: rgba(15,23,42,.80);
+      line-height:1.6;
+      box-shadow: 0 12px 26px rgba(2,12,27,.06);
+    }
+
+    .h2{
+      margin:0 0 12px;
+      font-size: 30px;
+      letter-spacing: -.02em;
+    }
+    .muted{color: var(--muted); line-height:1.65}
+    .hr{height:1px; background: rgba(15,23,42,.10); margin:14px 0}
+
+    /* details accordion */
+    details.acc{
+      border:1px solid rgba(15,23,42,.10);
+      border-radius: 16px;
+      background: rgba(255,255,255,.82);
+      box-shadow: 0 12px 26px rgba(2,12,27,.06);
+      overflow:hidden;
+    }
+    details.acc + details.acc{margin-top:12px}
+    details.acc summary{
+      cursor:pointer;
+      list-style:none;
+      padding:16px 16px;
+      display:flex;
+      gap:12px;
+      align-items:center;
+      font-weight:900;
+      letter-spacing:-.01em;
+    }
+    details.acc summary::-webkit-details-marker{display:none}
+    .sumIcon{
+      width:36px; height:36px; border-radius: 14px;
+      background: linear-gradient(135deg, rgba(46,242,200,.95), rgba(22,199,255,.65));
+      border:1px solid rgba(15,23,42,.10);
+      flex:0 0 auto;
+      position:relative;
+      box-shadow: 0 14px 28px rgba(22,199,255,.10);
+    }
+    .sumIcon:after{
+      content:"";
+      position:absolute; inset:10px 9px 10px 11px;
+      border-radius: 10px;
+      background: rgba(255,255,255,.65);
+      border:1px solid rgba(15,23,42,.10);
+    }
+    .sumText{display:flex; flex-direction:column; gap:4pxpx}
+    .sumSub{font-weight:650; color: var(--muted); font-size:13px}
+    .chev{
+      margin-left:auto;
+      width:34px; height:34px;
+      border-radius: 12px;
+      border:1px solid rgba(15,23,42,.10);
+      background: rgba(255,255,255,.65);
+      display:grid; place-items:center;
+      transition: transform .18s ease;
+    }
+    details[open] .chev{transform: rotate(180deg)}
+    .chev svg{opacity:.8}
+
+    .accBody{padding: 0 16px 16px}
+    .table{
+      width:100%;
+      border-collapse: collapse;
+      overflow:hidden;
+      border-radius: 14px;
+      border:1px solid rgba(15,23,42,.10);
+      background: rgba(255,255,255,.70);
+    }
+    .table th, .table td{
+      text-align:left;
+      padding:12px 12px;
+      border-bottom:1px solid rgba(15,23,42,.08);
+      vertical-align:top;
+      font-size: 14px;
+      line-height:1.45;
+    }
+    .table th{
+      background: rgba(15,23,42,.04);
+      font-size: 12px;
+      letter-spacing:.04em;
+      text-transform: uppercase;
+      color: rgba(15,23,42,.72);
+    }
+    .table tr:last-child td{border-bottom:none}
+    .mono{
+      font-variant-numeric: tabular-nums;
+      white-space:nowrap;
+      font-weight:900;
+    }
+    .hint{
+      color: var(--muted);
+      font-weight:650;
+      font-size:13px;
+      margin-top:10px;
+      line-height:1.6;
+    }
+    .miniLinks{display:flex; flex-wrap:wrap; gap:10px; margin-top:12px}
+    .miniLink{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid rgba(15,23,42,.10);
+      background: rgba(255,255,255,.72);
+      font-weight:800;
+      font-size:13px;
+      transition: transform .18s ease;
+    }
+    .miniLink:hover{transform: translateY(-1px)}
+    .miniLink .arrow{opacity:.7}
+
+    .steps{display:grid; gap:12px; grid-template-columns: repeat(3, 1fr)}
+    @media (max-width: 980px){ .steps{grid-template-columns:1fr} }
+    .step{
+      border-radius: 18px;
+      border:1px solid rgba(15,23,42,.10);
+      background: rgba(255,255,255,.78);
+      box-shadow: 0 12px 26px rgba(2,12,27,.06);
+      padding:16px;
+    }
+    .stepNum{
+      width:38px; height:38px; border-radius: 14px;
+      display:grid; place-items:center;
+      background: linear-gradient(135deg, rgba(183,255,60,.65), rgba(46,242,200,.45));
+      border:1px solid rgba(15,23,42,.10);
+      font-weight:950;
+      letter-spacing:-.02em;
+    }
+    .step h3{margin:10px 0 6px; font-size:16px}
+    .step p{margin:0; color: var(--muted); line-height:1.6; font-size:14px}
+
+    .faq{display:grid; gap:12px}
+    details.faqItem{
+      border-radius: 16px;
+      border:1px solid rgba(15,23,42,.10);
+      background: rgba(255,255,255,.80);
+      box-shadow: 0 12px 26px rgba(2,12,27,.06);
+      overflow:hidden;
+    }
+    details.faqItem summary{
+      padding:16px;
+      cursor:pointer;
+      font-weight:950;
+      letter-spacing:-.01em;
+      list-style:none;
+    }
+    details.faqItem summary::-webkit-details-marker{display:none}
+    details.faqItem .faqBody{padding:0 16px 16px; color: var(--muted); line-height:1.7}
+
+    .footerCta{
+      border-radius: 26px;
+      padding: 22px;
+      background:
+        radial-gradient(1200px 600px at 10% 0%, rgba(46,242,200,.45), transparent 60%),
+        radial-gradient(900px 500px at 95% 15%, rgba(22,199,255,.32), transparent 55%),
+        linear-gradient(135deg, rgba(255,255,255,.88), rgba(255,255,255,.62));
+      border:1px solid rgba(15,23,42,.10);
+      box-shadow: var(--shadow);
+      display:flex;
+      gap:14px;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
+    }
+    .small{font-size:13px; color: var(--muted); line-height:1.6; max-width: 74ch}
+  </style>
+</head>
+<body>
+
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <div class="heroBox">
+          <span class="kicker">Цены - ориентиры и форматы работы</span>
+          <h1 class="h1">Стоимость услуг Venner Digital</h1>
+          <p class="lead">
+            Здесь - понятные ориентиры по ключевым направлениям: сайты, SEO, реклама, CRM, Avito и лидогенерация.
+            Итоговая стоимость всегда считается по объему, срокам и текущей ситуации в проекте - но «вилку» вы увидите заранее.
+          </p>
+
+          <div class="chips">
+            <span class="chip"><span class="dot"></span> Минимальный старт по проектам - от <b>30 000 ₽</b></span>
+            <span class="chip"><span class="dot"></span> Работаем официально - договор, этапы, смета в Excel/Sheets</span>
+            <span class="chip"><span class="dot"></span> Подходим комплексно - от сайта до заявок и CRM</span>
+          </div>
+
+          <div class="navRow" aria-label="Быстрая навигация">
+            <a class="pillLink" href="#pakety"><span class="arrow">→</span> Пакеты и «от»</a>
+            <a class="pillLink" href="#napravleniya"><span class="arrow">→</span> Прайс по направлениям</a>
+            <a class="pillLink" href="#pochasovo"><span class="arrow">→</span> Почасовые работы</a>
+            <a class="pillLink" href="#kak-schitaem"><span class="arrow">→</span> Как считаем стоимость</a>
+            <a class="pillLink" href="#faq"><span class="arrow">→</span> FAQ по ценам</a>
+          </div>
+
+          <div class="note">
+            <b>Важно:</b> ниже - ориентиры «от». Чтобы зафиксировать цену, обычно достаточно 1 короткого созвона + доступа к текущим материалам (сайт/реклама/Avito/CRM).
+            После этого даем смету и план работ.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ПАКЕТЫ -->
+    <section id="pakety" class="section">
+      <div class="wrap">
+        <h2 class="h2">Пакеты и быстрые ориентиры</h2>
+        <p class="muted">
+          Если нужно быстро понять порядок бюджета - начните с этих пакетов. Дальше мы уточним объемы и соберем точную смету.
+        </p>
+
+        <div class="priceGrid" style="margin-top:14px;">
+          <div class="priceCard">
+            <span class="badge">Avito - под ключ</span>
+            <h3 class="pcTitle">Запуск и оформление Avito</h3>
+            <p class="pcPrice">от 30 000 ₽</p>
+            <p class="pcMeta">Минимальный старт: профиль + базовая упаковка + несколько объявлений.</p>
+            <ul class="pcList">
+              <li><span class="check"></span> Оформление профиля и разделов</li>
+              <li><span class="check"></span> Структура объявлений под спрос</li>
+              <li><span class="check"></span> Тексты с ключами - под выдачу и рекомендации</li>
+              <li><span class="check"></span> Инфографика на 1-е фото (по необходимости)</li>
+            </ul>
+            <div class="btnRow">
+              <a class="btn btnPrimary" href="/avito/">Страница Avito</a>
+              <a class="btn" href="/zakaz-uslugi/">Запросить смету</a>
+            </div>
+          </div>
+
+          <div class="priceCard">
+            <span class="badge">Контекстная реклама</span>
+            <h3 class="pcTitle">Яндекс.Директ - запуск</h3>
+            <p class="pcPrice">от 12 000 ₽</p>
+            <p class="pcMeta">Базовый запуск. Дальше можно вести и масштабировать.</p>
+            <ul class="pcList">
+              <li><span class="check"></span> Структура кампаний и цели</li>
+              <li><span class="check"></span> Объявления, быстрые ссылки, уточнения</li>
+              <li><span class="check"></span> Метрика/цели/события - по задаче</li>
+              <li><span class="check"></span> Первичная оптимизация после старта</li>
+            </ul>
+            <div class="btnRow">
+              <a class="btn btnPrimary" href="/yandex-direct/">Страница Директа</a>
+              <a class="btn" href="/zakaz-uslugi/">Запросить смету</a>
+            </div>
+          </div>
+
+          <div class="priceCard">
+            <span class="badge">SEO - продвижение</span>
+            <h3 class="pcTitle">SEO-работы в месяц</h3>
+            <p class="pcPrice">от 15 000 ₽</p>
+            <p class="pcMeta">Подходит как «минимум, но стабильно», либо как часть комплексного маркетинга.</p>
+            <ul class="pcList">
+              <li><span class="check"></span> Тех. оптимизация и исправления</li>
+              <li><span class="check"></span> Семантика и структура</li>
+              <li><span class="check"></span> Контент и перелинковка</li>
+              <li><span class="check"></span> Отчеты и приоритеты по задачам</li>
+            </ul>
+            <div class="btnRow">
+              <a class="btn btnPrimary" href="/seo/">Страница SEO</a>
+              <a class="btn" href="/zakaz-uslugi/">Запросить смету</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:16px;">
+          <div class="cardPad">
+            <h3 class="title">Разработка сайтов - ориентиры «от»</h3>
+            <p class="sub">Цены зависят от структуры, функционала и контента. Ниже - быстрые ориентиры для понимания бюджета.</p>
+            <div class="hr"></div>
+
+            <div class="grid four">
+              <div class="priceCard" style="box-shadow:none; border-color: rgba(15,23,42,.10);">
+                <span class="badge">Landing</span>
+                <h4 class="pcTitle">Лендинг</h4>
+                <p class="pcPrice" style="font-size:24px;">от 35 000 ₽</p>
+                <p class="pcMeta">Прототип - дизайн - верстка - базовые формы.</p>
+                <div class="btnRow"><a class="btn" href="/sozdanie-saytov/lending-page/">Подробнее</a></div>
+              </div>
+
+              <div class="priceCard" style="box-shadow:none; border-color: rgba(15,23,42,.10);">
+                <span class="badge">Многостраничник</span>
+                <h4 class="pcTitle">Сайт компании</h4>
+                <p class="pcPrice" style="font-size:24px;">от 65 000 ₽</p>
+                <p class="pcMeta">Разделы, услуги, кейсы, блог - под SEO и рекламу.</p>
+                <div class="btnRow"><a class="btn" href="/sozdanie-saytov/">Подробнее</a></div>
+              </div>
+
+              <div class="priceCard" style="box-shadow:none; border-color: rgba(15,23,42,.10);">
+                <span class="badge">Интернет-магазин</span>
+                <h4 class="pcTitle">E-commerce</h4>
+                <p class="pcPrice" style="font-size:24px;">от 35 000 ₽</p>
+                <p class="pcMeta">Каталог, карточки, фильтры, корзина - по задаче.</p>
+                <div class="btnRow"><a class="btn" href="/sozdanie-saytov/internet-magazin/">Подробнее</a></div>
+              </div>
+
+              <div class="priceCard" style="box-shadow:none; border-color: rgba(15,23,42,.10);">
+                <span class="badge">Техаудит</span>
+                <h4 class="pcTitle">Аудит сайта</h4>
+                <p class="pcPrice" style="font-size:24px;">от 10 000 ₽</p>
+                <p class="pcMeta">Ошибки, скорость, индексация, дубли, рекомендации.</p>
+                <div class="btnRow"><a class="btn" href="/sozdanie-saytov/tekhnicheskij-audit-sayta">Подробнее</a></div>
+              </div>
+            </div>
+
+            <p class="hint">
+              Если вам нужен «комплекс под ключ» (сайт + трафик + лидогенерация + CRM), удобнее считать не по прайсу, а по смете: так вы понимаете, за что платите и что получите на выходе.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ПРАЙС ПО НАПРАВЛЕНИЯМ -->
+    <section id="napravleniya" class="section">
+      <div class="wrap">
+        <h2 class="h2">Прайс по направлениям</h2>
+        <p class="muted">Ниже - компактно по категориям. Внутри каждой - список услуг, единица, «от», и ссылка на подробную страницу.</p>
+
+        <div style="margin-top:14px;">
+          <!-- Разработка сайтов -->
+          <details class="acc" open>
+            <summary>
+              <span class="sumIcon" aria-hidden="true"></span>
+              <span class="sumText">
+                Разработка сайтов
+                <span class="sumSub">Лендинги, сайты компаний, магазины, редизайн, верстка</span>
+              </span>
+              <span class="chev" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <path d="M6 9l6 6 6-6" stroke="rgba(15,23,42,.85)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </summary>
+            <div class="accBody">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Услуга</th>
+                    <th>Единица</th>
+                    <th>Цена от</th>
+                    <th>Комментарий</th>
+                    <th>Ссылка</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><b>Лендинг</b></td>
+                    <td>проект</td>
+                    <td class="mono">35 000 ₽</td>
+                    <td>Прототип, дизайн, верстка, базовые формы/кнопки.</td>
+                    <td><a class="miniLink" href="/sozdanie-saytov/lending-page/"><span class="arrow">→</span> /lending-page/</a></td>
+                  </tr>
+                  <tr>
+                    <td><b>Сайт компании (многостраничный)</b></td>
+                    <td>проект</td>
+                    <td class="mono">65 000 ₽</td>
+                    <td>Структура под SEO/рекламу, услуги, контент, базовая оптимизация.</td>
+                    <td><a class="miniLink" href="/sozdanie-saytov/"><span class="arrow">→</span> /sozdanie-saytov/</a></td>
+                  </tr>
+                  <tr>
+                    <td><b>Интернет-магазин</b></td>
+                    <td>проект</td>
+                    <td class="mono">35 000 ₽</td>
+                    <td>Каталог/карточки/фильтры/корзина - по объему.</td>
+                    <td><a class="miniLink" href="/sozdanie-saytov/internet-magazin/"><span class="arrow">→</span> /internet-magazin/</a></td>
+                  </tr>
+                  <tr>
+                    <td><b>Прототипирование</b></td>
+                    <td>проект</td>
+                    <td class="mono">8 000 ₽</td>
+                    <td>Сценарий страниц, логика блоков, структура, офферы.</td>
+                    <td><a class="miniLink" href="/sozdanie-saytov/prototip-sayta/"><span class="arrow">→</span> /prototip-sayta/</a></td>
+                  </tr>
+                  <tr>
+                    <td><b>Веб-дизайн</b></td>
+                    <td>страница/пакет</td>
+                    <td class="mono">6 000 ₽</td>
+                    <td>UI/UX, адаптив, дизайн-система - по задаче.</td>
+                    <td><a class="miniLink" href="/sozdanie-saytov/veb-dizayn-sayta/"><span class="arrow">→</span> /veb-dizayn-sayta/</a></td>
+                  </tr>
+                  <tr>
+                    <td><b>Верстка</b></td>
+                    <td>страница/пакет</td>
+                    <td class="mono">-</td>
+                    <td>HTML/CSS/JS, адаптив, скорость - считается по макету.</td>
+                    <td><a class="miniLink" href="/sozdanie-saytov/verstka-sayta/"><span class="arrow">→</span> /verstka-sayta/</a></td>
+                  </tr>
+                  <tr>
+                    <td><b>Редизайн сайта</b></td>
+                    <td>проект</td>
+                    <td class="mono">-</td>
+                    <td>Обновление структуры и контента, перенос/доработки.</td>
+                    <td><a class="miniLink" href="/sozdanie-saytov/redizayn-sayta/"><span class="arrow">→</span> /redizayn-sayta/</a></td>
+                  </tr>
+                  <tr>
+                    <td><b>Технический аудит</b></td>
+                    <td>проект</td>
+                    <td class="mono">10 000 ₽</td>
+                    <td>Скорость, индексация, дубли, ошибки, рекомендации.</td>
+                    <td><a class="miniLink" href="/sozdanie-saytov/tekhnicheskij-audit-sayta"><span class="arrow">→</span> /tekhnicheskij-audit-sayta</a></td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="miniLinks">
+                <a class="miniLink" href="/sozdanie-saytov/sayt-na-wordpress/"><span class="arrow">→</span> WordPress</a>
+                <a class="miniLink" href="/sozdanie-saytov/sayt-na-1c-bitrix/"><span class="arrow">→</span> 1C-Битрикс</a>
+                <a class="miniLink" href="/sozdanie-saytov/sayt-na-opencart/"><span class="arrow">→</span> OpenCart</a>
+                <a class="miniLink" href="/sozdanie-saytov/sayt-na-html/"><span class="arrow">→</span> HTML</a>
+                <a class="miniLink" href="/sozdanie-saytov/kviz-sayt/"><span class="arrow">→</span> Квиз-сайт</a>
+              </div>
+            </div>
+          </details>
+
+          <!-- Контекст -->
+          <details class="acc">
+            <summary>
+              <span class="sumIcon" aria-hidden="true"></span>
+              <span class="sumText">
+                Контекстная реклама
+                <span class="sumSub">Яндекс.Директ - запуск, аудит, ведение, аренда кампаний</span>
+              </span>
+              <span class="chev" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <path d="M6 9l6 6 6-6" stroke="rgba(15,23,42,.85)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </summary>
+            <div class="accBody">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Услуга</th>
+                    <th>Единица</th>
+                    <th>Цена от</th>
+                    <th>Комментарий</th>
+                    <th>Ссылка</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><b>Настройка Яндекс.Директ</b></td>
+                    <td>проект</td>
+                    <td class="mono">12 000 ₽</td>
+                    <td>Старт кампаний, объявления, структура, первичная оптимизация.</td>
+                    <td><a class="miniLink" href="/yandex-direct/"><span class="arrow">→</span> /yandex-direct/</a></td>
+                  </tr>
+                  <tr>
+                    <td><b>Ведение рекламы</b></td>
+                    <td>месяц</td>
+                    <td class="mono">-</td>
+                    <td>Оптимизация ставок, минус-слова, тесты, отчеты, рост конверсии.</td>
+                    <td><a class="miniLink" href="/yandex-direct/vedenie/"><span class="arrow">→</span> /vedenie/</a></td>
+                  </tr>
+                  <tr>
+                    <td><b>Аудит рекламы</b></td>
+                    <td>проект</td>
+                    <td class="mono">-</td>
+                    <td>Ошибки в структуре, сливы бюджета, гипотезы улучшения.</td>
+                    <td><a class="miniLink" href="/yandex-direct/audit/"><span class="arrow">→</span> /audit/</a></td>
+                  </tr>
+                  <tr>
+                    <td><b>Аренда кампаний</b></td>
+                    <td>месяц</td>
+                    <td class="mono">-</td>
+                    <td>Быстрый старт без долгой настройки (подходит не всем нишам).</td>
+                    <td><a class="miniLink" href="/yandex-direct/arenda/"><span class="arrow">→</span> /arenda/</a></td>
+                  </tr>
+                </tbody>
+              </table>
+              <p class="hint">
+                Обычно выгоднее считать рекламу в связке с посадочной страницей и аналитикой. Даже сильная кампания теряет деньги, если сайт и офферы не дожимают.
+              </p>
+            </div>
+          </details>
+
+          <!-- SEO -->
+          <details class="acc">
+            <summary>
+              <span class="sumIcon" aria-hidden="true"></span>
+              <span class="sumText">
+                SEO-услуги
+                <span class="sumSub">Семантика, оптимизация, аудит, продвижение, блог, копирайтинг, аналитика</span>
+              </span>
+              <span class="chev" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <path d="M6 9l6 6 6-6" stroke="rgba(15,23,42,.85)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </summary>
+            <div class="accBody">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Услуга</th>
+                    <th>Единица</th>
+                    <th>Цена от</th>
+                    <th>Комментарий</th>
+                    <th>Ссылка</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><b>SEO продвижение</b></td>
+                    <td>месяц</td>
+                    <td class="mono">15 000 ₽</td>
+                    <td>Техничка + контент + приоритеты задач + отчеты.</td>
+                    <td><a class="miniLink" href="/seo/"><span class="arrow">→</span> /seo/</a></td>
+                  </tr>
+                  <tr>
+                    <td><b>Семантическое ядро</b></td>
+                    <td>проект</td>
+                    <td class="mono">-</td>
+                    <td>Сбор, чистка, кластеризация, структура страниц.</td>
+                    <td><a class="miniLink" href="/seo/semanticheskoe-yadro/"><span class="arrow">→</span> /semanticheskoe-yadro/</a></td>
+                  </tr>
+                  <tr>
+                    <td><b>SEO оптимизация</b></td>
+                    <td>проект/задачи</td>
+                    <td class="mono">-</td>
+                    <td>Скорость, индексация, микроразметка, мета, перелинковка.</td>
+                    <td><a class="miniLink" href="/seo/optimizaciya-sayta/"><span class="arrow">→</span> /optimizaciya-sayta/</a></td>
+                  </tr>
+                  <tr>
+                    <td><b>SEO аудит</b></td>
+                    <td>проект</td>
+                    <td class="mono">-</td>
+                    <td>Диагностика, список ошибок, план роста.</td>
+                    <td><a class="miniLink" href="/seo/audit-sayta/"><span class="arrow">→</span> /audit-sayta/</a></td>
+                  </tr>
+                  <tr>
+                    <td><b>SEO блог</b></td>
+                    <td>месяц/пакет</td>
+                    <td class="mono">-</td>
+                    <td>Контент-план, статьи, верстка, перелинковка.</td>
+                    <td><a class="miniLink" href="/seo/blog/"><span class="arrow">→</span> /blog/</a></td>
+                  </tr>
+                  <tr>
+                    <td><b>SEO копирайтинг</b></td>
+                    <td>1000 знаков</td>
+                    <td class="mono">1 500 ₽</td>
+                    <td>Тексты под задачу бизнеса: коммерция, категории, блог, рерайт.</td>
+                    <td><a class="miniLink" href="/seo/kopirajting/"><span class="arrow">→</span> /kopirajting/</a></td>
+                  </tr>
+                  <tr>
+                    <td><b>Topvisor - аналитика</b></td>
+                    <td>настройка/сопровождение</td>
+                    <td class="mono">-</td>
+                    <td>Мониторинг позиций, отчеты, прозрачность для клиента.</td>
+                    <td><a class="miniLink" href="/seo/topvisor/"><span class="arrow">→</span> /topvisor/</a></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </details>
+
+          <!-- CRM -->
+          <details class="acc">
+            <summary>
+              <span class="sumIcon" aria-hidden="true"></span>
+              <span class="sumText">
+                CRM и интеграции
+                <span class="sumSub">amoCRM, Bitrix24, мессенджеры, телефония, заявки и источники</span>
+              </span>
+              <span class="chev" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <path d="M6 9l6 6 6-6" stroke="rgba(15,23,42,.85)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </summary>
+            <div class="accBody">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Услуга</th>
+                    <th>Единица</th>
+                    <th>Цена от</th>
+                    <th>Комментарий</th>
+                    <th>Ссылка</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><b>Внедрение amoCRM</b></td>
+                    <td>проект</td>
+                    <td class="mono">-</td>
+                    <td>Воронки, карточки, поля, роботы, этапы, контроль, обучение.</td>
+                    <td><a class="miniLink" href="/crm-integracii/amocrm/"><span class="arrow">→</span> /amocrm/</a></td>
+                  </tr>
+                  <tr>
+                    <td><b>Bitrix24</b></td>
+                    <td>проект</td>
+                    <td class="mono">-</td>
+                    <td>Воронки, задачи, контакт-центр, аналитика, интеграции.</td>
+                    <td><a class="miniLink" href="/crm-integracii/bitrix24/"><span class="arrow">→</span> /bitrix24/</a></td>
+                  </tr>
+                  <tr>
+                    <td><b>Wazzup</b></td>
+                    <td>внедрение</td>
+                    <td class="mono">-</td>
+                    <td>WhatsApp/Telegram/и др. - в CRM, единое окно коммуникаций.</td>
+                    <td><a class="miniLink" href="/crm-integracii/wazzup/"><span class="arrow">→</span> /wazzup/</a></td>
+                  </tr>
+                  <tr>
+                    <td><b>Radist.Online</b></td>
+                    <td>внедрение</td>
+                    <td class="mono">-</td>
+                    <td>Интеграция мессенджеров с amoCRM/Bitrix24, поддержка, сопровождение.</td>
+                    <td><a class="miniLink" href="/crm-integracii/radist-online/"><span class="arrow">→</span> /radist-online/</a></td>
+                  </tr>
+                  <tr>
+                    <td><b>ChatApp</b></td>
+                    <td>внедрение</td>
+                    <td class="mono">-</td>
+                    <td>Чаты, шаблоны, автоответы, интеграции с CRM.</td>
+                    <td><a class="miniLink" href="/crm-integracii/chatapp/"><span class="arrow">→</span> /chatapp/</a></td>
+                  </tr>
+                  <tr>
+                    <td><b>Мои Звонки</b></td>
+                    <td>настройка</td>
+                    <td class="mono">-</td>
+                    <td>Запись звонков в карточке сделки. Решение «дешево и эффективно».</td>
+                    <td><a class="miniLink" href="/crm-integracii/moi-zvonki/"><span class="arrow">→</span> /moi-zvonki/</a></td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <p class="hint">
+                CRM почти всегда дает максимальный эффект в связке: сайт/Avito/реклама + интеграции + автоответы + контроль качества обработки лидов.
+              </p>
+            </div>
+          </details>
+
+          <!-- Avito -->
+          <details class="acc">
+            <summary>
+              <span class="sumIcon" aria-hidden="true"></span>
+              <span class="sumText">
+                Avito
+                <span class="sumSub">Оформление, оптимизация, продвижение, аналитика, стратегия</span>
+              </span>
+              <span class="chev" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <path d="M6 9l6 6 6-6" stroke="rgba(15,23,42,.85)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </summary>
+            <div class="accBody">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Услуга</th>
+                    <th>Единица</th>
+                    <th>Цена от</th>
+                    <th>Комментарий</th>
+                    <th>Ссылка</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><b>Avito под ключ</b></td>
+                    <td>проект</td>
+                    <td class="mono">30 000 ₽</td>
+                    <td>Полный цикл: упаковка + рост трафика + контроль результатов.</td>
+                    <td><a class="miniLink" href="/avito/"><span class="arrow">→</span> /avito/</a></td>
+                  </tr>
+                  <tr>
+                    <td><b>Оформление и оптимизация</b></td>
+                    <td>пакет</td>
+                    <td class="mono">40 000 ₽</td>
+                    <td>Ориентир: пакет на 10 объявлений. 1 объявление - от 4 000 ₽.</td>
+                    <td><a class="miniLink" href="/avito/oformlenie-i-optimizaciya/"><span class="arrow">→</span> /oformlenie-i-optimizaciya/</a></td>
+                  </tr>
+                  <tr>
+                    <td><b>Продвижение и аналитика</b></td>
+                    <td>месяц</td>
+                    <td class="mono">-</td>
+                    <td>Регулярная работа: реклама, стратегия, тесты, отчетность, рост конверсии.</td>
+                    <td><a class="miniLink" href="/avito/prodvizhenie-i-analitika/"><span class="arrow">→</span> /prodvizhenie-i-analitika/</a></td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <p class="hint">
+                Мы чаще всего работаем с категорией «услуги». По «товарке» - обсуждаем индивидуально (много нюансов по логистике, складу, карточкам и экономике).
+              </p>
+            </div>
+          </details>
+
+          <!-- Лидогенерация -->
+          <details class="acc">
+            <summary>
+              <span class="sumIcon" aria-hidden="true"></span>
+              <span class="sumText">
+                Лидогенерация
+                <span class="sumSub">Marquiz, MyReviews, сервисы репутации - рост конверсии без роста бюджета</span>
+              </span>
+              <span class="chev" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <path d="M6 9l6 6 6-6" stroke="rgba(15,23,42,.85)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </summary>
+            <div class="accBody">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Услуга</th>
+                    <th>Единица</th>
+                    <th>Цена от</th>
+                    <th>Комментарий</th>
+                    <th>Ссылка</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><b>Лидогенерация под ключ</b></td>
+                    <td>проект/месяц</td>
+                    <td class="mono">-</td>
+                    <td>Квизы + доверие + дожим через CRM. Рост конверсии без разгона бюджета.</td>
+                    <td><a class="miniLink" href="/lidogeneraciya/"><span class="arrow">→</span> /lidogeneraciya/</a></td>
+                  </tr>
+                  <tr>
+                    <td><b>Marquiz</b></td>
+                    <td>проект</td>
+                    <td class="mono">-</td>
+                    <td>Сценарии, логика, дизайн, интеграции, повышение конверсии.</td>
+                    <td><a class="miniLink" href="/lidogeneraciya/marquiz/"><span class="arrow">→</span> /marquiz/</a></td>
+                  </tr>
+                  <tr>
+                    <td><b>MyReviews</b></td>
+                    <td>проект</td>
+                    <td class="mono">-</td>
+                    <td>Сбор отзывов + виджеты на сайт + интеграции.</td>
+                    <td><a class="miniLink" href="/lidogeneraciya/myreviews/"><span class="arrow">→</span> /myreviews/</a></td>
+                  </tr>
+                  <tr>
+                    <td><b>Сервисы репутации</b></td>
+                    <td>проект/сопровождение</td>
+                    <td class="mono">-</td>
+                    <td>Карточки, контент, прайсы, фото, работа с отзывами (без накруток).</td>
+                    <td><a class="miniLink" href="/lidogeneraciya/servisy-reputacii/"><span class="arrow">→</span> /servisy-reputacii/</a></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </details>
+
+          <!-- Хостинг -->
+          <details class="acc">
+            <summary>
+              <span class="sumIcon" aria-hidden="true"></span>
+              <span class="sumText">
+                Хостинг и техподдержка
+                <span class="sumSub">Свой сервер, обслуживание, скорость, безопасность, резервные копии</span>
+              </span>
+              <span class="chev" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <path d="M6 9l6 6 6-6" stroke="rgba(15,23,42,.85)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </summary>
+            <div class="accBody">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Услуга</th>
+                    <th>Единица</th>
+                    <th>Цена от</th>
+                    <th>Комментарий</th>
+                    <th>Ссылка</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><b>Хостинг/VDS</b></td>
+                    <td>месяц</td>
+                    <td class="mono">400 ₽</td>
+                    <td>Ориентир для простых проектов. Конфигурация зависит от нагрузки.</td>
+                    <td><a class="miniLink" href="/hosting/"><span class="arrow">→</span> /hosting/</a></td>
+                  </tr>
+                  <tr>
+                    <td><b>Технические работы на сервере</b></td>
+                    <td>час</td>
+                    <td class="mono">5 000 ₽</td>
+                    <td>Мониторинг, алерты, оптимизация, восстановление, безопасность.</td>
+                    <td><a class="miniLink" href="/hosting/"><span class="arrow">→</span> /hosting/</a></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </details>
+
+        </div>
+
+        <div class="note" style="margin-top:16px;">
+          Если вам нужно «просто понять бюджет» - напишите, что именно есть сейчас (сайт/Avito/реклама/CRM) и какая цель.
+          Мы быстро скажем, какой формат подойдет: разовая работа, пакет или комплексная смета.
+        </div>
+
+        <div class="btnRow" style="margin-top:12px;">
+          <a class="btn btnPrimary" href="/zakaz-uslugi/">Заказать услугу</a>
+          <a class="btn" href="/kontakty/">Контакты</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ПОЧАСОВО -->
+    <section id="pochasovo" class="section">
+      <div class="wrap">
+        <h2 class="h2">Почасовые работы и разовые задачи</h2>
+        <p class="muted">
+          Когда не нужен «пакет», а нужно быстро закрыть конкретную задачу - работаем почасово или по фиксированной мини-смете.
+          Удобно для доработок, исправлений и точечных улучшений.
+        </p>
+
+        <div class="card" style="margin-top:14px;">
+          <div class="cardPad">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Направление</th>
+                  <th>Формат</th>
+                  <th>Цена</th>
+                  <th>Примеры задач</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><b>SEO оптимизация</b></td>
+                  <td>час</td>
+                  <td class="mono">4 000 ₽</td>
+                  <td>Мета/структура, перелинковка, индексация, микроразметка, скорость, дубляжи.</td>
+                </tr>
+                <tr>
+                  <td><b>Технические работы</b></td>
+                  <td>час</td>
+                  <td class="mono">5 000 ₽</td>
+                  <td>Ошибки на сайте, правки кода, интеграции, сервер/логи, оптимизация запросов, безопасность.</td>
+                </tr>
+                <tr>
+                  <td><b>Маркетинговая стратегия</b></td>
+                  <td>час/сессия</td>
+                  <td class="mono">-</td>
+                  <td>Позиционирование, офферы, связки каналов, гипотезы роста, план на месяц/квартал.</td>
+                </tr>
+                <tr>
+                  <td><b>SEO-копирайтинг</b></td>
+                  <td>1000 знаков</td>
+                  <td class="mono">1 500 ₽</td>
+                  <td>Коммерческие тексты, категории, статьи, рерайт, ТЗ и внедрение в страницу.</td>
+                </tr>
+                <tr>
+                  <td><b>Контент-наполнение</b></td>
+                  <td>час/пакет</td>
+                  <td class="mono">-</td>
+                  <td>Добавление страниц, правки блоков, загрузка товаров, контент в блог, визуалы.</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <p class="hint">
+              Почасовой формат подходит, когда задача понятна и ограничена. Если «в проекте много неизвестных» - выгоднее сделать короткий аудит и собрать смету: так дешевле на дистанции.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- КАК СЧИТАЕМ -->
+    <section id="kak-schitaem" class="section">
+      <div class="wrap">
+        <h2 class="h2">Как формируется стоимость</h2>
+        <p class="muted">
+          Чтобы цена была честной и прогнозируемой, мы считаем не «по ощущениям», а по объему работ, этапам и KPI (где применимо).
+        </p>
+
+        <div class="steps" style="margin-top:14px;">
+          <div class="step">
+            <div class="stepNum">1</div>
+            <h3>Фиксируем задачу и текущую точку</h3>
+            <p>Что уже есть: сайт, реклама, Avito, CRM, контент. Где провалы и где быстрые победы.</p>
+          </div>
+          <div class="step">
+            <div class="stepNum">2</div>
+            <h3>Считаем объем и этапы</h3>
+            <p>Сколько страниц/кампаний/объявлений, какие интеграции, какие роли, какие сроки.</p>
+          </div>
+          <div class="step">
+            <div class="stepNum">3</div>
+            <h3>Даем смету и план</h3>
+            <p>Коммерческое предложение в Excel/Sheets, разбор на созвоне, договор и старт работ.</p>
+          </div>
+        </div>
+
+        <div class="note" style="margin-top:16px;">
+          <b>Практика:</b> если проект нацелен на рост заявок, почти всегда выгоднее собирать связку «трафик + конверсия + CRM».
+          Тогда деньги не «сливаются», а превращаются в стабильный поток лидов.
+        </div>
+
+        <div class="btnRow" style="margin-top:12px;">
+          <a class="btn btnPrimary" href="/zakaz-uslugi/">Получить расчет</a>
+          <a class="btn" href="/kontakty/">Связаться</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="section">
+      <div class="wrap">
+        <h2 class="h2">FAQ по ценам</h2>
+        <p class="muted">Коротко отвечаем на частые вопросы, которые помогают понять формат, бюджет и сроки.</p>
+
+        <div class="faq" style="margin-top:14px;">
+          <details class="faqItem" open>
+            <summary>Почему на сайте цены «от», а не фикс?</summary>
+            <div class="faqBody">
+              Потому что один и тот же «лендинг» или «SEO» может отличаться по объему в 2-5 раз: структура, контент, функционал, конкуренция, текущие ошибки, скорость разработки и многое другое.
+              Мы даем ориентир, а точную цену фиксируем в смете после короткого анализа.
+            </div>
+          </details>
+
+          <details class="faqItem">
+            <summary>С какой суммы вы берете проекты в работу?</summary>
+            <div class="faqBody">
+              Минимальный старт по проектам - от <b>30 000 ₽</b>. Это позволяет сделать работу качественно: упаковать основу и собрать результат, а не «поточечно дергать» без эффекта.
+            </div>
+          </details>
+
+          <details class="faqItem">
+            <summary>Можно ли начать с минимума и потом расширяться?</summary>
+            <div class="faqBody">
+              Да. Частый сценарий: стартуем с базовой упаковки (сайт/Avito/реклама), параллельно настраиваем аналитику и CRM, а дальше масштабируем то, что уже доказало эффективность.
+            </div>
+          </details>
+
+          <details class="faqItem">
+            <summary>Делаете ли разовые работы без ведения?</summary>
+            <div class="faqBody">
+              Да. Делаем разовые задачи: аудит, исправление ошибок, настройка интеграций, подготовка объявлений, старт рекламы, настройка CRM.
+              Если задача понятная - фиксируем мини-смету или работаем почасово.
+            </div>
+          </details>
+
+          <details class="faqItem">
+            <summary>Что выгоднее: отдельно услуги или «комплекс»?</summary>
+            <div class="faqBody">
+              Если цель - стабильный поток заявок, обычно выгоднее комплекс: меньше потерь на стыках (сайт - реклама - CRM), быстрее выявляются точки роста и дешевле стоимость лида на дистанции.
+              Если цель точечная - берем отдельную услугу.
+            </div>
+          </details>
+
+          <details class="faqItem">
+            <summary>Как быстро вы можете дать точный расчет?</summary>
+            <div class="faqBody">
+              Обычно достаточно 1 созвона и минимального доступа к текущим материалам (сайт/кабинеты/Avito/CRM - если они есть).
+              После этого мы готовим смету и план работ, и на следующем созвоне подробно объясняем каждый пункт.
+            </div>
+          </details>
+        </div>
+
+        <div class="footerCta" style="margin-top:18px;">
+          <div>
+            <h3 class="title" style="margin:0;">Нужна точная смета под ваш проект?</h3>
+            <p class="small" style="margin:8px 0 0;">
+              Напишите, что у вас сейчас есть (сайт/реклама/Avito/CRM) и какая цель. Мы быстро подскажем формат работ и дадим расчет в Excel/Sheets.
+            </p>
+          </div>
+          <div class="btnRow" style="margin:0;">
+            <a class="btn btnPrimary" href="/zakaz-uslugi/">Заказать услугу</a>
+            <a class="btn" href="/kontakty/">Контакты</a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+</body>
+</html>
+

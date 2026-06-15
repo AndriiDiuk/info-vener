@@ -1,0 +1,1103 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="format-detection" content="telephone=no" />
+
+  <title>SEO-оптимизация сайта | внутренняя и техническая оптимизация под Яндекс и Google</title>
+  <meta name="description" content="SEO-оптимизация сайта - подготовка к росту в органике: семантика, структура, метатеги, скорость, микроразметка, индексация. Работаем с 2013 года. Оптимизация для WordPress, OpenCart, Bitrix и HTML." />
+  <meta name="keywords" content="seo оптимизация сайта, внутренняя оптимизация, техническая seo оптимизация, оптимизация под яндекс, оптимизация под google, метатеги, микроразметка, скорость сайта, индексация" />
+
+  <link rel="canonical" href="https://example.com/seo/optimizaciya-sayta/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="SEO-оптимизация сайта - внутренняя и техническая оптимизация" />
+  <meta property="og:description" content="Подготовим сайт к росту в органике: структура, семантика, метатеги, скорость, микроразметка, индексация." />
+  <meta property="og:url" content="https://example.com/seo/optimizaciya-sayta/" />
+  <meta property="og:image" content="https://example.com/catalog/view/theme/your-theme/image/og/seo-opt.jpg" />
+
+  <!-- Theme -->
+  <meta name="theme-color" content="#0B0F14" />
+
+  <style>
+    :root{
+      --bg:#0B0F14;
+      --panel:#0F1620;
+      --panel2:#0C131C;
+      --text:#EAF2FF;
+      --muted:#A7B4C7;
+      --line:rgba(255,255,255,.10);
+      --brand:#3BFFB7;
+      --brand2:#51B5FF;
+      --warn:#FFD36A;
+      --bad:#FF6B8A;
+
+      --r16:16px;
+      --r20:20px;
+      --r24:24px;
+
+      --shadow: 0 18px 60px rgba(0,0,0,.35);
+      --shadow2: 0 10px 30px rgba(0,0,0,.30);
+
+      --max: 1180px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
+      background:
+        radial-gradient(1200px 600px at 20% -10%, rgba(59,255,183,.16), transparent 60%),
+        radial-gradient(900px 500px at 90% 10%, rgba(81,181,255,.16), transparent 55%),
+        radial-gradient(1000px 700px at 30% 110%, rgba(255,211,106,.10), transparent 60%),
+        var(--bg);
+      color:var(--text);
+      line-height:1.5;
+    }
+
+    a{color:inherit; text-decoration:none}
+    a:hover{opacity:.95}
+    .container{width:100%; max-width:var(--max); margin:0 auto; padding:0 18px}
+
+    /* Topbar */
+    .topbar{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(10px);
+      background: rgba(11,15,20,.72);
+      border-bottom: 1px solid var(--line);
+    }
+    .topbar__row{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px; padding:10px 0;
+    }
+    .logo{
+      display:flex; align-items:center; gap:10px;
+      font-weight:800; letter-spacing:.2px;
+      white-space:nowrap;
+    }
+    .logo__mark{
+      width:34px; height:34px; border-radius:12px;
+      background: linear-gradient(135deg, rgba(59,255,183,1), rgba(81,181,255,1));
+      box-shadow: 0 12px 30px rgba(59,255,183,.18);
+    }
+    .nav{
+      display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    .nav a{
+      font-size:13px;
+      color:var(--muted);
+      padding:8px 10px;
+      border:1px solid transparent;
+      border-radius:12px;
+    }
+    .nav a:hover{
+      color:var(--text);
+      border-color: var(--line);
+      background: rgba(255,255,255,.03);
+    }
+
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      gap:10px;
+      padding:12px 16px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.02);
+      color:var(--text);
+      cursor:pointer;
+      transition: .15s ease;
+      font-weight:700;
+    }
+    .btn:hover{transform: translateY(-1px); border-color: rgba(255,255,255,.16)}
+    .btn:active{transform: translateY(0)}
+    .btn--brand{
+      border-color: rgba(59,255,183,.35);
+      background: linear-gradient(135deg, rgba(59,255,183,.18), rgba(81,181,255,.12));
+      box-shadow: 0 16px 40px rgba(59,255,183,.10);
+    }
+    .btn--ghost{background: rgba(255,255,255,.02)}
+    .btn--sm{padding:10px 12px; border-radius:12px; font-size:13px}
+
+    /* Hero */
+    .hero{padding:44px 0 18px}
+    .hero__grid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:18px;
+      align-items:stretch;
+    }
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
+      border:1px solid var(--line);
+      border-radius: var(--r24);
+      box-shadow: var(--shadow2);
+    }
+    .hero__main{padding:26px}
+    .kicker{
+      display:flex; flex-wrap:wrap; gap:10px; align-items:center;
+      color: var(--muted);
+      font-size:13px;
+      margin-bottom:10px;
+    }
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:7px 10px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.02);
+      color: var(--muted);
+      font-weight:650;
+    }
+    .dot{
+      width:8px; height:8px; border-radius:999px;
+      background: var(--brand);
+      box-shadow: 0 0 0 4px rgba(59,255,183,.12);
+    }
+    h1{
+      margin:0 0 10px;
+      font-size:38px;
+      line-height:1.12;
+      letter-spacing:-.6px;
+    }
+    .lead{
+      margin:0 0 16px;
+      color: var(--muted);
+      font-size:16px;
+      max-width:70ch;
+    }
+    .hero__cta{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px}
+    .hero__links{
+      margin-top:14px;
+      display:flex; flex-wrap:wrap; gap:8px;
+      color: var(--muted);
+      font-size:13px;
+    }
+    .hero__links a{
+      padding:6px 10px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background: rgba(255,255,255,.02);
+    }
+    .hero__aside{padding:18px}
+    .aside__title{
+      font-size:14px;
+      color: var(--muted);
+      margin:0 0 12px;
+    }
+    .metric{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:10px;
+    }
+    .metric__item{
+      padding:14px;
+      border-radius:18px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.02);
+      min-height:98px;
+    }
+    .metric__item b{display:block; font-size:16px; margin-bottom:6px}
+    .metric__item span{display:block; color:var(--muted); font-size:13px}
+
+    /* Sections */
+    section{padding:26px 0}
+    .section__head{
+      display:flex; align-items:flex-end; justify-content:space-between;
+      gap:12px;
+      margin-bottom:14px;
+    }
+    .section__head h2{
+      margin:0;
+      font-size:26px;
+      letter-spacing:-.3px;
+    }
+    .section__head p{
+      margin:0;
+      color: var(--muted);
+      max-width:70ch;
+      font-size:14px;
+    }
+
+    .grid-3{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:12px;
+    }
+    .grid-2{
+      display:grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap:12px;
+    }
+    .box{
+      padding:18px;
+      border-radius: var(--r20);
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.02);
+    }
+    .box h3{
+      margin:0 0 8px;
+      font-size:16px;
+      letter-spacing:-.2px;
+    }
+    .box p{margin:0; color:var(--muted); font-size:14px}
+    .list{
+      margin:10px 0 0;
+      padding:0 0 0 18px;
+      color: var(--muted);
+      font-size:14px;
+    }
+    .list li{margin:6px 0}
+    .tagline{
+      display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;
+    }
+    .tag{
+      font-size:12px;
+      color: var(--muted);
+      padding:6px 10px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background: rgba(255,255,255,.02);
+    }
+
+    /* Step timeline */
+    .steps{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+    }
+    .step{
+      padding:18px;
+      border-radius: var(--r20);
+      border:1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
+    }
+    .step__top{
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      margin-bottom:8px;
+    }
+    .step__num{
+      width:34px; height:34px; border-radius:12px;
+      display:flex; align-items:center; justify-content:center;
+      font-weight:900;
+      background: rgba(59,255,183,.12);
+      border:1px solid rgba(59,255,183,.25);
+      color: var(--text);
+    }
+    .step__top b{font-size:15px}
+    .step p{margin:0; color:var(--muted); font-size:14px}
+    .sep{height:1px; background:var(--line); margin:14px 0}
+
+    /* Bad vs Good */
+    .compare{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+    }
+    .state{
+      padding:18px;
+      border-radius: var(--r20);
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.02);
+    }
+    .state h3{margin:0 0 10px; font-size:16px}
+    .state .badge{
+      display:inline-flex; align-items:center; gap:8px;
+      font-size:12px; font-weight:800;
+      padding:6px 10px; border-radius:999px;
+      border:1px solid var(--line);
+      margin-bottom:10px;
+    }
+    .badge--bad{border-color: rgba(255,107,138,.35); background: rgba(255,107,138,.08)}
+    .badge--good{border-color: rgba(59,255,183,.35); background: rgba(59,255,183,.08)}
+    .badge i{
+      width:8px; height:8px; border-radius:999px; display:inline-block;
+      background: var(--bad);
+    }
+    .badge--good i{background: var(--brand)}
+    .state ul{margin:0; padding-left:18px; color:var(--muted); font-size:14px}
+    .state li{margin:7px 0}
+
+    /* Pricing */
+    .pricing{
+      display:grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap:12px;
+      align-items:stretch;
+    }
+    .price{
+      padding:18px;
+      border-radius: var(--r24);
+      border:1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
+      position:relative;
+      overflow:hidden;
+    }
+    .price--best{
+      border-color: rgba(59,255,183,.35);
+      box-shadow: 0 18px 60px rgba(59,255,183,.10);
+    }
+    .price__name{font-weight:900; letter-spacing:-.2px; font-size:16px}
+    .price__meta{color:var(--muted); font-size:13px; margin-top:6px}
+    .price__val{font-size:28px; font-weight:950; margin:14px 0 8px}
+    .price__val small{font-size:12px; color:var(--muted); font-weight:700}
+    .price ul{margin:0; padding-left:18px; color:var(--muted); font-size:14px}
+    .price li{margin:7px 0}
+    .price__cta{margin-top:14px; display:flex; gap:10px; flex-wrap:wrap}
+
+    /* FAQ */
+    .faq{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+    }
+    details{
+      border:1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255,255,255,.02);
+      padding:14px 14px;
+    }
+    summary{
+      cursor:pointer;
+      list-style:none;
+      font-weight:850;
+      letter-spacing:-.2px;
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+    }
+    summary::-webkit-details-marker{display:none}
+    .chev{
+      width:28px; height:28px; border-radius:10px;
+      display:flex; align-items:center; justify-content:center;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.02);
+      color:var(--muted);
+      flex:0 0 auto;
+      transition:.15s ease;
+    }
+    details[open] .chev{transform: rotate(180deg); color:var(--text)}
+    details p{
+      margin:10px 0 0;
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    /* CTA */
+    .cta{
+      padding:22px;
+      border-radius: var(--r24);
+      border:1px solid rgba(59,255,183,.28);
+      background:
+        radial-gradient(600px 220px at 15% 0%, rgba(59,255,183,.18), transparent 60%),
+        radial-gradient(600px 240px at 95% 30%, rgba(81,181,255,.14), transparent 55%),
+        rgba(255,255,255,.02);
+      box-shadow: 0 20px 70px rgba(0,0,0,.35);
+    }
+    .cta__grid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:16px;
+      align-items:center;
+    }
+    .cta h2{margin:0 0 8px; font-size:24px}
+    .cta p{margin:0; color:var(--muted); font-size:14px}
+    .cta__actions{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end}
+
+    /* Footer */
+    footer{
+      border-top:1px solid var(--line);
+      padding:18px 0 30px;
+      color:var(--muted);
+      font-size:13px;
+    }
+    .footer__row{
+      display:flex; flex-wrap:wrap;
+      align-items:center; justify-content:space-between; gap:10px;
+    }
+    .footer__links{display:flex; gap:10px; flex-wrap:wrap}
+    .footer__links a{color:var(--muted); border-bottom:1px dashed rgba(255,255,255,.18)}
+    .footer__links a:hover{color:var(--text)}
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .hero__grid{grid-template-columns: 1fr}
+      .pricing{grid-template-columns: 1fr}
+      .grid-3{grid-template-columns: 1fr}
+      .grid-2{grid-template-columns: 1fr}
+      .steps{grid-template-columns: 1fr}
+      .compare{grid-template-columns: 1fr}
+      .faq{grid-template-columns: 1fr}
+      .cta__grid{grid-template-columns: 1fr}
+      .cta__actions{justify-content:flex-start}
+      h1{font-size:32px}
+    }
+  </style>
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Service",
+    "name":"SEO-оптимизация сайта",
+    "description":"Внутренняя и техническая SEO-оптимизация сайта под Яндекс и Google: семантика, структура, метатеги, скорость, микроразметка, индексация.",
+    "provider":{
+      "@type":"Organization",
+      "name":"Venner Digital",
+      "url":"https://example.com"
+    },
+    "areaServed":"RU",
+    "serviceType":"SEO Optimization"
+  }
+  </script>
+</head>
+
+<body>
+
+  <!-- Topbar -->
+  <div class="topbar">
+    <div class="container">
+      <div class="topbar__row">
+        <a class="logo" href="/">
+          <span class="logo__mark" aria-hidden="true"></span>
+          <span>Venner Digital</span>
+        </a>
+
+        <nav class="nav" aria-label="Навигация по странице">
+          <a href="#what">Что это</a>
+          <a href="#includes">Что делаем</a>
+          <a href="#types">Типы сайтов</a>
+          <a href="#mistakes">Ошибки</a>
+          <a href="#price">Стоимость</a>
+          <a href="#faq">FAQ</a>
+          <a class="btn btn--sm btn--brand" href="#lead">Получить смету</a>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <header class="hero" id="top">
+    <div class="container">
+      <div class="hero__grid">
+
+        <div class="card hero__main">
+          <div class="kicker">
+            <span class="pill"><span class="dot" aria-hidden="true"></span> Работаем с 2013 года</span>
+            <span class="pill">Яндекс + Google</span>
+            <span class="pill">Текст + Техника</span>
+            <span class="pill">WordPress / OpenCart / Bitrix / HTML</span>
+          </div>
+
+          <h1>SEO-оптимизация сайта - подготовка к росту в органике</h1>
+
+          <p class="lead">
+            SEO-оптимизация - это не “написать текст и вставить ключи”. Это системная подготовка сайта к стабильному трафику:
+            правильная структура, семантика, метатеги, индексация, скорость, микроразметка и удобство для пользователя.
+            Без этой базы SEO-продвижение чаще всего превращается в бесконечные переделки и “почему не растет”.
+          </p>
+
+          <div class="hero__cta">
+            <a class="btn btn--brand" href="#lead">Рассчитать стоимость</a>
+            <a class="btn btn--ghost" href="/seo/semanticheskoe-yadro/">Сначала нужно семантическое ядро</a>
+            <a class="btn btn--ghost" href="/seo/prodvizhenie-sayta/">Дальше - SEO-продвижение</a>
+          </div>
+
+          <div class="hero__links" aria-label="Быстрые ссылки">
+            <a href="/yandex-direct/">Контекстная реклама</a>
+            <a href="/sozdanie-saytov/">Разработка сайтов</a>
+            <a href="/sozdanie-saytov/sayt-na-wordpress/">Сайт на WordPress</a>
+            <a href="/sozdanie-saytov/sayt-na-opencart/">Сайт на OpenCart</a>
+            <a href="/sozdanie-saytov/sayt-na-html/">Сайт на HTML</a>
+          </div>
+        </div>
+
+        <aside class="card hero__aside">
+          <p class="aside__title">Что вы получите на выходе</p>
+          <div class="metric">
+            <div class="metric__item">
+              <b>ТЗ и план работ</b>
+              <span>что исправляем сейчас, что - потом, что даст результат</span>
+            </div>
+            <div class="metric__item">
+              <b>Структура и семантика</b>
+              <span>страницы под спрос, логика кластеров, приоритеты</span>
+            </div>
+            <div class="metric__item">
+              <b>Техническая база</b>
+              <span>скорость, индексация, микроразметка, дубли</span>
+            </div>
+            <div class="metric__item">
+              <b>Метатеги и контент</b>
+              <span>title/description, H1-H3, тексты без переспама</span>
+            </div>
+          </div>
+
+          <div class="sep"></div>
+
+          <p class="aside__title">Когда это особенно нужно</p>
+          <div class="tagline">
+            <span class="tag">новый сайт</span>
+            <span class="tag">перед SEO-продвижением</span>
+            <span class="tag">перед Директом</span>
+            <span class="tag">после редизайна</span>
+            <span class="tag">сайт 3-5+ лет</span>
+          </div>
+        </aside>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- What is SEO optimization -->
+  <section id="what">
+    <div class="container">
+      <div class="section__head">
+        <div>
+          <h2>Что такое SEO-оптимизация</h2>
+          <p>
+            Это внутренняя работа по сайту, которая делает его понятным поисковикам и удобным людям.
+            Мы приводим в порядок структуру, контент, метатеги и техчасть - чтобы сайт мог расти в Яндекс и Google.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid-3">
+        <div class="box">
+          <h3>Органика - это актив</h3>
+          <p>Контекст дает результат пока платите. Оптимизация закладывает фундамент для бесплатного трафика на длинной дистанции.</p>
+        </div>
+        <div class="box">
+          <h3>База перед продвижением</h3>
+          <p>Без оптимизации внешнее SEO часто буксует: вы наращиваете “усилия”, а сайт технически и структурно не готов.</p>
+        </div>
+        <div class="box">
+          <h3>Влияние на конверсию</h3>
+          <p>SEO - это не только про роботов. Это скорость, логика страниц, понятный оффер, доверие, удобство на мобиле.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Includes -->
+  <section id="includes">
+    <div class="container">
+      <div class="section__head">
+        <div>
+          <h2>Что входит в SEO-оптимизацию</h2>
+          <p>
+            Мы делим работу на 2 слоя: текстовый (семантика, структура, контент) и технический (скорость, индексация, разметка).
+            Это позволяет не “гадать”, а делать понятный план улучшений.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="box">
+          <h3>Текстовая SEO-оптимизация</h3>
+          <p>Работа со спросом и смыслами. Правильные страницы под правильные запросы.</p>
+          <ul class="list">
+            <li>Семантическое ядро и кластеры (основа) - <a href="/seo/semanticheskoe-yadro/" style="border-bottom:1px dashed rgba(255,255,255,.2)">сбор и кластеризация</a></li>
+            <li>Структура сайта: разделы, посадочные страницы, внутренние ссылки</li>
+            <li>Title/Description без переспама, под реальные клики</li>
+            <li>Иерархия H1-H3, смысловые блоки, FAQ</li>
+            <li>Контент: тексты, офферы, УТП, ответы на возражения</li>
+            <li>Оптимизация изображений: alt, подписи, формат</li>
+          </ul>
+          <div class="tagline">
+            <span class="tag">семантика</span>
+            <span class="tag">структура</span>
+            <span class="tag">контент</span>
+            <span class="tag">метатеги</span>
+          </div>
+        </div>
+
+        <div class="box">
+          <h3>Техническая SEO-оптимизация</h3>
+          <p>Техбаза, без которой сайт тормозит, плодит дубли и теряет потенциал.</p>
+          <ul class="list">
+            <li>Скорость загрузки, “тяжелые” блоки, оптимизация ресурсов</li>
+            <li>Индексация: sitemap.xml, robots.txt, устранение дублей</li>
+            <li>Canonical и корректные URL (чтобы не дробить вес страниц)</li>
+            <li>Микроразметка (schema.org) - организация, услуги, хлебные крошки</li>
+            <li>Open Graph для корректных превью ссылок</li>
+            <li>Технические ошибки: 404/редиректы, цепочки, битые ссылки</li>
+            <li>Мобильная версия и адаптивность</li>
+          </ul>
+          <div class="tagline">
+            <span class="tag">скорость</span>
+            <span class="tag">индексация</span>
+            <span class="tag">микроразметка</span>
+            <span class="tag">дубли</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Types of sites -->
+  <section id="types">
+    <div class="container">
+      <div class="section__head">
+        <div>
+          <h2>Оптимизация под разные типы сайтов</h2>
+          <p>
+            Подход отличается: лендингу важна структура оффера и конверсия, магазину - фильтры, категории и индексация,
+            корпоративному - правильные посадочные под услуги и регионы.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid-3">
+        <div class="box">
+          <h3>Лендинг / квиз</h3>
+          <p>Фокус на релевантность оффера, смысловые блоки, скорость, микроразметку и аккуратный контент под запрос.</p>
+          <ul class="list">
+            <li>Усиление структуры: оффер - доверие - кейсы - FAQ - CTA</li>
+            <li>Оптимизация “блоков доверия” и ответа на возражения</li>
+            <li>Подготовка к трафику из <a href="/yandex-direct/" style="border-bottom:1px dashed rgba(255,255,255,.2)">Яндекс.Директ</a></li>
+          </ul>
+        </div>
+
+        <div class="box">
+          <h3>Многостраничный сайт услуг</h3>
+          <p>Фокус на структуру разделов, внутреннюю перелинковку и посадочные страницы под кластеры.</p>
+          <ul class="list">
+            <li>Логика услуг, подуслуг, регионов, ценовых страниц</li>
+            <li>Контент под “теплый” и “холодный” спрос</li>
+            <li>Правильные метатеги и заголовки на каждой странице</li>
+          </ul>
+        </div>
+
+        <div class="box">
+          <h3>Интернет-магазин</h3>
+          <p>Фокус на категории, фильтры, страницы товаров, дубли, каноникал и скорость.</p>
+          <ul class="list">
+            <li>Индексация: что пускать в поиск, а что закрывать</li>
+            <li>Оптимизация категорий, карточек и шаблонных элементов</li>
+            <li>Интеграции и техстек: часто это <a href="/sozdanie-saytov/sayt-na-opencart/" style="border-bottom:1px dashed rgba(255,255,255,.2)">OpenCart</a> или иной движок</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="sep"></div>
+
+      <div class="grid-2">
+        <div class="box">
+          <h3>На каких CMS мы делаем оптимизацию</h3>
+          <p>Работаем с сайтами на разных технологиях - важно не “движок”, а порядок в структуре и техчасти.</p>
+          <div class="tagline">
+            <a class="tag" href="/sozdanie-saytov/sayt-na-wordpress/">WordPress</a>
+            <a class="tag" href="/sozdanie-saytov/sayt-na-opencart/">OpenCart</a>
+            <a class="tag" href="/sozdanie-saytov/sayt-na-1c-bitrix/">1C-Bitrix</a>
+            <a class="tag" href="/sozdanie-saytov/sayt-na-html/">HTML</a>
+          </div>
+        </div>
+
+        <div class="box">
+          <h3>Оптимизация как часть “под ключ”</h3>
+          <p>
+            Если вы заказываете <a href="/sozdanie-saytov/" style="border-bottom:1px dashed rgba(255,255,255,.2)">разработку сайта</a>,
+            то SEO-оптимизация логично встраивается в процесс: структура, контент, метатеги, скорость, аналитика.
+            Часто это дает рост по части запросов даже без активного продвижения - просто потому что сайт сделан правильно.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How we work -->
+  <section id="process">
+    <div class="container">
+      <div class="section__head">
+        <div>
+          <h2>Как мы делаем SEO-оптимизацию</h2>
+          <p>Понятный процесс, чтобы вы видели, что делаем, зачем и какой результат это дает.</p>
+        </div>
+      </div>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step__top">
+            <div class="step__num">1</div>
+            <b>Диагностика и цели</b>
+          </div>
+          <p>Смотрим сайт, нишу, конкурентов, текущий трафик. Фиксируем цели: заявки, звонки, продажи, рост видимости.</p>
+        </div>
+
+        <div class="step">
+          <div class="step__top">
+            <div class="step__num">2</div>
+            <b>Семантика и структура</b>
+          </div>
+          <p>Собираем/актуализируем <a href="/seo/semanticheskoe-yadro/" style="border-bottom:1px dashed rgba(255,255,255,.2)">семантическое ядро</a>, кластеры, строим карту страниц.</p>
+        </div>
+
+        <div class="step">
+          <div class="step__top">
+            <div class="step__num">3</div>
+            <b>Метатеги и заголовки</b>
+          </div>
+          <p>Title/Description, H1-H3, логика блоков. Без переспама - под реальные клики и понятность.</p>
+        </div>
+
+        <div class="step">
+          <div class="step__top">
+            <div class="step__num">4</div>
+            <b>Технический слой</b>
+          </div>
+          <p>Скорость, индексация, дубли, редиректы, микроразметка, Open Graph, исправление ошибок.</p>
+        </div>
+
+        <div class="step">
+          <div class="step__top">
+            <div class="step__num">5</div>
+            <b>Проверка и внедрение</b>
+          </div>
+          <p>Тестируем, чтобы ничего не “поехало”: мобильная версия, формы, скрипты, корректность страниц.</p>
+        </div>
+
+        <div class="step">
+          <div class="step__top">
+            <div class="step__num">6</div>
+            <b>План роста</b>
+          </div>
+          <p>Готовим рекомендации: что делать дальше - <a href="/seo/prodvizhenie-sayta/" style="border-bottom:1px dashed rgba(255,255,255,.2)">SEO-продвижение</a>, контент, ссылки, новые страницы, аналитика.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Typical mistakes -->
+  <section id="mistakes">
+    <div class="container">
+      <div class="section__head">
+        <div>
+          <h2>Типовые ошибки, из-за которых SEO “не работает”</h2>
+          <p>
+            Это те самые “мелочи”, которые потом превращаются в месяцы переделок, падение позиций и потерю денег на трафике.
+          </p>
+        </div>
+      </div>
+
+      <div class="compare">
+        <div class="state">
+          <div class="badge badge--bad"><i></i> Как обычно бывает</div>
+          <h3>Сайт сделан, но не подготовлен</h3>
+          <ul>
+            <li>Страницы не привязаны к спросу - нет логики кластера</li>
+            <li>Дубли и “мусор” в индексе</li>
+            <li>Метатеги одинаковые или переспамленные</li>
+            <li>Сайт медленный, тяжелые картинки, лишние скрипты</li>
+            <li>Нет микроразметки, нет Open Graph, нет структуры</li>
+            <li>Продвижение начинают “снаружи”, а внутри бардак</li>
+          </ul>
+        </div>
+
+        <div class="state">
+          <div class="badge badge--good"><i></i> Как должно быть</div>
+          <h3>Сайт готов к росту</h3>
+          <ul>
+            <li>Есть семантика - есть карта страниц</li>
+            <li>Понятные метатеги и заголовки - без мусора</li>
+            <li>Техчасть в порядке - скорость, индексация, дубли</li>
+            <li>Контент отвечает на вопросы и закрывает возражения</li>
+            <li>Заложена аналитика и точки контроля</li>
+            <li>Дальше можно масштабировать SEO и рекламу</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- What affects price -->
+  <section id="price">
+    <div class="container">
+      <div class="section__head">
+        <div>
+          <h2>Что влияет на стоимость SEO-оптимизации</h2>
+          <p>
+            Цена зависит не от “магии”, а от объема: сколько страниц, сколько кластеров, какой тип сайта и насколько запущена техчасть.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid-3">
+        <div class="box">
+          <h3>Тип сайта и объем</h3>
+          <p>Лендинг, многостраничник, магазин - разная глубина структуры, фильтры, шаблоны, страницы.</p>
+        </div>
+        <div class="box">
+          <h3>Конкуренция и ниша</h3>
+          <p>Там, где “дорогие клики” и агрессивные конкуренты, к базе предъявляются более жесткие требования.</p>
+        </div>
+        <div class="box">
+          <h3>Состояние сайта</h3>
+          <p>Старые версии CMS, битые плагины, дубли, хаос в URL - это отдельные трудозатраты на приведение в порядок.</p>
+        </div>
+      </div>
+
+      <div class="sep"></div>
+
+      <div class="pricing">
+        <div class="price">
+          <div class="price__name">База</div>
+          <div class="price__meta">Для небольших сайтов и лендингов</div>
+          <div class="price__val">от 19 900 <small>руб</small></div>
+          <ul>
+            <li>Диагностика + план работ</li>
+            <li>Метатеги и заголовки</li>
+            <li>Базовая техпроверка</li>
+            <li>Рекомендации по контенту</li>
+          </ul>
+          <div class="price__cta">
+            <a class="btn btn--sm btn--ghost" href="#lead">Запросить расчет</a>
+          </div>
+        </div>
+
+        <div class="price price--best">
+          <div class="price__name">Оптимизация</div>
+          <div class="price__meta">Самый частый формат</div>
+          <div class="price__val">от 34 900 <small>руб</small></div>
+          <ul>
+            <li>Семантика и структура (ядро - отдельно или ваше)</li>
+            <li>Полный блок метатегов</li>
+            <li>Индексация: sitemap/robots/дубли</li>
+            <li>Микроразметка и Open Graph</li>
+            <li>Скорость: ключевые правки</li>
+          </ul>
+          <div class="price__cta">
+            <a class="btn btn--sm btn--brand" href="#lead">Хочу этот вариант</a>
+            <a class="btn btn--sm btn--ghost" href="/seo/prodvizhenie-sayta/">Потом - продвижение</a>
+          </div>
+        </div>
+
+        <div class="price">
+          <div class="price__name">Максимум</div>
+          <div class="price__meta">Для магазинов и сложных проектов</div>
+          <div class="price__val">индивидуально</div>
+          <ul>
+            <li>Глубокая техоптимизация</li>
+            <li>Разбор шаблонов CMS и дублей</li>
+            <li>Стратегия структуры и посадочных</li>
+            <li>Контентный план и приоритеты</li>
+            <li>Подготовка к масштабированию</li>
+          </ul>
+          <div class="price__cta">
+            <a class="btn btn--sm btn--ghost" href="#lead">Обсудить проект</a>
+          </div>
+        </div>
+      </div>
+
+      <p style="margin:12px 0 0; color:var(--muted); font-size:13px">
+        Примечание: стоимость рассчитывается по объему задач и типу сайта. Если нужно, можем начать с диагностики и разложить все по этапам.
+      </p>
+    </div>
+  </section>
+
+  <!-- Content Q&A block -->
+  <section id="content">
+    <div class="container">
+      <div class="section__head">
+        <div>
+          <h2>Вопросы про контент - отвечаем сразу</h2>
+          <p>
+            Частый стоп-фактор: “у нас нет текстов” или “не хотим писать SEO-лапшу”.
+            Нормально. Мы делаем контент так, чтобы он был полезным людям и понятным поисковикам.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="box">
+          <h3>Если у клиента нет контента</h3>
+          <p>Проводим бриф, вытаскиваем смыслы, формируем структуру и пишем тексты под реальный спрос.</p>
+          <ul class="list">
+            <li>Офферы, УТП, блоки доверия</li>
+            <li>FAQ и ответы на возражения</li>
+            <li>Тексты без переспама - под конверсию</li>
+          </ul>
+        </div>
+        <div class="box">
+          <h3>Если контент есть, но “не продает”</h3>
+          <p>Пересобираем: смысловые блоки, структуру, заголовки, микроформаты, CTA.</p>
+          <ul class="list">
+            <li>Убираем воду, усиливаем пользу</li>
+            <li>Делаем страницы под кластеры запросов</li>
+            <li>Затягиваем в аналитику и тесты (при необходимости)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Compare with freelancer -->
+  <section id="freelance">
+    <div class="container">
+      <div class="section__head">
+        <div>
+          <h2>Почему студия, а не “один специалист”</h2>
+          <p>
+            В SEO важно не только “знать ключи”. Нужны контент, техчасть, аналитика и понимание как это связано с заявками.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid-3">
+        <div class="box">
+          <h3>Единая связка</h3>
+          <p>SEO, контент, разработка и аналитика работают вместе - нет “перекидывания” задач между подрядчиками.</p>
+        </div>
+        <div class="box">
+          <h3>Проверенные гипотезы</h3>
+          <p>Мы не учимся на вашем проекте. Приносим подходы, которые уже показали результат в реальных нишах.</p>
+        </div>
+        <div class="box">
+          <h3>Дисциплина и контроль</h3>
+          <p>План, приоритеты, этапы, прозрачность. Понимаете что сделано и зачем, без хаоса.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="container">
+      <div class="section__head">
+        <div>
+          <h2>FAQ - 12 частых вопросов</h2>
+          <p>Собрали вопросы, которые обычно всплывают до старта работ - чтобы не было сюрпризов.</p>
+        </div>
+      </div>
+
+      <div class="faq">
+        <details>
+          <summary>SEO-оптимизация и SEO-продвижение - это одно и то же? <span class="chev">⌄</span></summary>
+          <p>Нет. Оптимизация - это подготовка сайта (внутри). Продвижение - это масштабирование результата: контент, ссылки, рост охвата, регулярная работа. Оптимизация обычно идет первой.</p>
+        </details>
+
+        <details>
+          <summary>Можно ли продвигать сайт без оптимизации? <span class="chev">⌄</span></summary>
+          <p>Технически можно, практично - почти всегда дороже и дольше. Если внутри бардак, внешние усилия упираются в ошибки сайта и плохую структуру.</p>
+        </details>
+
+        <details>
+          <summary>Сколько времени занимает SEO-оптимизация? <span class="chev">⌄</span></summary>
+          <p>Зависит от объема и состояния сайта. Небольшие проекты делаются быстрее, магазины и сложные CMS требуют больше этапов.</p>
+        </details>
+
+        <details>
+          <summary>Вы работаете с WordPress и OpenCart? <span class="chev">⌄</span></summary>
+          <p>Да. Также берем Bitrix и сайты на чистом HTML. Важно не название CMS, а корректная реализация структуры и техчасти.</p>
+        </details>
+
+        <details>
+          <summary>Можно ли сделать оптимизацию без дальнейшего продвижения? <span class="chev">⌄</span></summary>
+          <p>Да. Часто правильная оптимизация уже дает рост по части запросов и “размораживает” потенциал сайта. Продвижение - следующий шаг, когда нужно масштабирование.</p>
+        </details>
+
+        <details>
+          <summary>Семантическое ядро обязательно? <span class="chev">⌄</span></summary>
+          <p>Для нормальной структуры - да. Без ядра вы не понимаете спрос и строите сайт “на ощущениях”. Если ядро уже есть - проверим его актуальность.</p>
+        </details>
+
+        <details>
+          <summary>Вы правите тексты или даете ТЗ? <span class="chev">⌄</span></summary>
+          <p>Оба варианта. Можем подготовить ТЗ, а можем взять контент на себя: структура, тексты, заголовки, FAQ, офферы.</p>
+        </details>
+
+        <details>
+          <summary>Зачем микроразметка и Open Graph? <span class="chev">⌄</span></summary>
+          <p>Микроразметка помогает поиску лучше понимать страницу и иногда улучшает вид сниппета. Open Graph нужен для корректного превью в мессенджерах и соцсетях.</p>
+        </details>
+
+        <details>
+          <summary>SEO-оптимизация влияет на Директ? <span class="chev">⌄</span></summary>
+          <p>Да. Скорость, мобильность, понятные страницы и структура повышают конверсию, а это влияет на экономику рекламных кампаний.</p>
+        </details>
+
+        <details>
+          <summary>Если сайт старый, вы обновляете CMS? <span class="chev">⌄</span></summary>
+          <p>При необходимости - да. Но это отдельный блок работ: обновления, совместимость, безопасность. Сначала диагностика, потом план.</p>
+        </details>
+
+        <details>
+          <summary>Гарантируете рост позиций? <span class="chev">⌄</span></summary>
+          <p>Мы гарантируем корректность работ, прозрачный план и улучшение базы сайта. Рост зависит от конкуренции, спроса, возраста домена, контента и регулярности действий.</p>
+        </details>
+
+        <details>
+          <summary>Что нужно от клиента для старта? <span class="chev">⌄</span></summary>
+          <p>Доступы (по согласованию), понимание услуг/приоритетов, примеры конкурентов и ответы на бриф. Остальное берем на себя.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section id="lead">
+    <div class="container">
+      <div class="cta">
+        <div class="cta__grid">
+          <div>
+            <h2>Хотите понять, что мешает сайту расти в органике?</h2>
+            <p>
+              Опишите нишу и что сейчас происходит (есть ли заявки, реклама, SEO, какая CMS).
+              Мы предложим план: что поправить в первую очередь, чтобы это давало эффект.
+            </p>
+            <div class="tagline" style="margin-top:12px">
+              <span class="tag">оптимизация под Яндекс</span>
+              <span class="tag">оптимизация под Google</span>
+              <span class="tag">подготовка к SEO-продвижению</span>
+              <span class="tag">подготовка к Директу</span>
+            </div>
+          </div>
+
+          <div class="cta__actions">
+            <a class="btn btn--brand" href="javascript:void(0)" onclick="openLead()">Получить расчет</a>
+            <a class="btn btn--ghost" href="/seo/prodvizhenie-sayta/">Посмотреть SEO-продвижение</a>
+            <a class="btn btn--ghost" href="/yandex-direct/">Посмотреть Яндекс.Директ</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer__row">
+        <div>© <span id="y"></span> Venner Digital. SEO-оптимизация и разработка сайтов.</div>
+        <div class="footer__links">
+          <a href="/seo/">SEO</a>
+          <a href="/sozdanie-saytov/">Разработка сайтов</a>
+          <a href="/yandex-direct/">Контекстная реклама</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Minimal JS -->
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    function openLead(){
+      // TODO: заменить на ваш попап / квиз / форму
+      alert('Форма заявки: сюда подключим квиз или форму. Можно вести в WhatsApp/Telegram.');
+    }
+
+    // Smooth anchor scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', (e)=>{
+        const id = a.getAttribute('href');
+        if(!id || id === '#') return;
+        const el = document.querySelector(id);
+        if(!el) return;
+        e.preventDefault();
+        el.scrollIntoView({behavior:'smooth', block:'start'});
+      });
+    });
+  </script>
+
+</body>
+</html>

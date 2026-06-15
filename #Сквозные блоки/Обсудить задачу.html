@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Сквозной оффер - Обсудим проект</title>
+  <style>
+    :root{
+      --bg1:#05070c;
+      --bg2:#061225;
+      --card:#ffffff;
+      --text:#0e1726;
+      --muted:#5b6576;
+      --line:rgba(14,23,38,.10);
+      --shadow: 0 18px 60px rgba(0,0,0,.28);
+      --radius:28px;
+
+      --btn:#0f1726;
+      --btnText:#ffffff;
+
+      --btn2:#eef2f7;
+      --btn2Text:#0f1726;
+
+      --accent:#1fb6ff;
+      --accent2:#5bffb0;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:
+        radial-gradient(1200px 700px at 15% 20%, rgba(31,182,255,.28), transparent 60%),
+        radial-gradient(900px 520px at 85% 30%, rgba(91,255,176,.18), transparent 55%),
+        linear-gradient(135deg, var(--bg1), var(--bg2));
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:40px 16px;
+    }
+
+    .wrap{
+      width:min(1100px, 100%);
+    }
+
+    .card{
+      background:var(--card);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+
+    .card-inner{
+      display:grid;
+      grid-template-columns: 1.25fr .85fr;
+      gap:0;
+      min-height: 320px;
+    }
+
+    .left{
+      padding:48px 48px 38px 48px;
+    }
+
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 14px;
+      border-radius:999px;
+      background:rgba(15,23,38,.06);
+      color:rgba(15,23,38,.88);
+      font-weight:600;
+      font-size:13px;
+      letter-spacing:.2px;
+      margin-bottom:14px;
+    }
+    .chip .dot{
+      width:10px;height:10px;border-radius:999px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow: 0 0 0 4px rgba(31,182,255,.12);
+    }
+
+    h2{
+      margin:0 0 10px 0;
+      font-size:44px;
+      line-height:1.04;
+      color:var(--text);
+      letter-spacing:-.6px;
+    }
+
+    .sub{
+      margin:0 0 22px 0;
+      font-size:16px;
+      line-height:1.55;
+      color:var(--muted);
+      max-width: 560px;
+    }
+
+    .actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top: 18px;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      border:none;
+      cursor:pointer;
+      border-radius:999px;
+      padding:16px 22px;
+      font-weight:800;
+      font-size:15px;
+      text-decoration:none;
+      transition: transform .08s ease, box-shadow .2s ease, opacity .2s ease;
+      user-select:none;
+      white-space:nowrap;
+    }
+    .btn:active{ transform: translateY(1px); }
+    .btn.primary{
+      background:var(--btn);
+      color:var(--btnText);
+      box-shadow: 0 10px 30px rgba(15,23,38,.22);
+    }
+    .btn.primary:hover{ opacity:.92; }
+    .btn.secondary{
+      background:var(--btn2);
+      color:var(--btn2Text);
+      border: 1px solid rgba(15,23,38,.10);
+    }
+    .btn.secondary:hover{ box-shadow: 0 12px 28px rgba(15,23,38,.10); }
+
+    .micro{
+      margin-top:16px;
+      font-size:12.5px;
+      line-height:1.45;
+      color:rgba(91,101,118,.95);
+      max-width: 640px;
+      padding-top:14px;
+      border-top:1px solid var(--line);
+    }
+
+    /* Right */
+    .right{
+      padding:34px 34px 30px 22px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:
+        radial-gradient(420px 320px at 55% 35%, rgba(31,182,255,.16), transparent 60%),
+        radial-gradient(420px 320px at 45% 65%, rgba(91,255,176,.13), transparent 60%),
+        linear-gradient(180deg, rgba(15,23,38,.02), rgba(15,23,38,.03));
+      border-left:1px solid var(--line);
+    }
+
+    .profile{
+      width:100%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex-direction:column;
+      gap:14px;
+    }
+
+    .avatar-wrap{
+      position:relative;
+      width: 240px;
+      aspect-ratio: 1 / 1;
+      border-radius: 999px;
+      overflow:hidden;
+      box-shadow: 0 18px 50px rgba(0,0,0,.20);
+      background: #e9eef6;
+    }
+
+    .avatar-wrap::after{
+      content:"";
+      position:absolute; inset:0;
+      box-shadow: inset 0 0 0 8px rgba(255,255,255,.65);
+      border-radius:999px;
+      pointer-events:none;
+    }
+
+    .avatar{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      object-position: center 20%;
+      display:block;
+    }
+
+    .name{
+      text-align:center;
+      color:var(--text);
+      font-weight:900;
+      font-size:18px;
+      line-height:1.2;
+    }
+
+    .role{
+      text-align:center;
+      color:rgba(91,101,118,.95);
+      font-weight:650;
+      font-size:13px;
+      margin-top:-6px;
+    }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 14px;
+      border-radius:999px;
+      background: rgba(15,23,38,.06);
+      color: rgba(15,23,38,.86);
+      font-weight:700;
+      font-size:13px;
+    }
+    .badge .ping{
+      width:10px;height:10px;border-radius:999px;
+      background:#45ff91;
+      box-shadow: 0 0 0 5px rgba(69,255,145,.18);
+    }
+
+    /* Telegram icon */
+    .icon{
+      width:18px;height:18px;
+      display:inline-block;
+    }
+
+    /* Responsive */
+    @media (max-width: 940px){
+      .card-inner{ grid-template-columns: 1fr; }
+      .right{
+        border-left:none;
+        border-top:1px solid var(--line);
+        padding:26px 22px 28px 22px;
+      }
+      .left{ padding:34px 22px 26px 22px; }
+      h2{ font-size:36px; }
+      .avatar-wrap{ width: 210px; }
+    }
+
+    @media (max-width: 520px){
+      h2{ font-size:32px; }
+      .btn{ width:100%; justify-content:center; }
+      .actions{ gap:10px; }
+      .avatar-wrap{ width: 190px; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <section class="card" aria-label="Сквозной оффер - обсудим проект">
+      <div class="card-inner">
+
+        <div class="left">
+          <div class="chip"><span class="dot"></span>Сразу о деле</div>
+
+          <h2>Давайте обсудим ваш проект</h2>
+
+          <p class="sub">
+            Разберём задачу и подскажем, как быстрее прийти к заявкам: сайт, SEO, реклама, лидогенерация, CRM.
+            Уже на первом разговоре станет понятно, что делать дальше и в каком порядке.
+          </p>
+
+          <div class="actions">
+            <!-- Замените #calc на реальную форму/квиз -->
+            <a class="btn primary" href="#calc">Оставить заявку</a>
+
+            <a class="btn secondary" href="https://t.me/anton84w" target="_blank" rel="noopener">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path fill="currentColor" d="M9.993 15.47 9.84 19.2c.428 0 .614-.184.837-.404l2.01-1.92 4.17 3.05c.764.42 1.305.2 1.5-.707l2.72-12.76h.001c.23-1.07-.386-1.49-1.13-1.21L2.63 9.2c-1.03.4-1.016.97-.176 1.23l4.8 1.5 11.15-7.02c.525-.35 1.003-.16.61.19l-9.02 8.37Z"/>
+              </svg>
+              Написать в Telegram
+            </a>
+          </div>
+
+          <div class="micro">
+            Можно коротко: ниша + ссылка на сайт (если есть) + цель (заявки/продажи/трафик/упаковка).
+          </div>
+        </div>
+
+        <aside class="right">
+          <div class="profile">
+            <div class="badge"><span class="ping"></span>На связи</div>
+
+            <div class="avatar-wrap">
+              <!-- Вставьте свою фотографию: замените anton-photo.jpg на реальный путь -->
+              <img class="avatar" src="anton-photo.jpg" alt="Антон Власенко" />
+            </div>
+
+            <div class="name">Антон Власенко</div>
+            <div class="role">Руководитель Venner Digital</div>
+          </div>
+        </aside>
+
+      </div>
+    </section>
+  </div>
+</body>
+</html>
+

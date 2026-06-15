@@ -1,0 +1,728 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Хостинг для сайтов - выделенный VDS с поддержкой под ключ | Venner Digital</title>
+  <meta name="description" content="Хостинг для клиентов Venner Digital: выделенный VDS, панель управления, SSL, бэкапы, защита и администрирование. От 650 руб/мес. Оплата раз в год, перерасчет при переносе." />
+
+  <style>
+    :root{
+      --bg1:#27e3c8;
+      --bg2:#04b8ff;
+      --ink:#0b1320;
+      --muted:#50607a;
+      --card:#ffffff;
+      --stroke:rgba(11,19,32,.10);
+      --stroke2:rgba(255,255,255,.35);
+      --shadow: 0 16px 50px rgba(0,0,0,.10);
+      --shadow2: 0 10px 30px rgba(0,0,0,.08);
+      --radius:24px;
+      --radius2:18px;
+      --accent:#ff5c5c;
+      --accent2:#1fe3a7;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--ink);
+      background:
+        radial-gradient(900px 600px at 65% 15%, rgba(255,255,255,.70), rgba(255,255,255,0) 55%),
+        linear-gradient(135deg, var(--bg1), var(--bg2));
+      min-height:100vh;
+    }
+    a{color:inherit; text-decoration:none}
+    .wrap{max-width:1200px; margin:0 auto; padding:28px 20px 70px}
+
+    .topline{
+      display:flex; gap:12px; align-items:center; justify-content:space-between;
+      padding:14px 16px;
+      border:1px solid var(--stroke2);
+      background:rgba(255,255,255,.22);
+      border-radius:999px;
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow2);
+    }
+    .brand{display:flex; gap:10px; align-items:center; font-weight:900; letter-spacing:.2px; white-space:nowrap;}
+    .brand-badge{
+      width:38px; height:38px; border-radius:14px;
+      background:rgba(255,255,255,.75);
+      border:1px solid rgba(0,0,0,.06);
+      display:grid; place-items:center;
+      box-shadow: 0 10px 20px rgba(0,0,0,.08);
+      font-weight:950;
+      color:#ff2d2d;
+    }
+    .nav{display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:center;}
+    .nav a{
+      padding:9px 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.35);
+      background:rgba(255,255,255,.12);
+      font-weight:700;
+      color:rgba(11,19,32,.85);
+      transition:.2s;
+    }
+    .nav a:hover{transform: translateY(-1px); background:rgba(255,255,255,.18)}
+    .contacts{display:flex; gap:10px; align-items:center; justify-content:flex-end; flex-wrap:wrap;}
+    .pill{
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.45);
+      background:rgba(255,255,255,.22);
+      font-weight:850;
+      color:rgba(11,19,32,.92);
+      display:inline-flex; gap:8px; align-items:center;
+      white-space:nowrap;
+    }
+    .btn{
+      padding:12px 16px;
+      border-radius:999px;
+      border:1px solid rgba(0,0,0,.08);
+      background:rgba(255,255,255,.85);
+      font-weight:900;
+      box-shadow: 0 14px 30px rgba(0,0,0,.12);
+      transition:.2s;
+      display:inline-flex; gap:10px; align-items:center;
+      cursor:pointer;
+    }
+    .btn:hover{transform: translateY(-1px)}
+    .btn-accent{
+      background: linear-gradient(135deg, #ff7a7a, #ff4b4b);
+      color:#fff;
+      border:0;
+    }
+
+    .hero{
+      margin-top:22px;
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap:18px;
+      align-items:stretch;
+    }
+    .hero-card{
+      background: rgba(255,255,255,.70);
+      border:1px solid rgba(0,0,0,.06);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding:28px;
+      position:relative;
+      overflow:hidden;
+    }
+    .hero-card:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(500px 260px at 90% 15%, rgba(255,255,255,.95), rgba(255,255,255,0) 55%),
+        radial-gradient(500px 260px at 20% 90%, rgba(255,255,255,.65), rgba(255,255,255,0) 60%);
+      pointer-events:none;
+    }
+    .hero-inner{position:relative; z-index:1}
+    .crumbs{font-size:13px; color:rgba(11,19,32,.55); margin-bottom:12px;}
+    .crumbs a{color:rgba(11,19,32,.65); font-weight:850}
+
+    h1{margin:0 0 10px; font-size:46px; line-height:1.06; letter-spacing:-.6px;}
+    .sub{
+      margin:0 0 16px;
+      font-size:16px;
+      line-height:1.55;
+      color:rgba(11,19,32,.78);
+      max-width:760px;
+    }
+    .sub a{ text-decoration: underline; font-weight:900; }
+    .price-line{display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin:14px 0 18px;}
+    .bigprice{font-size:34px; font-weight:950; color:#ff4b4b; letter-spacing:-.3px;}
+    .note{
+      padding:10px 12px;
+      border-radius:14px;
+      background: rgba(255,255,255,.55);
+      border:1px solid rgba(0,0,0,.06);
+      color:rgba(11,19,32,.72);
+      font-weight:700;
+    }
+    .hero-actions{display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top:14px;}
+    .anchors{margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;}
+    .anchor{
+      padding:9px 12px;
+      border-radius:999px;
+      border:1px dashed rgba(0,0,0,.18);
+      background: rgba(255,255,255,.50);
+      font-weight:900;
+      color:rgba(11,19,32,.72);
+    }
+
+    .hero-side{
+      background: rgba(255,255,255,.18);
+      border:1px solid rgba(255,255,255,.35);
+      border-radius: var(--radius);
+      padding:18px;
+      box-shadow: var(--shadow2);
+      backdrop-filter: blur(10px);
+    }
+    .hero-side .card{
+      background: rgba(255,255,255,.82);
+      border:1px solid rgba(0,0,0,.06);
+      border-radius: 18px;
+      padding:16px;
+      box-shadow: var(--shadow2);
+    }
+    .muted{color:rgba(11,19,32,.62); font-size:14px; line-height:1.55;}
+
+    .kpi{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+      margin-top:12px;
+    }
+    .kpi .k{
+      background: rgba(255,255,255,.70);
+      border:1px solid rgba(0,0,0,.06);
+      border-radius:18px;
+      padding:14px;
+      box-shadow: var(--shadow2);
+    }
+    .k strong{display:block; font-size:16px; font-weight:950;}
+    .k span{display:block; margin-top:6px; font-size:13px; color:rgba(11,19,32,.68); line-height:1.35}
+
+    .section{
+      margin-top:18px;
+      background: rgba(255,255,255,.72);
+      border:1px solid rgba(0,0,0,.06);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding:26px;
+      overflow:hidden;
+    }
+    .section h2{margin:0 0 10px; font-size:34px; letter-spacing:-.4px;}
+    .lead{margin:0 0 18px; color:rgba(11,19,32,.74); line-height:1.55; max-width:980px;}
+
+    .grid3{display:grid; grid-template-columns: repeat(3, 1fr); gap:14px}
+    .grid2{display:grid; grid-template-columns: 1fr 1fr; gap:14px}
+
+    .box{
+      background: rgba(255,255,255,.82);
+      border:1px solid rgba(0,0,0,.06);
+      border-radius: 20px;
+      padding:18px;
+      box-shadow: var(--shadow2);
+      min-height:118px;
+    }
+    .box .ttl{
+      display:flex; align-items:center; gap:10px;
+      font-weight:950;
+      letter-spacing:-.2px;
+      margin-bottom:8px;
+      font-size:16px;
+    }
+    .ic{
+      width:38px; height:38px; border-radius:14px;
+      background: rgba(31,227,167,.20);
+      border:1px solid rgba(31,227,167,.35);
+      display:grid; place-items:center;
+      font-weight:950;
+      color:#0d8a68;
+    }
+    .box p{margin:0; color:rgba(11,19,32,.72); line-height:1.5; font-size:14px;}
+    .mini-links{display:flex; gap:10px; flex-wrap:wrap; margin-top:14px;}
+    .mini-links a{
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid rgba(0,0,0,.08);
+      background: rgba(255,255,255,.70);
+      font-weight:900;
+      color:rgba(11,19,32,.80);
+      transition:.2s;
+    }
+    .mini-links a:hover{transform: translateY(-1px)}
+
+    .tabs{
+      margin-top:12px;
+      background: rgba(255,255,255,.55);
+      border:1px solid rgba(0,0,0,.06);
+      border-radius: 22px;
+      padding:12px;
+    }
+    .tabbar{display:flex; gap:8px; flex-wrap:wrap; padding:6px;}
+    .tabbtn{
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid rgba(0,0,0,.08);
+      background: rgba(255,255,255,.70);
+      font-weight:950;
+      color:rgba(11,19,32,.78);
+      cursor:pointer;
+      transition:.2s;
+    }
+    .tabbtn.active{
+      background: linear-gradient(135deg, rgba(31,227,167,.85), rgba(4,184,255,.70));
+      border:1px solid rgba(0,0,0,.05);
+      color:#053b31;
+    }
+    .tabpanes{padding:10px 8px 6px}
+    .pane{display:none}
+    .pane.active{display:block}
+    .pane .cols{display:grid; grid-template-columns: 1.1fr .9fr; gap:14px; align-items:stretch;}
+
+    .accordion{margin-top:10px}
+    .acc{
+      border-radius:18px;
+      border:1px solid rgba(0,0,0,.08);
+      background: rgba(255,255,255,.80);
+      box-shadow: var(--shadow2);
+      overflow:hidden;
+      margin-bottom:10px;
+    }
+    .acc button{
+      width:100%;
+      text-align:left;
+      padding:14px 16px;
+      border:0;
+      background:transparent;
+      cursor:pointer;
+      font-weight:950;
+      color:rgba(11,19,32,.82);
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px;
+    }
+    .acc .content{
+      padding:0 16px 14px;
+      color:rgba(11,19,32,.74);
+      line-height:1.55;
+      font-size:14px;
+      display:none;
+    }
+    .acc.open .content{display:block}
+    .chev{
+      width:34px; height:34px; border-radius:14px;
+      display:grid; place-items:center;
+      border:1px solid rgba(0,0,0,.08);
+      background: rgba(255,255,255,.70);
+      font-weight:950;
+    }
+
+    .cta{
+      margin-top:18px;
+      display:flex; gap:12px; align-items:center; justify-content:space-between;
+      padding:18px 18px;
+      border-radius: var(--radius);
+      background: rgba(11,19,32,.86);
+      color:#fff;
+      border:1px solid rgba(255,255,255,.10);
+      box-shadow: var(--shadow);
+      flex-wrap:wrap;
+    }
+    .cta strong{font-size:18px; font-weight:950;}
+    .cta span{color:rgba(255,255,255,.80); display:block; margin-top:6px; line-height:1.45}
+    .cta .actions{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
+    .cta .ghost{
+      background: rgba(255,255,255,.12);
+      border:1px solid rgba(255,255,255,.22);
+      color:#fff;
+      box-shadow:none;
+    }
+
+    @media (max-width: 980px){
+      .hero{grid-template-columns:1fr}
+      h1{font-size:38px}
+      .grid3{grid-template-columns:1fr}
+      .grid2{grid-template-columns:1fr}
+      .topline{border-radius:22px}
+      .nav{display:none}
+      .pane .cols{grid-template-columns:1fr}
+      .kpi{grid-template-columns:1fr}
+    }
+    @media (max-width: 520px){
+      h1{font-size:34px}
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="topline">
+      <div class="brand">
+        <div class="brand-badge">V</div>
+        <div>Venner Digital</div>
+      </div>
+
+      <div class="nav" aria-label="Навигация">
+        <a href="/sozdanie-saytov/">Разработка сайтов</a>
+        <a href="/yandex-direct/">Контекстная реклама</a>
+        <a href="/seo/">SEO услуги</a>
+        <a href="/lidogeneraciya/">Лидогенерация</a>
+        <a href="/crm-integracii/">CRM и интеграции</a>
+      </div>
+
+      <div class="contacts">
+        <a class="pill" href="tel:+79528070601">📞 8 (952) 807-06-01</a>
+        <a class="btn" href="/kontakty/">Связаться</a>
+      </div>
+    </div>
+
+    <div class="hero" id="top">
+      <section class="hero-card">
+        <div class="hero-inner">
+          <div class="crumbs">
+            <a href="/">Главная</a> / <a href="/hosting/">Хостинг</a>
+          </div>
+
+          <h1>Хостинг для сайтов.<br>Выделенный VDS с поддержкой</h1>
+
+          <p class="sub">
+            Мы размещаем сайты на своих VDS-серверах и берём администрирование на себя.
+            Хостинг у нас - это часть комплексной работы с клиентами:
+            <a href="/sozdanie-saytov/">разработка сайта</a>,
+            поддержка, доработки, <a href="/seo/">SEO</a>,
+            <a href="/yandex-direct/">контекст</a>.
+          </p>
+
+          <div class="price-line">
+            <div class="bigprice">от 650 ₽/мес</div>
+            <div class="note">Стоимость зависит от нагрузки и состава проектов.</div>
+          </div>
+
+          <div class="hero-actions">
+            <a class="btn btn-accent" href="/zakaz-uslugi/">Обсудить размещение</a>
+            <a class="btn" href="#yearpay">Оплата раз в год</a>
+            <a class="btn" href="#control">Изоляция и доступы</a>
+          </div>
+
+          <div class="anchors" aria-label="Якоря по странице">
+            <a class="anchor" href="#forwho">Кому подходит</a>
+            <a class="anchor" href="#included">Что входит</a>
+            <a class="anchor" href="#control">Выделенный VDS</a>
+            <a class="anchor" href="#yearpay">Оплата и перерасчет</a>
+            <a class="anchor" href="#faq">Вопросы</a>
+          </div>
+        </div>
+      </section>
+
+      <aside class="hero-side">
+        <div class="card">
+          <div style="font-weight:950; font-size:16px; letter-spacing:-.2px;">Суть услуги</div>
+          <div class="muted" style="margin-top:8px;">
+            Клиент получает выделенный VDS, видит только свои проекты и пользуется полноценной админ-панелью.
+            Мы обновляем, поддерживаем, переносим и устраняем технические ошибки без доп. счетов за "админа".
+          </div>
+
+          <div class="kpi">
+            <div class="k">
+              <strong>Выделенный VDS</strong>
+              <span>Изоляция от других проектов и прозрачные доступы только к вашим сайтам.</span>
+            </div>
+            <div class="k">
+              <strong>Администрирование</strong>
+              <span>Обновления, исправления, переносы и контроль - делаем мы.</span>
+            </div>
+            <div class="k">
+              <strong>Бэкапы</strong>
+              <span>Регулярные резервные копии и быстрый откат при сбоях.</span>
+            </div>
+            <div class="k">
+              <strong>SSL и безопасность</strong>
+              <span>SSL Let’s Encrypt, базовая защита и сопровождение.</span>
+            </div>
+          </div>
+
+          <div class="mini-links">
+            <a href="/sozdanie-saytov/">Заказать сайт</a>
+            <a href="/seo/">SEO</a>
+            <a href="/crm-integracii/">CRM</a>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <section class="section" id="forwho">
+      <h2>Кому подходит.</h2>
+      <p class="lead">
+        Это решение для клиентов, которым важно, чтобы сайт был в надежном месте, а ответственность за инфраструктуру была у одной команды.
+        Без "третьих лиц", без поиска администратора и без рисков, что что-то сломалось - и непонятно, кто должен чинить.
+      </p>
+
+      <div class="grid3">
+        <div class="box">
+          <div class="ttl"><span class="ic">🧩</span>Комплексным проектам</div>
+          <p>Когда сайт развивается: доработки, контент, интеграции, реклама, SEO. Мы держим инфраструктуру под рост.</p>
+        </div>
+        <div class="box">
+          <div class="ttl"><span class="ic">🛡️</span>Тем, кому важна стабильность</div>
+          <p>SSL, бэкапы, защита, контроль, обновления. Всё по умолчанию, а не "доп. опцией".</p>
+        </div>
+        <div class="box">
+          <div class="ttl"><span class="ic">⚡</span>Бизнесу, где заявки важны</div>
+          <p>Сайт связан с лидами, CRM, рекламой. Тут важнее не "дешевле", а "чтобы работало всегда".</p>
+        </div>
+      </div>
+
+      <p class="muted" style="margin:14px 0 0;">
+        Важно: как отдельную услугу хостинг мы не продаём. Размещение доступно только для нашей клиентской базы - так мы сохраняем качество сопровождения и ответственность за результат.
+      </p>
+    </section>
+
+    <section class="section" id="included">
+      <h2>Что входит в хостинг.</h2>
+      <p class="lead">
+        Это не просто "место на сервере". Это выделенный VDS + администрирование и сопровождение.
+        Клиент получает доступ к панели и своим проектам, а всё техническое обслуживание остаётся на нас.
+      </p>
+
+      <div class="grid3">
+        <div class="box">
+          <div class="ttl"><span class="ic">🖥️</span>Выделенный VDS</div>
+          <p>Изолированный сервер под ваши сайты. Вы видите только свои проекты и окружение.</p>
+        </div>
+        <div class="box">
+          <div class="ttl"><span class="ic">🧰</span>Панель управления</div>
+          <p>Полноценная административная панель VDS: сайты, домены, SSL, базы, доступы, резервные копии.</p>
+        </div>
+        <div class="box">
+          <div class="ttl"><span class="ic">🔐</span>SSL и безопасность</div>
+          <p>Let’s Encrypt, базовые настройки защиты, контроль и сопровождение.</p>
+        </div>
+
+        <div class="box">
+          <div class="ttl"><span class="ic">💾</span>Автобэкапы</div>
+          <p>Регулярные резервные копии и быстрый откат при ошибках или сбоях.</p>
+        </div>
+        <div class="box">
+          <div class="ttl"><span class="ic">🧪</span>PHP и базы</div>
+          <p>Поддержка PHP и баз данных, настройка окружения под ваши задачи и CMS.</p>
+        </div>
+        <div class="box">
+          <div class="ttl"><span class="ic">🧯</span>Администрирование включено</div>
+          <p>Обновляем, следим, исправляем технические ошибки, переносим сайты и переезжаем на новые сервера без доп. оплат.</p>
+        </div>
+      </div>
+
+      <div class="mini-links">
+        <a href="/sozdanie-saytov/tekhnicheskij-audit-sayta/">Технический аудит сайта</a>
+        <a href="/zakaz-uslugi/">Заказать услугу</a>
+        <a href="#control">Доступы и изоляция</a>
+      </div>
+    </section>
+
+    <section class="section" id="control">
+      <h2>Выделенный VDS - только ваши проекты.</h2>
+      <p class="lead">
+        Одна из ключевых специфик: клиент получает выделенный VDS-сервер, изолированный от других проектов.
+        Вы видите исключительно свои сайты и получаете полноценный функционал управления VDS.
+      </p>
+
+      <div class="tabs" role="tablist" aria-label="Табы VDS">
+        <div class="tabbar">
+          <button class="tabbtn active" type="button" data-tab="t1">Что видит клиент</button>
+          <button class="tabbtn" type="button" data-tab="t2">Что делаем мы</button>
+          <button class="tabbtn" type="button" data-tab="t3">Почему не продаём отдельно</button>
+        </div>
+
+        <div class="tabpanes">
+          <div class="pane active" id="t1" role="tabpanel">
+            <div class="cols">
+              <div class="box">
+                <div class="ttl"><span class="ic">👤</span>Только ваши проекты</div>
+                <p>
+                  На сервере нет "чужих" сайтов. Нет риска, что соседняя нагрузка повлияет на скорость или стабильность.
+                  Доступы выдаются точечно и прозрачно.
+                </p>
+              </div>
+              <div class="box">
+                <div class="ttl"><span class="ic">🗂️</span>Полная админ-панель</div>
+                <p>
+                  Полноценное управление VDS: домены, сайты, SSL, базы, пользователи, резервные копии, логи.
+                  При необходимости вы можете выгрузить данные и уехать без блокировок.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="pane" id="t2" role="tabpanel">
+            <div class="cols">
+              <div class="box">
+                <div class="ttl"><span class="ic">🔁</span>Обслуживание и переносы</div>
+                <p>
+                  Мы сами обновляем сервер, следим за стабильностью, устраняем технические ошибки.
+                  Периодически переезжаем на новые сервера и переносим сайты - без доп. оплат за сам перенос.
+                </p>
+              </div>
+              <div class="box">
+                <div class="ttl"><span class="ic">🧭</span>Проактивный контроль</div>
+                <p>
+                  Держим инфраструктуру в рабочем состоянии, чтобы сайт не превращался в "источник сюрпризов".
+                  Это особенно важно, если сайт связан с лидами и рекламой.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="pane" id="t3" role="tabpanel">
+            <div class="cols">
+              <div class="box">
+                <div class="ttl"><span class="ic">🧷</span>Ответственность за результат</div>
+                <p>
+                  Мы не берём проекты "просто на хостинг". Нам важно отвечать за стабильность, безопасность и развитие,
+                  а это возможно, когда мы работаем с проектом комплексно.
+                </p>
+              </div>
+              <div class="box">
+                <div class="ttl"><span class="ic">⚠️</span>Не берём "чужие сайты"</div>
+                <p>
+                  Посторонний клиент не может прийти и разместить сайт, который делали не мы, без сопровождения.
+                  Это политика качества: меньше хаоса - больше стабильности.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="yearpay">
+      <h2>Оплата раз в год - и перерасчет при переносе.</h2>
+      <p class="lead">
+        Чтобы не гонять мелкие суммы ежемесячно, не усложнять документооборот и держать стоимость ниже,
+        мы используем годовой платеж. Это удобнее и для клиента, и для нас.
+      </p>
+
+      <div class="grid2">
+        <div class="box">
+          <div class="ttl"><span class="ic">🗓️</span>Как оплачивается</div>
+          <p>
+            В начале периода вы оплачиваете хостинг сразу за год.
+            Например: 650 ₽/мес x 12 месяцев. После оплаты пользуетесь весь год без ежемесячных счетов.
+          </p>
+        </div>
+
+        <div class="box">
+          <div class="ttl"><span class="ic">✅</span>Перерасчет без рисков</div>
+          <p>
+            Если вы решите перенести сайт на другой сервер - сделаем перерасчёт.
+            Пользовались полгода - вернём остаток за второе полугодие по графику.
+          </p>
+        </div>
+      </div>
+
+      <p class="muted" style="margin-top:14px;">
+        Годовая модель оплаты уменьшает бюрократию и нагрузку на документы - это одна из причин, почему итоговая стоимость для клиента остаётся адекватной.
+      </p>
+
+      <div class="mini-links">
+        <a href="/zakaz-uslugi/">Оставить заявку</a>
+        <a href="/kontakty/">Контакты</a>
+        <a href="#faq">Вопросы</a>
+      </div>
+    </section>
+
+    <section class="section" id="faq">
+      <h2>Частые вопросы.</h2>
+      <p class="lead">Короткие ответы, чтобы снять сомнения до старта.</p>
+
+      <div class="accordion" aria-label="Аккордеон вопросов">
+        <div class="acc">
+          <button type="button">
+            <span>Можно ли купить у вас только хостинг без остальных услуг?</span>
+            <span class="chev">+</span>
+          </button>
+          <div class="content">
+            Обычно нет. Мы предоставляем хостинг как часть комплексной работы с клиентской базой.
+            Так мы отвечаем за стабильность и не превращаем проект в "кто виноват - хостер, разработчик или админ".
+          </div>
+        </div>
+
+        <div class="acc">
+          <button type="button">
+            <span>Кто администрирует VDS?</span>
+            <span class="chev">+</span>
+          </button>
+          <div class="content">
+            Мы. Обновления, сопровождение, устранение технических ошибок, переносы на новые сервера - всё делаем сами.
+            Клиенту не нужно вмешиваться и "следить за сервером".
+          </div>
+        </div>
+
+        <div class="acc">
+          <button type="button">
+            <span>Почему оплата раз в год?</span>
+            <span class="chev">+</span>
+          </button>
+          <div class="content">
+            Это снижает бюрократию: меньше мелких платежей, закрывающих документов и лишних операций.
+            При переносе делаем перерасчет и возвращаем неиспользованный остаток.
+          </div>
+        </div>
+
+        <div class="acc">
+          <button type="button">
+            <span>Где находятся серверы?</span>
+            <span class="chev">+</span>
+          </button>
+          <div class="content">
+            Мы арендуем VDS в Москве у FirstVDS и распределяем проекты между серверами для стабильности и контроля нагрузки.
+          </div>
+        </div>
+
+        <div class="acc">
+          <button type="button">
+            <span>Можно ли разместить Bitrix?</span>
+            <span class="chev">+</span>
+          </button>
+          <div class="content">
+            Проекты на 1C-Битрикс обычно размещаются на отдельном сервере под требования проекта. Это обсуждается отдельно.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="cta" id="cta">
+      <div>
+        <strong>Нужен выделенный VDS и чтобы всё работало без сюрпризов?</strong>
+        <span>
+          Напишите нам - оценим проект, нагрузку и предложим вариант по цене.
+          Если вы заказываете <a href="/sozdanie-saytov/" style="text-decoration:underline; font-weight:950; color:#fff;">сайт под ключ</a> - первые 6 месяцев хостинга для новых клиентов можно включить бонусом.
+        </span>
+      </div>
+      <div class="actions">
+        <a class="btn btn-accent" href="/zakaz-uslugi/">Оставить заявку</a>
+        <a class="btn ghost" href="/kontakty/">Контакты</a>
+        <a class="btn ghost" href="https://firstvds.ru/" target="_blank" rel="noopener">Подробнее о FirstVDS</a>
+      </div>
+    </div>
+
+    <p class="muted" style="margin:16px 6px 0;">
+      Перелинковка: <a href="/sozdanie-saytov/" style="text-decoration:underline; font-weight:950;">разработка сайтов</a> -
+      <a href="/seo/" style="text-decoration:underline; font-weight:950;">SEO услуги</a> -
+      <a href="/yandex-direct/" style="text-decoration:underline; font-weight:950;">контекстная реклама</a> -
+      <a href="/crm-integracii/" style="text-decoration:underline; font-weight:950;">CRM и интеграции</a> -
+      <a href="/lidogeneraciya/" style="text-decoration:underline; font-weight:950;">лидогенерация</a>.
+    </p>
+  </div>
+
+  <script>
+    // Tabs
+    const tabBtns = document.querySelectorAll('.tabbtn');
+    const panes = document.querySelectorAll('.pane');
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        tabBtns.forEach(b => b.classList.remove('active'));
+        panes.forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        const target = document.getElementById(btn.dataset.tab);
+        if (target) target.classList.add('active');
+      });
+    });
+
+    // Accordion
+    document.querySelectorAll('.acc').forEach(acc => {
+      const btn = acc.querySelector('button');
+      const chev = acc.querySelector('.chev');
+      btn.addEventListener('click', () => {
+        const open = acc.classList.toggle('open');
+        if (chev) chev.textContent = open ? '−' : '+';
+      });
+    });
+  </script>
+</body>
+</html>
+

@@ -1,0 +1,860 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Сервисы репутации - оформление карточек, отзывы, доверие и лиды</title>
+  <style>
+    :root{
+      --bg:#070b12;
+      --bg2:#0a1220;
+      --card:#0c1627;
+      --card2:#0b1423;
+      --stroke:rgba(255,255,255,.09);
+      --stroke2:rgba(255,255,255,.12);
+      --text:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.68);
+      --muted2:rgba(255,255,255,.55);
+      --accent:#b7ff2a;
+      --accent2:#7dffb6;
+      --warn:#ffd36b;
+      --bad:#ff6b6b;
+      --good:#62ffa8;
+      --shadow: 0 18px 50px rgba(0,0,0,.55);
+      --radius:18px;
+      --radius2:22px;
+      --max:1160px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Liberation Sans", sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 500px at 15% -10%, rgba(183,255,42,.18), transparent 55%),
+        radial-gradient(900px 450px at 85% 10%, rgba(98,255,168,.14), transparent 50%),
+        radial-gradient(700px 350px at 70% 85%, rgba(110,159,255,.10), transparent 55%),
+        linear-gradient(180deg, var(--bg), var(--bg2));
+    }
+
+    a{color:inherit; text-decoration:none}
+    .wrap{max-width:var(--max); margin:0 auto; padding:0 18px}
+    .section{padding:54px 0}
+    .h1{
+      font-size: clamp(30px, 4vw, 48px);
+      line-height:1.08;
+      margin:0 0 14px 0;
+      letter-spacing:-.02em;
+    }
+    .h2{
+      font-size: clamp(22px, 2.6vw, 34px);
+      line-height:1.14;
+      margin:0 0 14px 0;
+      letter-spacing:-.01em;
+    }
+    .h3{
+      font-size:18px;
+      line-height:1.25;
+      margin:0 0 10px 0;
+      letter-spacing:-.01em;
+    }
+    .sub{
+      margin:0;
+      color:var(--muted);
+      font-size:16px;
+      line-height:1.55;
+    }
+
+    .hero{
+      padding:64px 0 22px 0;
+    }
+    .heroGrid{
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap:18px;
+      align-items:stretch;
+    }
+    @media (max-width: 980px){
+      .heroGrid{grid-template-columns:1fr; }
+    }
+
+    .panel{
+      border:1px solid var(--stroke);
+      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.015));
+      border-radius: var(--radius2);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .panelPad{padding:22px}
+    .pillRow{display:flex; flex-wrap:wrap; gap:10px; margin-top:14px}
+    .pill{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.03);
+      color:var(--muted);
+      font-size:13px;
+      line-height:1;
+      white-space:nowrap;
+    }
+    .pill b{color:var(--text); font-weight:650}
+    .dot{
+      width:10px; height:10px; border-radius:50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow: 0 0 0 4px rgba(183,255,42,.12);
+      flex:0 0 auto;
+    }
+
+    .ctaRow{display:flex; flex-wrap:wrap; gap:10px; margin-top:18px}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      padding:12px 14px;
+      border-radius: 12px;
+      border:1px solid var(--stroke2);
+      background: rgba(255,255,255,.03);
+      color:var(--text);
+      font-weight:650;
+      cursor:pointer;
+      user-select:none;
+      transition:.18s ease;
+    }
+    .btn:hover{transform: translateY(-1px); border-color: rgba(255,255,255,.18)}
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(183,255,42,.18), rgba(98,255,168,.12));
+      border-color: rgba(183,255,42,.35);
+    }
+    .btn .arr{opacity:.9}
+
+    .aside{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      height:100%;
+    }
+    .miniCard{
+      border:1px solid var(--stroke);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.03);
+      padding:16px;
+    }
+    .miniTitle{display:flex; align-items:center; gap:10px; margin:0 0 6px 0; font-weight:750}
+    .miniTitle .badge{
+      width:30px; height:30px; border-radius: 10px;
+      display:grid; place-items:center;
+      background: rgba(183,255,42,.12);
+      border:1px solid rgba(183,255,42,.25);
+      color: var(--accent);
+      font-weight:850;
+    }
+    .miniText{margin:0; color:var(--muted); line-height:1.55; font-size:14px}
+
+    .grid{
+      display:grid;
+      gap:14px;
+    }
+    .grid.two{grid-template-columns:1fr 1fr}
+    .grid.three{grid-template-columns:1fr 1fr 1fr}
+    @media (max-width: 980px){
+      .grid.two,.grid.three{grid-template-columns:1fr}
+    }
+
+    .card{
+      border:1px solid var(--stroke);
+      background: linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.02));
+      border-radius: var(--radius);
+      padding:16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.35);
+    }
+    .row{display:flex; gap:12px; align-items:flex-start}
+    .icon{
+      width:40px; height:40px; border-radius: 12px;
+      border:1px solid var(--stroke2);
+      background: rgba(255,255,255,.03);
+      display:grid; place-items:center;
+      font-weight:900;
+      color:rgba(255,255,255,.85);
+      flex:0 0 auto;
+      position:relative;
+      overflow:hidden;
+    }
+    .icon::after{
+      content:"";
+      position:absolute; inset:-30%;
+      background: radial-gradient(circle at 30% 30%, rgba(183,255,42,.22), transparent 45%),
+                  radial-gradient(circle at 80% 80%, rgba(98,255,168,.18), transparent 45%);
+      transform: rotate(10deg);
+    }
+    .icon span{position:relative; z-index:1}
+    .card h3{margin:0 0 8px 0; font-size:16px; letter-spacing:-.01em}
+    .card p{margin:0; color:var(--muted); line-height:1.6; font-size:14px}
+
+    .hint{
+      margin-top:14px;
+      border:1px dashed rgba(255,255,255,.16);
+      border-radius: var(--radius);
+      padding:14px 16px;
+      color:var(--muted);
+      background: rgba(255,255,255,.02);
+    }
+    .hint b{color:var(--text)}
+    .links{display:flex; flex-wrap:wrap; gap:10px}
+    .alink{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:10px 12px;
+      border-radius: 999px;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.02);
+      color:var(--muted);
+      font-size:13px;
+      line-height:1;
+      transition:.18s ease;
+    }
+    .alink:hover{border-color: rgba(183,255,42,.28); color:var(--text); transform:translateY(-1px)}
+    .alink .s{opacity:.85}
+
+    /* Tabs */
+    .tabs{
+      border:1px solid var(--stroke);
+      border-radius: var(--radius2);
+      background: rgba(255,255,255,.02);
+      overflow:hidden;
+      box-shadow: var(--shadow);
+    }
+    .tabBar{
+      display:flex; flex-wrap:wrap;
+      gap:10px;
+      padding:14px;
+      border-bottom:1px solid var(--stroke);
+      background: rgba(0,0,0,.20);
+    }
+    .tabBtn{
+      appearance:none;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.02);
+      color: var(--muted);
+      padding:10px 12px;
+      border-radius: 999px;
+      font-weight:700;
+      cursor:pointer;
+      transition:.18s ease;
+      font-size:13px;
+      line-height:1;
+    }
+    .tabBtn:hover{transform: translateY(-1px); border-color: rgba(255,255,255,.18); color:var(--text)}
+    .tabBtn.active{
+      color: var(--text);
+      border-color: rgba(183,255,42,.35);
+      background: linear-gradient(135deg, rgba(183,255,42,.18), rgba(98,255,168,.10));
+    }
+    .tabPane{display:none; padding:16px}
+    .tabPane.active{display:block}
+
+    .list{margin:10px 0 0 0; padding:0; list-style:none; display:grid; gap:10px}
+    .li{display:flex; gap:10px; align-items:flex-start}
+    .tick{
+      width:26px; height:26px; border-radius: 10px;
+      display:grid; place-items:center;
+      background: rgba(98,255,168,.10);
+      border:1px solid rgba(98,255,168,.24);
+      color: var(--good);
+      font-weight:950;
+      flex:0 0 auto;
+    }
+    .li b{color:var(--text)}
+    .li span{display:block; color:var(--muted2); margin-top:2px; line-height:1.45; font-size:13px}
+
+    .mini{
+      display:flex; gap:12px; align-items:flex-start;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.02);
+      border-radius: var(--radius);
+      padding:12px 14px;
+    }
+    .mini .icon{width:34px; height:34px; border-radius: 11px}
+    .mini b{display:block; color:var(--text)}
+    .mini span{display:block; color:var(--muted2); margin-top:2px; line-height:1.45; font-size:13px}
+
+    /* Comparison */
+    .compare{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:14px;
+    }
+    @media (max-width: 980px){ .compare{grid-template-columns:1fr} }
+    .cmpHead{
+      display:flex; align-items:center; gap:10px;
+      margin:0 0 10px 0;
+      font-weight:900;
+      letter-spacing:-.01em;
+    }
+    .cmpTag{
+      padding:6px 10px;
+      border-radius: 999px;
+      font-size:12px;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.02);
+      color:var(--muted);
+    }
+    .cmpTag.bad{border-color: rgba(255,107,107,.35); color: rgba(255,107,107,.95); background: rgba(255,107,107,.08)}
+    .cmpTag.good{border-color: rgba(98,255,168,.35); color: rgba(98,255,168,.95); background: rgba(98,255,168,.08)}
+    .cmpList{margin:0; padding-left:18px; color:var(--muted); line-height:1.6}
+    .cmpList li{margin:6px 0}
+
+    /* Accordion */
+    .acc{
+      border:1px solid var(--stroke);
+      border-radius: var(--radius2);
+      overflow:hidden;
+      background: rgba(255,255,255,.02);
+      box-shadow: var(--shadow);
+    }
+    .accItem{border-top:1px solid var(--stroke)}
+    .accItem:first-child{border-top:none}
+    .accBtn{
+      width:100%;
+      text-align:left;
+      border:0;
+      background: transparent;
+      color: var(--text);
+      padding:14px 16px;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      font-weight:850;
+      letter-spacing:-.01em;
+    }
+    .accBtn span{color:var(--muted2); font-weight:650}
+    .chev{
+      width:34px; height:34px; border-radius: 12px;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.02);
+      display:grid; place-items:center;
+      color:var(--muted);
+      transition:.18s ease;
+      flex:0 0 auto;
+    }
+    .accItem.open .chev{transform: rotate(180deg); border-color: rgba(183,255,42,.25); color:var(--text)}
+    .accBody{
+      display:none;
+      padding:0 16px 14px 16px;
+      color:var(--muted);
+      line-height:1.65;
+      font-size:14px;
+    }
+    .accItem.open .accBody{display:block}
+
+    .footLinks{
+      display:flex; flex-wrap:wrap; gap:10px;
+      margin-top:14px;
+    }
+
+    .hr{
+      height:1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.14), transparent);
+      margin:18px 0;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="heroGrid">
+        <div class="panel">
+          <div class="panelPad">
+            <h1 class="h1">Сервисы репутации - доверие, трафик и лиды из карт и справочников</h1>
+            <p class="sub">
+              Репутация - это не "красивые звезды". Это то, что видит клиент до звонка: карточка компании, фото, прайс, отзывы и ваши ответы.
+              Если карточки заполнены и поддерживаются в порядке - вы получаете бесплатный трафик, выше конверсию и меньше потерь на этапе выбора.
+            </p>
+
+            <div class="pillRow">
+              <div class="pill"><span class="dot"></span><b>Оформляем карточки</b> - единый стандарт данных</div>
+              <div class="pill"><span class="dot"></span><b>Заполняем услуги и прайс</b> - понятно "за что платят"</div>
+              <div class="pill"><span class="dot"></span><b>Контроль отзывов</b> - ответы без шаблонов</div>
+              <div class="pill"><span class="dot"></span><b>Связка с сайтом</b> - MyReviews + SEO</div>
+            </div>
+
+            <div class="ctaRow">
+              <a class="btn primary" href="#platforms"><span class="arr">→</span>С какими площадками работаем</a>
+              <a class="btn" href="#whatwedo"><span class="arr">→</span>Что делаем пошагово</a>
+              <a class="btn" href="#faq"><span class="arr">→</span>FAQ</a>
+            </div>
+
+            <div class="hint">
+              <b>Важно.</b> Мы не покупаем и не накручиваем отзывы. Ставка - на оформление, стандарты, контент и выстроенный процесс получения честной обратной связи.
+            </div>
+          </div>
+        </div>
+
+        <div class="aside">
+          <div class="miniCard">
+            <div class="miniTitle"><span class="badge">1</span> Бесплатный трафик</div>
+            <p class="miniText">Карты и справочники дают посещения сами по себе - если карточка заполнена и выглядит живой.</p>
+          </div>
+          <div class="miniCard">
+            <div class="miniTitle"><span class="badge">2</span> Конверсия выше</div>
+            <p class="miniText">Сильная репутация снижает сомнения. Клиент реже уходит сравнивать конкурентов "со звездами повыше".</p>
+          </div>
+          <div class="miniCard">
+            <div class="miniTitle"><span class="badge">3</span> SEO помогает</div>
+            <p class="miniText">Отзывы и доверие повышают поведенческие факторы - время на сайте, глубину просмотра и повторные визиты.</p>
+          </div>
+          <div class="miniCard">
+            <div class="miniTitle"><span class="badge">4</span> Связка с CRM</div>
+            <p class="miniText">Отзывы и карточки можно превратить в системный канал лидов, если заявки и обращения приходят в CRM.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY -->
+  <section class="section">
+    <div class="wrap">
+      <h2 class="h2">Почему сервисы репутации дают деньги, а не только "имидж"</h2>
+      <div class="grid three" style="margin-top:14px">
+        <div class="card">
+          <div class="row">
+            <div class="icon"><span>↗</span></div>
+            <div>
+              <h3>Рост входящих обращений</h3>
+              <p>Карточка в картах - это мини-сайт: фото, прайс, отзывы, кнопки "позвонить" и "построить маршрут".</p>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="row">
+            <div class="icon"><span>★</span></div>
+            <div>
+              <h3>Доверие до первого контакта</h3>
+              <p>Клиент сравнивает 3-5 вариантов. Оценка, свежие отзывы и ответы решают быстрее, чем баннеры.</p>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="row">
+            <div class="icon"><span>⏱</span></div>
+            <div>
+              <h3>Экономия на рекламе</h3>
+              <p>Чем выше доверие - тем дешевле лид. В рекламе растет конверсия, а в SEO - улучшается поведение.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hr"></div>
+
+      <div class="links">
+        <a class="alink" href="/lidogeneraciya/myreviews/"><span class="s">↗</span>MyReviews - отзывы на сайт</a>
+        <a class="alink" href="/seo/serm-reputaciya/"><span class="s">↗</span>Репутация в SEO</a>
+        <a class="alink" href="/lidogeneraciya/"><span class="s">↗</span>Лидогенерация</a>
+        <a class="alink" href="/crm-integracii/"><span class="s">↗</span>CRM и интеграции</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PLATFORMS + TABS -->
+  <section class="section" id="platforms">
+    <div class="wrap">
+      <h2 class="h2">С какими площадками работаем плотно.</h2>
+      <p class="sub">Фокусируемся на площадках, которые дают бизнесу максимум: видимость, доверие, трафик и понятную механику роста.</p>
+
+      <!-- Cards -->
+      <div class="grid three" style="margin-top:16px">
+        <div class="card">
+          <div class="row">
+            <div class="icon"><span>Y</span></div>
+            <div>
+              <h3>Яндекс Бизнес - карточка в Яндекс.Картах</h3>
+              <p>Заполнение профиля, услуги и прайс, фото, новости, ответы на отзывы, рост доверия и заявок.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="row">
+            <div class="icon"><span>G</span></div>
+            <div>
+              <h3>Google Business Profile - карточка в Google Maps</h3>
+              <p>Категории, описание, фото, посты, вопросы-ответы, отзывы и ссылки на сайт.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="row">
+            <div class="icon"><span>2</span></div>
+            <div>
+              <h3>2GIS</h3>
+              <p>Карточка компании, фото, контакты, каталог услуг, отзывы - сильная точка доверия в городах.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="row">
+            <div class="icon"><span>F</span></div>
+            <div>
+              <h3>Flamp</h3>
+              <p>Отзывы и репутация, обратная связь, укрепление доверия и "соцдоказательство".</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="row">
+            <div class="icon"><span>Z</span></div>
+            <div>
+              <h3>Zoon</h3>
+              <p>Карточка услуг, фото, описания, отзывы, лиды из каталога - часто отлично работает для услуг.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="row">
+            <div class="icon"><span>Ye</span></div>
+            <div>
+              <h3>Yell</h3>
+              <p>Российский справочник компаний и отзывов. Дополнительная точка доверия и присутствия в сети.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tabs -->
+      <div class="tabs" style="margin-top:16px" data-tabs>
+        <div class="tabBar" role="tablist" aria-label="Площадки репутации">
+          <button class="tabBtn active" type="button" role="tab" aria-selected="true" data-tab="t-yandex">Яндекс Бизнес</button>
+          <button class="tabBtn" type="button" role="tab" aria-selected="false" data-tab="t-google">Google Business Profile</button>
+          <button class="tabBtn" type="button" role="tab" aria-selected="false" data-tab="t-2gis">2GIS</button>
+          <button class="tabBtn" type="button" role="tab" aria-selected="false" data-tab="t-flamp">Flamp</button>
+          <button class="tabBtn" type="button" role="tab" aria-selected="false" data-tab="t-zoon">Zoon</button>
+          <button class="tabBtn" type="button" role="tab" aria-selected="false" data-tab="t-yell">Yell</button>
+        </div>
+
+        <div class="tabPane active" id="t-yandex" role="tabpanel">
+          <div class="grid two">
+            <div class="card">
+              <h3 class="h3">Что важно в Яндекс Бизнес</h3>
+              <ul class="list">
+                <li class="li"><div class="tick">✓</div><div><b>Услуги и прайс</b><span>Чтобы человек сразу понял, что вы делаете и какие ориентиры по стоимости.</span></div></li>
+                <li class="li"><div class="tick">✓</div><div><b>Фото и витрина</b><span>Фото решают доверие быстрее текста. В идеале - регулярные обновления.</span></div></li>
+                <li class="li"><div class="tick">✓</div><div><b>Новости и активность</b><span>Карточка выглядит "живой", и это влияет на кликабельность и выбор.</span></div></li>
+                <li class="li"><div class="tick">✓</div><div><b>Отзывы + ответы</b><span>Ваши ответы читают будущие клиенты. Это часть продаж.</span></div></li>
+              </ul>
+            </div>
+            <div class="card">
+              <h3 class="h3">Что обычно делаем мы</h3>
+              <p>Приводим карточку к единому стандарту: данные, категории, описание, ссылки, услуги и прайс, фото, новости. Настраиваем контроль отзывов и правила ответов. При необходимости подключаем MyReviews и выводим отзывы на сайт.</p>
+              <div class="links" style="margin-top:12px">
+                <a class="alink" href="/lidogeneraciya/myreviews/"><span class="s">↗</span>MyReviews - на сайт</a>
+                <a class="alink" href="/seo/serm-reputaciya/"><span class="s">↗</span>СЕРМ для SEO</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tabPane" id="t-google" role="tabpanel">
+          <div class="grid two">
+            <div class="card">
+              <h3 class="h3">Что важно в Google Business Profile</h3>
+              <ul class="list">
+                <li class="li"><div class="tick">✓</div><div><b>Категории и атрибуты</b><span>Определяют, по каким запросам вас увидят на картах.</span></div></li>
+                <li class="li"><div class="tick">✓</div><div><b>Посты и обновления</b><span>Сигнал активности и дополнительный способ показать экспертизу.</span></div></li>
+                <li class="li"><div class="tick">✓</div><div><b>Q&A</b><span>Вопросы-ответы помогают снять возражения до звонка.</span></div></li>
+                <li class="li"><div class="tick">✓</div><div><b>Отзывы</b><span>Формируют доверие и напрямую влияют на выбор среди конкурентов.</span></div></li>
+              </ul>
+            </div>
+            <div class="card">
+              <h3 class="h3">Что обычно делаем мы</h3>
+              <p>Настраиваем профиль, готовим контент, помогаем выстроить процесс получения отзывов и отвечаем на них. Важно, чтобы карточка работала как часть воронки продаж, а не "просто существовала".</p>
+              <div class="links" style="margin-top:12px">
+                <a class="alink" href="/crm-integracii/"><span class="s">↗</span>Свести заявки в CRM</a>
+                <a class="alink" href="/lidogeneraciya/"><span class="s">↗</span>Лидогенерация</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tabPane" id="t-2gis" role="tabpanel">
+          <div class="grid two">
+            <div class="card">
+              <h3 class="h3">Что важно в 2GIS</h3>
+              <p>Для многих городов это площадка доверия №1. Важно: точные данные, фото, услуги/каталог, ответы на отзывы и единый стиль с остальными площадками.</p>
+              <div class="mini" style="margin-top:12px">
+                <div class="icon"><span>◎</span></div>
+                <div><b>Единые данные компании</b><span>Одинаковые контакты, адреса, названия - меньше путаницы, выше доверие.</span></div>
+              </div>
+            </div>
+            <div class="card">
+              <h3 class="h3">Что обычно делаем мы</h3>
+              <p>Заполняем карточку и приводим визуал/контент в порядок. Настраиваем контроль отзывов и регулярные обновления. При необходимости выводим отзывы на сайт через MyReviews.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="tabPane" id="t-flamp" role="tabpanel">
+          <div class="grid two">
+            <div class="card">
+              <h3 class="h3">Что важно во Flamp</h3>
+              <p>Flamp - про отзывы и доверие. Здесь особенно важно отвечать правильно: без сухих шаблонов, с фактурой и уважением.</p>
+              <ul class="list">
+                <li class="li"><div class="tick">✓</div><div><b>Скорость реакции</b><span>Быстрый ответ снижает риск "разгона" негатива и повышает доверие.</span></div></li>
+                <li class="li"><div class="tick">✓</div><div><b>Смысловой ответ</b><span>Не "спасибо за отзыв", а конкретика: что сделали/сделаем и как решить ситуацию.</span></div></li>
+              </ul>
+            </div>
+            <div class="card">
+              <h3 class="h3">Что обычно делаем мы</h3>
+              <p>Берем ответы на отзывы, настраиваем уведомления и внутренние правила обработки негатива. Помогаем переводить конфликт в конструктив и сохранять лицо компании публично.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="tabPane" id="t-zoon" role="tabpanel">
+          <div class="grid two">
+            <div class="card">
+              <h3 class="h3">Что важно в Zoon</h3>
+              <p>Zoon часто воспринимается как каталог услуг. Поэтому важны: карточка, прайс/услуги, фото, понятные описания и стабильная работа с отзывами.</p>
+              <div class="mini" style="margin-top:12px">
+                <div class="icon"><span>↘</span></div>
+                <div><b>Это влияет на лиды напрямую</b><span>Каталог + доверие = обращения даже без активной рекламы.</span></div>
+              </div>
+            </div>
+            <div class="card">
+              <h3 class="h3">Что обычно делаем мы</h3>
+              <p>Заполняем карточку максимально полно, приводим услуги в удобный вид, добавляем фото, обновляем контент и контролируем отзывы.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="tabPane" id="t-yell" role="tabpanel">
+          <div class="grid two">
+            <div class="card">
+              <h3 class="h3">Что важно в Yell</h3>
+              <p>Yell - российский справочник компаний и отзывов. Важно: корректные данные, описание услуг, фото, единый стиль и регулярная работа с отзывами.</p>
+              <div class="mini" style="margin-top:12px">
+                <div class="icon"><span>↗</span></div>
+                <div><b>Дополнительная точка доверия</b><span>Полезно, когда клиент "пробивает" бренд и сравнивает варианты.</span></div>
+              </div>
+            </div>
+            <div class="card">
+              <h3 class="h3">Что обычно делаем мы</h3>
+              <p>Настраиваем карточку, приводим данные к единому стандарту, подготавливаем контент и следим за отзывами. Если площадка не дает результата в вашей нише - честно скажем и не будем "делать видимость работы".</p>
+              <div class="links" style="margin-top:12px">
+                <a class="alink" href="https://www.yell.ru/" target="_blank" rel="noopener"><span class="s">↗</span>Официальный сайт Yell</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="hint" style="margin-top:16px">
+        <b>Логика простая.</b> Площадки дают видимость, отзывы дают доверие, а связка с сайтом и CRM превращает это в системные лиды.
+        Если нужно - подключаем <b>MyReviews</b> и выводим отзывы прямо на сайт, чтобы усилить конверсию.
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT WE DO -->
+  <section class="section" id="whatwedo">
+    <div class="wrap">
+      <h2 class="h2">Что делаем пошагово</h2>
+      <p class="sub">Берем на себя "грязную работу" по карточкам и стандартизации - чтобы бизнес выглядел уверенно везде, где клиент принимает решение.</p>
+
+      <div class="grid two" style="margin-top:14px">
+        <div class="card">
+          <h3 class="h3">1) Аудит текущего состояния</h3>
+          <p>Смотрим, где вы уже есть, где карточки дублируются, где неправильные контакты, где нет услуг/прайса, где слабые фото и отсутствуют ответы на отзывы.</p>
+        </div>
+        <div class="card">
+          <h3 class="h3">2) Единый стандарт данных</h3>
+          <p>Приводим всё к одному формату: название, адрес, телефон, сайт, график, категории, описание, ссылки, гео. Чтобы клиент не видел "разные компании" в разных сервисах.</p>
+        </div>
+        <div class="card">
+          <h3 class="h3">3) Контент карточек</h3>
+          <p>Оформляем витрину: услуги, прайс, фото, новости/посты, раздел "вопрос-ответ". Карточка должна отвечать на главные вопросы до звонка.</p>
+        </div>
+        <div class="card">
+          <h3 class="h3">4) Отзывы и ответы</h3>
+          <p>Настраиваем контроль отзывов и правила ответов. Без шаблонов. С фактурой. С корректной работой с негативом.</p>
+        </div>
+        <div class="card">
+          <h3 class="h3">5) Связка с сайтом</h3>
+          <p>При необходимости подключаем <a href="/lidogeneraciya/myreviews/" class="alink" style="padding:6px 10px; margin-left:6px; display:inline-flex;">MyReviews</a> - чтобы отзывы с площадок были на сайте и усиливали конверсию.</p>
+        </div>
+        <div class="card">
+          <h3 class="h3">6) Система лидов</h3>
+          <p>Если заявки/обращения нужно собирать в одно место - связываем с <a href="/crm-integracii/" class="alink" style="padding:6px 10px; margin-left:6px; display:inline-flex;">CRM</a>, чтобы не терять клиентов и контролировать скорость реакции.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPARISON -->
+  <section class="section">
+    <div class="wrap">
+      <h2 class="h2">Наглядно. Почему "карточка есть" не равно "карточка работает"</h2>
+      <div class="compare" style="margin-top:14px">
+        <div class="card">
+          <div class="cmpHead">
+            <span class="cmpTag bad">Как часто бывает</span>
+            <span style="color:var(--muted)">карточки "для галочки"</span>
+          </div>
+          <ul class="cmpList">
+            <li>Данные расходятся: разные телефоны, адреса, сайты, названия</li>
+            <li>Нет услуг и прайса - клиент не понимает, за что платить</li>
+            <li>Фотографии случайные или старые - не вызывают доверие</li>
+            <li>Отзывы есть, но ответа нет - выглядит как игнор</li>
+            <li>Дубли карточек - часть трафика уходит "в пустоту"</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="cmpHead">
+            <span class="cmpTag good">Как делаем мы</span>
+            <span style="color:var(--muted)">карточки как канал продаж</span>
+          </div>
+          <ul class="cmpList">
+            <li>Единый стандарт данных и визуала на всех площадках</li>
+            <li>Услуги и прайс оформлены - меньше вопросов, выше конверсия</li>
+            <li>Фото и витрина обновляются - карточка выглядит живой</li>
+            <li>Отзывы контролируются, ответы по правилам - доверие растет</li>
+            <li>Связка с сайтом и CRM - обращения не теряются</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section" id="faq">
+    <div class="wrap">
+      <h2 class="h2">Коротко отвечаем на частые вопросы</h2>
+      <div class="acc" data-acc style="margin-top:14px">
+        <div class="accItem open">
+          <button class="accBtn" type="button">
+            Зачем вообще это делать, если у меня уже есть сайт?
+            <span class="chev">⌄</span>
+          </button>
+          <div class="accBody">
+            Многие клиенты приходят через карты и справочники раньше, чем через сайт. Карточка - это "точка доверия": оценка, отзывы, фото, прайс, кнопка звонка. Даже если лид потом дойдет до сайта, решение часто принимается уже на площадке.
+          </div>
+        </div>
+
+        <div class="accItem">
+          <button class="accBtn" type="button">
+            Это про SEO или про лиды?
+            <span class="chev">⌄</span>
+          </button>
+          <div class="accBody">
+            И то, и другое. Карточки дают лиды напрямую (звонки, маршруты, сообщения). Параллельно они усиливают SEO: растет доверие к бренду, люди дольше изучают сайт, чаще возвращаются - а это улучшает поведенческие факторы.
+          </div>
+        </div>
+
+        <div class="accItem">
+          <button class="accBtn" type="button">
+            Вы можете "сделать отзывы"?
+            <span class="chev">⌄</span>
+          </button>
+          <div class="accBody">
+            Нет. Мы не накручиваем и не покупаем отзывы. Мы выстраиваем систему, чтобы бизнес получал честную обратную связь: корректная карточка, правильные точки сбора, понятные правила ответов и контроль.
+          </div>
+        </div>
+
+        <div class="accItem">
+          <button class="accBtn" type="button">
+            Сколько площадок нужно вести?
+            <span class="chev">⌄</span>
+          </button>
+          <div class="accBody">
+            Мы работаем плотно с 6 ключевыми площадками: Яндекс Бизнес (Яндекс.Карты), Google Business Profile (Google Maps), 2GIS, Flamp, Zoon и Yell. Остальные подключаем точечно, если в вашей нише они реально дают результат.
+          </div>
+        </div>
+
+        <div class="accItem">
+          <button class="accBtn" type="button">
+            Можно ли выводить отзывы с площадок на сайт?
+            <span class="chev">⌄</span>
+          </button>
+          <div class="accBody">
+            Да. Для этого используем <a href="/lidogeneraciya/myreviews/" class="alink" style="padding:6px 10px; display:inline-flex">MyReviews</a> - отзывы подтягиваются с площадок и отображаются на сайте. Это усиливает доверие, увеличивает время на странице и помогает конверсии.
+          </div>
+        </div>
+
+        <div class="accItem">
+          <button class="accBtn" type="button">
+            Как это связано с CRM и отделом продаж?
+            <span class="chev">⌄</span>
+          </button>
+          <div class="accBody">
+            Репутация дает больше обращений, но важно их не терять. Если заявки, звонки и сообщения собираются в CRM - вы контролируете скорость реакции, качество обработки и конверсию в сделку. Подробнее - <a href="/crm-integracii/" class="alink" style="padding:6px 10px; display:inline-flex">CRM и интеграции</a>.
+          </div>
+        </div>
+      </div>
+
+      <div class="footLinks">
+        <a class="alink" href="/lidogeneraciya/"><span class="s">↗</span>Вернуться в раздел "Лидогенерация"</a>
+        <a class="alink" href="/lidogeneraciya/myreviews/"><span class="s">↗</span>MyReviews - виджет отзывов</a>
+        <a class="alink" href="/seo/serm-reputaciya/"><span class="s">↗</span>СЕРМ - репутация для SEO</a>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Tabs - stable, no dependencies
+    (function(){
+      const roots = document.querySelectorAll('[data-tabs]');
+      roots.forEach(root => {
+        const btns = Array.from(root.querySelectorAll('.tabBtn'));
+        const panes = Array.from(root.querySelectorAll('.tabPane'));
+        const byId = (id) => panes.find(p => p.id === id);
+
+        function activate(id){
+          btns.forEach(b => {
+            const on = b.dataset.tab === id;
+            b.classList.toggle('active', on);
+            b.setAttribute('aria-selected', on ? 'true' : 'false');
+          });
+          panes.forEach(p => p.classList.toggle('active', p.id === id));
+        }
+
+        btns.forEach(b => {
+          b.addEventListener('click', () => activate(b.dataset.tab));
+        });
+
+        // ensure initial state
+        const firstActive = btns.find(b => b.classList.contains('active')) || btns[0];
+        if(firstActive) activate(firstActive.dataset.tab);
+      });
+    })();
+
+    // Accordion
+    (function(){
+      const accs = document.querySelectorAll('[data-acc]');
+      accs.forEach(acc => {
+        const items = Array.from(acc.querySelectorAll('.accItem'));
+        items.forEach(item => {
+          const btn = item.querySelector('.accBtn');
+          if(!btn) return;
+          btn.addEventListener('click', () => {
+            const isOpen = item.classList.contains('open');
+            // toggle only текущий (без автозакрытия остальных)
+            item.classList.toggle('open', !isOpen);
+          });
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
+

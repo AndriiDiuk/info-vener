@@ -1,0 +1,638 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Портфолио - прототип каталога</title>
+
+  <style>
+    :root{
+      --bg-1: #bff7ef;
+      --bg-2: #b8f5ff;
+      --bg-3: #d7ff8a;
+      --text: rgba(0,0,0,.86);
+      --muted: rgba(0,0,0,.62);
+      --line: rgba(0,0,0,.10);
+      --card: rgba(255,255,255,.60);
+      --card-2: rgba(255,255,255,.72);
+      --shadow: 0 18px 50px rgba(0,0,0,.08);
+      --radius-xl: 26px;
+      --radius-lg: 20px;
+      --radius-md: 16px;
+    }
+
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family: Arial, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      color: var(--text);
+      background: radial-gradient(1200px 600px at 10% 10%, var(--bg-1), transparent 60%),
+                  radial-gradient(1000px 600px at 90% 10%, var(--bg-2), transparent 55%),
+                  radial-gradient(1200px 800px at 70% 90%, var(--bg-3), transparent 55%),
+                  #fff;
+    }
+
+    a{ color: inherit; }
+    .container{ width:min(1140px, 100%); margin:0 auto; padding: 0 16px; }
+
+    /* HERO */
+    .hero{
+      padding: 54px 0 28px;
+      position:relative;
+      overflow:hidden;
+    }
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:-1px;
+      background: linear-gradient(180deg, rgba(0,0,0,.00), rgba(0,0,0,.00));
+      pointer-events:none;
+    }
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 20px;
+      align-items:center;
+    }
+    @media (max-width: 900px){
+      .hero-grid{ grid-template-columns: 1fr; }
+    }
+
+    .kicker{
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.55);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing:.02em;
+      text-transform: uppercase;
+      color: rgba(0,0,0,.68);
+    }
+    .kicker-dot{
+      width:10px;height:10px;border-radius:999px;
+      background: linear-gradient(135deg, rgba(46,242,200,.95), rgba(22,199,255,.85));
+      box-shadow: 0 8px 18px rgba(22,199,255,.22);
+    }
+
+    h1{
+      margin: 14px 0 10px;
+      font-size: clamp(34px, 4.6vw, 52px);
+      line-height: 1.05;
+      letter-spacing: -.02em;
+    }
+    .sub{
+      margin: 0 0 14px;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 15px;
+      max-width: 72ch;
+    }
+
+    .chips{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin: 14px 0 0;
+    }
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.55);
+      font-size: 13px;
+      font-weight: 800;
+      color: rgba(0,0,0,.72);
+    }
+    .chip i{
+      width: 10px; height: 10px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.18);
+    }
+
+    .hero-visual{
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.55);
+      box-shadow: var(--shadow);
+      padding: 18px;
+      min-height: 240px;
+      position:relative;
+      overflow:hidden;
+    }
+    .hero-visual .big{
+      position:absolute;
+      inset:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size: clamp(44px, 6vw, 72px);
+      font-weight: 900;
+      letter-spacing: .02em;
+      color: rgba(0,0,0,.10);
+      text-transform: uppercase;
+      user-select:none;
+      pointer-events:none;
+    }
+    .hero-visual .mock{
+      position:relative;
+      height: 210px;
+      border-radius: 22px;
+      border: 1px dashed rgba(0,0,0,.18);
+      background: rgba(255,255,255,.35);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color: rgba(0,0,0,.55);
+      font-weight: 800;
+      text-align:center;
+      padding: 14px;
+    }
+    .hero-visual .mock small{
+      display:block;
+      margin-top: 6px;
+      font-weight: 700;
+      color: rgba(0,0,0,.45);
+      line-height: 1.45;
+    }
+
+    /* FILTERS */
+    .filters{
+      padding: 8px 0 10px;
+    }
+    .filter-row{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.55);
+      backdrop-filter: blur(10px);
+      padding: 14px;
+      box-shadow: var(--shadow);
+    }
+    .tabs{
+      display:flex;
+      flex-wrap:wrap;
+      gap: 8px;
+      align-items:center;
+    }
+    .tab{
+      appearance:none;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.65);
+      padding: 9px 12px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 900;
+      color: rgba(0,0,0,.70);
+      cursor:pointer;
+      transition: transform .16s ease, background .16s ease;
+      user-select:none;
+    }
+    .tab:hover{ transform: translateY(-1px); }
+    .tab.active{
+      background: rgba(0,0,0,.86);
+      color: rgba(255,255,255,.92);
+      border-color: rgba(0,0,0,.15);
+    }
+
+    .meta{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:flex-end;
+      color: rgba(0,0,0,.60);
+      font-size: 13px;
+      font-weight: 800;
+    }
+    .meta b{ color: rgba(0,0,0,.78); }
+
+    /* GRID */
+    .grid{
+      padding: 18px 0 40px;
+    }
+    .cards{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    @media (max-width: 980px){
+      .cards{ grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px){
+      .cards{ grid-template-columns: 1fr; }
+    }
+
+    .card{
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.60);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      display:flex;
+      flex-direction:column;
+      min-height: 320px;
+    }
+
+    .thumb{
+      position:relative;
+      height: 170px;
+      background: linear-gradient(135deg, rgba(46,242,200,.45), rgba(22,199,255,.35), rgba(215,255,138,.30));
+      border-bottom: 1px solid rgba(0,0,0,.08);
+    }
+    .thumb::after{
+      content:"";
+      position:absolute;
+      inset: 14px;
+      border-radius: 18px;
+      border: 1px dashed rgba(0,0,0,.20);
+      background: rgba(255,255,255,.30);
+    }
+    .badge-row{
+      position:absolute;
+      left: 14px;
+      right: 14px;
+      bottom: 12px;
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      z-index:2;
+    }
+    .badge{
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(0,0,0,.10);
+      background: rgba(255,255,255,.72);
+      font-size: 12px;
+      font-weight: 900;
+      color: rgba(0,0,0,.70);
+      backdrop-filter: blur(8px);
+    }
+
+    .card-body{
+      padding: 14px 14px 12px;
+      display:flex;
+      flex-direction:column;
+      gap: 10px;
+      flex:1;
+    }
+    .card-title{
+      margin:0;
+      font-size: 16px;
+      font-weight: 900;
+      letter-spacing: -.01em;
+    }
+    .card-desc{
+      margin:0;
+      color: rgba(0,0,0,.62);
+      line-height: 1.6;
+      font-size: 13px;
+    }
+
+    .card-chips{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      margin-top: 4px;
+    }
+    .card-chip{
+      display:inline-flex;
+      align-items:center;
+      gap:7px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(0,0,0,.10);
+      background: rgba(255,255,255,.60);
+      font-size: 12px;
+      font-weight: 900;
+      color: rgba(0,0,0,.68);
+    }
+    .card-chip i{
+      width: 10px; height: 10px;
+      border-radius: 3px;
+      background: rgba(0,0,0,.18);
+    }
+
+    .card-actions{
+      padding: 0 14px 14px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+    }
+    .hint{
+      color: rgba(0,0,0,.55);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding: 10px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(0,0,0,.10);
+      background: rgba(255,255,255,.75);
+      font-weight: 900;
+      font-size: 13px;
+      color: rgba(0,0,0,.78);
+      text-decoration:none;
+      transition: transform .18s ease;
+      white-space:nowrap;
+      user-select:none;
+    }
+    .btn:hover{ transform: translateY(-1px); }
+
+    .btn-primary{
+      border-color: rgba(0,0,0,.08);
+      background: linear-gradient(135deg, rgba(46,242,200,.92), rgba(22,199,255,.72));
+      color: rgba(0,0,0,.86);
+    }
+
+    /* LOAD MORE */
+    .load-more{
+      display:flex;
+      justify-content:center;
+      padding: 10px 0 52px;
+    }
+
+    /* OPTIONAL: tiny note under filters */
+    .note{
+      margin: 10px 0 0;
+      color: rgba(0,0,0,.58);
+      font-size: 13px;
+      line-height: 1.55;
+      font-weight: 800;
+      padding: 0 2px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="container">
+      <div class="hero-grid">
+        <div>
+          <div class="kicker"><span class="kicker-dot"></span> веб-студия полного цикла</div>
+          <h1>Портфолио</h1>
+          <p class="sub">
+            Подборка проектов Venner Digital: лендинги, сайты компаний, интернет-магазины и решения на Bitrix.
+            Нажмите "Подробнее" - откроется карточка проекта с описанием задач и решений.
+          </p>
+
+          <div class="chips" aria-label="Преимущества">
+            <span class="chip"><i></i> структура и UX</span>
+            <span class="chip"><i></i> дизайн и верстка</span>
+            <span class="chip"><i></i> интеграции и автоматизация</span>
+            <span class="chip"><i></i> SEO-логика</span>
+          </div>
+        </div>
+
+        <div class="hero-visual" aria-label="Визуальный блок">
+          <div class="big">портфолио</div>
+          <div class="mock">
+            Здесь будет ваш 3D/иллюстрация
+            <small>В прототипе - плейсхолдер. В боевой версии подставим изображение.</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- FILTERS -->
+  <section class="filters">
+    <div class="container">
+      <div class="filter-row">
+        <div class="tabs" role="tablist" aria-label="Фильтры портфолио">
+          <button class="tab active" type="button">Все проекты</button>
+          <button class="tab" type="button">Landing page</button>
+          <button class="tab" type="button">Сайт компании</button>
+          <button class="tab" type="button">Интернет-магазин</button>
+          <button class="tab" type="button">Сайт Bitrix</button>
+          <button class="tab" type="button">Сайты HTML</button>
+        </div>
+
+        <div class="meta" aria-label="Счетчик">
+          <span>Показано: <b>6</b> из <b>24</b></span>
+        </div>
+      </div>
+
+      <div class="note">
+        Выберите тип проекта фильтрами выше - так проще найти примеры, близкие к вашей задаче.
+      </div>
+    </div>
+  </section>
+
+  <!-- GRID -->
+  <main class="grid">
+    <div class="container">
+
+      <div class="cards">
+        <!-- CARD 1 -->
+        <article class="card">
+          <div class="thumb">
+            <div class="badge-row">
+              <span class="badge">Landing</span>
+              <span class="badge">Квиз</span>
+              <span class="badge">Интеграции</span>
+            </div>
+          </div>
+
+          <div class="card-body">
+            <h3 class="card-title">Проект #1 - лендинг под лиды</h3>
+            <p class="card-desc">
+              Прототип, дизайн, верстка, формы и базовые интеграции. Упор на структуру оффера и конверсию.
+            </p>
+
+            <div class="card-chips">
+              <span class="card-chip"><i></i> прототип</span>
+              <span class="card-chip"><i></i> UI/UX</span>
+              <span class="card-chip"><i></i> CRM</span>
+            </div>
+          </div>
+
+          <div class="card-actions">
+            <span class="hint">Кейс и детали проекта</span>
+            <a class="btn btn-primary" href="#" aria-label="Подробнее о проекте 1">Подробнее</a>
+          </div>
+        </article>
+
+        <!-- CARD 2 -->
+        <article class="card">
+          <div class="thumb">
+            <div class="badge-row">
+              <span class="badge">Сайт компании</span>
+              <span class="badge">SEO-структура</span>
+              <span class="badge">Скорость</span>
+            </div>
+          </div>
+
+          <div class="card-body">
+            <h3 class="card-title">Проект #2 - сайт компании</h3>
+            <p class="card-desc">
+              Многостраничный сайт с посадочными страницами услуг, логикой под SEO и удобной навигацией.
+            </p>
+
+            <div class="card-chips">
+              <span class="card-chip"><i></i> структура</span>
+              <span class="card-chip"><i></i> контент</span>
+              <span class="card-chip"><i></i> оптимизация</span>
+            </div>
+          </div>
+
+          <div class="card-actions">
+            <span class="hint">Что делали и зачем</span>
+            <a class="btn btn-primary" href="#" aria-label="Подробнее о проекте 2">Подробнее</a>
+          </div>
+        </article>
+
+        <!-- CARD 3 -->
+        <article class="card">
+          <div class="thumb">
+            <div class="badge-row">
+              <span class="badge">Магазин</span>
+              <span class="badge">Каталог</span>
+              <span class="badge">Корзина</span>
+            </div>
+          </div>
+
+          <div class="card-body">
+            <h3 class="card-title">Проект #3 - интернет-магазин</h3>
+            <p class="card-desc">
+              Каталог, фильтры, карточки товаров, корзина и базовая аналитика. Подготовка к рекламе и SEO.
+            </p>
+
+            <div class="card-chips">
+              <span class="card-chip"><i></i> каталог</span>
+              <span class="card-chip"><i></i> UX</span>
+              <span class="card-chip"><i></i> аналитика</span>
+            </div>
+          </div>
+
+          <div class="card-actions">
+            <span class="hint">Переход в кейс</span>
+            <a class="btn btn-primary" href="#" aria-label="Подробнее о проекте 3">Подробнее</a>
+          </div>
+        </article>
+
+        <!-- CARD 4 -->
+        <article class="card">
+          <div class="thumb">
+            <div class="badge-row">
+              <span class="badge">Bitrix</span>
+              <span class="badge">Интеграции</span>
+              <span class="badge">Каталог</span>
+            </div>
+          </div>
+
+          <div class="card-body">
+            <h3 class="card-title">Проект #4 - Bitrix: каталог и лиды</h3>
+            <p class="card-desc">
+              Сайт на Bitrix с каталогом и формами, интеграции с CRM и подготовка к рекламным кампаниям.
+            </p>
+
+            <div class="card-chips">
+              <span class="card-chip"><i></i> Bitrix</span>
+              <span class="card-chip"><i></i> CRM</span>
+              <span class="card-chip"><i></i> формы</span>
+            </div>
+          </div>
+
+          <div class="card-actions">
+            <span class="hint">Задачи и решения</span>
+            <a class="btn btn-primary" href="#" aria-label="Подробнее о проекте 4">Подробнее</a>
+          </div>
+        </article>
+
+        <!-- CARD 5 -->
+        <article class="card">
+          <div class="thumb">
+            <div class="badge-row">
+              <span class="badge">HTML</span>
+              <span class="badge">Скорость</span>
+              <span class="badge">Адаптив</span>
+            </div>
+          </div>
+
+          <div class="card-body">
+            <h3 class="card-title">Проект #5 - HTML-верстка</h3>
+            <p class="card-desc">
+              Быстрый сайт с чистой версткой, аккуратной анимацией и фокусом на скорость и стабильность.
+            </p>
+
+            <div class="card-chips">
+              <span class="card-chip"><i></i> верстка</span>
+              <span class="card-chip"><i></i> адаптив</span>
+              <span class="card-chip"><i></i> скорость</span>
+            </div>
+          </div>
+
+          <div class="card-actions">
+            <span class="hint">Открыть проект</span>
+            <a class="btn btn-primary" href="#" aria-label="Подробнее о проекте 5">Подробнее</a>
+          </div>
+        </article>
+
+        <!-- CARD 6 -->
+        <article class="card">
+          <div class="thumb">
+            <div class="badge-row">
+              <span class="badge">Landing</span>
+              <span class="badge">Оффер</span>
+              <span class="badge">A/B</span>
+            </div>
+          </div>
+
+          <div class="card-body">
+            <h3 class="card-title">Проект #6 - посадочная под тесты</h3>
+            <p class="card-desc">
+              Конверсионная структура и подготовка к тестам: вариации офферов, блоки доверия, формы.
+            </p>
+
+            <div class="card-chips">
+              <span class="card-chip"><i></i> оффер</span>
+              <span class="card-chip"><i></i> конверсия</span>
+              <span class="card-chip"><i></i> аналитика</span>
+            </div>
+          </div>
+
+          <div class="card-actions">
+            <span class="hint">Подробнее</span>
+            <a class="btn btn-primary" href="#" aria-label="Подробнее о проекте 6">Подробнее</a>
+          </div>
+        </article>
+
+      </div>
+
+      <div class="load-more">
+        <a class="btn" href="#" aria-label="Показать ещё проекты">Показать ещё</a>
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    // Мини-прототип: переключение активной вкладки (без фильтрации, просто UI)
+    const tabs = document.querySelectorAll('.tab');
+    tabs.forEach(t => t.addEventListener('click', () => {
+      tabs.forEach(x => x.classList.remove('active'));
+      t.classList.add('active');
+    }));
+  </script>
+
+</body>
+</html>
+

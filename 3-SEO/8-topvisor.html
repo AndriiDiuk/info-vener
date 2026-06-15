@@ -1,0 +1,731 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Topvisor - мониторинг позиций и SEO-аналитика | Venner Digital</title>
+  <meta name="description" content="Topvisor (Топвизор) - сервис для проверки позиций, кластеризации семантики и SEO-контроля. Рассказываем, как используем Topvisor в проектах и даем удобный старт." />
+  <style>
+    :root{
+      --bg:#0b0f14;
+      --bg2:#0f1621;
+      --card:#0f1a26cc;
+      --card2:#0c1420cc;
+      --text:#eaf2ff;
+      --muted:#a9b7cc;
+      --line:#233247;
+      --accent:#38f2c6;
+      --accent2:#00c2ff;
+      --warn:#ffb020;
+      --good:#40f08a;
+      --bad:#ff5a6a;
+      --shadow: 0 18px 60px rgba(0,0,0,.45);
+      --radius: 22px;
+      --radius2: 16px;
+      --container: 1120px;
+      --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:var(--font);
+      color:var(--text);
+      background:
+        radial-gradient(1200px 700px at 10% 0%, rgba(56,242,198,.18), transparent 55%),
+        radial-gradient(900px 600px at 95% 10%, rgba(0,194,255,.18), transparent 52%),
+        radial-gradient(900px 700px at 30% 100%, rgba(56,242,198,.10), transparent 55%),
+        linear-gradient(180deg, var(--bg), var(--bg2));
+      overflow-x:hidden;
+    }
+
+    a{color:inherit}
+    .container{max-width:var(--container); margin:0 auto; padding:0 22px}
+
+    .pill{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:8px 12px;
+      border:1px solid rgba(56,242,198,.25);
+      background: linear-gradient(180deg, rgba(15,26,38,.65), rgba(12,20,32,.35));
+      border-radius:999px;
+      color:var(--muted);
+      font-size:13px;
+    }
+    .dot{
+      width:10px;height:10px;border-radius:999px;
+      background: radial-gradient(circle at 30% 30%, #fff, rgba(255,255,255,.2) 35%, transparent 60%),
+                  linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow:0 0 0 6px rgba(56,242,198,.10);
+    }
+
+    .h1{
+      font-size:48px; line-height:1.05; margin:14px 0 10px;
+      letter-spacing:-.02em;
+    }
+    .lead{
+      font-size:18px; line-height:1.55; color:var(--muted);
+      margin:0;
+      max-width:820px;
+    }
+
+    .hero{
+      position:relative;
+      padding:56px 0 28px;
+    }
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:22px;
+      align-items:stretch;
+      margin-top:26px;
+    }
+    @media(max-width: 920px){
+      .hero-grid{grid-template-columns:1fr; }
+      .h1{font-size:40px}
+    }
+
+    .card{
+      background: linear-gradient(180deg, rgba(15,26,38,.78), rgba(12,20,32,.55));
+      border:1px solid rgba(35,50,71,.8);
+      border-radius:var(--radius);
+      box-shadow: var(--shadow);
+      padding:22px;
+      backdrop-filter: blur(8px);
+    }
+    .card.soft{
+      background: linear-gradient(180deg, rgba(15,26,38,.55), rgba(12,20,32,.35));
+      box-shadow: 0 16px 45px rgba(0,0,0,.35);
+    }
+
+    .btns{display:flex; gap:12px; flex-wrap:wrap; margin-top:18px}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      padding:12px 16px;
+      border-radius:14px;
+      border:1px solid rgba(56,242,198,.28);
+      background: linear-gradient(135deg, rgba(56,242,198,.18), rgba(0,194,255,.12));
+      text-decoration:none;
+      font-weight:700;
+      letter-spacing:.01em;
+      box-shadow: 0 10px 25px rgba(0,0,0,.25);
+    }
+    .btn:hover{transform: translateY(-1px)}
+    .btn.secondary{
+      border:1px solid rgba(35,50,71,.9);
+      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      color:var(--text);
+      font-weight:650;
+    }
+    .btn.small{padding:10px 14px; border-radius:13px; font-size:14px}
+    .btn .arr{opacity:.9}
+
+    .kpi-grid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:12px;
+      margin-top:14px;
+    }
+    @media(max-width: 920px){ .kpi-grid{grid-template-columns:1fr} }
+
+    .kpi{
+      border:1px solid rgba(35,50,71,.8);
+      border-radius:18px;
+      padding:16px;
+      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+    }
+    .kpi .t{font-size:13px; color:var(--muted); margin-bottom:8px}
+    .kpi .v{font-size:18px; font-weight:800; letter-spacing:-.01em}
+    .kpi .s{font-size:13px; color:var(--muted); margin-top:6px; line-height:1.45}
+
+    .section{padding:28px 0}
+    .h2{font-size:30px; margin:0 0 12px; letter-spacing:-.01em}
+    .sub{color:var(--muted); margin:0 0 18px; line-height:1.6}
+    .divider{height:1px; background:linear-gradient(90deg, transparent, rgba(56,242,198,.22), rgba(0,194,255,.18), transparent); margin:10px 0 0}
+
+    .grid-2{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+    @media(max-width: 920px){ .grid-2{grid-template-columns:1fr} }
+
+    .grid-3{display:grid; grid-template-columns:repeat(3,1fr); gap:14px}
+    @media(max-width: 920px){ .grid-3{grid-template-columns:1fr} }
+
+    .list{
+      display:grid; gap:10px; margin:0; padding:0; list-style:none;
+    }
+    .li{
+      display:flex; gap:12px; align-items:flex-start;
+      padding:12px 12px;
+      border:1px solid rgba(35,50,71,.75);
+      border-radius:16px;
+      background: linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.02));
+    }
+    .ic{
+      flex:0 0 26px; height:26px; border-radius:10px;
+      background: linear-gradient(135deg, rgba(56,242,198,.35), rgba(0,194,255,.22));
+      border:1px solid rgba(56,242,198,.25);
+      display:flex; align-items:center; justify-content:center;
+      margin-top:1px;
+    }
+    .li b{display:block; margin-bottom:4px}
+    .li span{color:var(--muted); line-height:1.55}
+
+    .compare{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:14px;
+    }
+    @media(max-width: 920px){ .compare{grid-template-columns:1fr} }
+
+    .box{
+      border:1px solid rgba(35,50,71,.8);
+      border-radius:18px;
+      overflow:hidden;
+      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+    }
+    .box .head{
+      padding:14px 16px;
+      font-weight:850;
+      display:flex; align-items:center; gap:10px;
+      border-bottom:1px solid rgba(35,50,71,.7);
+    }
+    .badge{
+      font-size:12px;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(35,50,71,.8);
+      color:var(--muted);
+      background: rgba(0,0,0,.15);
+    }
+    .box .body{padding:14px 16px}
+    .box ul{margin:0; padding-left:18px; color:var(--muted); line-height:1.65}
+    .box.good .head{background: rgba(64,240,138,.10)}
+    .box.bad .head{background: rgba(255,90,106,.10)}
+    .box.good .badge{border-color: rgba(64,240,138,.35)}
+    .box.bad .badge{border-color: rgba(255,90,106,.35)}
+
+    .cta{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      padding:18px;
+      border-radius:20px;
+      border:1px solid rgba(56,242,198,.22);
+      background:
+        radial-gradient(900px 300px at 10% 0%, rgba(56,242,198,.20), transparent 55%),
+        radial-gradient(900px 300px at 90% 0%, rgba(0,194,255,.16), transparent 55%),
+        linear-gradient(180deg, rgba(15,26,38,.70), rgba(12,20,32,.35));
+    }
+    .cta .left{max-width:740px}
+    .cta .title{font-size:18px; font-weight:850; margin:0 0 6px}
+    .cta .desc{margin:0; color:var(--muted); line-height:1.55}
+    @media(max-width: 920px){
+      .cta{flex-direction:column; align-items:flex-start}
+    }
+
+    details{
+      border:1px solid rgba(35,50,71,.75);
+      border-radius:16px;
+      padding:12px 14px;
+      background: linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.02));
+    }
+    details summary{
+      cursor:pointer;
+      font-weight:800;
+      list-style:none;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+    }
+    details summary::-webkit-details-marker{display:none}
+    details p{margin:10px 0 0; color:var(--muted); line-height:1.6}
+
+    .footer-note{
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.5;
+      padding:18px 0 44px;
+      border-top:1px solid rgba(35,50,71,.65);
+      margin-top:18px;
+    }
+    .mono{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 12px;
+      color: rgba(233,242,255,.85);
+      background: rgba(0,0,0,.25);
+      border:1px solid rgba(35,50,71,.85);
+      padding:6px 10px;
+      border-radius: 12px;
+      display:inline-block;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <div class="pill"><span class="dot"></span><span>SEO - сервисы и аналитика</span><span class="badge">Topvisor</span></div>
+      <h1 class="h1">Topvisor - позиции, семантика и контроль SEO в одном месте</h1>
+      <p class="lead">
+        Используем Topvisor в проектах для честного мониторинга позиций, работы с семантикой и регулярных отчетов.
+        Это удобный "комбайн" для SEO-аналитики: проверка позиций, кластеризация, частотность, техконтроль и инструменты для роста.
+      </p>
+
+      <div class="hero-grid">
+        <div class="card">
+          <div class="kpi-grid">
+            <div class="kpi">
+              <div class="t">Для бизнеса</div>
+              <div class="v">Понимание, что растет</div>
+              <div class="s">Позиции, динамика, конкуренты, видимость, отчеты - без догадок.</div>
+            </div>
+            <div class="kpi">
+              <div class="t">Для команды</div>
+              <div class="v">Один источник правды</div>
+              <div class="s">Можно дать доступ клиенту/специалистам и работать в одной системе.</div>
+            </div>
+            <div class="kpi">
+              <div class="t">Для процесса</div>
+              <div class="v">Автоматизация рутины</div>
+              <div class="s">Проверки и отчеты по расписанию, брендирование, экспорт данных.</div>
+            </div>
+          </div>
+
+          <div class="btns">
+            <!-- Партнерская ссылка 1 -->
+            <a class="btn" href="{{TOPVISOR_PARTNER_URL}}" target="_blank" rel="noopener">
+              Попробовать Topvisor <span class="arr">→</span>
+            </a>
+            <a class="btn secondary" href="#how-we-use">Как мы используем</a>
+          </div>
+
+          <div class="divider"></div>
+          <p class="sub" style="margin-top:12px">
+            Лайфхак: даже если вы не готовы к SEO-продвижению прямо сейчас, мониторинг позиций и семантики помогает понять рынок,
+            найти точки роста и не "сломать" SEO при редизайне или доработках.
+          </p>
+        </div>
+
+        <div class="card soft">
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap;">
+            <div>
+              <div style="font-weight:900; font-size:18px; margin-bottom:6px">Быстрый старт</div>
+              <div class="sub" style="margin:0">
+                Если хотите развернуть аналитику за 1-2 дня, мы подскажем, как правильно собрать семантику и настроить проекты.
+              </div>
+            </div>
+            <span class="mono">SEO / Контроль / Отчеты</span>
+          </div>
+
+          <ul class="list" style="margin-top:14px">
+            <li class="li">
+              <div class="ic">✓</div>
+              <div>
+                <b>Позиции без самообмана</b>
+                <span>Учет региона и типа выдачи - без эффекта "у меня все в топе".</span>
+              </div>
+            </li>
+            <li class="li">
+              <div class="ic">✓</div>
+              <div>
+                <b>Семантика и кластеризация</b>
+                <span>Группировка запросов помогает правильно строить структуру сайта и контент-план.</span>
+              </div>
+            </li>
+            <li class="li">
+              <div class="ic">✓</div>
+              <div>
+                <b>Отчеты для клиента</b>
+                <span>Гостевые ссылки, PDF и брендирование - чтобы коммуникация была прозрачной.</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- WHAT IS TOPVISOR -->
+  <section class="section" id="about">
+    <div class="container">
+      <h2 class="h2">Что такое Topvisor простыми словами</h2>
+      <p class="sub">
+        Topvisor - сервис, который "измеряет" SEO как прибор: показывает позиции сайта по выбранным запросам, помогает работать с семантикой и
+        фиксирует изменения в выдаче. Удобно и для владельца бизнеса, и для команды, которая ведет SEO.
+      </p>
+
+      <div class="grid-2">
+        <div class="card">
+          <h3 style="margin:0 0 10px; font-size:18px; letter-spacing:-.01em">Когда он особенно полезен</h3>
+          <ul class="list">
+            <li class="li">
+              <div class="ic">1</div>
+              <div>
+                <b>Вы обновили сайт</b>
+                <span>После редизайна/доработок важно быстро увидеть, не просели ли позиции из-за технических ошибок.</span>
+              </div>
+            </li>
+            <li class="li">
+              <div class="ic">2</div>
+              <div>
+                <b>Вы планируете SEO</b>
+                <span>Семантика и кластеры помогают собрать структуру страниц и приоритизировать контент.</span>
+              </div>
+            </li>
+            <li class="li">
+              <div class="ic">3</div>
+              <div>
+                <b>Вы хотите прозрачность</b>
+                <span>Клиент или руководитель видит динамику и отчеты, а не "поверьте на слово".</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3 style="margin:0 0 10px; font-size:18px; letter-spacing:-.01em">Как это связано с нашими услугами</h3>
+          <ul class="list">
+            <li class="li">
+              <div class="ic">SEO</div>
+              <div>
+                <b>SEO-оптимизация и продвижение</b>
+                <span>Смотрим позиции, кластеры и видимость, чтобы делать понятный план работ и контролировать результат.</span>
+              </div>
+            </li>
+            <li class="li">
+              <div class="ic">DEV</div>
+              <div>
+                <b>Разработка и доработки сайта</b>
+                <span>После релизов проверяем технические изменения и их влияние на SEO, чтобы не терять трафик.</span>
+              </div>
+            </li>
+            <li class="li">
+              <div class="ic">ADS</div>
+              <div>
+                <b>Контекстная реклама и семантика</b>
+                <span>Семантика полезна не только для SEO: она помогает понимать спрос и расширять охват в Директе.</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="cta" style="margin-top:14px">
+        <div class="left">
+          <p class="title">Хотите просто начать - без лишних настроек?</p>
+          <p class="desc">Регистрируйтесь в Topvisor и подключайте проект. А если нужно - поможем собрать семантику, настроить регионы и отчетность.</p>
+        </div>
+        <!-- Партнерская ссылка 2 -->
+        <a class="btn small" href="{{TOPVISOR_PARTNER_URL}}" target="_blank" rel="noopener">Регистрация в Topvisor →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="section" id="features">
+    <div class="container">
+      <h2 class="h2">Ключевые возможности, которые реально используют</h2>
+      <p class="sub">
+        В Topvisor есть отдельные инструменты под задачи SEO: проверка позиций, семантика, техконтроль, отчеты и доступы для команды.
+        Ниже - выжимка того, что обычно дает самый быстрый эффект.
+      </p>
+
+      <div class="grid-3">
+        <div class="card">
+          <h3 style="margin:0 0 10px; font-size:18px">Позиции и выдача</h3>
+          <ul class="list">
+            <li class="li">
+              <div class="ic">✓</div>
+              <div>
+                <b>Проверка позиций</b>
+                <span>По регионам и типам выдачи (ПК/мобайл) - для честной картины.</span>
+              </div>
+            </li>
+            <li class="li">
+              <div class="ic">✓</div>
+              <div>
+                <b>Снимки выдачи и сниппеты</b>
+                <span>Можно анализировать ТОП, сравнивать сниппеты и улучшать кликабельность.</span>
+              </div>
+            </li>
+            <li class="li">
+              <div class="ic">✓</div>
+              <div>
+                <b>Конкуренты</b>
+                <span>Параллельный мониторинг позиций конкурентов для сравнения динамики.</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3 style="margin:0 0 10px; font-size:18px">Семантика</h3>
+          <ul class="list">
+            <li class="li">
+              <div class="ic">✓</div>
+              <div>
+                <b>Частотность</b>
+                <span>Проверка частоты запросов по типам соответствия и регионам.</span>
+              </div>
+            </li>
+            <li class="li">
+              <div class="ic">✓</div>
+              <div>
+                <b>Подбор слов и подсказки</b>
+                <span>Расширение ядра и поиск новых запросов под структуру и контент.</span>
+              </div>
+            </li>
+            <li class="li">
+              <div class="ic">✓</div>
+              <div>
+                <b>Кластеризация</b>
+                <span>Группировка запросов - чтобы понимать, какие страницы нужны на сайте.</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3 style="margin:0 0 10px; font-size:18px">Техконтроль и автоматизация</h3>
+          <ul class="list">
+            <li class="li">
+              <div class="ic">✓</div>
+              <div>
+                <b>Технический анализ</b>
+                <span>Проверки URL, индексации, генерация sitemap и базовый контроль SEO-ошибок.</span>
+              </div>
+            </li>
+            <li class="li">
+              <div class="ic">✓</div>
+              <div>
+                <b>Отчеты и расписание</b>
+                <span>Автоматические проверки и отчеты - чтобы рутина работала без ручных напоминаний.</span>
+              </div>
+            </li>
+            <li class="li">
+              <div class="ic">✓</div>
+              <div>
+                <b>Команда и доступы</b>
+                <span>Гостевые аккаунты и гостевые ссылки для клиента, плюс брендирование отчетов.</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="sub" style="margin-top:14px">
+        Примечание по подходу: мы используем Topvisor как "панель приборов". Он не заменяет стратегию SEO, но делает SEO измеримым и управляемым.
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW WE USE -->
+  <section class="section" id="how-we-use">
+    <div class="container">
+      <h2 class="h2">Как мы используем Topvisor в проектах</h2>
+      <p class="sub">
+        Мы подключаем Topvisor почти во всех SEO-проектах: так проще согласовывать приоритеты, показывать результат и быстро находить причины просадок.
+        Обычно процесс выглядит так:
+      </p>
+
+      <div class="grid-2">
+        <div class="card">
+          <h3 style="margin:0 0 10px; font-size:18px">1) Настраиваем контроль позиций</h3>
+          <ul class="list">
+            <li class="li"><div class="ic">1</div><div><b>Фиксируем список запросов</b><span>Ключевые коммерческие, приоритетные категории, бренды, услуги.</span></div></li>
+            <li class="li"><div class="ic">2</div><div><b>Регионы и тип выдачи</b><span>Настраиваем гео и устройства - чтобы цифры совпадали с реальностью.</span></div></li>
+            <li class="li"><div class="ic">3</div><div><b>Конкуренты</b><span>Добавляем контрольных конкурентов для ориентира.</span></div></li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3 style="margin:0 0 10px; font-size:18px">2) Собираем семантику и структуру</h3>
+          <ul class="list">
+            <li class="li"><div class="ic">A</div><div><b>Расширяем ядро</b><span>Подбор слов, подсказки, чистка мусора.</span></div></li>
+            <li class="li"><div class="ic">B</div><div><b>Кластеризация</b><span>Понимаем, какие страницы нужны, что объединять, а что разделять.</span></div></li>
+            <li class="li"><div class="ic">C</div><div><b>План контента</b><span>Список страниц и статей с приоритетами - что дает рост быстрее.</span></div></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="grid-2" style="margin-top:14px">
+        <div class="card">
+          <h3 style="margin:0 0 10px; font-size:18px">3) Автоматизируем отчеты</h3>
+          <ul class="list">
+            <li class="li"><div class="ic">✓</div><div><b>Гостевой доступ или гостевая ссылка</b><span>Чтобы клиент мог смотреть динамику сам - когда удобно.</span></div></li>
+            <li class="li"><div class="ic">✓</div><div><b>PDF-отчеты</b><span>Если нужно - делаем отчетность в формате, который удобно показывать руководству.</span></div></li>
+            <li class="li"><div class="ic">✓</div><div><b>Брендирование</b><span>Отчеты можно оформить под бренд компании/агентства.</span></div></li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3 style="margin:0 0 10px; font-size:18px">4) Поддерживаем качество после изменений</h3>
+          <ul class="list">
+            <li class="li"><div class="ic">⚙</div><div><b>После релиза - быстрый чек</b><span>Смотрим, не просели ли запросы и не появились ли ошибки в индексации.</span></div></li>
+            <li class="li"><div class="ic">⚙</div><div><b>Контроль сниппетов</b><span>Если сниппет ухудшился - правим метатеги/разметку, повышаем CTR.</span></div></li>
+            <li class="li"><div class="ic">⚙</div><div><b>Экспорт данных</b><span>При необходимости выгружаем данные для внутренней аналитики и отчетов.</span></div></li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- COMPARISON -->
+  <section class="section" id="compare">
+    <div class="container">
+      <h2 class="h2">Наглядно: без Topvisor vs с Topvisor</h2>
+      <p class="sub">
+        SEO часто "буксует" не потому что оно не работает, а потому что его не измеряют нормально. Вот разница, которую видят владельцы проектов.
+      </p>
+
+      <div class="compare">
+        <div class="box bad">
+          <div class="head">
+            <span class="badge" style="color:var(--bad)">Как обычно бывает</span>
+            <span>Смотрим SEO "на глаз"</span>
+          </div>
+          <div class="body">
+            <ul>
+              <li>Позиции проверяются вручную, цифры плавают, никто не уверен.</li>
+              <li>Спорим о результатах вместо того, чтобы делать работы.</li>
+              <li>После редизайна - узнаем о просадке через недели или месяцы.</li>
+              <li>Семантика лежит в файле и не превращается в структуру и контент.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="box good">
+          <div class="head">
+            <span class="badge" style="color:var(--good)">Как должно быть</span>
+            <span>Измеряем и управляем</span>
+          </div>
+          <div class="body">
+            <ul>
+              <li>Позиции фиксируются по регионам и типам выдачи - без иллюзий.</li>
+              <li>Есть понятные отчеты и прозрачная динамика.</li>
+              <li>Любые изменения на сайте проверяются сразу - риски ниже.</li>
+              <li>Семантика и кластеры дают план: какие страницы делать и что обновлять.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="cta" style="margin-top:14px">
+        <div class="left">
+          <p class="title">Если хотите - дадим схему настройки под вашу нишу</p>
+          <p class="desc">Подскажем, какие группы запросов собрать, какие регионы выставить и как организовать отчетность, чтобы SEO стало прозрачным.</p>
+        </div>
+        <a class="btn secondary small" href="#faq">Сначала - FAQ</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARTNER PROGRAM -->
+  <section class="section" id="partner">
+    <div class="container">
+      <h2 class="h2">Партнерская ссылка - если хотите стартовать самостоятельно</h2>
+      <p class="sub">
+        Мы оставили ссылку на регистрацию в Topvisor. Если вы зарегистрируетесь по ней, мы сможем получать реферальные отчисления.
+        Для вас это не усложняет процесс - а нам помогает развивать контент и практики вокруг SEO-аналитики.
+      </p>
+
+      <div class="grid-2">
+        <div class="card">
+          <h3 style="margin:0 0 10px; font-size:18px">Кому подходит "самостоятельный старт"</h3>
+          <ul class="list">
+            <li class="li"><div class="ic">✓</div><div><b>Нужно просто видеть позиции</b><span>Без большой стратегии - хотя бы контроль и история изменений.</span></div></li>
+            <li class="li"><div class="ic">✓</div><div><b>Есть свой SEO-специалист</b><span>Вы даете доступ и контролируете динамику на своей стороне.</span></div></li>
+            <li class="li"><div class="ic">✓</div><div><b>Планируете редизайн</b><span>Хотите зафиксировать точки А и сравнить после изменений.</span></div></li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3 style="margin:0 0 10px; font-size:18px">Кнопка для регистрации</h3>
+          <p class="sub" style="margin:0 0 14px">
+            Мы специально сделали несколько мест на странице, чтобы вам было удобно перейти в любой момент.
+          </p>
+          <!-- Партнерская ссылка 3 -->
+          <a class="btn" href="{{TOPVISOR_PARTNER_URL}}" target="_blank" rel="noopener">Перейти в Topvisor →</a>
+
+          <div class="divider"></div>
+          <p class="sub" style="margin:12px 0 0">
+            Совет: начните с проекта, подключите ключевые запросы, выставьте регионы и поставьте отчеты по расписанию.
+            Дальше - расширяйте семантику и структуру страниц.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section" id="faq">
+    <div class="container">
+      <h2 class="h2">FAQ - вопросы, которые обычно задают</h2>
+      <p class="sub">Коротко и по делу - без "магии".</p>
+
+      <div class="grid-2">
+        <details open>
+          <summary>Topvisor нужен, если я только начинаю SEO? <span class="badge">да</span></summary>
+          <p>
+            Да. Даже базовый мониторинг позиций и семантики помогает понять спрос и конкурентность.
+            Это особенно полезно, если вы параллельно запускаете контекстную рекламу и хотите видеть, что работает в органике.
+          </p>
+        </details>
+
+        <details>
+          <summary>Можно дать клиенту доступ к данным? <span class="badge">можно</span></summary>
+          <p>
+            Да. Обычно используем гостевой доступ или гостевые ссылки, чтобы клиент видел отчеты и динамику.
+            Это повышает доверие и экономит время на "объяснения". 
+          </p>
+        </details>
+
+        <details>
+          <summary>Можно делать отчеты "под бренд"? <span class="badge">да</span></summary>
+          <p>
+            Да. В Topvisor можно брендировать отчеты по гостевым ссылкам и PDF-отчеты - удобно для агентств и внутренних команд.
+          </p>
+        </details>
+
+        <details>
+          <summary>Чем это отличается от ручной проверки в поиске? <span class="badge">суть</span></summary>
+          <p>
+            Ручная проверка искажается персонализацией, историей браузера и гео. Сервис фиксирует проверку в заданных условиях (регион, устройство),
+            поэтому динамика становится сопоставимой.
+          </p>
+        </details>
+
+        <details>
+          <summary>Topvisor полезен при редизайне сайта? <span class="badge">обязательно</span></summary>
+          <p>
+            Да. Мы часто фиксируем позиции до редизайна и после, чтобы быстро заметить просадки и найти причину (техошибки, 404, метатеги, индексация).
+          </p>
+        </details>
+
+        <details>
+          <summary>Вы можете настроить Topvisor за нас? <span class="badge">да</span></summary>
+          <p>
+            Да. Если проект комплексный, мы подключаем Topvisor к процессу SEO-оптимизации/продвижения и настраиваем отчеты под ваши KPI.
+          </p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER NOTE -->
+  <section class="section">
+    <div class="container">
+      <div class="footer-note">
+        <b>Важно.</b> Topvisor - это инструмент. Результат дает связка: семантика → структура → контент → техкачество → ссылки/репутация → аналитика.
+        Если нужен системный рост, обычно начинаем с SEO-оптимизации и аудита, а затем переходим к продвижению и контенту.
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>

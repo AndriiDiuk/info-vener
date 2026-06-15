@@ -1,0 +1,1263 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Venner Digital - Разработка сайтов под ключ</title>
+  <style>
+    :root{
+      --bg1:#040a14;
+      --bg2:#0b162a;
+      --panel:rgba(16,26,42,.68);
+      --panel2:rgba(12,20,34,.72);
+      --stroke:rgba(255,255,255,.08);
+      --stroke2:rgba(255,255,255,.12);
+      --text:#eaf2ff;
+      --muted:rgba(234,242,255,.72);
+      --muted2:rgba(234,242,255,.55);
+      --accent:#6aa7ff;
+      --accent2:#34d1ff;
+      --good:#41d18b;
+      --warn:#ffb74a;
+      --danger:#ff5b5b;
+      --shadow:0 18px 60px rgba(0,0,0,.55);
+      --r:22px;
+      --r2:16px;
+      --r3:14px;
+      --gap:18px;
+      --max:1120px;
+      --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Arial,sans-serif;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:var(--font);
+      color:var(--text);
+      background:
+        radial-gradient(1100px 580px at 25% 24%, rgba(87,185,255,.18), rgba(0,0,0,0) 55%),
+        radial-gradient(900px 520px at 76% 28%, rgba(90,255,190,.12), rgba(0,0,0,0) 58%),
+        radial-gradient(1200px 760px at 55% 75%, rgba(120,90,255,.10), rgba(0,0,0,0) 60%),
+        linear-gradient(180deg, #050b16 0%, #040913 40%, #03060e 100%);
+      overflow-x:hidden;
+    }
+    a{color:inherit; text-decoration:none}
+    .wrap{max-width:var(--max); margin:0 auto; padding:0 18px}
+    .glow{position:relative; margin:42px auto 70px}
+    .glow:before{
+      content:"";
+      position:absolute;
+      inset:-26px -26px -26px -26px;
+      background:
+        radial-gradient(600px 220px at 25% 10%, rgba(52,209,255,.22), rgba(0,0,0,0) 70%),
+        radial-gradient(600px 240px at 75% 8%, rgba(106,167,255,.18), rgba(0,0,0,0) 72%),
+        radial-gradient(700px 280px at 50% 95%, rgba(65,209,139,.12), rgba(0,0,0,0) 75%);
+      filter: blur(30px);
+      z-index:-1;
+      opacity:.85;
+    }
+
+    /* HERO */
+    .hero{padding:56px 0 36px}
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.08fr .92fr;
+      gap:var(--gap);
+      align-items:stretch;
+    }
+    .panel{
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      border:1px solid var(--stroke);
+      border-radius:var(--r);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+    .panel:before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(600px 260px at 20% 0%, rgba(52,209,255,.14), rgba(0,0,0,0) 60%),
+        radial-gradient(600px 260px at 90% 20%, rgba(106,167,255,.10), rgba(0,0,0,0) 60%),
+        linear-gradient(180deg, rgba(0,0,0,.20), rgba(0,0,0,.40));
+      pointer-events:none;
+      z-index:0;
+    }
+    .panel>.in{position:relative; z-index:1; padding:26px}
+    .chip{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:9px 12px;
+      border-radius:999px;
+      border:1px solid var(--stroke);
+      background:rgba(5,10,20,.35);
+      color:rgba(234,242,255,.78);
+      font-weight:650;
+      font-size:13px;
+      letter-spacing:.1px;
+      width:fit-content;
+    }
+    .dot{
+      width:9px;height:9px;border-radius:50%;
+      background: radial-gradient(circle at 30% 30%, #9be7ff, #31c8ff 55%, #0676a1);
+      box-shadow:0 0 0 3px rgba(52,209,255,.12);
+    }
+    .h1{
+      margin:18px 0 10px;
+      font-size:44px;
+      line-height:1.04;
+      letter-spacing:-.8px;
+      font-weight:900;
+    }
+    .sub{
+      color:var(--muted);
+      font-size:15.6px;
+      line-height:1.5;
+      max-width:52ch;
+    }
+    .sep{height:1px; background:rgba(255,255,255,.08); margin:18px 0}
+    .kpis{
+      display:flex; flex-wrap:wrap; gap:10px;
+      margin:16px 0 16px;
+    }
+    .kpi{
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid var(--stroke);
+      background:rgba(6,10,18,.35);
+      color:rgba(234,242,255,.78);
+      font-size:13px;
+      font-weight:650;
+      white-space:nowrap;
+    }
+    .hero-ctas{display:flex; gap:12px; flex-wrap:wrap; margin:16px 0 12px}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:12px 16px;
+      border-radius:999px;
+      border:1px solid var(--stroke2);
+      background:rgba(10,14,24,.25);
+      color:var(--text);
+      font-weight:800;
+      font-size:14.5px;
+      transition:.18s ease;
+    }
+    .btn:hover{transform:translateY(-1px); border-color:rgba(255,255,255,.18)}
+    .btn.primary{
+      background: linear-gradient(90deg, rgba(255,124,92,.95), rgba(255,88,104,.92));
+      border-color: rgba(255,255,255,.16);
+      color:#0b0f19;
+      box-shadow:0 12px 35px rgba(255,96,104,.20);
+    }
+    .anchors{display:flex; flex-wrap:wrap; gap:10px; margin:12px 0 8px}
+    .tag{
+      padding:9px 12px;
+      border-radius:999px;
+      border:1px solid var(--stroke);
+      background:rgba(6,10,18,.30);
+      color:rgba(234,242,255,.72);
+      font-size:13px;
+      font-weight:650;
+    }
+    .note{
+      margin-top:10px;
+      color:rgba(234,242,255,.52);
+      font-size:12.5px;
+      line-height:1.45;
+    }
+
+    /* Right mini card */
+    .mini-card{
+      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.015));
+      border:1px solid var(--stroke);
+      border-radius:var(--r);
+      box-shadow: var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+    .mini-card:before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(520px 260px at 70% 0%, rgba(106,167,255,.14), rgba(0,0,0,0) 60%),
+        radial-gradient(500px 260px at 20% 10%, rgba(52,209,255,.10), rgba(0,0,0,0) 60%),
+        linear-gradient(180deg, rgba(0,0,0,.15), rgba(0,0,0,.45));
+      pointer-events:none;
+      z-index:0;
+    }
+    .mini-card>.in{position:relative; z-index:1; padding:22px 22px 18px}
+    .mini-title{
+      font-size:20px; font-weight:900; letter-spacing:-.2px; margin:10px 0 8px;
+    }
+    .mini-muted{color:var(--muted); font-size:13.8px; line-height:1.5}
+
+    /* Generic lists/cards */
+    .list{display:flex; flex-direction:column; gap:10px; margin-top:14px}
+    .li{
+      border:1px solid var(--stroke);
+      background:rgba(6,10,18,.28);
+      border-radius:16px;
+      padding:12px 12px;
+    }
+    .li b{display:block; margin-bottom:2px}
+    .li.step{display:flex; gap:12px; align-items:flex-start}
+    .li.step .badge{
+      flex:0 0 34px;
+      height:34px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:12px;
+      background:rgba(106,167,255,.14);
+      border:1px solid rgba(106,167,255,.35);
+      color:var(--text);
+      font-weight:950;
+      line-height:1;
+    }
+    .li.icon{display:flex; gap:12px; align-items:flex-start}
+    .li.icon .ico{
+      flex:0 0 34px;
+      height:34px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:12px;
+      background:rgba(52,209,255,.10);
+      border:1px solid rgba(52,209,255,.28);
+      color:rgba(234,242,255,.92);
+      font-weight:950;
+      line-height:1;
+    }
+    .warn{
+      margin-top:12px;
+      border-radius:16px;
+      padding:12px 12px;
+      border:1px solid rgba(255,183,74,.24);
+      background: rgba(255,183,74,.06);
+      color: rgba(255,235,210,.92);
+      font-weight:750;
+      font-size:13.2px;
+      line-height:1.45;
+    }
+
+    /* Section */
+    .section{padding:26px 0}
+    .section h2{
+      margin:0 0 8px;
+      font-size:34px;
+      letter-spacing:-.6px;
+      font-weight:950;
+    }
+    .section .lead{
+      margin:0 0 18px;
+      color:var(--muted);
+      max-width:86ch;
+      line-height:1.55;
+      font-size:14.8px;
+    }
+
+    /* Grid */
+    .grid{display:grid; gap:var(--gap)}
+    .grid.cols-3{grid-template-columns:repeat(3,1fr)}
+    .grid.cols-2{grid-template-columns:repeat(2,1fr)}
+
+    /* Cards */
+    .card{
+      border:1px solid var(--stroke);
+      border-radius:var(--r);
+      overflow:hidden;
+      background:rgba(6,10,18,.30);
+      box-shadow: var(--shadow);
+      position:relative;
+    }
+    .card:before{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        radial-gradient(520px 260px at 20% 0%, rgba(52,209,255,.10), rgba(0,0,0,0) 60%),
+        linear-gradient(180deg, rgba(0,0,0,.08), rgba(0,0,0,.40));
+      z-index:0;
+      pointer-events:none;
+    }
+    .card>.in{position:relative; z-index:1; padding:18px}
+    .card h3{margin:0 0 8px; font-size:18px; font-weight:900; letter-spacing:-.2px}
+    .price{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:9px 12px;
+      border-radius:999px;
+      border:1px solid rgba(106,167,255,.24);
+      background:rgba(106,167,255,.10);
+      color:rgba(234,242,255,.90);
+      font-weight:850;
+      font-size:13.5px;
+      margin:6px 0 10px;
+    }
+    .bullets{margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:10px}
+    .bullets li{
+      position:relative;
+      padding-left:16px;
+      color:rgba(234,242,255,.72);
+      line-height:1.45;
+      font-size:13.6px;
+    }
+    .bullets li:before{
+      content:"";
+      position:absolute;
+      left:0; top:.55em;
+      width:7px; height:7px;
+      border-radius:50%;
+      background: radial-gradient(circle at 30% 30%, rgba(155,231,255,1), rgba(52,209,255,.95));
+      box-shadow:0 0 0 3px rgba(52,209,255,.10);
+    }
+    .card-ctas{display:flex; gap:10px; flex-wrap:wrap; margin-top:14px}
+    .btn.small{padding:10px 12px; font-size:13.5px}
+    .btn.ghost{
+      background:rgba(8,12,20,.22);
+      border-color:rgba(255,255,255,.12);
+      color:rgba(234,242,255,.90);
+    }
+
+    /* Split blocks */
+    .split{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:var(--gap);
+      align-items:stretch;
+    }
+    .cap{
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      margin-bottom:10px;
+    }
+    .cap .ttl{
+      font-size:18px;
+      font-weight:950;
+      letter-spacing:-.2px;
+      margin:0;
+    }
+    .cap .hint{
+      color:rgba(234,242,255,.55);
+      font-size:13px;
+      line-height:1.35;
+      max-width:46ch;
+    }
+
+    /* Accordions */
+    details{
+      border:1px solid var(--stroke);
+      border-radius:16px;
+      background:rgba(6,10,18,.26);
+      overflow:hidden;
+    }
+    summary{
+      cursor:pointer;
+      list-style:none;
+      padding:14px 14px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      font-weight:850;
+      color:rgba(234,242,255,.92);
+    }
+    summary::-webkit-details-marker{display:none}
+    details .ans{
+      padding:0 14px 14px;
+      color:rgba(234,242,255,.70);
+      line-height:1.5;
+      font-size:13.8px;
+    }
+    .faq-list{display:flex; flex-direction:column; gap:10px; margin-top:12px}
+
+    /* Table */
+    .table-wrap{
+      border:1px solid var(--stroke);
+      border-radius:var(--r);
+      background:rgba(6,10,18,.30);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+    .table-wrap:before{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        radial-gradient(520px 260px at 20% 0%, rgba(52,209,255,.10), rgba(0,0,0,0) 60%),
+        linear-gradient(180deg, rgba(0,0,0,.08), rgba(0,0,0,.40));
+      z-index:0;
+      pointer-events:none;
+    }
+    table{
+      width:100%;
+      border-collapse:collapse;
+      position:relative;
+      z-index:1;
+    }
+    th,td{
+      padding:14px 14px;
+      border-bottom:1px solid rgba(255,255,255,.07);
+      vertical-align:top;
+      text-align:left;
+    }
+    th{
+      font-size:13px;
+      letter-spacing:.2px;
+      text-transform:none;
+      color:rgba(234,242,255,.86);
+      font-weight:900;
+      background:rgba(255,255,255,.02);
+    }
+    td{
+      font-size:13.6px;
+      line-height:1.45;
+      color:rgba(234,242,255,.72);
+    }
+    tr:last-child td{border-bottom:none}
+    .table-note{
+      padding:16px 18px 18px;
+      position:relative;
+      z-index:1;
+      color:rgba(234,242,255,.60);
+      font-size:12.8px;
+      line-height:1.45;
+    }
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .hero-grid{grid-template-columns:1fr}
+      .h1{font-size:38px}
+      .grid.cols-3{grid-template-columns:1fr}
+      .grid.cols-2{grid-template-columns:1fr}
+      .split{grid-template-columns:1fr}
+      th,td{padding:12px}
+    }
+    @media (max-width: 520px){
+      .h1{font-size:32px}
+      .panel>.in{padding:20px}
+      .mini-card>.in{padding:18px}
+      .li.step .badge,.li.icon .ico{flex-basis:32px;height:32px}
+    }
+  </style>
+</head>
+
+<body>
+  <!-- HERO (оставлен как в твоем текущем файле) -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div class="panel">
+          <div class="in">
+            <div class="chip"><span class="dot"></span>Разработка сайтов</div>
+            <div class="h1">Разработка сайтов под ключ - от прототипа до запуска</div>
+            <div class="sub">
+              Делаем сайт, который приносит заявки: структура, контент, дизайн, верстка, аналитика.
+              Подбираем CMS под вашу задачу - WordPress, 1С-Битрикс, OpenCart или легкий HTML-сайт.
+            </div>
+
+            <div class="kpis">
+              <div class="kpi">13+ лет на рынке (с 2013)</div>
+              <div class="kpi">10+ лет SEO и перфоманс</div>
+              <div class="kpi">Контент придумываем сами</div>
+              <div class="kpi">Гипотезы из собственных бизнесов</div>
+              <div class="kpi">200+ отзывов на картах и 2ГИС</div>
+            </div>
+
+            <div class="hero-ctas">
+              <a class="btn primary" href="#calc">Узнать предварительную стоимость</a>
+              <a class="btn" href="https://t.me/VennerDigital" target="_blank" rel="noopener">Обсудить задачу в Telegram</a>
+              <a class="btn" href="tel:+79528070601">Позвонить</a>
+            </div>
+
+            <div class="anchors" aria-label="быстрые ссылки">
+              <a class="tag" href="/sozdanie-saytov/lending-page/">Лендинг под ключ</a>
+              <a class="tag" href="/sozdanie-saytov/internet-magazin/">Интернет-магазин</a>
+              <a class="tag" href="/sozdanie-saytov/kviz-sayt/">Сайт-опрос</a>
+              <a class="tag" href="/sozdanie-saytov/sayt-na-wordpress/">WordPress</a>
+              <a class="tag" href="/sozdanie-saytov/sayt-na-1c-bitrix/">1С-Битрикс</a>
+              <a class="tag" href="/sozdanie-saytov/sayt-na-opencart/">OpenCart</a>
+              <a class="tag" href="/sozdanie-saytov/sayt-na-html/">HTML-сайт</a>
+              <a class="tag" href="/yandex-direct/">Яндекс.Директ</a>
+            </div>
+
+            <div class="note">
+              * Стоимость зависит от задач, объема и интеграций. Точный расчет - после короткого брифа.
+            </div>
+          </div>
+        </div>
+
+        <div class="mini-card">
+          <div class="in">
+            <div class="mini-title">Сайт под ключ - сразу как инструмент заявок</div>
+            <div class="mini-muted">
+              Делаем не "красивую картинку", а систему, которая приводит лиды. От вас - вводные и быстрые согласования.
+              От нас - структура, контент, дизайн, аналитика и запуск.
+            </div>
+
+            <div class="list">
+              <div class="li step">
+                <div class="badge">1</div>
+                <div>
+                  <b>Погружаемся в нишу и собираем структуру</b>
+                  <div class="mini-muted">Разбираем спрос, конкурентов и цели. Проектируем страницы и сценарии заявок под SEO и конверсию.</div>
+                </div>
+              </div>
+
+              <div class="li step">
+                <div class="badge">2</div>
+                <div>
+                  <b>Придумываем контент и оффер</b>
+                  <div class="mini-muted">Тексты, блоки доверия, CTA, примеры, "почему вам". Вы не пишете контент - мы делаем всё сами.</div>
+                </div>
+              </div>
+
+              <div class="li step">
+                <div class="badge">3</div>
+                <div>
+                  <b>Запускаем с аналитикой</b>
+                  <div class="mini-muted">Метрика, цели, события, формы. Проверяем качество заявок и корректируем узкие места.</div>
+                </div>
+              </div>
+
+              <div class="li step">
+                <div class="badge">4</div>
+                <div>
+                  <b>Подключаем трафик и интеграции</b>
+                  <div class="mini-muted">SEO, Яндекс.Директ, SERM, Avito и amoCRM - чтобы заявки не терялись и сайт быстрее начал окупаться.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="warn">
+              В итоге вы получаете не просто сайт, а понятный план роста - что улучшать, что тестировать и где добрать заявки.
+            </div>
+
+            <div class="note">
+              * Если у вас уже есть сайт - часто выгоднее начать с аудита и точечных улучшений, а не "делать заново".
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SHOWCASE (оставлен как в твоем текущем файле) -->
+  <section class="section" id="formats">
+    <div class="wrap">
+      <h2>Витрина решений. Выберите формат - и сразу поймете порядок стоимости</h2>
+      <p class="lead">
+        Карточки как "каталог": что это такое, что внутри, от какой суммы стартуем, и куда перейти за деталями.
+      </p>
+
+      <div class="grid cols-3">
+        <div class="card">
+          <div class="in">
+            <h3>Лендинг под ключ</h3>
+            <div class="price">от 69 000 ₽</div>
+            <ul class="bullets">
+              <li>Под рекламу, быстрый запуск, максимум заявок с одной страницы</li>
+              <li>Структура и оффер под вашу нишу</li>
+              <li>Тексты, заголовки, CTA - без воды</li>
+              <li>Адаптивная верстка и быстрые формы</li>
+              <li>Подключение аналитики и целей</li>
+            </ul>
+            <div class="card-ctas">
+              <a class="btn small ghost" href="/sozdanie-saytov/lending-page/">Подробнее</a>
+              <a class="btn small" href="#calc">Узнать стоимость</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="in">
+            <h3>Интернет-магазин</h3>
+            <div class="price">от 189 000 ₽</div>
+            <ul class="bullets">
+              <li>Каталог, карточки, фильтры, корзина, оплата и доставка</li>
+              <li>OpenCart или 1С-Битрикс - под вашу задачу</li>
+              <li>Подключение оплаты (ЮKassa) и доставки (СДЭК)</li>
+              <li>Интеграции с CRM и учетом (1С / МойСклад)</li>
+              <li>Тех-основа под SEO (структура, скорость)</li>
+            </ul>
+            <div class="card-ctas">
+              <a class="btn small ghost" href="/sozdanie-saytov/internet-magazin/">Подробнее</a>
+              <a class="btn small" href="#calc">Узнать стоимость</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="in">
+            <h3>Сайт-опрос (расчет стоимости)</h3>
+            <div class="price">от 49 000 ₽</div>
+            <ul class="bullets">
+              <li>Когда клиенту проще ответить на вопросы - и сразу получить предложение</li>
+              <li>Логика вопросов под вашу нишу</li>
+              <li>Порог входа ниже, заявок обычно больше</li>
+              <li>Можно запускать как дополнение к основному сайту</li>
+              <li>Удобно тестировать гипотезы и офферы</li>
+            </ul>
+            <div class="card-ctas">
+              <a class="btn small ghost" href="/sozdanie-saytov/kviz-sayt/">Подробнее</a>
+              <a class="btn small" href="#calc">Узнать стоимость</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="in">
+            <h3>WordPress - сайт под ключ</h3>
+            <div class="price">от 89 000 ₽</div>
+            <ul class="bullets">
+              <li>Идеально для услуг, блога, контентных проектов</li>
+              <li>Удобная админка и быстрые правки</li>
+              <li>SEO-структура и скорость - в базе</li>
+              <li>Формы, виджеты, интеграции по необходимости</li>
+            </ul>
+            <div class="card-ctas">
+              <a class="btn small ghost" href="/sozdanie-saytov/sayt-na-wordpress/">Подробнее</a>
+              <a class="btn small" href="#calc">Узнать стоимость</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="in">
+            <h3>1С-Битрикс - корпоративный сайт</h3>
+            <div class="price">от 149 000 ₽</div>
+            <ul class="bullets">
+              <li>Для компаний, где важны роли, доступы, интеграции</li>
+              <li>Каталог, личный кабинет, сложные формы</li>
+              <li>Интеграции с 1С, CRM, сервисами</li>
+              <li>Тех-основа под рост и нагрузку</li>
+            </ul>
+            <div class="card-ctas">
+              <a class="btn small ghost" href="/sozdanie-saytov/sayt-na-1c-bitrix/">Подробнее</a>
+              <a class="btn small" href="#calc">Узнать стоимость</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="in">
+            <h3>OpenCart - магазин с каталогом</h3>
+            <div class="price">от 129 000 ₽</div>
+            <ul class="bullets">
+              <li>Быстрый старт интернет-магазина</li>
+              <li>Каталог, фильтры, корзина, оплата и доставка</li>
+              <li>Удобно масштабировать ассортимент</li>
+              <li>Подключаем интеграции по необходимости</li>
+            </ul>
+            <div class="card-ctas">
+              <a class="btn small ghost" href="/sozdanie-saytov/sayt-na-opencart/">Подробнее</a>
+              <a class="btn small" href="#calc">Узнать стоимость</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="in">
+            <h3>Редизайн и обновление сайта</h3>
+            <div class="price">от 59 000 ₽</div>
+            <ul class="bullets">
+              <li>Когда сайт устарел визуально и по структуре</li>
+              <li>Обновляем офферы, блоки доверия и UX</li>
+              <li>Улучшаем конверсию без полного "с нуля"</li>
+              <li>Можно делать поэтапно</li>
+            </ul>
+            <div class="card-ctas">
+              <a class="btn small ghost" href="/sozdanie-saytov/redizajn-sajta/">Подробнее</a>
+              <a class="btn small" href="#calc">Узнать стоимость</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="in">
+            <h3>Технический аудит сайта</h3>
+            <div class="price">от 19 000 ₽</div>
+            <ul class="bullets">
+              <li>Скорость, ошибки, индексация, структура</li>
+              <li>Проверка аналитики, целей, форм</li>
+              <li>Понятный список правок и приоритетов</li>
+              <li>Можно передать вашему разработчику</li>
+            </ul>
+            <div class="card-ctas">
+              <a class="btn small ghost" href="/sozdanie-saytov/tehnicheskij-audit/">Подробнее</a>
+              <a class="btn small" href="#calc">Узнать стоимость</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="in">
+            <h3>Сайт на чистом HTML</h3>
+            <div class="price">от 49 000 ₽</div>
+            <ul class="bullets">
+              <li>Максимальная скорость и легкость</li>
+              <li>Под рекламу, под оффер, под быстрый запуск</li>
+              <li>Минимум лишнего, максимум результата</li>
+              <li>Отлично подходит как посадочная</li>
+            </ul>
+            <div class="card-ctas">
+              <a class="btn small ghost" href="/sozdanie-saytov/sayt-na-html/">Подробнее</a>
+              <a class="btn small" href="#calc">Узнать стоимость</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OLD-CONTENT BLOCK 1: HOW WE BUILD (из старой версии) -->
+  <section class="section">
+    <div class="wrap">
+      <h2>Как мы делаем сайт под ключ. Путь проекта</h2>
+      <p class="lead">
+        Структура, контент и логика конверсии появляются раньше, чем дизайн. Так дешевле, быстрее и без переделок.
+      </p>
+
+      <div class="split">
+        <div class="card">
+          <div class="in">
+            <div class="cap">
+              <div class="ttl">Этапы</div>
+              <div class="hint">Понятная последовательность - чтобы не было "переделываем заново".</div>
+            </div>
+
+            <div class="list" style="margin-top:0">
+              <div class="li step">
+                <div class="badge">1</div>
+                <div>
+                  <b>Анализ ниши и конкурентов</b>
+                  <div class="mini-muted">Смотрим рынок, офферы, структуру, сильные и слабые места.</div>
+                </div>
+              </div>
+              <div class="li step">
+                <div class="badge">2</div>
+                <div>
+                  <b>Бриф и сбор материалов</b>
+                  <div class="mini-muted">Если материалов нет - поможем собрать и сформировать.</div>
+                </div>
+              </div>
+              <div class="li step">
+                <div class="badge">3</div>
+                <div>
+                  <b>Прототип - структура и контент</b>
+                  <div class="mini-muted">Здесь рождаются заголовки, офферы, блоки и сценарии заявок.</div>
+                </div>
+              </div>
+              <div class="li step">
+                <div class="badge">4</div>
+                <div>
+                  <b>Дизайн в Figma</b>
+                  <div class="mini-muted">UI/UX, визуальная иерархия, проработка состояний.</div>
+                </div>
+              </div>
+              <div class="li step">
+                <div class="badge">5</div>
+                <div>
+                  <b>Верстка и запуск</b>
+                  <div class="mini-muted">Адаптивность, скорость, интерактив, формы, публикация.</div>
+                </div>
+              </div>
+              <div class="li step">
+                <div class="badge">6</div>
+                <div>
+                  <b>Аналитика и рост</b>
+                  <div class="mini-muted">Подключаем аналитику и цели. Дальше можно усиливать Яндекс.Директ и SEO.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="warn">
+              Важно: если сделать "красивый дизайн" без прототипа и структуры - на верстке чаще всего получается дороже и дольше.
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="in">
+            <div class="cap">
+              <div class="ttl">CMS и подход</div>
+              <div class="hint">Подбираем платформу под задачу, а не "как у всех".</div>
+            </div>
+
+            <div class="list" style="margin-top:0">
+              <div class="li icon">
+                <div class="ico">W</div>
+                <div>
+                  <b>WordPress</b>
+                  <div class="mini-muted">Нужна админка и быстрое управление контентом.</div>
+                </div>
+              </div>
+              <div class="li icon">
+                <div class="ico">1C</div>
+                <div>
+                  <b>1С-Битрикс</b>
+                  <div class="mini-muted">Бизнес-задачи, интеграции, безопасность, готовые решения АСПРО.</div>
+                </div>
+              </div>
+              <div class="li icon">
+                <div class="ico">OC</div>
+                <div>
+                  <b>OpenCart</b>
+                  <div class="mini-muted">Интернет-магазины на CMS с гибкостью и понятной логикой.</div>
+                </div>
+              </div>
+              <div class="li icon">
+                <div class="ico">&lt;/&gt;</div>
+                <div>
+                  <b>HTML-сайт</b>
+                  <div class="mini-muted">Легкие и быстрые решения с полной кастомизацией.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="note" style="margin-top:12px">
+              Если у вас уже есть сайт - часто выгоднее сделать редизайн с тех-обновлениями и сохранением SEO.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OLD-CONTENT BLOCK 2: WHAT YOU GET -->
+  <section class="section">
+    <div class="wrap">
+      <h2>Что вы получите на выходе</h2>
+      <p class="lead">
+        Не "страничку в интернете", а рабочий инструмент: понятный, быстрый, с логикой заявок и базой для продвижения.
+      </p>
+
+      <div class="grid cols-3">
+        <div class="card"><div class="in">
+          <h3>Структура и логика</h3>
+          <div class="mini-muted">Путь клиента, блоки, сценарии, CTA, точки доверия.</div>
+        </div></div>
+
+        <div class="card"><div class="in">
+          <h3>Контент и офферы</h3>
+          <div class="mini-muted">Заголовки, тексты, формулировки - чтобы человек понял и оставил заявку.</div>
+        </div></div>
+
+        <div class="card"><div class="in">
+          <h3>Запуск и аналитика</h3>
+          <div class="mini-muted">Подключение аналитики, целей, проверка форм и сценариев.</div>
+        </div></div>
+
+        <div class="card"><div class="in">
+          <h3>Адаптивность</h3>
+          <div class="mini-muted">Мобильный, планшет, десктоп - выглядит и работает корректно.</div>
+        </div></div>
+
+        <div class="card"><div class="in">
+          <h3>Скорость и тех-основа</h3>
+          <div class="mini-muted">Быстрая загрузка, аккуратная структура, готовность к росту.</div>
+        </div></div>
+
+        <div class="card"><div class="in">
+          <h3>План развития</h3>
+          <div class="mini-muted">Рекомендации: какие страницы/разделы усиливать, что тестировать.</div>
+        </div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OLD-CONTENT BLOCK 3: ERRORS + COST FACTORS -->
+  <section class="section">
+    <div class="wrap">
+      <div class="split">
+        <div class="card">
+          <div class="in">
+            <h2 style="font-size:30px;margin:0 0 6px;letter-spacing:-.5px">Типовые ошибки, из-за которых сайт не дает заявок</h2>
+            <p class="lead" style="margin:0 0 14px">Показываем "как бывает" - чтобы вы не платили дважды.</p>
+
+            <div class="list" style="margin-top:0">
+              <div class="li icon">
+                <div class="ico">!</div>
+                <div>
+                  <b>Красиво, но не продает</b>
+                  <div class="mini-muted">Нет структуры, оффера, понятных CTA и доверия.</div>
+                </div>
+              </div>
+              <div class="li icon">
+                <div class="ico">!</div>
+                <div>
+                  <b>Тяжелый сайт</b>
+                  <div class="mini-muted">Платный трафик сливается из-за скорости и багов.</div>
+                </div>
+              </div>
+              <div class="li icon">
+                <div class="ico">!</div>
+                <div>
+                  <b>Нет аналитики</b>
+                  <div class="mini-muted">Нельзя понять, где клиент "отваливается".</div>
+                </div>
+              </div>
+              <div class="li icon">
+                <div class="ico">!</div>
+                <div>
+                  <b>Плохой мобильный</b>
+                  <div class="mini-muted">Большая часть трафика - мобильная, теряете заявки.</div>
+                </div>
+              </div>
+              <div class="li icon">
+                <div class="ico">!</div>
+                <div>
+                  <b>Старая CMS и плагины</b>
+                  <div class="mini-muted">Ошибки, взломы, падения и "непонятно почему".</div>
+                </div>
+              </div>
+              <div class="li icon">
+                <div class="ico">!</div>
+                <div>
+                  <b>Формы не доходят</b>
+                  <div class="mini-muted">Лиды теряются из-за мелочей и неочевидных багов.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="in">
+            <h2 style="font-size:30px;margin:0 0 6px;letter-spacing:-.5px">Что влияет на стоимость разработки</h2>
+            <p class="lead" style="margin:0 0 14px">Чтобы расчет был честным - показываем основные факторы.</p>
+
+            <div class="list" style="margin-top:0">
+              <div class="li step">
+                <div class="badge">1</div>
+                <div>
+                  <b>Тип сайта</b>
+                  <div class="mini-muted">Лендинг, магазин, сайт компании, сайт-опрос, спец-проект.</div>
+                </div>
+              </div>
+              <div class="li step">
+                <div class="badge">2</div>
+                <div>
+                  <b>Объем и контент</b>
+                  <div class="mini-muted">Количество страниц/разделов, сложность текста и структуры.</div>
+                </div>
+              </div>
+              <div class="li step">
+                <div class="badge">3</div>
+                <div>
+                  <b>CMS и админка</b>
+                  <div class="mini-muted">WordPress / 1С-Битрикс / OpenCart / HTML - разные задачи и бюджеты.</div>
+                </div>
+              </div>
+              <div class="li step">
+                <div class="badge">4</div>
+                <div>
+                  <b>Интеграции</b>
+                  <div class="mini-muted">CRM, учет (1С/МойСклад), оплата, доставка, внешние сервисы.</div>
+                </div>
+              </div>
+              <div class="li step">
+                <div class="badge">5</div>
+                <div>
+                  <b>Сроки</b>
+                  <div class="mini-muted">Если нужно "вчера" - закладываем ускорение и приоритет.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card-ctas" style="margin-top:16px">
+              <a class="btn small primary" href="#calc">Получить расчет под ваш проект</a>
+              <a class="btn small ghost" href="#formats">Посмотреть примеры форматов</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OLD-CONTENT BLOCK 4: BONUSES -->
+  <section class="section">
+    <div class="wrap">
+      <h2>Бонусы для новых клиентов</h2>
+      <p class="lead">Фиксируем в смете - без сюрпризов и "мы так не договаривались".</p>
+
+      <div class="grid cols-3">
+        <div class="card"><div class="in">
+          <h3>Хостинг на время разработки - бесплатно</h3>
+          <div class="mini-muted">Если разработка идет несколько месяцев - вы не платите за хостинг.</div>
+        </div></div>
+
+        <div class="card"><div class="in">
+          <h3>Хостинг в подарок на 6 месяцев</h3>
+          <div class="mini-muted">Для новых клиентов при заказе первого сайта у нас.</div>
+        </div></div>
+
+        <div class="card"><div class="in">
+          <h3>Домен - можем подарить</h3>
+          <div class="mini-muted">Условия зависят от проекта и фиксируются в смете.</div>
+        </div></div>
+
+        <div class="card"><div class="in">
+          <h3>Сервис опроса - на 1 месяц</h3>
+          <div class="mini-muted">Как бонус на старте, чтобы быстрее собрать заявки.</div>
+        </div></div>
+
+        <div class="card"><div class="in">
+          <h3>-50% на настройку amoCRM</h3>
+          <div class="mini-muted">Если нужно выстроить прием заявок и этапы.</div>
+        </div></div>
+
+        <div class="card"><div class="in">
+          <h3>-20% на семантическое ядро</h3>
+          <div class="mini-muted">Если планируете SEO и хотите сделать основу правильно.</div>
+        </div></div>
+      </div>
+
+      <div class="note" style="margin-top:12px">
+        * Бонусы зависят от формата и объема проекта. Все условия фиксируем в смете и договоренностях.
+      </div>
+    </div>
+  </section>
+
+  <!-- OLD-CONTENT BLOCK 5: Q&A + FAQ (компактно аккордеоном) -->
+  <section class="section">
+    <div class="wrap">
+      <div class="split">
+        <div class="card">
+          <div class="in">
+            <h2 style="font-size:30px;margin:0 0 6px;letter-spacing:-.5px">Вопрос-ответ про контент</h2>
+            <p class="lead" style="margin:0 0 14px">Коротко отвечаем на то, что обычно "подвисает" при заказе сайта.</p>
+
+            <div class="faq-list" style="margin-top:0">
+              <details>
+                <summary>Вы сами пишете тексты или нужно от клиента?</summary>
+                <div class="ans">
+                  Можем сделать контент сами: структура, заголовки, офферы, тексты. От вас - вводные по продукту и ответы на вопросы брифа.
+                </div>
+              </details>
+
+              <details>
+                <summary>Если у нас вообще нет материалов - что делать?</summary>
+                <div class="ans">
+                  Нормально. Помогаем собрать: что продаете, кому, чем отличаетесь. Дальше упаковываем это в структуру и контент, понятный клиенту.
+                </div>
+              </details>
+
+              <details>
+                <summary>Можно ли использовать ваши материалы и потом расширять сайт?</summary>
+                <div class="ans">
+                  Да. Строим структуру так, чтобы ее можно было расширять: добавлять направления, города, услуги, кейсы и статьи - без "ломания" сайта.
+                </div>
+              </details>
+
+              <details>
+                <summary>Как согласуются правки?</summary>
+                <div class="ans">
+                  Делаем понятные этапы: прототип -> контент -> дизайн -> верстка. На каждом этапе быстро фиксируем правки, чтобы не возвращаться назад.
+                </div>
+              </details>
+
+              <details>
+                <summary>Делаете ли вы разные страницы под разные направления?</summary>
+                <div class="ans">
+                  Да. Если у вас несколько услуг/продуктов - делаем отдельные посадочные или разделы, чтобы точнее попадать в спрос и повышать конверсию.
+                </div>
+              </details>
+
+              <details>
+                <summary>Что с визуалом - фото, блоки, примеры?</summary>
+                <div class="ans">
+                  Подберем стиль, структуру блоков, примеры и референсы. Если нужно - поможем с фотоматериалами и подготовкой визуала под страницу.
+                </div>
+              </details>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="in">
+            <h2 style="font-size:30px;margin:0 0 6px;letter-spacing:-.5px">FAQ по разработке сайта</h2>
+            <p class="lead" style="margin:0 0 14px">12 вопросов, которые чаще всего задают перед стартом.</p>
+
+            <div class="faq-list" style="margin-top:0">
+              <details>
+                <summary>Сколько времени занимает разработка?</summary>
+                <div class="ans">
+                  Зависит от типа сайта и объема. Лендинг часто можно сделать за 2-4 недели. Магазин и сложные проекты - дольше из-за каталога и интеграций.
+                </div>
+              </details>
+
+              <details>
+                <summary>Можно заказать только прототип / дизайн / верстку?</summary>
+                <div class="ans">
+                  Да. Часто стартуем с прототипа и структуры, затем подключаем дизайн и верстку. Можно взять отдельный этап, если вам так удобнее.
+                </div>
+              </details>
+
+              <details>
+                <summary>Как выбираете CMS?</summary>
+                <div class="ans">
+                  Отталкиваемся от задач: админка, контент, безопасность, интеграции, скорость, бюджет. Подбираем платформу под проект, а не "как у всех".
+                </div>
+              </details>
+
+              <details>
+                <summary>Подключаете аналитику?</summary>
+                <div class="ans">
+                  Да. Метрика, цели, события, коллтрекинг при необходимости. Без аналитики невозможно нормально управлять ростом и конверсией.
+                </div>
+              </details>
+
+              <details>
+                <summary>Интеграции с CRM делаете?</summary>
+                <div class="ans">
+                  Да. amoCRM, мессенджеры, телефония, формы - чтобы заявки шли в один поток и не терялись.
+                </div>
+              </details>
+
+              <details>
+                <summary>Можно ли сохранить позиции в поиске при обновлении сайта?</summary>
+                <div class="ans">
+                  Да, если делать правильно: сохранять структуру, редиректы, мета-данные, контентные блоки, тех-настройки. Часто редизайн делаем с учетом SEO.
+                </div>
+              </details>
+
+              <details>
+                <summary>Сколько правок входит?</summary>
+                <div class="ans">
+                  Закладываем разумный пул правок на каждом этапе. Плюс фиксируем согласование, чтобы не было бесконечного "давайте еще чуть-чуть".
+                </div>
+              </details>
+
+              <details>
+                <summary>Вы делаете рекламу и продвижение?</summary>
+                <div class="ans">
+                  Да. SEO, Яндекс.Директ, SERM, Avito - подключаем по ситуации. Сайт делаем как базу под трафик и заявки.
+                </div>
+              </details>
+
+              <details>
+                <summary>Что с хостингом и доменом?</summary>
+                <div class="ans">
+                  Можем помочь с выбором/переносом, настройкой SSL, почты, бэкапов. Хостинг на время разработки часто даем бесплатно - по условиям проекта.
+                </div>
+              </details>
+
+              <details>
+                <summary>Кто наполняет сайт?</summary>
+                <div class="ans">
+                  По умолчанию наполняем мы: базовые страницы, блоки, тексты. Дальше можно оставить вам удобную админку для самостоятельных правок.
+                </div>
+              </details>
+
+              <details>
+                <summary>Какие гарантии и договор?</summary>
+                <div class="ans">
+                  Работаем официально: фиксируем объем, этапы, сроки и стоимость. Это защищает обе стороны и убирает хаос.
+                </div>
+              </details>
+
+              <details>
+                <summary>Как происходит оплата?</summary>
+                <div class="ans">
+                  Обычно поэтапно: прототип/контент, дизайн, верстка/запуск. Формат подбираем под проект, чтобы вам было комфортно.
+                </div>
+              </details>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OLD-CONTENT BLOCK 6: STUDIO VS FREELANCER -->
+  <section class="section">
+    <div class="wrap">
+      <h2>Студия vs фрилансер. В чем разница по факту</h2>
+      <p class="lead">Без хейта - просто про риски, контроль и ответственность за результат.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th style="width:28%">Критерий</th>
+              <th style="width:36%">Venner Digital</th>
+              <th style="width:36%">Фрилансер</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><b style="color:rgba(234,242,255,.92)">Процесс и контроль</b></td>
+              <td>План работ, этапы, контроль качества, понятная коммуникация.</td>
+              <td>Зависит от человека, часто "как получится".</td>
+            </tr>
+            <tr>
+              <td><b style="color:rgba(234,242,255,.92)">Команда</b></td>
+              <td>Контент, дизайн, верстка, аналитика - в одной связке.</td>
+              <td>Обычно один специалист или разрозненные подрядчики.</td>
+            </tr>
+            <tr>
+              <td><b style="color:rgba(234,242,255,.92)">Ответственность</b></td>
+              <td>Ориентир на результат и работоспособность сайта.</td>
+              <td>Чаще ответственность "только за задачу".</td>
+            </tr>
+            <tr>
+              <td><b style="color:rgba(234,242,255,.92)">Риски</b></td>
+              <td>Ниже: процессы, замена ресурса, контроль сроков.</td>
+              <td>Выше: пропал, занят, устал, сменил приоритеты.</td>
+            </tr>
+            <tr>
+              <td><b style="color:rgba(234,242,255,.92)">Развитие</b></td>
+              <td>Можно подключить продвижение и улучшения после запуска.</td>
+              <td>Нужно заново искать исполнителя или договариваться отдельно.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="table-note">
+          Выбирайте формат под задачу: иногда достаточно прототипа или точечных правок, а иногда нужен полный запуск "под ключ".
+        </div>
+      </div>
+
+      <div class="hero-ctas" style="margin-top:14px">
+        <a class="btn primary" href="#calc">Получить расчет и план работ</a>
+        <a class="btn" href="#formats">Заказать только прототип</a>
+        <a class="btn" href="#formats">Заказать дизайн</a>
+        <a class="btn" href="#formats">Заказать верстку</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CALC ANCHOR -->
+  <section class="section" id="calc">
+    <div class="wrap">
+      <h2>Рассчитать стоимость</h2>
+      <p class="lead">
+        Этот блок-заглушка. Замените на вашу форму/квиз/виджет.
+      </p>
+      <div class="panel">
+        <div class="in">
+          <div class="sub">Здесь будет форма, квиз или кнопка на расчет.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <section class="section">
+    <div class="wrap">
+      <div class="panel">
+        <div class="in">
+          <div class="sub">
+            Venner Digital. Разработка сайтов, SEO, реклама, интеграции.
+          </div>
+          <div class="hero-ctas" style="margin-top:12px">
+            <a class="btn primary" href="#calc">Узнать стоимость</a>
+            <a class="btn" href="https://t.me/VennerDigital" target="_blank" rel="noopener">Написать в Telegram</a>
+            <a class="btn" href="tel:+79528070601">Позвонить</a>
+          </div>
+          <div class="note">* Контакты и ссылки можно заменить под ваш проект.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>
+</html>

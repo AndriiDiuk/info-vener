@@ -1,0 +1,654 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=1200" />
+  <title>Аренда готового сайта | Venner Digital</title>
+  <meta name="description" content="Аренда готового сайта: быстрый старт без больших вложений. Взрослые сайты с историей или копия проверенного решения под ваш бренд. В аренду включены домен, хостинг, поддержка и все расходники." />
+
+  <!-- Open Graph (в реальной верстке подставите фактические данные) -->
+  <meta property="og:title" content="Аренда готового сайта | Venner Digital" />
+  <meta property="og:description" content="Готовый сайт в аренду: быстро, без крупных вложений, с возможностью отказаться в любой момент. Взрослые сайты с историей или копия проверенного решения под ваш бренд." />
+  <meta property="og:type" content="website" />
+
+  <style>
+    :root{
+      --bg:#0b0f1a;
+      --panel:#0f1628;
+      --panel2:#101b33;
+      --text:#eaf0ff;
+      --muted:#a9b7da;
+      --line:rgba(255,255,255,.10);
+      --accent:#4fe3c2;
+      --accent2:#66a8ff;
+      --danger:#ff6b6b;
+      --shadow: 0 18px 60px rgba(0,0,0,.45);
+      --radius:18px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue";
+      background:
+        radial-gradient(1200px 500px at 70% 10%, rgba(79,227,194,.20), transparent 60%),
+        radial-gradient(900px 520px at 25% 18%, rgba(102,168,255,.18), transparent 62%),
+        radial-gradient(900px 700px at 50% 110%, rgba(79,227,194,.10), transparent 60%),
+        var(--bg);
+      color:var(--text);
+      letter-spacing:.2px;
+    }
+    a{color:inherit;text-decoration:none}
+    .wrap{width:1200px;margin:0 auto;padding:26px 0 70px}
+    .top{
+      display:flex;align-items:center;justify-content:space-between;
+      padding:14px 18px;border:1px solid var(--line);
+      background:rgba(15,22,40,.70);backdrop-filter: blur(10px);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{
+      width:38px;height:38px;border-radius:12px;
+      background: linear-gradient(135deg, rgba(79,227,194,.95), rgba(102,168,255,.95));
+      box-shadow: 0 10px 26px rgba(79,227,194,.20);
+    }
+    .brand b{font-size:16px}
+    .brand span{display:block;font-size:12px;color:var(--muted);margin-top:2px}
+    .nav{display:flex;gap:16px;align-items:center}
+    .nav a{font-size:13px;color:var(--muted)}
+    .nav a:hover{color:var(--text)}
+    .right{display:flex;gap:10px;align-items:center}
+    .phone{font-weight:700;font-size:14px}
+    .pill{
+      padding:9px 12px;border-radius:999px;
+      border:1px solid var(--line);
+      color:var(--text);font-size:12px;
+      background:rgba(255,255,255,.04);
+    }
+    .pill:hover{border-color:rgba(255,255,255,.22)}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:10px;
+      padding:14px 18px;border-radius:14px;
+      background: linear-gradient(135deg, rgba(79,227,194,.95), rgba(102,168,255,.95));
+      color:#07101c;font-weight:800;font-size:13px;
+      border:none;cursor:pointer;
+      box-shadow: 0 18px 45px rgba(79,227,194,.22);
+    }
+    .btn:hover{filter:saturate(1.1) brightness(1.02)}
+    .btn2{
+      display:inline-flex;align-items:center;justify-content:center;
+      padding:14px 18px;border-radius:14px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      color: var(--text);font-weight:700;font-size:13px;
+    }
+    .btn2:hover{border-color: rgba(255,255,255,.22)}
+    .hero{
+      margin-top:18px;
+      display:grid;grid-template-columns: 1.05fr .95fr;
+      gap:16px;
+    }
+    .card{
+      border:1px solid var(--line);
+      background:rgba(15,22,40,.72);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .heroL{padding:28px 26px}
+    .crumbs{color:var(--muted);font-size:12px}
+    .crumbs a{color:var(--muted)}
+    .crumbs a:hover{color:var(--text)}
+    h1{margin:14px 0 10px;font-size:40px;line-height:1.08}
+    .sub{color:var(--muted);font-size:15px;line-height:1.6;max-width:520px}
+    .ctaRow{display:flex;gap:12px;align-items:center;margin-top:18px;flex-wrap:wrap}
+    .msRow{display:flex;gap:8px;align-items:center;margin-top:14px}
+    .ms{
+      padding:10px 12px;border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      font-size:12px;color:var(--muted);
+    }
+    .ms:hover{color:var(--text);border-color: rgba(255,255,255,.22)}
+    .heroR{padding:22px}
+    .kpis{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .kpi{
+      padding:14px;border:1px solid var(--line);
+      border-radius:16px;background: rgba(255,255,255,.03);
+    }
+    .kpi b{display:block;font-size:20px}
+    .kpi span{display:block;margin-top:6px;color:var(--muted);font-size:12px;line-height:1.35}
+    .notice{
+      margin-top:12px;
+      padding:14px;border-radius:16px;
+      border:1px solid rgba(255,255,255,.12);
+      background: linear-gradient(180deg, rgba(102,168,255,.10), rgba(79,227,194,.06));
+      color: var(--muted);
+      font-size:12.5px;line-height:1.55;
+    }
+
+    .section{margin-top:18px;padding:22px 22px 10px}
+    .section h2{margin:0 0 10px;font-size:26px}
+    .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:10px}
+    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px}
+    .mini{
+      padding:16px;border:1px solid var(--line);
+      border-radius:16px;background: rgba(255,255,255,.03);
+    }
+    .mini h3{margin:0 0 8px;font-size:16px}
+    .mini p{margin:0;color:var(--muted);font-size:13px;line-height:1.6}
+    .list{margin:10px 0 0;padding:0;list-style:none}
+    .list li{
+      margin:0;padding:10px 0;border-top:1px solid rgba(255,255,255,.08);
+      color:var(--muted);font-size:13px;line-height:1.6
+    }
+    .list li:first-child{border-top:none;padding-top:0}
+    .hl{color:var(--text);font-weight:700}
+    .link{color: rgba(102,168,255,.95);border-bottom:1px dashed rgba(102,168,255,.55)}
+    .link:hover{border-bottom-color: rgba(102,168,255,.95)}
+    .tagRow{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+    .tag{
+      padding:9px 12px;border-radius:999px;border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      color:var(--muted);font-size:12px
+    }
+
+    .compare{
+      margin-top:12px;border:1px solid var(--line);border-radius:16px;overflow:hidden
+    }
+    table{width:100%;border-collapse:collapse}
+    th,td{padding:12px 12px;border-bottom:1px solid rgba(255,255,255,.08);vertical-align:top}
+    th{background: rgba(255,255,255,.03);text-align:left;color:var(--text);font-size:12px}
+    td{color:var(--muted);font-size:13px;line-height:1.55}
+    tr:last-child td{border-bottom:none}
+
+    .ctaBig{
+      margin-top:18px;
+      padding:22px;border:1px solid var(--line);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(79,227,194,.12), rgba(102,168,255,.10));
+      box-shadow: var(--shadow);
+      display:flex;align-items:center;justify-content:space-between;gap:14px;
+    }
+    .ctaBig h3{margin:0;font-size:20px}
+    .ctaBig p{margin:6px 0 0;color:var(--muted);font-size:13px;line-height:1.55;max-width:650px}
+    .ctaBig .actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+
+    .faq{margin-top:12px}
+    .qa{
+      padding:14px 14px;border:1px solid var(--line);
+      border-radius:16px;background: rgba(255,255,255,.03);
+      margin-top:10px
+    }
+    .qa b{display:block}
+    .qa p{margin:8px 0 0;color:var(--muted);font-size:13px;line-height:1.65}
+
+    .footNote{
+      margin-top:10px;color:rgba(234,240,255,.65);font-size:11.5px;line-height:1.55
+    }
+
+    .divider{height:1px;background:rgba(255,255,255,.10);margin:14px 0}
+    .bottomLine{margin-top:18px;color:rgba(234,240,255,.55);font-size:12px}
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+
+    <!-- Top bar -->
+    <div class="top">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <b>Venner Digital</b>
+          <span>Комплексный интернет-маркетинг</span>
+        </div>
+      </div>
+
+      <div class="nav">
+        <a href="/sozdanie-saytov/">Разработка сайтов</a>
+        <a href="/yandex-direct/">Яндекс.Директ</a>
+        <a href="/seo/">SEO</a>
+        <a href="/crm-integracii/">Интеграции</a>
+        <a href="/kontakty/">Контакты</a>
+      </div>
+
+      <div class="right">
+        <div class="phone">8 (952) 807-06-01</div>
+        <a class="pill" href="#calc">Рассчитать стоимость</a>
+        <a class="pill" href="#call">Обсудить по телефону</a>
+      </div>
+    </div>
+
+    <!-- Hero -->
+    <div class="hero">
+      <div class="card heroL">
+        <div class="crumbs">
+          <a href="/">Главная</a> / <a href="/sozdanie-saytov/">Разработка сайтов</a> / Аренда готового сайта
+        </div>
+
+        <h1>Аренда готового сайта - быстрый старт без крупных вложений</h1>
+        <div class="sub">
+          Если нужно запуститься быстро, протестировать нишу или получить заявки без затрат на долгую разработку - аренда сайта дает готовый инструмент здесь и сейчас.
+          Мы берем на себя техническую часть, расходники и поддержку. Вы фокусируетесь на продажах и обработке заявок.
+        </div>
+
+        <div class="ctaRow" id="calc">
+          <a class="btn" href="#form">Узнать предварительную стоимость</a>
+          <a class="btn2" href="#call">Обсудить по телефону</a>
+        </div>
+
+        <div class="msRow" aria-label="Мессенджеры">
+          <a class="ms" href="#wa">WhatsApp</a>
+          <a class="ms" href="#tg">Telegram</a>
+          <a class="ms" href="#max">Max</a>
+        </div>
+
+        <div class="notice">
+          В аренду обычно входят: домен, хостинг, поддержка, формы заявок, базовая аналитика, техобслуживание и платные сервисы, которые нужны для стабильной работы.
+          При желании подключаем <a class="link" href="/yandex-direct/">Яндекс.Директ</a> и сопровождаем результат через <a class="link" href="/crm-integracii/">интеграции</a> и аналитику.
+        </div>
+      </div>
+
+      <div class="card heroR">
+        <div class="kpis">
+          <div class="kpi">
+            <b>0</b>
+            <span>вложений в разработку - вместо этого понятная ежемесячная модель</span>
+          </div>
+          <div class="kpi">
+            <b>7-14 дней</b>
+            <span>обычный срок запуска под ваш бренд, включая проверку и подготовку</span>
+          </div>
+          <div class="kpi">
+            <b>2 модели</b>
+            <span>взрослый сайт с историей или копия проверенного решения на новом домене</span>
+          </div>
+          <div class="kpi">
+            <b>Гибкость</b>
+            <span>можно остановить аренду, если проект не зашел или сезон закончился</span>
+          </div>
+        </div>
+
+        <div class="notice">
+          Если нужен "свой" сайт на годы - обычно логичнее сделать разработку под ключ:
+          <a class="link" href="/sozdanie-saytov/wordpress/">WordPress</a>,
+          <a class="link" href="/sozdanie-saytov/sayt-na-1c-bitrix/">1С-Битрикс</a>,
+          <a class="link" href="/sozdanie-saytov/opencart/">OpenCart</a>
+          или
+          <a class="link" href="/sozdanie-saytov/html/">HTML</a>.
+          Аренда - про скорость и снижение рисков на старте.
+        </div>
+      </div>
+    </div>
+
+    <!-- Section: What is it -->
+    <div class="card section" id="about">
+      <h2>Что такое аренда сайта</h2>
+      <div class="sub" style="max-width:none">
+        Аренда сайта - это модель, когда вы получаете <span class="hl">готовый работающий веб-инструмент</span> за ежемесячную оплату.
+        Без длительной разработки, без капитальных вложений и с понятной логикой: платите - пользуетесь - получаете заявки.
+      </div>
+
+      <div class="grid3">
+        <div class="mini">
+          <h3>Для быстрого старта</h3>
+          <p>Когда важно запуститься сейчас, а не через 1-2 месяца. Подходит для новых направлений, сезонных услуг и тестов оффера.</p>
+        </div>
+        <div class="mini">
+          <h3>Для тестирования гипотез</h3>
+          <p>Можно проверить связку "реклама - посадочная - заявки", быстро менять тексты и блоки, смотреть аналитику и принимать решения.</p>
+        </div>
+        <div class="mini">
+          <h3>Для снижения рисков</h3>
+          <p>Если ниша неизвестна, бюджет ограничен или вы не уверены в спросе - аренда дает возможность начать без крупных вложений.</p>
+        </div>
+      </div>
+
+      <div class="tagRow">
+        <span class="tag">Сезонные проекты</span>
+        <span class="tag">Тест ниши</span>
+        <span class="tag">Быстрые продажи</span>
+        <span class="tag">Запуск рекламы</span>
+        <span class="tag">Минимум техрисков</span>
+      </div>
+
+      <div class="footNote">
+        Примечание: мы не называем это "конструктором" или "опросником". На практике это удобная форма заявки с логикой вопросов, которая отсекает нецелевой трафик и повышает конверсию.
+      </div>
+    </div>
+
+    <!-- Section: 2 models -->
+    <div class="card section" id="models">
+      <h2>2 модели аренды под разные задачи</h2>
+
+      <div class="grid2">
+        <div class="mini">
+          <h3>1) Аренда "взрослого" сайта с историей</h3>
+          <p>
+            Вы получаете сайт, который уже имеет возраст, историю, часть доверия и иногда базовый органический трафик.
+            Это подходит, когда нужен более стабильный старт и важна "взрослость" домена.
+          </p>
+          <ul class="list">
+            <li><span class="hl">Плюс</span> - возраст и история домена, доверие</li>
+            <li><span class="hl">Плюс</span> - быстрее выход на стабильность по трафику</li>
+            <li><span class="hl">Важно</span> - подбираем вариант под нишу и регион, без "случайных" доменов</li>
+          </ul>
+        </div>
+
+        <div class="mini">
+          <h3>2) Копия проверенного решения под ваш бренд</h3>
+          <p>
+            Мы берем проверенную структуру и делаем "чистый" проект на новом домене или поддомене.
+            Идеально, когда важна скорость запуска рекламы и отсутствие лишней истории у домена.
+          </p>
+          <ul class="list">
+            <li><span class="hl">Плюс</span> - быстрый запуск, понятная логика, прогнозируемая конверсия</li>
+            <li><span class="hl">Плюс</span> - проще масштабировать под несколько направлений</li>
+            <li><span class="hl">Важно</span> - можно вырастить это решение в полноценный лендинг</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="compare" aria-label="Сравнение моделей аренды">
+        <table>
+          <thead>
+            <tr>
+              <th style="width:30%">Критерий</th>
+              <th>Сайт с историей</th>
+              <th>Копия решения</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="hl">Скорость старта</td>
+              <td>Быстро, но нужен подбор подходящего домена</td>
+              <td>Очень быстро, структура уже отработана</td>
+            </tr>
+            <tr>
+              <td class="hl">Трафик и доверие</td>
+              <td>Может быть возраст и базовое доверие</td>
+              <td>Новая история, упор на рекламу и конверсию</td>
+            </tr>
+            <tr>
+              <td class="hl">Гибкость</td>
+              <td>Высокая, но аккуратно с сохранением истории</td>
+              <td>Максимальная - можно перестраивать под оффер</td>
+            </tr>
+            <tr>
+              <td class="hl">Перспектива выкупа</td>
+              <td>Обсуждается индивидуально</td>
+              <td>Удобный вариант, если планируется "свой" актив</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Section: What included -->
+    <div class="card section" id="included">
+      <h2>Что входит в аренду</h2>
+      <div class="sub" style="max-width:none">
+        Мы строим модель так, чтобы клиент получал результат, а не набор технических задач.
+        Поэтому в аренде обычно сразу есть все расходники, без которых сайт превращается в "недоделку".
+      </div>
+
+      <div class="grid3">
+        <div class="mini">
+          <h3>Техническая часть</h3>
+          <ul class="list">
+            <li><span class="hl">Хостинг</span> и обслуживание - стабильность и скорость</li>
+            <li><span class="hl">Домен</span> (или поддомен) - подключение и настройка</li>
+            <li><span class="hl">SSL</span> - https и корректная работа в браузере</li>
+            <li><span class="hl">Обновления</span> и безопасность - закрываем уязвимости</li>
+          </ul>
+        </div>
+
+        <div class="mini">
+          <h3>Заявки и обработка</h3>
+          <ul class="list">
+            <li><span class="hl">Формы заявок</span> и сценарии вопросов (если нужно)</li>
+            <li><span class="hl">Уведомления</span> - в почту или в мессенджеры</li>
+            <li><span class="hl">Интеграции</span> - связка с <a class="link" href="/crm-integracii/">CRM</a></li>
+            <li><span class="hl">Аналитика</span> - <a class="link" href="/seo/optimizaciya-sayta/">технастройка</a> + цели</li>
+          </ul>
+        </div>
+
+        <div class="mini">
+          <h3>Маркетинг и рост</h3>
+          <ul class="list">
+            <li><span class="hl">Запуск рекламы</span> - через <a class="link" href="/yandex-direct/">Яндекс.Директ</a> (по задаче)</li>
+            <li><span class="hl">Оптимизация</span> - по данным Метрики и заявкам</li>
+            <li><span class="hl">Контент</span> - доводим оффер до конверсии</li>
+            <li><span class="hl">SEO-основа</span> - чтобы сайт был готов к <a class="link" href="/seo/">продвижению</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="notice" style="margin-top:12px">
+        Важно: если у вас уже есть <a class="link" href="/crm-integracii/amocrm/">amoCRM</a> или <a class="link" href="/crm-integracii/bitrix24/">Bitrix24</a>,
+        мы подключим интеграции и выстроим передачу заявок в нужные воронки. Если CRM нет - подскажем, что выбрать и как связать с сайтом.
+      </div>
+    </div>
+
+    <!-- Section: Pricing logic -->
+    <div class="card section" id="price">
+      <h2>Как устроена оплата и почему это выгодно на старте</h2>
+
+      <div class="grid2">
+        <div class="mini">
+          <h3>Короткая логика</h3>
+          <p>
+            Аренда выгодна, когда нужно стартовать быстро и с минимальными рисками.
+            На длинной дистанции "свой" сайт может быть дешевле, но в первые месяцы аренда дает скорость и результат без капитальных затрат.
+          </p>
+          <ul class="list">
+            <li><span class="hl">Старт без разработки</span> - вместо 150-400 тыс. сразу</li>
+            <li><span class="hl">Понятный платеж</span> - например, от 10 000 до 15 000 руб/мес (зависит от модели)</li>
+            <li><span class="hl">Можно остановить</span> - если ниша не зашла или сезон закончился</li>
+          </ul>
+        </div>
+
+        <div class="mini">
+          <h3>Что важно согласовать заранее</h3>
+          <ul class="list">
+            <li><span class="hl">Минимальный срок</span> - часто 2-3 месяца, чтобы успеть стабилизировать рекламу</li>
+            <li><span class="hl">Кто оплачивает трафик</span> - бюджет рекламы может быть отдельно</li>
+            <li><span class="hl">Выкуп</span> - можно заложить опцию выкупа и правила передачи</li>
+            <li><span class="hl">Контент и правки</span> - что входит в пакет, что идет отдельно</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="notice">
+        Частый сценарий: аренда + <a class="link" href="/yandex-direct/vedenie/">ведение рекламы</a> + <a class="link" href="/crm-integracii/">интеграции</a>.
+        Тогда клиент получает не просто сайт, а рабочую связку "трафик - заявки - обработка".
+      </div>
+    </div>
+
+    <!-- Section: Steps -->
+    <div class="card section" id="steps">
+      <h2>Как запускаем аренду (этапы)</h2>
+
+      <div class="grid3">
+        <div class="mini">
+          <h3>1) Понимаем задачу</h3>
+          <p>Ниша, регион, оффер, целевая аудитория. Если есть текущие данные - смотрим аналитику и рекламные кампании.</p>
+        </div>
+        <div class="mini">
+          <h3>2) Подбираем модель</h3>
+          <p>Сайт с историей или копия решения. Выбираем домен/поддомен, согласуем структуру и точки захвата заявок.</p>
+        </div>
+        <div class="mini">
+          <h3>3) Под ваш бренд</h3>
+          <p>Логотип, цвета, тексты, доверие. Настраиваем формы, сценарии вопросов, уведомления и интеграции.</p>
+        </div>
+      </div>
+
+      <div class="grid3" style="margin-top:12px">
+        <div class="mini">
+          <h3>4) Аналитика и технастройка</h3>
+          <p>Метрика, цели, события, базовая SEO-разметка. Подготовка к трафику и корректной индексации.</p>
+        </div>
+        <div class="mini">
+          <h3>5) Трафик и тесты</h3>
+          <p>Запускаем <a class="link" href="/yandex-direct/">Яндекс.Директ</a>, проверяем связку, оптимизируем по заявкам и стоимости лида.</p>
+        </div>
+        <div class="mini">
+          <h3>6) Стабилизация</h3>
+          <p>Дорабатываем оффер, блоки, тексты. Подключаем <a class="link" href="/seo/semanticheskoe-yadro/">семантику</a> и план роста при необходимости.</p>
+        </div>
+      </div>
+
+      <div class="footNote">
+        Если вы понимаете, что проект "пошел" и хотите свой актив - обычно логичный шаг: перейти на разработку под ключ
+        через <a class="link" href="/sozdanie-saytov/prototipirovanie/">прототип</a>, <a class="link" href="/sozdanie-saytov/web-dizayn/">веб-дизайн</a>, <a class="link" href="/sozdanie-saytov/verstka/">верстку</a> и выбранную CMS.
+      </div>
+    </div>
+
+    <!-- CTA Big -->
+    <div class="ctaBig card" id="form">
+      <div>
+        <h3>Подберем формат аренды и покажем, как это будет работать в вашей нише</h3>
+        <p>
+          Напишите, какая услуга/товар, регион и желаемая цена заявки. Мы предложим модель (с историей или копия решения),
+          объясним, что входит, и какие шаги дадут результат быстрее всего.
+        </p>
+      </div>
+      <div class="actions">
+        <a class="btn" href="#faq2">Узнать предварительную стоимость</a>
+        <a class="btn2" href="#call">Обсудить по телефону</a>
+        <a class="pill" id="wa" href="#">WhatsApp</a>
+        <a class="pill" id="tg" href="#">Telegram</a>
+        <a class="pill" id="max" href="#">Max</a>
+      </div>
+    </div>
+
+    <!-- FAQ 1 -->
+    <div class="card section faq" id="faq1">
+      <h2>FAQ - быстрые ответы</h2>
+
+      <div class="qa">
+        <b>Сколько времени занимает запуск аренды?</b>
+        <p>Обычно 7-14 дней: подбор модели, домен/поддомен, настройка сайта, формы заявок, аналитика и базовая технастройка.</p>
+      </div>
+
+      <div class="qa">
+        <b>Можно ли отказаться от аренды?</b>
+        <p>Да. Условия и минимальный срок фиксируем заранее. Если проект не зашел или сезон закончился - аренду можно остановить.</p>
+      </div>
+
+      <div class="qa">
+        <b>Что с рекламой и трафиком?</b>
+        <p>
+          Часто аренда работает лучше всего в связке с <a class="link" href="/yandex-direct/">Яндекс.Директ</a>.
+          Бюджет трафика и ведение обсуждаются отдельно, либо включаются в пакет - зависит от модели.
+        </p>
+      </div>
+
+      <div class="qa">
+        <b>Можно ли подключить CRM и мессенджеры?</b>
+        <p>
+          Да. Подключаем <a class="link" href="/crm-integracii/amocrm/">amoCRM</a> или <a class="link" href="/crm-integracii/bitrix24/">Bitrix24</a>,
+          а также нужные интеграции из раздела <a class="link" href="/crm-integracii/">CRM и интеграции</a>.
+        </p>
+      </div>
+    </div>
+
+    <!-- Section: risks + SEO -->
+    <div class="card section" id="seo-safe">
+      <h2>Как сохраняем SEO и не ломаем то, что уже работает</h2>
+      <div class="sub" style="max-width:none">
+        Если арендуется сайт с историей, важно сохранить структуру и корректно вести изменения.
+        Если делается копия решения, важно заложить правильную базу под будущее развитие.
+      </div>
+
+      <div class="grid2">
+        <div class="mini">
+          <h3>Сайт с историей</h3>
+          <ul class="list">
+            <li><span class="hl">Аккуратные изменения</span> - не рушим структуру без необходимости</li>
+            <li><span class="hl">Контроль индекса</span> - проверяем, что поисковики видят все корректно</li>
+            <li><span class="hl">План развития</span> - постепенно усиливаем контент и доверие</li>
+          </ul>
+        </div>
+        <div class="mini">
+          <h3>Копия решения</h3>
+          <ul class="list">
+            <li><span class="hl">ЧПУ и структура</span> - готовим под <a class="link" href="/seo/">SEO</a> заранее</li>
+            <li><span class="hl">Семантика</span> - при необходимости собираем <a class="link" href="/seo/semanticheskoe-yadro/">ядро</a></li>
+            <li><span class="hl">Метаданные</span> - настраиваем основы, чтобы не переделывать потом</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="notice">
+        Если у вас уже есть сайт и нужен "апгрейд" без потери позиций - это отдельная услуга:
+        <a class="link" href="/sozdanie-saytov/redizayn/">редизайн сайта</a>.
+        Там мы делаем модернизацию, обновляем контент, скорость и техническую часть, сохраняя SEO-результат.
+      </div>
+    </div>
+
+    <!-- FAQ 2 -->
+    <div class="card section faq" id="faq2">
+      <h2>FAQ - глубже про аренду</h2>
+
+      <div class="qa">
+        <b>Кому подходит аренда готового сайта больше всего?</b>
+        <p>
+          Проектам на старте, сезонным направлениям и тем, кто тестирует новую нишу. Также это хороший вариант,
+          если нужно быстро начать получать заявки и параллельно выстроить маркетинг через
+          <a class="link" href="/seo/">SEO</a>, <a class="link" href="/yandex-direct/">Директ</a> и <a class="link" href="/crm-integracii/">интеграции</a>.
+        </p>
+      </div>
+
+      <div class="qa">
+        <b>Что будет с заявками и данными клиента?</b>
+        <p>
+          Заявки уходят в ваши каналы: почта, CRM, мессенджеры. Правила хранения и передачи данных фиксируем в договоренности.
+          При необходимости подключаем сервисы репутации и отзывов через <a class="link" href="/lidogeneraciya/myreviews/">MyReviews</a>.
+        </p>
+      </div>
+
+      <div class="qa">
+        <b>Можно ли выкупить сайт?</b>
+        <p>
+          Да, опцию выкупа можно заложить сразу. Чаще всего это актуально для "копии решения", когда вы хотите превратить аренду в свой актив.
+          Для сайта с историей условия обсуждаются индивидуально.
+        </p>
+      </div>
+
+      <div class="qa">
+        <b>Почему аренда может быть дороже на длинной дистанции?</b>
+        <p>
+          Потому что в аренду включены расходники и работы, которые обычно "выплывают" отдельно: хостинг, домен, техподдержка,
+          обновления, интеграции, платные сервисы. На старте это выгоднее, дальше - зависит от темпов роста и планов.
+        </p>
+      </div>
+
+      <div class="qa">
+        <b>Если проект "пошел", что дальше?</b>
+        <p>
+          Обычно есть 2 пути: 1) выкупить и развивать как актив 2) перейти на разработку под ключ.
+          Для второго варианта логика простая:
+          <a class="link" href="/sozdanie-saytov/prototipirovanie/">прототип</a> - <a class="link" href="/sozdanie-saytov/web-dizayn/">дизайн</a> - <a class="link" href="/sozdanie-saytov/verstka/">верстка</a> - выбранная CMS.
+        </p>
+      </div>
+    </div>
+
+    <!-- Сквозные блоки далее -->
+    <div class="bottomLine">
+      Сквозные блоки дальше: Дополнительные услуги - Наши работы - С чего начать - Контакты
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="bottomLine" id="call">
+      Хотите обсудить по телефону - оставьте контакты в любом удобном канале: WhatsApp - Telegram - Max.
+      Также можем подготовить расчет и смету в Excel по этапам.
+    </div>
+
+  </div>
+</body>
+</html>
+

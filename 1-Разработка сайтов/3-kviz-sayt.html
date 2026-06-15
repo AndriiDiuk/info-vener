@@ -1,0 +1,963 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Сайт-квиз под ключ | Venner Digital</title>
+  <style>
+    :root{
+      --bg:#0b0f14;
+      --panel:#101826;
+      --panel2:#0f1520;
+      --text:#e8eef6;
+      --muted:#a9b6c6;
+      --line:rgba(255,255,255,.10);
+      --accent:#2ee59d;
+      --accent2:#61b7ff;
+      --danger:#ff6b6b;
+      --btn:#ff5b57;
+      --shadow: 0 18px 60px rgba(0,0,0,.45);
+      --radius:18px;
+      --radius2:24px;
+      --maxw:1200px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(1100px 600px at 20% 0%, rgba(46,229,157,.18), transparent 60%),
+        radial-gradient(900px 520px at 80% 10%, rgba(97,183,255,.16), transparent 60%),
+        linear-gradient(180deg, #090d12, var(--bg) 40%, #070a0f);
+    }
+    a{color:inherit}
+    .container{max-width:var(--maxw); margin:0 auto; padding:0 22px}
+    .topbar{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(10px);
+      background: rgba(10,14,20,.72);
+      border-bottom:1px solid var(--line);
+    }
+    .topbar__inner{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:12px 0;
+      gap:14px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      text-decoration:none;
+    }
+    .brand__mark{
+      width:38px; height:38px; border-radius:12px;
+      display:grid; place-items:center;
+      background: linear-gradient(135deg, rgba(46,229,157,.9), rgba(97,183,255,.9));
+      color:#081019; font-weight:900;
+      box-shadow: 0 14px 40px rgba(46,229,157,.18);
+      letter-spacing:.5px;
+    }
+    .brand__text{display:flex; flex-direction:column; line-height:1.05}
+    .brand__name{font-weight:850; letter-spacing:.4px}
+    .brand__tag{font-size:12px; color:var(--muted)}
+    .nav{
+      display:flex; gap:14px; align-items:center;
+      color:var(--muted); font-size:14px;
+      flex-wrap:wrap;
+    }
+    .nav a{color:var(--muted); text-decoration:none}
+    .nav a:hover{color:var(--text)}
+    .actions{
+      display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+    }
+    .phone{
+      color:var(--text); text-decoration:none; font-weight:750;
+      padding:10px 12px; border:1px solid var(--line);
+      border-radius:999px; background:rgba(16,24,38,.6);
+    }
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      gap:8px;
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(16,24,38,.55);
+      color:var(--text);
+      text-decoration:none;
+      font-weight:750;
+      cursor:pointer;
+      transition:.15s ease;
+      white-space:nowrap;
+    }
+    .btn:hover{transform: translateY(-1px); border-color: rgba(255,255,255,.22)}
+    .btn--primary{
+      background: linear-gradient(180deg, rgba(255,91,87,.95), rgba(255,91,87,.78));
+      border-color: rgba(255,91,87,.35);
+      box-shadow: 0 16px 50px rgba(255,91,87,.20);
+    }
+    .messengers{display:flex; gap:8px; align-items:center}
+    .m{
+      width:36px; height:36px; border-radius:12px;
+      display:grid; place-items:center;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(16,24,38,.55);
+      text-decoration:none;
+      font-weight:900;
+      color:var(--text);
+      transition:.15s ease;
+    }
+    .m:hover{transform: translateY(-1px); border-color: rgba(255,255,255,.24)}
+    .m--wa{outline:1px solid rgba(46,229,157,.25)}
+    .m--tg{outline:1px solid rgba(97,183,255,.25)}
+    .m--mx{outline:1px solid rgba(255,255,255,.14)}
+    .hero{
+      padding:34px 0 10px;
+    }
+    .crumbs{
+      color:var(--muted); font-size:13px;
+      display:flex; gap:8px; flex-wrap:wrap;
+    }
+    .crumbs a{color:var(--muted); text-decoration:none}
+    .crumbs a:hover{color:var(--text)}
+    .hero__grid{
+      margin-top:18px;
+      display:grid; grid-template-columns: 1.15fr .85fr;
+      gap:18px;
+      align-items:stretch;
+    }
+    .card{
+      background: linear-gradient(180deg, rgba(16,24,38,.86), rgba(12,18,28,.86));
+      border:1px solid var(--line);
+      border-radius: var(--radius2);
+      box-shadow: var(--shadow);
+    }
+    .hero__main{padding:26px}
+    .kicker{
+      display:inline-flex; gap:8px; align-items:center;
+      color:rgba(232,238,246,.92);
+      font-size:13px; font-weight:800;
+      padding:7px 10px;
+      border-radius:999px;
+      border:1px solid rgba(46,229,157,.22);
+      background: rgba(46,229,157,.10);
+    }
+    h1{
+      margin:14px 0 10px;
+      font-size:42px;
+      line-height:1.08;
+      letter-spacing:.2px;
+    }
+    .lead{
+      color:var(--muted);
+      font-size:16px;
+      line-height:1.55;
+      margin:0 0 18px;
+      max-width: 58ch;
+    }
+    .hero__cta{
+      display:flex; gap:10px; align-items:center; flex-wrap:wrap;
+      margin-top:16px;
+    }
+    .chips{
+      display:flex; flex-wrap:wrap; gap:10px;
+      margin-top:18px;
+    }
+    .chip{
+      font-size:13px; color:rgba(232,238,246,.92);
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(16,24,38,.45);
+    }
+    .hero__side{padding:22px}
+    .sideTitle{font-weight:900; margin:0 0 10px; font-size:16px}
+    .sideList{margin:0; padding:0; list-style:none; display:grid; gap:10px}
+    .sideItem{
+      padding:12px 12px;
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:14px;
+      background: rgba(16,24,38,.38);
+      color:var(--muted);
+      line-height:1.45;
+      font-size:14px;
+    }
+    .sideItem b{color:var(--text)}
+    section{padding:26px 0}
+    .sectionTitle{
+      margin:0 0 10px;
+      font-size:28px;
+      letter-spacing:.2px;
+    }
+    .sectionLead{
+      margin:0 0 18px;
+      color:var(--muted);
+      line-height:1.55;
+      max-width: 78ch;
+    }
+    .grid3{display:grid; grid-template-columns: repeat(3, 1fr); gap:14px}
+    .grid2{display:grid; grid-template-columns: repeat(2, 1fr); gap:14px}
+    .mini{
+      padding:16px;
+      border-radius: var(--radius);
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(16,24,38,.38);
+    }
+    .mini h3{margin:0 0 8px; font-size:16px}
+    .mini p{margin:0; color:var(--muted); line-height:1.5; font-size:14px}
+    .link{
+      color:rgba(46,229,157,.95);
+      text-decoration:none;
+      border-bottom:1px dashed rgba(46,229,157,.45);
+    }
+    .link:hover{border-bottom-color: rgba(46,229,157,.85)}
+    .tabs{
+      border-radius: var(--radius2);
+      border:1px solid var(--line);
+      background: rgba(16,24,38,.52);
+      overflow:hidden;
+    }
+    .tabBar{
+      display:flex; gap:10px; flex-wrap:wrap;
+      padding:14px;
+      border-bottom:1px solid rgba(255,255,255,.10);
+      background: rgba(12,18,28,.55);
+    }
+    .tabBtn{
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(16,24,38,.55);
+      color:var(--text);
+      cursor:pointer;
+      font-weight:850;
+      font-size:13px;
+    }
+    .tabBtn.isActive{
+      border-color: rgba(46,229,157,.30);
+      background: rgba(46,229,157,.12);
+    }
+    .tabBody{padding:18px}
+    .tabPane{display:none}
+    .tabPane.isActive{display:block}
+    .bullets{margin:10px 0 0; padding-left:18px; color:var(--muted); line-height:1.55}
+    .bullets li{margin:6px 0}
+    .note{
+      margin-top:10px;
+      padding:12px 14px;
+      border-radius:14px;
+      border:1px solid rgba(97,183,255,.22);
+      background: rgba(97,183,255,.10);
+      color:rgba(232,238,246,.92);
+      line-height:1.5;
+      font-size:14px;
+    }
+    .tableWrap{
+      border-radius: var(--radius2);
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(16,24,38,.38);
+    }
+    table{width:100%; border-collapse:collapse}
+    th,td{padding:12px 12px; border-bottom:1px solid rgba(255,255,255,.08); text-align:left; font-size:14px}
+    th{color:rgba(232,238,246,.92); background: rgba(12,18,28,.55)}
+    td{color:var(--muted); vertical-align:top}
+    .steps{display:grid; grid-template-columns: repeat(4, 1fr); gap:12px}
+    .stepNum{
+      width:34px; height:34px; border-radius:12px;
+      display:grid; place-items:center;
+      font-weight:950;
+      background: rgba(46,229,157,.16);
+      border:1px solid rgba(46,229,157,.22);
+      color:rgba(232,238,246,.92);
+      margin-bottom:10px;
+    }
+    .ctaBand{
+      padding:20px;
+      border-radius: var(--radius2);
+      border:1px solid rgba(255,255,255,.12);
+      background:
+        radial-gradient(700px 260px at 15% 10%, rgba(46,229,157,.16), transparent 55%),
+        radial-gradient(700px 260px at 85% 20%, rgba(97,183,255,.14), transparent 55%),
+        rgba(16,24,38,.62);
+      box-shadow: var(--shadow);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      flex-wrap:wrap;
+    }
+    .ctaBand h3{margin:0 0 6px; font-size:18px}
+    .ctaBand p{margin:0; color:var(--muted); line-height:1.5; max-width: 70ch}
+    .faq{
+      border-radius: var(--radius2);
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(16,24,38,.42);
+      overflow:hidden;
+    }
+    details{border-bottom:1px solid rgba(255,255,255,.08)}
+    details:last-child{border-bottom:none}
+    summary{
+      list-style:none;
+      cursor:pointer;
+      padding:14px 16px;
+      font-weight:850;
+      display:flex; justify-content:space-between; gap:12px; align-items:center;
+    }
+    summary::-webkit-details-marker{display:none}
+    .plus{
+      width:26px; height:26px; border-radius:10px;
+      display:grid; place-items:center;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(12,18,28,.55);
+      color:rgba(232,238,246,.92);
+      font-weight:950;
+      flex:0 0 auto;
+    }
+    details[open] .plus{background: rgba(46,229,157,.14); border-color: rgba(46,229,157,.22)}
+    .faqBody{
+      padding:0 16px 14px;
+      color:var(--muted);
+      line-height:1.6;
+      font-size:14px;
+    }
+    .packages{display:grid; grid-template-columns: repeat(3, 1fr); gap:14px}
+    .pkg{
+      padding:18px;
+      border-radius: var(--radius2);
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(16,24,38,.38);
+      display:flex; flex-direction:column; gap:10px;
+    }
+    .pkgTop{display:flex; justify-content:space-between; gap:10px; align-items:flex-start}
+    .badge{
+      font-size:12px; font-weight:900;
+      padding:6px 10px; border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      color:rgba(232,238,246,.92);
+      background: rgba(12,18,28,.55);
+    }
+    .pkg h3{margin:0; font-size:16px}
+    .pkg p{margin:0; color:var(--muted); line-height:1.55; font-size:14px}
+    .pkg ul{margin:0; padding-left:18px; color:var(--muted); line-height:1.55}
+    .pkg .btn{margin-top:auto; justify-content:center}
+    .cases{
+      padding:18px;
+      border-radius: var(--radius2);
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(16,24,38,.38);
+      display:grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap:12px;
+      align-items:stretch;
+    }
+    .case{
+      border-radius: 18px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(12,18,28,.55);
+      padding:14px;
+      min-height:120px;
+      display:flex; flex-direction:column; gap:8px;
+    }
+    .case .t{font-weight:900}
+    .case .d{color:var(--muted); line-height:1.5; font-size:14px}
+    footer{
+      padding:26px 0 36px;
+      color:var(--muted);
+      border-top:1px solid rgba(255,255,255,.08);
+      margin-top:10px;
+    }
+    .muted{color:var(--muted)}
+    @media (max-width: 1100px){
+      .hero__grid{grid-template-columns: 1fr}
+      .grid3, .grid2, .packages{grid-template-columns: 1fr}
+      .steps{grid-template-columns: 1fr 1fr}
+      .cases{grid-template-columns: 1fr}
+    }
+  </style>
+</head>
+
+<body>
+  <div class="topbar">
+    <div class="container topbar__inner">
+      <a class="brand" href="/">
+        <div class="brand__mark">V</div>
+        <div class="brand__text">
+          <div class="brand__name">Venner Digital</div>
+          <div class="brand__tag">Комплексный интернет-маркетинг</div>
+        </div>
+      </a>
+
+      <nav class="nav" aria-label="Навигация">
+        <a href="/sozdanie-saytov/">Разработка сайтов</a>
+        <a href="/yandex-direct/">Контекстная реклама</a>
+        <a href="/seo/">SEO услуги</a>
+        <a href="/lidogeneraciya/">Лидогенерация</a>
+        <a href="/dopolnitelno/">Дополнительно</a>
+      </nav>
+
+      <div class="actions">
+        <a class="phone" href="tel:+79528070601">8 (952) 807-06-01</a>
+        <a class="btn" href="#call">Обратный звонок</a>
+        <a class="btn btn--primary" href="#calc">Рассчитать стоимость</a>
+        <div class="messengers" aria-label="Мессенджеры">
+          <a class="m m--wa" href="#wa" title="WhatsApp">WA</a>
+          <a class="m m--tg" href="#tg" title="Telegram">TG</a>
+          <a class="m m--mx" href="#mx" title="Max">MX</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="crumbs">
+          <a href="/">Главная</a>
+          <span>/</span>
+          <a href="/sozdanie-saytov/">Разработка сайтов</a>
+          <span>/</span>
+          <span>Сайт-квиз</span>
+        </div>
+
+        <div class="hero__grid">
+          <div class="card hero__main">
+            <div class="kicker">Быстрый запуск под рекламу и тесты</div>
+            <h1>Сайт-квиз под ключ - чтобы заявки были теплее, а трафик не сливался</h1>
+            <p class="lead">
+              Это формат, который отлично заходит, когда клиент уже примерно понимает, что хочет купить, и ему важнее
+              быстро оставить заявку и получить предложение. Работает и в конкурентных нишах - окна, потолки, ремонт, мебель, стройка,
+              и как отдельная посадочная под рекламу, и как дополнение к основному сайту.
+            </p>
+
+            <div class="hero__cta">
+              <a class="btn btn--primary" href="#calc">Узнать предварительную стоимость</a>
+              <a class="btn" href="#call">Обсудить по телефону</a>
+              <div class="messengers" aria-label="Мессенджеры в CTA">
+                <a class="m m--wa" href="#wa" title="WhatsApp">WA</a>
+                <a class="m m--tg" href="#tg" title="Telegram">TG</a>
+                <a class="m m--mx" href="#mx" title="Max">MX</a>
+              </div>
+            </div>
+
+            <div class="chips" aria-label="Ключевые преимущества">
+              <div class="chip">13+ лет на рынке (с 2013)</div>
+              <div class="chip">10+ лет в SEO и перфомансе</div>
+              <div class="chip">Контент и структуру придумываем сами</div>
+              <div class="chip">Гипотезы проверяем на своих проектах</div>
+              <div class="chip">Смета в Excel и оплата по этапам</div>
+              <div class="chip">Комплекс: сайт + трафик + аналитика + CRM</div>
+            </div>
+          </div>
+
+          <aside class="card hero__side">
+            <p class="sideTitle">Когда формат особенно полезен</p>
+            <ul class="sideList">
+              <li class="sideItem"><b>Под рекламу</b> - быстро запустить поток лидов и отсечь мусор уточняющими вопросами</li>
+              <li class="sideItem"><b>Под сегменты</b> - отдельная посадочная под услугу, продукт или аудиторию</li>
+              <li class="sideItem"><b>Как дополнение</b> - к корпоративному сайту, лендингу или каталогу</li>
+              <li class="sideItem"><b>Под гипотезы</b> - тест оффера, цены, гео, набора услуг, формулировок</li>
+              <li class="sideItem"><b>Под скорость</b> - когда клиенту важнее оставить заявку, чем читать простыни</li>
+            </ul>
+            <div class="note" style="margin-top:14px">
+              Важно: мы не продаем "страничку". Мы собираем связку: посадочная + аналитика + трафик + улучшения по цифрам.
+              По задаче подключаем <a class="link" href="/crm-integracii/">CRM и интеграции</a>, <a class="link" href="/yandex-direct/">Яндекс.Директ</a>, <a class="link" href="/seo/">SEO</a>.
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <h2 class="sectionTitle">Что такое сайт-квиз и зачем он бизнесу</h2>
+        <p class="sectionLead">
+          По сути это посадочная, которая ведет человека по короткому сценарию: уточняет потребность, отсекает случайный трафик,
+          и помогает менеджеру получить нормальные вводные еще до звонка. В конкурентных тематиках это часто работает даже лучше,
+          чем длинные лендинги - потому что человеку важнее скорость и конкретика.
+        </p>
+
+        <div class="grid3">
+          <div class="mini">
+            <h3>Теплее заявки</h3>
+            <p>Человек отвечает на вопросы - вы понимаете потребность и сразу даете точное предложение.</p>
+          </div>
+          <div class="mini">
+            <h3>Быстрее тесты</h3>
+            <p>Можно запускать разные офферы под рекламу и сравнивать результат не "на ощущениях", а по цифрам.</p>
+          </div>
+          <div class="mini">
+            <h3>Больше контроля</h3>
+            <p>События, цели, UTM, разрезы по источникам - видно, что реально приносит заявки, а что просто шумит.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <h2 class="sectionTitle">Кому подходит сайт-квиз</h2>
+        <p class="sectionLead">
+          Формат хорошо чувствует себя и в "простых" нишах, и в конкурентных, когда клиент уже понимает запрос и хочет быстро оставить заявку.
+          Также это сильная добавка к основному сайту - можно запускать отдельные посадочные под каждое направление.
+        </p>
+
+        <div class="grid2">
+          <div class="mini">
+            <h3>Тест ниши, оффера, цены</h3>
+            <p>Быстро проверить гипотезу под рекламу и понять, что цепляет аудиторию.</p>
+          </div>
+          <div class="mini">
+            <h3>Отдельная посадочная под услугу</h3>
+            <p>Когда у компании есть сайт, но нужна "точка входа" под конкретный продукт или акцию.</p>
+          </div>
+          <div class="mini">
+            <h3>Серия посадочных под сегменты</h3>
+            <p>Разные аудитории - разные вопросы и разные офферы. Так конверсия обычно растет.</p>
+          </div>
+          <div class="mini">
+            <h3>Высококонкурентные тематики</h3>
+            <p>Окна, потолки, ремонт, мебель, стройка - клиенту часто важнее быстро оставить заявку, чем листать сайты.</p>
+          </div>
+        </div>
+
+        <div class="note">
+          Домены: для рекламных посадочных часто хватает поддомена. Отдельный домен уместен, если есть перспектива развить посадочную в полноценный лендинг
+          или если это единственный сайт и его потом планируется показывать в справочниках (Яндекс, 2ГИС и др.).
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <h2 class="sectionTitle">2 варианта реализации - выбираем по задаче и трафику</h2>
+        <p class="sectionLead">
+          Третьего обычно не нужно. Или делаем на конструкторе для быстрых тестов и изменений, или пишем с нуля, когда логика уже понятна и трафика много.
+        </p>
+
+        <div class="tabs" id="variants">
+          <div class="tabBar">
+            <button class="tabBtn isActive" data-tab="t1">Вариант A - на MarkQuiz</button>
+            <button class="tabBtn" data-tab="t2">Вариант B - с нуля (свой код)</button>
+          </div>
+
+          <div class="tabBody">
+            <div class="tabPane isActive" id="t1">
+              <div class="grid2">
+                <div class="mini">
+                  <h3>Когда выбирать</h3>
+                  <p>Нужно быстро собрать, быстро менять, быстро тестировать. Идеально на этапе гипотез и активной рекламы.</p>
+                  <ul class="bullets">
+                    <li>правки и новые сценарии без разработки</li>
+                    <li>удобная админка и встроенная аналитика</li>
+                    <li>проще запускать A-B тесты</li>
+                    <li>можно быстро собирать несколько посадочных</li>
+                  </ul>
+                </div>
+                <div class="mini">
+                  <h3>Что важно учитывать</h3>
+                  <p>Платформа платная, обычно тариф зависит от объема и формата лидов. Это окупается экономией времени и скорости итераций.</p>
+                  <div class="note">
+                    Отдельная страница про MarkQuiz: <a class="link" href="/lidogeneraciya/marquiz/">Marquiz - лидогенерация</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="tabPane" id="t2">
+              <div class="grid2">
+                <div class="mini">
+                  <h3>Когда выбирать</h3>
+                  <p>Логика стабильная, трафика много, изменений минимум. Нужно снижать стоимость владения и не зависеть от платформы.</p>
+                  <ul class="bullets">
+                    <li>лиды приходят напрямую - без платы платформе</li>
+                    <li>можно собрать быстрый, легкий сценарий</li>
+                    <li>идеально для статичных посадочных под рекламу</li>
+                  </ul>
+                </div>
+                <div class="mini">
+                  <h3>Что важно учитывать</h3>
+                  <p>Любые изменения - через доработки: прототип, тексты, верстка, логика. Это не минус, если план изменений небольшой.</p>
+                  <div class="note">
+                    Подключаем аналитику и передачу заявок: <a class="link" href="/crm-integracii/">CRM и интеграции</a>, <a class="link" href="/yandex-direct/">Яндекс.Директ</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="height:14px"></div>
+
+        <div class="tableWrap">
+          <table aria-label="Сравнение вариантов">
+            <thead>
+              <tr>
+                <th>Критерий</th>
+                <th>MarkQuiz</th>
+                <th>С нуля (свой код)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Скорость запуска</td>
+                <td>Очень быстро</td>
+                <td>Быстро, но нужно собрать прототип и верстку</td>
+              </tr>
+              <tr>
+                <td>Скорость изменений</td>
+                <td>Максимальная - правки без разработки</td>
+                <td>Каждая правка - через доработку</td>
+              </tr>
+              <tr>
+                <td>Стоимость владения</td>
+                <td>Платформа платная</td>
+                <td>Лиды напрямую, выгоднее при больших объемах</td>
+              </tr>
+              <tr>
+                <td>Гибкость логики</td>
+                <td>Высокая, но в рамках возможностей конструктора</td>
+                <td>Максимальная - делаем под задачу</td>
+              </tr>
+              <tr>
+                <td>Тесты и гипотезы</td>
+                <td>Удобно и быстро</td>
+                <td>Возможно, но медленнее из-за правок</td>
+              </tr>
+              <tr>
+                <td>Интеграции и аналитика</td>
+                <td>Подключаем и настраиваем под ваш процесс</td>
+                <td>Подключаем и настраиваем под ваш процесс</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <h2 class="sectionTitle">Как мы делаем сайт-квиз</h2>
+        <p class="sectionLead">
+          Процесс простой, но без "школьной сборки". Сначала смысл, потом структура, потом цифры. И только потом украшательства.
+        </p>
+
+        <div class="steps">
+          <div class="mini">
+            <div class="stepNum">1</div>
+            <h3>Бриф и оффер</h3>
+            <p>Разбираем продукт, аудиторию, цену, возражения, что считать успехом.</p>
+          </div>
+          <div class="mini">
+            <div class="stepNum">2</div>
+            <h3>Сценарий вопросов</h3>
+            <p>Логика ветвлений, тексты, подсказки, прогрев, финальный шаг заявки.</p>
+          </div>
+          <div class="mini">
+            <div class="stepNum">3</div>
+            <h3>Сборка и дизайн</h3>
+            <p>Собираем в MarkQuiz или делаем на своем коде. Визуально аккуратно и без перегруза.</p>
+          </div>
+          <div class="mini">
+            <div class="stepNum">4</div>
+            <h3>Аналитика и запуск</h3>
+            <p>Метрика, GA, цели, события, UTM. Запуск трафика и улучшения по цифрам.</p>
+          </div>
+        </div>
+
+        <div class="note">
+          Часто делаем связку: сайт-квиз + <a class="link" href="/yandex-direct/">Яндекс.Директ</a> + <a class="link" href="/crm-integracii/">CRM и интеграции</a> + контроль по аналитике.
+          Если нужно усилить органику - добавляем <a class="link" href="/seo/">SEO</a> как следующий этап.
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <h2 class="sectionTitle">FAQ - быстрые ответы</h2>
+        <div class="faq">
+          <details>
+            <summary>Сколько стоит сайт-квиз?<span class="plus">+</span></summary>
+            <div class="faqBody">
+              Зависит от варианта (MarkQuiz или с нуля), количества шагов, ветвлений, интеграций и того, нужен ли дизайн с нуля.
+              Проще всего - дать вводные и получить расчет в формате "что входит и за что платим".
+            </div>
+          </details>
+          <details>
+            <summary>Сколько времени занимает запуск?<span class="plus">+</span></summary>
+            <div class="faqBody">
+              Быстрый запуск возможен за несколько дней, если оффер понятен и не требуется сложная логика.
+              Если нужно глубоко продумать структуру и контент - закладываем больше времени, зато потом меньше переделок.
+            </div>
+          </details>
+          <details>
+            <summary>Работает ли формат в конкурентных нишах?<span class="plus">+</span></summary>
+            <div class="faqBody">
+              Да. Часто как раз в конкурентных нишах он заходит отлично - человек уже понимает запрос, ему важнее быстро оставить заявку и получить предложение.
+              Важно только не "играть в вопросы ради вопросов", а быстро вести к смыслу и заявке.
+            </div>
+          </details>
+          <details>
+            <summary>Можно ли сделать серию посадочных под направления?<span class="plus">+</span></summary>
+            <div class="faqBody">
+              Да. Это один из лучших сценариев - есть основной сайт, а под каждое направление запускаем отдельную посадочную под рекламу.
+              По доменам часто достаточно поддоменов. Отдельный домен берем, если есть план развить страницу в полноценный лендинг.
+            </div>
+          </details>
+          <details>
+            <summary>Подключаете аналитику и передачу заявок?<span class="plus">+</span></summary>
+            <div class="faqBody">
+              Да. Настраиваем цели, события, UTM, передаем заявки в CRM и уведомляем менеджеров. Подробно - на странице
+              <a class="link" href="/crm-integracii/">CRM и интеграции</a>.
+            </div>
+          </details>
+          <details>
+            <summary>Можно ли потом расширить в лендинг или сайт?<span class="plus">+</span></summary>
+            <div class="faqBody">
+              Да. Часто так и делаем: сначала быстрый запуск и проверка гипотез, потом расширяем посадочную в полноценный лендинг или раздел сайта.
+              Это нормально, если изначально правильно выбрать домен и структуру.
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section id="calc">
+      <div class="container">
+        <div class="ctaBand">
+          <div>
+            <h3>Подскажем, какой вариант выбрать под ваш трафик и планы</h3>
+            <p>Опишете нишу и цель - мы предложим формат: MarkQuiz для быстрых тестов или свой код для стабильного потока и минимальных правок.</p>
+          </div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center">
+            <a class="btn btn--primary" href="#form">Узнать предварительную стоимость</a>
+            <a class="btn" href="#call">Обсудить по телефону</a>
+            <div class="messengers" aria-label="Мессенджеры в CTA 2">
+              <a class="m m--wa" href="#wa" title="WhatsApp">WA</a>
+              <a class="m m--tg" href="#tg" title="Telegram">TG</a>
+              <a class="m m--mx" href="#mx" title="Max">MX</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <h2 class="sectionTitle">Пакеты</h2>
+        <p class="sectionLead">Три уровня - от быстрого запуска до связки с трафиком и оптимизацией по цифрам.</p>
+
+        <div class="packages">
+          <div class="pkg">
+            <div class="pkgTop">
+              <div>
+                <h3>Старт - Сайт-квиз</h3>
+                <div class="muted" style="font-size:13px; margin-top:4px">Быстрый запуск посадочной под лиды</div>
+              </div>
+              <div class="badge">быстро</div>
+            </div>
+            <p>Собираем сценарий, тексты, базовую аналитику и прием заявок. Уместно для старта и первых тестов.</p>
+            <ul>
+              <li>структура и тексты</li>
+              <li>сборка посадочной</li>
+              <li>базовые цели и события</li>
+              <li>уведомления о заявках</li>
+            </ul>
+            <a class="btn btn--primary" href="#form">Рассчитать стоимость</a>
+          </div>
+
+          <div class="pkg">
+            <div class="pkgTop">
+              <div>
+                <h3>Бизнес - Сайт-квиз + конверсия</h3>
+                <div class="muted" style="font-size:13px; margin-top:4px">Упор на улучшения и качество лидов</div>
+              </div>
+              <div class="badge">рост</div>
+            </div>
+            <p>Добавляем улучшения по структуре, событиям и логике, подключаем интеграции и контроль по аналитике.</p>
+            <ul>
+              <li>гипотезы и улучшения</li>
+              <li>расширенная аналитика</li>
+              <li>интеграции по задаче</li>
+              <li>рекомендации по трафику</li>
+            </ul>
+            <a class="btn btn--primary" href="#form">Рассчитать стоимость</a>
+          </div>
+
+          <div class="pkg">
+            <div class="pkgTop">
+              <div>
+                <h3>Перфоманс - Сайт-квиз + трафик</h3>
+                <div class="muted" style="font-size:13px; margin-top:4px">Запуск и ведение рекламы</div>
+              </div>
+              <div class="badge">перфоманс</div>
+            </div>
+            <p>Делаем посадочную и запускаем Яндекс.Директ. Дальше ведем, тестируем гипотезы, оптимизируем по заявкам.</p>
+            <ul>
+              <li>настройка и запуск рекламы</li>
+              <li>оптимизация по событиям</li>
+              <li>отчеты и контроль</li>
+              <li>рост конверсии</li>
+            </ul>
+            <a class="btn btn--primary" href="#form">Рассчитать стоимость</a>
+          </div>
+        </div>
+
+        <div class="note" style="margin-top:14px">
+          Перелинковка по теме: <a class="link" href="/yandex-direct/">Яндекс.Директ</a>, <a class="link" href="/crm-integracii/">CRM и интеграции</a>, <a class="link" href="/seo/">SEO услуги</a>,
+          страница про MarkQuiz: <a class="link" href="/lidogeneraciya/marquiz/">Marquiz</a>.
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <h2 class="sectionTitle">Примеры работ</h2>
+        <p class="sectionLead">Плейсхолдер под кейсы. Здесь будут карточки: ниша - что сделали - что улучшили - что получилось.</p>
+
+        <div class="cases">
+          <div class="case">
+            <div class="t">Кейс 1 - конкурентная ниша</div>
+            <div class="d">Посадочная под рекламу, улучшили структуру вопросов, цели и события, подняли качество заявок.</div>
+          </div>
+          <div class="case">
+            <div class="t">Кейс 2 - серия посадочных</div>
+            <div class="d">Запустили несколько посадочных под направления на поддоменах, разделили аудитории, выросла конверсия.</div>
+          </div>
+          <div class="case">
+            <div class="t">Кейс 3 - стабильный поток</div>
+            <div class="d">Сделали статичную посадочную на своем коде, снизили стоимость владения при большом трафике.</div>
+          </div>
+        </div>
+
+        <div style="margin-top:12px">
+          <a class="btn" href="/portfolio/">Портфолио</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="call">
+      <div class="container">
+        <h2 class="sectionTitle">FAQ - экспертный блок</h2>
+        <p class="sectionLead">Вопросы, которые чаще всего реально волнуют бизнес, когда он хочет запускать трафик и считать результат.</p>
+
+        <div class="faq">
+          <details>
+            <summary>Как понять, что посадочная "работает"?<span class="plus">+</span></summary>
+            <div class="faqBody">
+              Нужны события и цели: старт, прохождение шагов, отправка заявки, клики по контактам. Дальше смотрим стоимость лида,
+              качество лидов и конверсию по источникам. Настраиваем это в рамках аналитики и рекламы.
+            </div>
+          </details>
+          <details>
+            <summary>Можно ли вести трафик прямо на посадочную без "основного сайта"?<span class="plus">+</span></summary>
+            <div class="faqBody">
+              Да. Это частый сценарий. Особенно если задача - быстро получить заявки и протестировать спрос. Для справочников и долгой витрины
+              чаще нужен полноценный сайт, но для рекламы посадочная может быть основным входом.
+            </div>
+          </details>
+          <details>
+            <summary>Подойдет ли формат для строительных ниш и услуг?<span class="plus">+</span></summary>
+            <div class="faqBody">
+              Да. В стройке и услугах он часто дает хорошие результаты, если вопросы помогают уточнить объем, материалы и условия.
+              Тогда менеджер не тратит время на "угадайку", а сразу делает адекватный расчет.
+            </div>
+          </details>
+          <details>
+            <summary>Где лучше размещать - поддомен или отдельный домен?<span class="plus">+</span></summary>
+            <div class="faqBody">
+              Поддомен - норм для рекламных посадочных и тестов. Отдельный домен - если планируете развить посадочную в полноценный лендинг
+              или если адрес будет жить долго и использоваться в витринах и справочниках.
+            </div>
+          </details>
+          <details>
+            <summary>Можно ли подключить CRM и автоматизацию?<span class="plus">+</span></summary>
+            <div class="faqBody">
+              Да. Подключаем передачу заявок, распределение лидов, уведомления менеджерам. Подробнее - на странице
+              <a class="link" href="/crm-integracii/">CRM и интеграции</a>.
+            </div>
+          </details>
+          <details>
+            <summary>Можете ли вы вести рекламу и улучшать по данным?<span class="plus">+</span></summary>
+            <div class="faqBody">
+              Да. Запускаем <a class="link" href="/yandex-direct/">Яндекс.Директ</a>, настраиваем цели, следим за стоимостью и качеством лидов,
+              тестируем гипотезы и дорабатываем посадочную, если это дает прирост.
+            </div>
+          </details>
+          <details>
+            <summary>Можно ли усилить органику?<span class="plus">+</span></summary>
+            <div class="faqBody">
+              Иногда да. Но основной сценарий - реклама. Если есть план развивать страницу как полноценную посадочную под спрос,
+              подключаем <a class="link" href="/seo/">SEO</a> как отдельный этап и делаем структуру контента под семантику.
+            </div>
+          </details>
+          <details>
+            <summary>Какой следующий шаг, если я хочу стартовать?<span class="plus">+</span></summary>
+            <div class="faqBody">
+              Самый быстрый путь - описать нишу, оффер и что нужно получить на выходе. Мы предложим вариант реализации,
+              соберем структуру и дадим расчет по этапам.
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section id="form">
+      <div class="container">
+        <div class="ctaBand">
+          <div>
+            <h3>Давайте прикинем формат и стоимость</h3>
+            <p>Опишите нишу, что продаете, какой трафик планируете, и что хотите получить от заявки. Мы вернемся с предложением по структуре и расчетом.</p>
+          </div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center">
+            <a class="btn btn--primary" href="#tg">Рассчитать стоимость</a>
+            <a class="btn" href="tel:+79528070601">Обсудить по телефону</a>
+            <div class="messengers" aria-label="Мессенджеры в CTA 3">
+              <a class="m m--wa" href="#wa" title="WhatsApp">WA</a>
+              <a class="m m--tg" href="#tg" title="Telegram">TG</a>
+              <a class="m m--mx" href="#mx" title="Max">MX</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="note" style="margin-top:14px">
+          Сквозные блоки дальше (не прорабатываем сейчас): Дополнительные услуги - С чего начать - Наши работы - Контакты.
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="container">
+        <div style="display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap">
+          <div>
+            <b style="color:var(--text)">Venner Digital</b><br/>
+            <span class="muted">Разработка сайтов - трафик - аналитика - интеграции</span>
+          </div>
+          <div class="muted">
+            Страница: /sozdanie-saytov/kviz-sayt/<br/>
+            Перелинковка: <a class="link" href="/lidogeneraciya/marquiz/">Marquiz</a> - <a class="link" href="/crm-integracii/">CRM</a> - <a class="link" href="/yandex-direct/">Директ</a> - <a class="link" href="/seo/">SEO</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    (function(){
+      const btns = document.querySelectorAll('.tabBtn');
+      const panes = document.querySelectorAll('.tabPane');
+
+      btns.forEach(b => b.addEventListener('click', () => {
+        const id = b.getAttribute('data-tab');
+
+        btns.forEach(x => x.classList.remove('isActive'));
+        b.classList.add('isActive');
+
+        panes.forEach(p => p.classList.remove('isActive'));
+        const pane = document.getElementById(id);
+        if(pane) pane.classList.add('isActive');
+      }));
+    })();
+  </script>
+</body>
+</html>
+
