@@ -224,6 +224,16 @@
 </head>
 
 <body>
+<div id="site-nav-placeholder"></div>
+<script>
+  fetch('../nav.html')
+    .then(r => r.text())
+    .then(html => {
+      var el = document.getElementById('site-nav-placeholder');
+      el.outerHTML = html;
+    });
+</script>
+
 
   <!-- PAGE: CRM / INTEGRATIONS / CHATAPP -->
   <main>

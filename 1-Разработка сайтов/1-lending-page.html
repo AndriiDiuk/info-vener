@@ -143,6 +143,16 @@
 </head>
 
 <body>
+<div id="site-nav-placeholder"></div>
+<script>
+  fetch('../nav.html')
+    .then(r => r.text())
+    .then(html => {
+      var el = document.getElementById('site-nav-placeholder');
+      el.outerHTML = html;
+    });
+</script>
+
 <header id="top">
   <div class="wrap header-inner">
     <div class="brand">
