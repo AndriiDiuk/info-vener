@@ -183,19 +183,26 @@
 </style>
 
 <script>
-  document.querySelectorAll('.site-nav__item--drop').forEach(function(item) {
-    item.querySelector('.site-nav__btn').addEventListener('click', function(e) {
-      e.stopPropagation();
-      var isOpen = item.classList.contains('site-nav__item--open');
+  function initNav() {
+    document.querySelectorAll('.site-nav__item--drop').forEach(function(item) {
+      item.querySelector('.site-nav__btn').addEventListener('click', function(e) {
+        e.stopPropagation();
+        var isOpen = item.classList.contains('site-nav__item--open');
+        document.querySelectorAll('.site-nav__item--open').forEach(function(el) {
+          el.classList.remove('site-nav__item--open');
+        });
+        if (!isOpen) item.classList.add('site-nav__item--open');
+      });
+    });
+    document.addEventListener('click', function() {
       document.querySelectorAll('.site-nav__item--open').forEach(function(el) {
         el.classList.remove('site-nav__item--open');
       });
-      if (!isOpen) item.classList.add('site-nav__item--open');
     });
-  });
-  document.addEventListener('click', function() {
-    document.querySelectorAll('.site-nav__item--open').forEach(function(el) {
-      el.classList.remove('site-nav__item--open');
-    });
-  });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initNav);
+  } else {
+    initNav();
+  }
 </script>
